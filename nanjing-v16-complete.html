@@ -472,41 +472,42 @@
             景点卡片（可折叠）
             ========================================== */
         .attraction-card {
-            background: #f8f9fa;
-            border-radius: var(--radius-medium);
+            background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
+            border-radius: 16px;
             padding: 20px;
             margin: 15px 0;
-            border-left: 3px solid var(--main-purple);
+            border: 1px solid #eee;
+            border-left: 4px solid var(--main-purple);
             cursor: pointer;
-            transition: var(--transition-normal);
+            transition: all 0.3s ease;
             box-shadow: 0 2px 8px rgba(0,0,0,0.03);
         }
         .attraction-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(122,134,193,0.12);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(122,134,193,0.18);
         }
         .attraction-card.collapsed .attraction-detail {
             display: none;
         }
         .attraction-title {
-            font-size: 1.2em;
+            font-size: 1.15em;
             color: var(--text-main);
             font-weight: 500;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
         .attraction-title span:first-child {
-            background: linear-gradient(135deg, rgba(122,134,193,0.12), rgba(107,159,143,0.08));
-            padding: 4px 10px;
+            background: linear-gradient(135deg, rgba(122,134,193,0.15), rgba(107,159,143,0.1));
+            padding: 5px 12px;
             border-radius: 12px;
             font-size: 1.1em;
         }
         .attraction-title::after {
             content: "▼";
             margin-left: auto;
-            font-size: 0.7em;
-            color: var(--text-light);
+            font-size: 0.65em;
+            color: var(--main-purple);
             transition: transform 0.3s ease;
         }
         .attraction-card.collapsed .attraction-title::after {
@@ -514,15 +515,17 @@
         }
         .attraction-detail {
             margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed #eee;
             color: var(--text-sub);
             line-height: 1.8;
         }
         .info-label {
             display: inline-block;
-            background: #f0f0f5;
+            background: linear-gradient(135deg, #f0f0f5, #e8e8f0);
             color: var(--main-purple);
-            padding: 1px 8px;
-            border-radius: 8px;
+            padding: 3px 10px;
+            border-radius: 10px;
             font-size: 0.85em;
             margin-right: 8px;
             font-weight: 500;
@@ -530,21 +533,21 @@
 
         /* ==========================================
            交通方案卡片（橙色左边框，与景点卡片区分）
-           支持互斥逻辑：打开一张，自动折叠其他
            ========================================== */
         .transport-card {
-            background: #fff8f0;
-            border-radius: var(--radius-medium);
+            background: linear-gradient(135deg, #fff8f0 0%, #fff 100%);
+            border-radius: 16px;
             padding: 18px;
             margin: 15px 0;
-            border-left: 3px solid var(--transport-orange);
+            border: 1px solid #ffe0b2;
+            border-left: 4px solid var(--transport-orange);
             cursor: pointer;
-            transition: var(--transition-normal);
+            transition: all 0.3s ease;
             box-shadow: 0 2px 8px rgba(255,152,0,0.05);
         }
         .transport-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(255,152,0,0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255,152,0,0.18);
         }
         .transport-card .attraction-title span:first-child {
             transition: transform 0.3s ease;
@@ -598,42 +601,49 @@
             老玩家Tips
             ========================================== */
         .old-tips {
-            background: linear-gradient(to right, #f0f4ff, #f8f9fa);
-            border-left: 3px solid var(--tips-blue);
-            padding: 15px;
+            background: linear-gradient(135deg, #f0f4ff 0%, #e8f5e9 100%);
+            border-left: 4px solid var(--tips-blue);
+            padding: 18px;
             margin: 15px 0;
-            border-radius: var(--radius-small);
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
         }
         .old-tips h4 {
             color: var(--tips-blue);
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             font-size: 1em;
+            font-weight: 500;
         }
         .old-tips ul {
             list-style: none;
             padding-left: 0;
         }
         .old-tips li {
-            padding: 4px 0;
+            padding: 6px 0;
             font-size: 0.95em;
-            padding-left: 20px;
+            padding-left: 24px;
             position: relative;
+            color: var(--text-sub);
+            line-height: 1.6;
         }
         .old-tips li:before {
-            content: "🔍";
+            content: "💡";
             position: absolute;
             left: 0;
+            font-size: 0.9em;
         }
 
         /* ==========================================
            准备/提示卡片
            ========================================== */
         .prepare-box {
-            background: #fff8e1;
-            border-left: 3px solid var(--prepare-yellow);
-            padding: 15px;
+            background: linear-gradient(135deg, #fff8e1 0%, #fffde7 100%);
+            border-left: 4px solid var(--prepare-yellow);
+            padding: 18px;
             margin: 15px 0;
-            border-radius: var(--radius-small);
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
         }
         .prepare-box h4 {
             color: #f57c00;
@@ -659,26 +669,30 @@
         }
 
         .tips-box {
-            background: #e3f2fd;
-            border-left: 3px solid var(--info-blue);
-            padding: 15px;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+            border-left: 4px solid var(--info-blue);
+            padding: 18px;
             margin: 15px 0;
-            border-radius: var(--radius-small);
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
         }
         .tips-box h4 {
-            color: #1976d2;
-            margin-bottom: 8px;
+            color: #1565c0;
+            margin-bottom: 10px;
             font-size: 1em;
+            font-weight: 500;
         }
         .tips-box ul {
             list-style: none;
             padding-left: 0;
         }
         .tips-box li {
-            padding: 4px 0;
-            padding-left: 20px;
+            padding: 6px 0;
+            padding-left: 24px;
             position: relative;
             font-size: 0.95em;
+            color: var(--text-sub);
+            line-height: 1.6;
         }
         .tips-box li:before {
             content: "💡";
@@ -709,19 +723,21 @@
             border-left: 3px solid var(--main-green);
         }
         .public-card {
-            background: #f8f9fa;
-            border-radius: var(--radius-medium);
+            background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
+            border-radius: 16px;
             padding: 20px;
             margin: 15px 0;
-            transition: var(--transition-normal);
+            transition: all 0.3s ease;
+            border: 1px solid #eee;
         }
         .public-card:hover {
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            box-shadow: 0 8px 20px rgba(122,134,193,0.12);
         }
         .public-card h4 {
             color: var(--main-purple);
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             font-size: 1.1em;
+            font-weight: 500;
         }
         .public-card ul {
             list-style: none;
@@ -797,10 +813,13 @@
            应急联系卡
            ========================================== */
         .emergency-card {
-            background: #ffebee;
-            border-radius: var(--radius-medium);
+            background: linear-gradient(135deg, #ffebee 0%, #fff 100%);
+            border-radius: 16px;
             padding: 20px;
             margin: 15px 0;
+            border: 1px solid #ffcdd2;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
             border-left: 3px solid var(--emergency-red);
         }
         .emergency-card h4 {
