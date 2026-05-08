@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宁黄八日记 · 南京+黄山八天七晚旅行日志</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* 封面区 */
+        .cover {
+            text-align: center;
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 20px;
+            margin-bottom: 50px;
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+        }
+
+        .cover h1 {
+            font-size: 3.5em;
+            font-weight: 300;
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .cover p {
+            font-size: 1.2em;
+            opacity: 0.9;
+            font-weight: 300;
+            letter-spacing: 3px;
+        }
+
+        .cover .dates {
+            margin-top: 30px;
+            font-size: 1em;
+            opacity: 0.8;
+        }
+
+        /* Day卡片 */
+        .day-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .day-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.12);
+        }
+
+        .day-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .day-label {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-size: 1.1em;
+            font-weight: 500;
+            letter-spacing: 2px;
+            margin-right: 20px;
+        }
+
+        .day-date {
+            color: #999;
+            font-size: 0.95em;
+        }
+
+        .quote {
+            font-size: 1.3em;
+            color: #555;
+            font-style: italic;
+            margin: 30px 0;
+            padding-left: 30px;
+            border-left: 4px solid #667eea;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .quote-author {
+            text-align: right;
+            color: #999;
+            font-size: 0.9em;
+            margin-top: 10px;
+            font-style: normal;
+        }
+
+        .section-title {
+            font-size: 1.4em;
+            color: #444;
+            margin: 30px 0 15px 0;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title span {
+            margin-right: 10px;
+        }
+
+        .attractions {
+            background: #fafafa;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .attractions ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .attractions li {
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+            color: #555;
+        }
+
+        .attractions li:before {
+            content: "•";
+            position: absolute;
+            left: 10px;
+            color: #667eea;
+            font-size: 1.5em;
+            line-height: 1;
+        }
+
+        .mood {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 25px 0;
+            color: #555;
+            line-height: 2;
+            font-weight: 300;
+        }
+
+        .day-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin: 25px 0;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .day-image:hover {
+            transform: scale(1.02);
+        }
+
+        .image-caption {
+            text-align: center;
+            color: #999;
+            font-size: 0.9em;
+            margin-top: -15px;
+            margin-bottom: 20px;
+        }
+
+        /* 结语区 */
+        .conclusion {
+            text-align: center;
+            padding: 60px 40px;
+            background: white;
+            border-radius: 20px;
+            margin-top: 50px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+
+        .conclusion h2 {
+            font-size: 2em;
+            color: #444;
+            font-weight: 300;
+            margin-bottom: 30px;
+            letter-spacing: 3px;
+        }
+
+        .conclusion p {
+            font-size: 1.1em;
+            color: #666;
+            line-height: 2;
+            max-width: 700px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+            font-size: 0.9em;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .cover h1 {
+                font-size: 2.5em;
+                letter-spacing: 5px;
+            }
+
+            .cover p {
+                font-size: 1em;
+            }
+
+            .day-card {
+                padding: 25px;
+            }
+
+            .day-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .day-label {
+                margin-bottom: 10px;
+            }
+
+            .quote {
+                font-size: 1.1em;
+                padding-left: 20px;
+            }
+
+            .day-image {
+                height: 250px;
+            }
+
+            .section-title {
+                font-size: 1.2em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cover h1 {
+                font-size: 2em;
+            }
+
+            .cover {
+                padding: 60px 15px;
+            }
+
+            .day-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 封面区 -->
+        <div class="cover">
+            <h1>宁黄八日记</h1>
+            <p>南京 · 黄山 · 八天七晚慢旅行</p>
+            <div class="dates">2026年 · 春末夏初</div>
+        </div>
+
+        <!-- Day 1 -->
+        <section class="day-card">
+            <div class="day-header">
+                <div class="day-label">Day 1</div>
+                <div class="day-date">下午三点，旅程开始</div>
+            </div>
+
+            <div class="quote">
+                "烟笼寒水月笼沙，夜泊秦淮近酒家。"
+                <div class="quote-author">—— 杜牧《泊秦淮》</div>
+            </div>
+
+            <img src="https://source.unsplash.com/800x400/?nanjing,zhonghuamen" alt="中华门瓮城" class="day-image">
+            <div class="image-caption">📍 中华门瓮城 · 天下第一瓮城</div>
+
+            <div class="section-title"><span>🏛️</span> 今日行程</div>
+            <div class="attractions">
+                <ul>
+                    <li><strong>中华门瓮城</strong> —— 下午三点启程，先探这座明代最大的城门堡垒，感受六百年前的军事智慧</li>
+                    <li><strong>老门东</strong> —— 漫步青石板路，在巷弄间寻找南京最地道的市井气息</li>
+                    <li><strong>夫子庙 · 秦淮河夜游</strong> —— 华灯初上，画舫轻摇，在桨声灯影里读懂朱自清笔下的秦淮河</li>
+                </ul>
+            </div>
+
+            <img src="https://source.unsplash.com/800x400/?nanjing,qinhuai-river-night" alt="秦淮河夜景" class="day-image">
+            <div class="image-caption">🌙 秦淮河夜色 · 桨声灯影里的金陵梦</div>
+
+            <div class="section-title"><span>✍️</span> 心情随笔</div>
+            <div class="mood">
+                下午三点的阳光正好，不急不躁地走进中华门。这座世界上保存最完好的瓮城，每一块城砖都刻着六百年前的工匠名字。老门东的巷子比想象中更幽深，转角遇见一家卖桂花糕的小铺，热气腾腾的甜香让人忍不住驻足。夜幕降临时的秦淮河，真的如诗里写的那样——灯影摇曳，画舫轻移，恍惚间不知今夕何夕。第一天，就这样在金陵的温柔里慢慢展开。
+            </div>
+        </section>
+
+        <!-- Day 2 -->
+        <section class="day-card">
+            <div class="day-header">
+                <div class="day-label">Day 2</div>
+                <div class="day-date">钟山龙蟠，紫金王气</div>
+            </div>
+
+            <div class="quote">
+                "钟山龙蟠，石头虎踞，此帝王之宅也。"
+                <div class="quote-author">—— 《太平御览》</div>
+            </div>
+
+            <img src="https://source.unsplash.com/800x400/?nanjing,xiaoling-tomb" alt="明孝陵神道" class="day-image">
+            <div class="image-caption">🍂 明孝陵神道 · 石像生静立六百年</div>
+
+            <div class="section-title"><span>🌳</span> 今日行程</div>
+            <div class="attractions">
+                <ul>
+                    <li><strong>明孝陵</strong> —— 沿着六百米长的神道漫步，看石象、石马静立风中，感受大明帝王的气度</li>
+                    <li><strong>中山陵</strong> —— 攀登392级台阶，在紫金山巅缅怀国父，俯瞰金陵城</li>
+                    <li><strong>音乐台</strong> —— 坐在半圆形的观众席上，听风穿过梧桐叶，看白鸽掠过蓝天的弧线</li>
+                    <li><strong>南京大学鼓楼校区</strong> —— 漫步百年学府，看北大楼爬满常春藤，感受学术的厚重与温柔</li>
+                    <li><strong>先锋书店五台山总店</strong> —— 在防空洞改造的书店里，选一本好书，喝一杯咖啡，让时光慢下来</li>
+                </ul>
+            </div>
+
+            <img src="https://source.unsplash.com/800x400/?bookstore,nanjing" alt="先锋书店" class="day-image">
+            <div class="image-caption">📚 先锋书店 · 一座城市的灵魂栖息地</div>
+
+            <div class="section-title"><span>✍️</span> 心情随笔</div>
+            <div class="mood">
+                钟山风景区太大了，好在我们有整个白天。明孝陵的神道在晨光里格外肃穆，那些石像生见过太多的王朝更迭。中山陵的台阶爬得有点喘，但站在顶端回望时，整座南京城都在脚下铺展开来。音乐台的白鸽突然成群飞起的那一刻，周围所有人都发出了惊叹。傍晚的南大校园很安静，学生们骑着单车穿过梧桐大道。先锋书店里人不多，挑了本关于南京历史的书，在角落的沙发上窝了一个小时。这样的旅行，刚刚好。
+            </div>
+        </section>
+
+        <!-- Day 3 -->
+        <section class="day-card">
+            <div class="day-header">
+                <div class="day-label">Day 3</div>
+                <div class="day-date">与动物对话，与城墙共舞</div>
+            </div>
+
+            <div class="quote">
+                "你看那城墙，它见过太多故事，却从不言语。"
+                <div class="quote-author">—— 金陵随笔</div>
+            </div>
+
+            <img src="https://source.unsplash.com/800x400/?zoo,red-panda" alt="红山森林动物园" class="day-image">
+            <div class="image-caption">🐼 红山森林动物园 · 与大熊猫的温柔对视</div>
+
+            <div class="section-title"><span>🦁</span> 今日行程</div>
+            <div class="attractions">
+                <ul>
+                    <li><strong>红山森林动物园</strong> —— 留足三到四小时，去看大熊猫懒洋洋地啃竹子，长颈鹿优雅地低头喝水，让童心在绿意中肆意生长</li>
+                    <li><strong>鸡鸣寺</strong> —— 南朝四百八十寺之首刹，在香火缭绕中登上药师佛塔，看梧桐大道尽收眼底</li>
+                    <li><strong>台城城墙</strong> —— 漫步在鸡鸣寺旁的古城墙，脚下是六朝古都的基石，眼前是玄武湖的粼粼波光</li>
+                    <li><strong>玄武湖</strong> —— 傍晚环湖漫步，看夕阳把湖面染成金色，柳枝轻拂水面，时光在此刻凝滞</li>
+                </ul>
+            </div>
+
+            <img src="https://source.unsplash.com/800x400/?nanjing,xuanwu-lake" alt="玄武湖" class="day-image">
+            <div class="image-caption">🌅 玄武湖暮色 · 半城烟雨半城湖</div>
+
+            <div class="section-title"><span>✍️</span> 心情随笔</div>
+            <div class="mood">
+                红山动物园值得花一整个上午。那些动物们看起来都很快乐，没有笼子的压抑感，大熊猫"和和""平平"懒洋洋地趴在树杈上，怎么都叫不醒。下午的鸡鸣寺香火很旺，但登上药师佛塔后，整座城市的喧嚣都被隔绝在外。台城城墙是可以走很久的，脚下是六百年的城砖，左边是鸡鸣寺的金黄琉璃瓦，右边是玄武湖的无边碧波。傍晚在湖边找了张长椅坐下，看夕阳一点点沉入城市的天际线。南京的慢，是这样的具体而微。
+            </div>
+        </section>
+
+        <!-- Day 4 -->
+        <section class="day-card">
+            <div class="day-header">
+                <div class="day-label">Day 4</div>
+                <div class="day-date">历史的回响，记忆的重量</div>
+            </div>
+
+            <div class="quote">
+                "忘记历史就意味着背叛。"
+                <div class="quote-author">—— 列宁</div>
+            </div>
+
+            <img src="https://source.unsplash.com/800x400/?nanjing,presidential-palace" alt="总统府" class="day-image">
+            <div class="image-caption">🏛️ 总统府 · 近代风云的见证者</div>
+
+            <div class="section-title"><span>📜</span> 今日行程</div>
+            <div class="attractions">
+                <ul>
+                    <li><strong>总统府</strong> —— 从太平天国的天朝宫殿到民国政府中枢，在这座建筑群里读懂中国近代史的跌宕起伏</li>
+                    <li><strong>侵华日军南京大屠杀遇难同胞纪念馆</strong> —— 带着沉重的心情走进去，带着更坚定的信念走出来。铭记历史，珍惜和平（需提前预约）</li>
+                    <li><strong>雨花台</strong> —— 傍晚时分登上雨花台，在烈士群雕前驻足，看落日余晖洒满这座英雄的山岗</li>
+                </ul>
+            </div>
+
+            <img src="https://source.unsplash.com/800x400/?memorial,peace" alt="纪念馆" class="day-image">
+            <div class="image-caption">🕊️ 纪念馆 · 以史为鉴，面向未来</div>
+
+            <div class="section-title"><span>✍️</span> 心情随笔</div>
+            <div class="mood">
+                今天的心情是沉重的。总统府里的一砖一瓦都在诉说着近代中国的沧桑，从天王洪秀全到国父孙中山，再到蒋介石，历史的风云在此交汇。纪念馆是必须要去的地方，哪怕心里已经做好了准备，走进那扇门时还是被深深震撼。那些照片、那些证言、那些遗物，提醒着我们和平的珍贵。傍晚的雨花台很安静，落日把天空染成橘红色，烈士群雕在暮色中显得格外庄严。走出雨花台时，我在心里默默说：谢谢你们。
+            </div>
+        </section>
+
+        <!-- Day 5 -->
+        <section class="day-card">
+            <div class="day-header">
+                <div class="day-label">Day 5</div>
+                <div class="day-date">梧桐大道，驶向黄山</div>
+            </div>
+
+            <div class="quote">
+                "一条颐和路，半部民国史。"
+                <div class="quote-author">—— 南京民谚</div>
+            </div>
+
+            <img src="https://source.unsplash.com/800x400/?nanjing,wutong-tree" alt="颐和路梧桐" class="day-image">
+            <div class="image-caption">🌳 颐和路 · 梧桐树下的民国往事</div>
+
+            <div class="section-title"><span>🚄</span> 今日行程</div>
+            <div class="attractions">
+                <ul>
+                    <li><strong>颐和路公馆区</strong> —— 清晨漫步在这条"中国最美街区"之一，两旁的法国梧桐遮天蔽日，两百多栋民国公馆隐于绿荫中，每一栋都是一段历史</li>
+                    <li><strong>先锋书店（再次光临）</strong> —— 离别前再去一次，带几本南京主题的书作为纪念</li>
+                    <li><strong>高铁南京南→黄山北</strong> —— 下午乘坐13:00-16:00之间的高铁（约2小时），从金陵古都驶向徽州山水</li>
+                    <li><strong>入住汤口镇桔子水晶酒店</strong> —— 黄山脚下，养精蓄锐，为明天的登山做准备（黄山北站打车约50-60分钟）</li>
+                </ul>
+            </div>
+
+            <img src="https://source.unsplash.com/800x400/?train,china-railway" alt="高铁" class="day-image">
+            <div class="image-caption">🚄 开往黄山的列车 · 从古都到山水</div>
+
+            <div class="section-title"><span>✍️</span> 心情随笔</div>
+            <div class="mood">
+                最后半天在南京，选择了最悠闲的方式。颐和路的梧桐树真的很大，阳光透过树叶洒下来，在公馆的围墙上画出斑驳的光影。两百多栋民国建筑，我只是在其中漫步，想象着那些曾经住在这里的人们的故事。先锋书店又去了一次，这次挑了几张明信片。下午的高铁很舒适，窗外的风景从城市渐渐变成丘陵，再变成远山。到达汤口镇时天色已暗，桔子水晶酒店很温馨，躺在床上就能看到远处的山影。明天，就要登山了。
+            </div>
+        </section>
+
+        <!-- Day 6 -->
+        <section class="day-card">
+            <div class="day-header">
+                <div class="day-label">Day 6</div>
+                <div class="day-date">黄山归来不看岳</div>
+            </div>
+
+            <div class="quote">
+                "五岳归来不看山，黄山归来不看岳。"
+                <div class="quote-author">—— 徐霞客</div>
+            </div>
+
+            <img src="https://source.unsplash.com/800x400/?huangshan,mountain" alt="黄山云海" class="day-image">
+            <div class="image-caption">☁️ 黄山 · 云海翻涌，松石画廊</div>
+
+            <div class="section-title"><span>⛰️</span> 今日行程</div>
+            <div class="attractions">
+                <ul>
+                    <li><strong>云谷索道上山</strong> —— 清晨乘索道穿越云层，8分钟的垂直上升，窗外是渐渐苏醒的黄山群峰</li>
+                    <li><strong>始信峰</strong> —— "始信黄山天下奇"，站在峰顶看云海翻涌，才知此言不虚</li>
+                    <li><strong>光明顶</strong> —— 黄山第二高峰，360度全景平台，群峰尽收眼底，运气好还能看到佛光</li>
+                    <li><strong>迎客松</strong> —— 与这棵千年古松对视，它伸展的枝干就像在迎接每一位远道而来的客人</li>
+                    <li><strong>玉屏索道下山</strong> —— 乘索道缓缓下降，把黄山的壮美装进心里</li>
+                    <li><strong>前往宏村</strong> —— 下山后直接驱车前往宏村（约40分钟），入住宏村客栈</li>
+                    <li><strong>宏村夜景</strong> —— 月沼边的南湖书院倒映着灯火，徽派建筑的白墙黛瓦在夜色中如水墨画般静谧</li>
+                </ul>
+            </div>
+
+            <img src="https://source.unsplash.com/800x400/?huangshan,pine-tree" alt="迎客松" class="day-image">
+            <div class="image-caption">🌲 迎客松 · 千年守望，笑迎天下客</div>
+
+            <div class="section-title"><span>✍️</span> 心情随笔</div>
+            <div class="mood">
+                终于来到了黄山。云谷索道把我送上了云端，那一刻看着脚下的云海在翻涌，突然就明白了为什么徐霞客会说"登黄山天下无山"。始信峰果然名不虚传，站在峰顶看远处群峰若隐若现，像极了水墨画里的留白。光明顶上风很大，但视野开阔到让人想哭。迎客松比想象中更苍劲，一千多年的生命，就那样伸展着枝干。玉屏索道下山时，我一直在回头看那座山，想把它记住。傍晚到达宏村，月沼边的夜色太美了，白墙黛瓦倒映在水中，像一场不愿醒来的梦。
+            </div>
+        </section>
+
+        <!-- Day 7 -->
+        <section class="day-card">
+            <div class="day-header">
+                <div class="day-label">Day 7</div>
+                <div class="day-date">画里乡村，徽州梦境</div>
+            </div>
+
+            <div class="quote">
+                "中国画里乡村，天人合一的典范。"
+                <div class="quote-author">—— 联合国教科文组织评宏村</div>
+            </div>
+
+            <img src="https://source.unsplash.com/800x400/?hongcun,village" alt="宏村晨雾" class="day-image">
+            <div class="image-caption">🌫️ 宏村晨雾 · 水墨画卷徐徐展开</div>
+
+            <div class="section-title"><span>🏘️</span> 今日行程</div>
+            <div class="attractions">
+                <ul>
+                    <li><strong>宏村晨雾</strong> —— 清晨五点半醒来，推开窗户就是水墨画：南湖上的薄雾、月沼边的炊烟、远处青山如黛</li>
+                    <li><strong>南湖漫步</strong> —— 沿着南湖堤岸慢慢走，看白墙黛瓦在水中的倒影，听远处传来徽剧的唱腔</li>
+                    <li><strong>月沼</strong> —— 半月形的池塘，是宏村的心脏，也是无数摄影师镜头里的经典画面</li>
+                    <li><strong>承志堂 · 汪氏宗祠</strong> —— 走进"民间故宫"，看徽商当年的阔绰与品味，砖雕木雕精美绝伦</li>
+                    <li><strong>宏村小巷</strong> —— 在纵横交错的小巷里迷路，遇见卖毛豆腐的老奶奶，遇见写生的美院学生</li>
+                </ul>
+            </div>
+
+            <img src="https://source.unsplash.com/800x400/?ancient-village,china" alt="宏村小巷" class="day-image">
+            <div class="image-caption">🎨 宏村小巷 · 每一步都是风景</div>
+
+            <div class="section-title"><span>✍️</span> 心情随笔</div>
+            <div class="mood">
+                宏村的清晨有一种魔力。五点半的南湖，雾气还没散，远山若隐若现，一只乌篷船慢慢划过水面，涟漪一圈圈散开。月沼边的倒影比任何照片都美，因为风时不时吹过，把完美的对称打碎又重组。承志堂的木雕看了很久，那些工匠在几百年前是怎样的耐心和专注。在小巷里转悠时，遇见一位写生的女孩，画板上正是我刚才站过的地方。这样的村子，真的不想离开。但因为明天要返程，所以下午要收拾行李了。再见了，画里乡村。
+            </div>
+        </section>
+
+        <!-- Day 8 -->
+        <section class="day-card">
+            <div class="day-header">
+                <div class="day-label">Day 8</div>
+                <div class="day-date">归途，带着故事出发</div>
+            </div>
+
+            <div class="quote">
+                "旅行不是逃避生活，而是让生活不再逃避我们。"
+                <div class="quote-author">—— 佚名</div>
+            </div>
+
+            <img src="https://source.unsplash.com/800x400/?xidi-village,ancient" alt="西递或塔川" class="day-image">
+            <div class="image-caption">🏞️ 徽州晨光 · 最后的田园牧歌</div>
+
+            <div class="section-title"><span>🌅</span> 今日行程</div>
+            <div class="attractions">
+                <ul>
+                    <li><strong>宏村清晨二度漫步</strong> —— 在离开前，再次走过南湖堤岸，和这座村庄好好告个别</li>
+                    <li><strong>西递古村（可选）</strong> —— 如果时间充裕，可以驱车20分钟前往世界文化遗产西递，看另一座保存完好的徽派古村落，与宏村一脉相承又各具特色</li>
+                    <li><strong>塔川秋色（季节限定）</strong> —— 若是秋季来访，塔川的乌桕树叶红黄相间，被誉为"中国三大秋色之一"</li>
+                    <li><strong>返程准备</strong> —— 中午在屯溪老街简单用餐，买些黄山毛峰、徽墨酥作为伴手礼</li>
+                    <li><strong>前往黄山北站</strong> —— 下午驱车前往黄山北站（约40分钟）</li>
+                    <li><strong>高铁返程</strong> —— 傍晚乘坐高铁，带着满满的回忆和照片，回到生活的城市</li>
+                </ul>
+            </div>
+
+            <img src="https://source.unsplash.com/800x400/?train-station,departure" alt="黄山北站" class="day-image">
+            <div class="image-caption">🚄 黄山北站 · 带着故事，回到生活</div>
+
+            <div class="section-title"><span>✍️</span> 心情随笔</div>
+            <div class="mood">
+                最后一天的早晨，我又去了南湖。这次没有雾，阳光把整个村子照得很亮，白墙黛瓦在蓝天下格外分明。犹豫了一下要不要去西递，最后还是选择了在宏村多待一会儿。在一家小店里买了黄山毛峰和徽墨酥，老板娘很热情，还送了我一张手绘的宏村地图。中午在屯溪老街吃了最后一碗徽州馄饨，鲜美的汤汁里都是回忆的味道。去黄山北站的路上，我一直在翻手机里的照片，八百多张，每一张都是一个故事。八天七晚的旅程要结束了，但那些看见的风景、遇见的人、听到的故事，都会成为生活里温柔的部分。感谢南京，感谢黄山，感谢这一路的自己。
+            </div>
+        </section>
+
+        <!-- 结语区 -->
+        <div class="conclusion">
+            <h2>旅途絮语</h2>
+            <p>
+                八天七晚，从金陵古都的六朝烟水，到黄山云海的壮阔磅礴，再到徽州村落的粉墙黛瓦。<br><br>
+                这不是一次赶场式的打卡，而是一场与时光的温柔对话。<br>
+                在南京，我们读懂了历史的厚重；在黄山，我们领略了自然的伟力；在宏村，我们触摸了生活的诗意。<br><br>
+                旅行从来不是为了逃避生活，而是为了让生活拥有更多值得回味的瞬间。<br>
+                带着这些故事，继续出发吧。
+            </p>
+        </div>
+
+        <div class="footer">
+            <p>✨ 宁黄八日记 · 2026年春末夏初 · 手绘旅行日志</p>
+            <p style="margin-top: 10px; font-size: 0.85em;">图片来源：Unsplash · 封面设计灵感来自手工旅行手账</p>
+        </div>
+    </div>
+</body>
+</html>

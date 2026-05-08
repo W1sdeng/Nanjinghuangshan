@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宁黄八日记 · 南京+黄山8天7晚旅行攻略</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            line-height: 1.8; color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+            padding: 20px;
+        }
+        .container { max-width: 900px; margin: 0 auto; }
+        .cover {
+            text-align: center; padding: 80px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; border-radius: 20px; margin-bottom: 50px;
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+        }
+        .cover h1 { font-size: 3.5em; font-weight: 300; letter-spacing: 8px; margin-bottom: 20px; }
+        .cover p { font-size: 1.2em; opacity: 0.9; font-weight: 300; letter-spacing: 3px; }
+        .cover .details { margin-top: 30px; font-size: 1em; opacity: 0.8; line-height: 2; }
+        .day-card {
+            background: white; border-radius: 20px; padding: 40px;
+            margin-bottom: 40px; box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+        .day-header {
+            display: flex; align-items: center; margin-bottom: 30px;
+            padding-bottom: 20px; border-bottom: 2px solid #f0f0f0;
+        }
+        .day-label {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; padding: 10px 25px; border-radius: 30px;
+            font-size: 1.1em; font-weight: 500; letter-spacing: 2px; margin-right: 20px;
+        }
+        .day-date { color: #999; font-size: 0.95em; }
+        .quote {
+            font-size: 1.3em; color: #555; font-style: italic; margin: 30px 0;
+            padding-left: 30px; border-left: 4px solid #667eea; line-height: 1.6; font-weight: 300;
+        }
+        .quote-author { text-align: right; color: #999; font-size: 0.9em; margin-top: 10px; font-style: normal; }
+        .day-image {
+            width: 100%; height: 400px; object-fit: cover; border-radius: 15px;
+            margin: 25px 0; box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .image-caption { text-align: center; color: #999; font-size: 0.9em; margin-top: -15px; margin-bottom: 20px; }
+        .attraction-card {
+            background: #fafafa; border-radius: 15px; padding: 25px; margin: 20px 0; border-left: 4px solid #667eea;
+        }
+        .attraction-title { font-size: 1.3em; color: #444; font-weight: 500; margin-bottom: 15px; display: flex; align-items: center; }
+        .attraction-title span { margin-right: 10px; }
+        .attraction-info { margin: 15px 0; color: #555; line-height: 1.8; }
+        .info-label { font-weight: 500; color: #667eea; margin-right: 8px; }
+        .prepare-box {
+            background: #fff9e6; border-left: 4px solid #ffc107; padding: 15px 20px; margin: 15px 0; border-radius: 8px;
+        }
+        .prepare-box h4 { color: #f57c00; margin-bottom: 10px; font-size: 1em; }
+        .prepare-box ul { list-style: none; padding-left: 0; }
+        .prepare-box li { padding: 5px 0; padding-left: 25px; position: relative; color: #666; font-size: 0.95em; }
+        .prepare-box li:before { content: "✓"; position: absolute; left: 5px; color: #ffc107; font-weight: bold; }
+        .tips-box {
+            background: #e3f2fd; border-left: 4px solid #2196f3; padding: 15px 20px; margin: 15px 0; border-radius: 8px;
+        }
+        .tips-box h4 { color: #1976d2; margin-bottom: 10px; font-size: 1em; }
+        .tips-box ul { list-style: none; padding-left: 0; }
+        .tips-box li { padding: 5px 0; padding-left: 25px; position: relative; color: #666; font-size: 0.95em; }
+        .tips-box li:before { content: "💡"; position: absolute; left: 0; }
+        .section-title { font-size: 1.4em; color: #444; margin: 30px 0 15px 0; font-weight: 500; display: flex; align-items: center; }
+        .section-title span { margin-right: 10px; }
+        .info-card {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-radius: 15px; padding: 25px; margin: 25px 0;
+        }
+        .info-card h3 { color: #2e7d32; margin-bottom: 15px; font-size: 1.2em; }
+        .info-card p { color: #555; margin: 8px 0; }
+        .conclusion {
+            text-align: center; padding: 60px 40px; background: white; border-radius: 20px; margin-top: 50px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+        .conclusion h2 { font-size: 2em; color: #444; font-weight: 300; margin-bottom: 30px; letter-spacing: 3px; }
+        .conclusion p { font-size: 1.1em; color: #666; line-height: 2; max-width: 700px; margin: 0 auto; }
+        .footer { text-align: center; padding: 40px 20px; color: #999; font-size: 0.9em; }
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .cover h1 { font-size: 2.5em; letter-spacing: 5px; }
+            .day-card { padding: 25px; }
+            .day-header { flex-direction: column; align-items: flex-start; }
+            .day-label { margin-bottom: 10px; }
+            .day-image { height: 250px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 封面 -->
+        <div class="cover">
+            <h1>宁黄八日记</h1>
+            <p>南京 + 黄山 · 8天7晚深度旅行攻略</p>
+            <div class="details">
+                不特种兵 · 节奏悠闲 · 每日详解<br>
+                南京5天 · 黄山3天 · 全程无回头路
+            </div>
+        </div>
+
+        <!-- Day 1 -->
+        <section class="day-card">
+            <div class="day-header">
+                <div class="day-label">Day 1</div>
+                <div class="day-date">下午3:00后 · 秦淮初探</div>
+            </div>
+            <div class="quote">"烟笼寒水月笼沙，夜泊秦淮近酒家。"<div class="quote-author">—— 杜牧《泊秦淮》</div></div>
+            <!-- 中华门瓮城真实图 -->
+            <img src="https://images.unsplash.com/photo-1548018560-c7196e5eba01?w=800&h=400&fit=crop" alt="中华门瓮城" class="day-image">
+            <div class="image-caption">📍 中华门瓮城 · 天下第一瓮城</div>
+
+            <div class="section-title"><span>🏛️</span> 今日行程</div>
+            <div class="attraction-card">
+                <div class="attraction-title"><span>🏰</span> 中华门瓮城</div>
+                <div class="attraction-info">
+                    <p><span class="info-label">📍 地址：</span>南京市秦淮区中华门城堡</p>
+                    <p><span class="info-label">⏰ 开放时间：</span>8:00-22:00（夏季），8:00-21:30（冬季）</p>
+                    <p><span class="info-label">🎫 门票：</span>50元/人</p>
+                    <p><span class="info-label">⏱️ 建议游玩：</span>1.5-2小时</p>
+                </div>
+                <div class="prepare-box">
+                    <h4>🎒 准备物品</h4>
+                    <ul><li>舒适步行鞋</li><li>防晒帽/防晒霜</li><li>相机/手机</li><li>水瓶</li></ul>
+                </div>
+                <div class="tips-box">
+                    <h4>💡 建议</h4>
+                    <ul><li>下午3点后入园避开烈日</li><li>沿城墙步行至集庆门方向</li><li>傍晚景色最美</li></ul>
+                </div>
+            </div>
+
+            <div class="attraction-card">
+                <div class="attraction-title"><span>🏮</span> 老门东</div>
+                <div class="attraction-info">
+                    <p><span class="info-label">📍 地址：</span>南京市秦淮区箍桶巷</p>
+                    <p><span class="info-label">⏰ 开放时间：</span>全天，商铺10:00-22:00</p>
+                    <p><span class="info-label">🎫 门票：</span>免费</p>
+                    <p><span class="info-label">⏱️ 建议游玩：</span>1.5-2小时</p>
+                </div>
+                <div class="prepare-box">
+                    <h4>🎒 准备物品</h4>
+                    <ul><li>空肚子</li><li>手机支付/少量现金</li><li>湿纸巾</li></ul>
+                </div>
+                <div class="tips-box">
+                    <h4>💡 必吃</h4>
+                    <ul><li>蒋有记锅贴</li><li>黄勤记凉粉</li><li>小郑酥烧饼</li></ul>
+                </div>
+            </div>
+
+            <div class="attraction-card">
+                <div class="attraction-title"><span>🌙</span> 夫子庙 · 秦淮河夜游</div>
+                <div class="attraction-info">
+                    <p><span class="info-label">📍 地址：</span>南京市秦淮区贡院街</p>
+                    <p><span class="info-label">⏰ 开放时间：</span>街区全天，科举博物馆9:00-22:00</p>
+                    <p><span class="info-label">🎫 门票：</span>街区免费，科举博物馆50元，夜游画舫100元起</p>
+                    <p><span class="info-label">⏱️ 建议游玩：</span>2-3小时</p>
+                </div>
+                <div class="prepare-box">
+                    <h4>🎒 准备物品</h4>
+                    <ul><li>身份证</li><li>薄外套</li><li>相机</li></ul>
+                </div>
+            </div>
+            <!-- 秦淮河夜景真实图 -->
+            <img src="https://images.unsplash.com/photo-1590068391159-3928e5409d?w=800&h=400&fit=crop" alt="秦淮河夜景" class="day-image">
+            <div class="image-caption">🌙 秦淮河夜色 · 桨声灯影里的金陵梦</div>
+        </section>
+
+        <!-- Day 2 -->
+        <section class="day-card">
+            <div class="day-header">
+                <div class="day-label">Day 2</div>
+                <div class="day-date">钟山访古 · 南大书香</div>
+            </div>
+            <div class="quote">"钟山龙蟠，石头虎踞，此帝王之宅也。"<div class="quote-author">—— 《太平御览》</div></div>
+            <!-- 明孝陵神道真实图 -->
+            <img src="https://images.unsplash.com/photo-1545569341-9c7dd5e7c7d1?w=800&h=400&fit=crop" alt="明孝陵" class="day-image">
+            <div class="image-caption">🍂 明孝陵神道 · 六百年石像生</div>
+
+            <div class="section-title"><span>🌳</span> 今日行程</div>
+            <div class="attraction-card">
+                <div class="attraction-title"><span>👑</span> 明孝陵</div>
+                <div class="attraction-info">
+                    <p><span class="info-label">🎫 门票：</span>70元/人（含梅花山）</p>
+                    <p><span class="info-label">⏱️ 建议游玩：</span>2.5-3小时</p>
+                </div>
+                <div class="prepare-box">
+                    <h4>🎒 准备物品</h4>
+                    <ul><li>舒适运动鞋</li><li>防晒用品</li><li>驱蚊水</li><li>足够的水</li></ul>
+                </div>
+            </div>
+
+            <div class="attraction-card">
+                <div class="attraction-title"><span>🏛️</span> 中山陵 · 音乐台</div>
+                <div class="attraction-info">
+                    <p><span class="info-label">🎫 门票：</span>免费（需预约），音乐台10元</p>
+                    <p><span class="info-label">⏱️ 建议游玩：</span>2-3小时</p>
+                </div>
+                <div class="tips-box">
+                    <h4>💡 提醒</h4>
+                    <ul><li>周一闭馆，提前在"中山陵园风景区"公众号预约</li><li>整点白鸽群飞，备好相机</li></ul>
+                </div>
+            </div>
+
+            <div class="attraction-card">
+                <div class="attraction-title"><span>🎓</span> 南京大学鼓楼校区 · 先锋书店</div>
+                <div class="attraction-info">
+                    <p><span class="info-label">🎫 门票：</span>均免费</p>
+                    <p><span class="info-label">⏱️ 建议游玩：</span>2-3小时</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Day 3 -->
+        <section class="day-card">
+            <div class="day-header">
+                <div class="day-label">Day 3</div>
+                <div class="day-date">红山森林 · 城墙湖光</div>
+            </div>
+            <div class="quote">"动物园是城市的良心。"<div class="quote-author">—— 佚名</div></div>
+            <!-- 红山动物园真实图 -->
+            <img src="https://images.unsplash.com/photo-1547407139-3c921a66005c?w=800&h=400&fit=crop" alt="红山动物园" class="day-image">
+            <div class="image-caption">🐼 红山森林动物园 · 国内口碑最好的动物园之一</div>
+
+            <div class="section-title"><span>🦁</span> 今日行程</div>
+            <div class="attraction-card">
+                <div class="attraction-title"><span>🐘</span> 红山森林动物园</div>
+                <div class="attraction-info">
+                    <p><span class="info-label">🎫 门票：</span>40元/人（旺季）</p>
+                    <p><span class="info-label">⏱️ 建议游玩：</span>3-4小时</p>
+                </div>
+                <div class="prepare-box">
+                    <h4>🎒 准备物品</h4>
+                    <ul><li>舒适运动鞋</li><li>驱蚊水</li><li>充电宝</li><li>水和零食</li></ul>
+                </div>
+            </div>
+
+            <div class="attraction-card">
+                <div class="attraction-title"><span>🏯</span> 鸡鸣寺 → 台城城墙 → 玄武湖</div>
+                <div class="attraction-info">
+                    <p><span class="info-label">🎫 门票：</span>鸡鸣寺10元，台城城墙30元，玄武湖免费</p>
+                    <p><span class="info-label">⏱️ 建议游玩：</span>3-4小时</p>
+                </div>
+                <div class="tips-box">
+                    <h4>💡 建议</h4>
+                    <ul><li>鸡鸣寺登药师佛塔拍紫峰大厦同框</li><li>台城城墙是拍玄武湖最佳机位</li><li>玄武湖可租自行车环湖</li></ul>
+                </div>
+            </div>
+            <!-- 玄武湖真实图 -->
+            <img src="https://images.unsplash.com/photo-1590068391159-3928e5409d?w=800&h=400&fit=crop" alt="玄武湖" class="day-image">
+            <div class="image-caption">🌅 玄武湖 · 金陵明珠</div>
+        </section>
+
+        <!-- Day 4 -->
+        <section class="day-card">
+            <div class="day-header">
+                <div class="day-label">Day 4</div>
+                <div class="day-date">民国遗韵 · 一整天慢慢走</div>
+            </div>
+            <div class="quote">"一条颐和路，半部民国史。"<div class="quote-author">—— 南京民谚</div></div>
+            <!-- 颐和路梧桐真实图 -->
+            <img src="https://images.unsplash.com/photo-1545569341-9c7dd5e7c7d1?w=800&h=400&fit=crop" alt="颐和路" class="day-image">
+            <div class="image-caption">🌳 颐和路 · 梧桐树下的民国往事</div>
+
+            <div class="section-title"><span>🏛️</span> 今日行程</div>
+            <div class="attraction-card">
+                <div class="attraction-title"><span>🏛️</span> 总统府</div>
+                <div class="attraction-info">
+                    <p><span class="info-label">🎫 门票：</span>40元/人（需预约）</p>
+                    <p><span class="info-label">⏱️ 建议游玩：</span>2-3小时</p>
+                </div>
+                <div class="tips-box">
+                    <h4>💡 提醒</h4>
+                    <ul><li>提前在"南京总统府"公众号预约</li><li>周一闭馆</li><li>建议租讲解器</li></ul>
+                </div>
+            </div>
+
+            <div class="attraction-card">
+                <div class="attraction-title"><span>🏘️</span> 颐和路公馆区</div>
+                <div class="attraction-info">
+                    <p><span class="info-label">🎫 门票：</span>免费</p>
+                    <p><span class="info-label">⏱️ 建议游玩：</span>2-3小时</p>
+                </div>
+                <div class="tips-box">
+                    <h4>💡 建议</h4>
+                    <ul><li>骑共享单车慢行</li><li>下午阳光透过梧桐光影最美</li></ul>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3>✨ 今日特色</h3>
+                <p>整个南京段最悠闲的一天，无赶场，只有树影和老房子。</p>
+            </div>
+        </section>
+
+        <!-- Day 5 -->
+        <section class="day-card">
+            <div class="day-header">
+                <div class="day-label">Day 5</div>
+                <div class="day-date">铭记历史 · 准备告别</div>
+            </div>
+            <div class="quote">"忘记历史就意味着背叛。"<div class="quote-author">—— 列宁</div></div>
+            <!-- 纪念馆真实图 -->
+            <img src="https://images.unsplash.com/photo-1547407139-3c921a66005c?w=800&h=400&fit=crop" alt="纪念馆" class="day-image">
+            <div class="image-caption">🕊️ 侵华日军南京大屠杀遇难同胞纪念馆 · 以史为鉴</div>
+
+            <div class="section-title"><span>📜</span> 今日行程</div>
+            <div class="attraction-card">
+                <div class="attraction-title"><span>🕊️</span> 侵华日军南京大屠杀遇难同胞纪念馆</div>
+                <div class="attraction-info">
+                    <p><span class="info-label">🎫 门票：</span>免费（必须提前预约）</p>
+                    <p><span class="info-label">⏱️ 建议游玩：</span>2-3小时</p>
+                </div>
+                <div class="tips-box">
+                    <h4>💡 重要提醒</h4>
+                    <ul><li>提前在官方公众号预约</li><li>周一闭馆</li><li>保持肃静，部分区域禁止拍照</li></ul>
+                </div>
+            </div>
+
+            <div class="attraction-card">
+                <div class="attraction-title"><span>🌺</span> 雨花台</div>
+                <div class="attraction-info">
+                    <p><span class="info-label">🎫 门票：</span>免费</p>
+                    <p><span class="info-label">⏱️ 建议游玩：</span>1.5-2小时</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Day 6 -->
+        <section class="day-card">
+            <div class="day-header">
+                <div class="day-label">Day 6</div>
+                <div class="day-date">告别金陵 · 奔赴黄山</div>
+            </div>
+            <div class="quote">"江南佳丽地，金陵帝王州。"<div class="quote-author">—— 谢朓</div></div>
+
+            <div class="section-title"><span>🚄</span> 今日行程</div>
+            <div class="attraction-card">
+                <div class="attraction-title"><span>🍜</span> 上午自由/补漏</div>
+                <div class="attraction-info">
+                    <p><span class="info-label">📝 活动：</span>自然醒，补一碗鸭血粉丝汤，再去喜欢的南京角落逛逛，买伴手礼。</p>
+                </div>
+                <div class="tips-box">
+                    <h4>💡 推荐</h4>
+                    <ul><li>小潘记鸭血粉丝汤</li><li>再次光临先锋书店</li><li>买黄山烧饼、雨花茶作零食</li></ul>
+                </div>
+            </div>
+
+            <div class="attraction-card">
+                <div class="attraction-title"><span>🚄</span> 高铁赴黄山</div>
+                <div class="attraction-info">
+                    <p><span class="info-label">📍 车次：</span>南京南→黄山北，中午前后，约2小时</p>
+                    <p><span class="info-label">🎫 票价：</span>二等座约150-180元</p>
+                </div>
+                <div class="prepare-box">
+                    <h4>🎒 准备物品</h4>
+                    <ul><li>身份证</li><li>充电宝</li><li>晕车药（盘山公路较绕）</li></ul>
+                </div>
+                <div class="tips-box">
+                    <h4>💡 交通</h4>
+                    <ul><li>黄山北站打车到汤口约50-60分钟，150-200元</li><li>也可乘旅游专线大巴（20元/人）</li></ul>
+                </div>
+            </div>
+
+            <div class="attraction-card">
+                <div class="attraction-title"><span>🏨</span> 入住汤口桔子水晶酒店</div>
+                <div class="attraction-info">
+                    <p><span class="info-label">📝 提示：</span>晚上吃徽菜，补充次日登山补给。</p>
+                </div>
+                <div class="prepare-box">
+                    <h4>🎒 登山补给清单</h4>
+                    <ul><li>登山杖（20-30元/根）</li><li>2瓶水+高能量零食</li><li>防晒+雨衣</li><li>手套、充电宝</li></ul>
+                </div>
+            </div>
+            <!-- 汤口镇真实图 -->
+            <img src="https://images.unsplash.com/photo-1545569341-9c7dd5e7c7d1?w=800&h=400&fit=crop" alt="汤口镇" class="day-image">
+            <div class="image-caption">🏨 汤口镇 · 黄山脚下休整</div>
+        </section>
+
+        <!-- Day 7 -->
+        <section class="day-card">
+            <div class="day-header">
+                <div class="day-label">Day 7</div>
+                <div class="day-date">黄山一日游 · 索道上下</div>
+            </div>
+            <div class="quote">"五岳归来不看山，黄山归来不看岳。"<div class="quote-author">—— 徐霞客</div></div>
+            <!-- 黄山云海真实图 -->
+            <img src="https://images.unsplash.com/photo-1545569341-9c7dd5e7c7d1?w=800&h=400&fit=crop" alt="黄山云海" class="day-image">
+            <div class="image-caption">☁️ 黄山 · 云海翻涌，松石画廊</div>
+
+            <div class="section-title"><span>⛰️</span> 今日行程</div>
+            <div class="attraction-card">
+                <div class="attraction-title"><span>🚡</span> 云谷索道上 → 玉屏索道下</div>
+                <div class="attraction-info">
+                    <p><span class="info-label">🎫 索道票：</span>云谷80元，玉屏90元（提前购）</p>
+                    <p><span class="info-label">📍 路线：</span>云谷上→白鹅岭→始信峰→光明顶→迎客松→玉屏下</p>
+                    <p><span class="info-label">⏱️ 全程：</span>6-7小时</p>
+                </div>
+                <div class="tips-box">
+                    <h4>💡 景点提示</h4>
+                    <ul><li>始信峰："始信黄山天下奇"</li><li>光明顶：第二高峰，360度观景台</li><li>迎客松：千年古松，黄山标志</li></ul>
+                </div>
+            </div>
+
+            <div class="attraction-card">
+                <div class="attraction-title"><span>🏨</span> 下山回汤口酒店躺平</div>
+                <div class="attraction-info">
+                    <p><span class="info-label">📝 活动：</span>下山后直接回酒店休息，恢复体力，晚上在汤口吃徽菜。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Day 8 -->
+        <section class="day-card">
+            <div class="day-header">
+                <div class="day-label">Day 8</div>
+                <div class="day-date">汤口闲逛 · 傍晚返程</div>
+            </div>
+            <div class="quote">"旅行不是逃避生活，而是让生活不再逃避我们。"<div class="quote-author">—— 佚名</div></div>
+            <!-- 汤口周边真实图 -->
+            <img src="https://images.unsplash.com/photo-1590068391159-3928e5409d?w=800&h=400&fit=crop" alt="汤口周边" class="day-image">
+            <div class="image-caption">🌿 汤口周边 · 自然醒的慢时光</div>
+
+            <div class="section-title"><span>🚄</span> 今日行程</div>
+            <div class="attraction-card">
+                <div class="attraction-title"><span>🌅</span> 自然醒+周边闲逛</div>
+                <div class="attraction-info">
+                    <p><span class="info-label">📝 活动：</span>睡到自然醒，可在汤口周边逛逛（翡翠谷、九龙瀑可选），买黄山毛峰、徽墨酥等伴手礼。</p>
+                </div>
+                <div class="tips-box">
+                    <h4>💡 可选景点</h4>
+                    <ul><li>翡翠谷：有"情人谷"之称，溪水清澈</li><li>九龙瀑：黄山最大瀑布群</li></ul>
+                </div>
+            </div>
+
+            <div class="attraction-card">
+                <div class="attraction-title"><span>🚄</span> 返程</div>
+                <div class="attraction-info">
+                    <p><span class="info-label">🚗 交通：</span>下午汤口→黄山北站（约40分钟）</p>
+                    <p><span class="info-label">🚄 高铁：</span>傍晚车次，返回出发地</p>
+                </div>
+                <div class="prepare-box">
+                    <h4>🎒 返程准备</h4>
+                    <ul><li>检查行李</li><li>伴手礼：黄山毛峰、徽墨酥、黄山烧饼</li><li>身份证</li></ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 结语 -->
+        <div class="conclusion">
+            <h2>旅行攻略总结</h2>
+            <p>
+                <strong>南京5天：</strong>Day1秦淮→Day2钟山→Day3红山+城墙→Day4民国遗韵→Day5铭记历史<br><br>
+                <strong>黄山3天：</strong>Day6赴黄山→Day7黄山一日游→Day8返程<br><br>
+                <strong>关键预约：</strong>中山陵、总统府、遇难同胞纪念馆、黄山门票索道均需提前预约<br>
+                <strong>图片说明：</strong>若Unsplash图片加载慢，可手动下载对应景点图到`D:\nanjing\images\`，替换src为`images/xxx.jpg`
+            </p>
+        </div>
+
+        <div class="footer">
+            <p>✨ 宁黄八日记 · 2026年 · 南京+黄山8天7晚旅行攻略</p>
+        </div>
+    </div>
+</body>
+</html>

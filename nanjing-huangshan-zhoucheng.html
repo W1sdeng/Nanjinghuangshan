@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>南京黄山之旅｜宁黄八日记</title>
+    <style>
+        /* 全局变量 - 圆周旅迹低饱和莫兰迪配色 */
+        :root {
+            --main-purple: #7a86c1;  /* 雾紫 */
+            --main-green: #6b9f8f;   /* 徽州青 */
+            --bg-light: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-main: #333333;
+            --text-sub: #666666;
+            --text-light: #999999;
+            --shadow-light: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-medium: 0 8px 24px rgba(0,0,0,0.12);
+            --radius-large: 20px;
+            --radius-medium: 16px;
+            --radius-small: 12px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            line-height: 1.8; color: var(--text-main);
+            background: var(--bg-light);
+            padding-bottom: 80px; /* 给底部Tab留空间 */
+            overflow-x: hidden;
+        }
+
+        /* 顶部固定导航 */
+        .top-nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
+            padding: 12px 15px; display: flex; gap: 8px; overflow-x: auto;
+            box-shadow: var(--shadow-light); scrollbar-width: none;
+        }
+        .top-nav::-webkit-scrollbar { display: none; }
+        .nav-btn {
+            flex-shrink: 0; padding: 8px 16px; border: none; border-radius: 20px;
+            background: var(--bg-light); color: var(--text-sub); font-size: 0.9em;
+            cursor: pointer; transition: all 0.3s ease; white-space: nowrap;
+        }
+        .nav-btn:hover { background: #e8eaf6; }
+        .nav-btn.active { background: var(--main-purple); color: white; box-shadow: 0 4px 12px rgba(122,134,193,0.3); }
+        .nav-btn.home-btn { background: var(--main-green); color: white; }
+
+        /* 底部固定Tab栏 */
+        .bottom-tab {
+            position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000;
+            background: rgba(255,255,255,0.98); backdrop-filter: blur(10px);
+            display: flex; justify-content: space-around; padding: 10px 0;
+            box-shadow: 0 -4px 12px rgba(0,0,0,0.08);
+        }
+        .tab-item {
+            display: flex; flex-direction: column; align-items: center; gap: 4px;
+            border: none; background: none; color: var(--text-light); font-size: 0.8em;
+            cursor: pointer; transition: all 0.3s ease; padding: 5px 10px;
+        }
+        .tab-item.active { color: var(--main-purple); }
+        .tab-icon { font-size: 1.4em; }
+        .tab-text { font-size: 0.9em; }
+
+        /* 内容容器 */
+        .content-container {
+            max-width: 1100px; margin: 80px auto 0; padding: 0 15px;
+        }
+        .section { display: none; animation: fadeIn 0.4s ease; }
+        .section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* 封面页 */
+        #home {
+            text-align: center; padding: 120px 20px 80px;
+            background: var(--card-bg); border-radius: var(--radius-large);
+            margin-bottom: 20px; box-shadow: var(--shadow-light);
+        }
+        #home h1 { font-size: 2.8em; font-weight: 400; color: var(--main-purple); letter-spacing: 2px; margin-bottom: 15px; }
+        #home .subtitle { font-size: 1.1em; color: var(--text-sub); line-height: 1.8; }
+        .enter-btn {
+            margin-top: 40px; padding: 12px 40px; border: none; border-radius: 25px;
+            background: var(--main-green); color: white; font-size: 1em; cursor: pointer;
+            transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(107,159,143,0.3);
+        }
+        .enter-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(107,159,143,0.4); }
+
+        /* 每日行程卡片 */
+        .day-card {
+            background: var(--card-bg); border-radius: var(--radius-large);
+            padding: 30px; margin-bottom: 20px; box-shadow: var(--shadow-light);
+            transition: transform 0.3s ease;
+        }
+        .day-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-medium); }
+        .day-header {
+            display: flex; align-items: center; margin-bottom: 20px;
+            padding-bottom: 15px; border-bottom: 1px solid #eee;
+        }
+        .day-label {
+            background: linear-gradient(135deg, var(--main-purple), var(--main-green));
+            color: white; padding: 8px 20px; border-radius: 20px;
+            font-size: 1em; font-weight: 500; margin-right: 15px;
+        }
+        .day-date { color: var(--text-sub); font-size: 0.9em; }
+        .quote {
+            font-size: 1.2em; color: var(--text-sub); font-style: italic; margin: 20px 0;
+            padding-left: 20px; border-left: 3px solid var(--main-purple); line-height: 1.6;
+        }
+        .quote-author { text-align: right; color: var(--text-light); font-size: 0.9em; margin-top: 8px; font-style: normal; }
+
+        /* 景点图片 */
+        .day-image {
+            width: 100%; height: 350px; object-fit: cover; border-radius: var(--radius-medium);
+            margin: 20px 0; box-shadow: var(--shadow-light); cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .day-image:hover { transform: scale(1.005); }
+        .image-caption { text-align: center; color: var(--text-light); font-size: 0.85em; margin-top: -15px; margin-bottom: 15px; }
+
+        /* 景点卡片（可折叠） */
+        .attraction-card {
+            background: #f8f9fa; border-radius: var(--radius-medium); padding: 20px;
+            margin: 15px 0; border-left: 3px solid var(--main-purple); cursor: pointer;
+        }
+        .attraction-card.collapsed .attraction-detail { display: none; }
+        .attraction-title { font-size: 1.2em; color: var(--text-main); font-weight: 500; display: flex; align-items: center; gap: 8px; }
+        .attraction-detail { margin-top: 15px; color: var(--text-sub); line-height: 1.8; }
+        .info-label { font-weight: 500; color: var(--main-purple); margin-right: 5px; }
+
+        /* 准备/提示卡片 */
+        .prepare-box {
+            background: #fff8e1; border-left: 3px solid #ffc107; padding: 15px;
+            margin: 15px 0; border-radius: var(--radius-small);
+        }
+        .prepare-box h4 { color: #f57c00; margin-bottom: 8px; font-size: 1em; }
+        .prepare-box ul { list-style: none; padding-left: 0; }
+        .prepare-box li { padding: 4px 0; padding-left: 20px; position: relative; font-size: 0.95em; }
+        .prepare-box li:before { content: "✓"; position: absolute; left: 0; color: #ffc107; font-weight: bold; }
+
+        .tips-box {
+            background: #e3f2fd; border-left: 3px solid #2196f3; padding: 15px;
+            margin: 15px 0; border-radius: var(--radius-small);
+        }
+        .tips-box h4 { color: #1976d2; margin-bottom: 8px; font-size: 1em; }
+        .tips-box ul { list-style: none; padding-left: 0; }
+        .tips-box li { padding: 4px 0; padding-left: 20px; position: relative; font-size: 0.95em; }
+        .tips-box li:before { content: "💡"; position: absolute; left: 0; }
+
+        /* 公共板块样式 */
+        .public-section {
+            background: var(--card-bg); border-radius: var(--radius-large);
+            padding: 30px; margin-bottom: 20px; box-shadow: var(--shadow-light);
+        }
+        .public-title {
+            font-size: 1.8em; color: var(--main-green); font-weight: 400; margin-bottom: 20px;
+            padding-left: 15px; border-left: 3px solid var(--main-green);
+        }
+        .public-card {
+            background: #f8f9fa; border-radius: var(--radius-medium); padding: 20px;
+            margin: 15px 0;
+        }
+        .public-card h4 { color: var(--main-purple); margin-bottom: 10px; font-size: 1.1em; }
+        .public-card ul { list-style: none; padding-left: 0; }
+        .public-card li { padding: 6px 0; color: var(--text-sub); line-height: 1.8; }
+
+        /* 行李清单勾选框 */
+        .checklist { list-style: none; padding-left: 0; }
+        .checklist li {
+            padding: 8px 0; display: flex; align-items: center; gap: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .checklist input[type="checkbox"] {
+            width: 18px; height: 18px; accent-color: var(--main-purple); cursor: pointer;
+        }
+
+        /* 图片放大模态框 */
+        .modal {
+            display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center;
+            align-items: center; padding: 20px;
+        }
+        .modal.active { display: flex; }
+        .modal-img { max-width: 100%; max-height: 90vh; border-radius: var(--radius-medium); }
+        .modal-close {
+            position: absolute; top: 20px; right: 20px; color: white; font-size: 2em;
+            cursor: pointer; border: none; background: none;
+        }
+
+        /* 回到顶部按钮 */
+        .back-to-top {
+            position: fixed; bottom: 90px; right: 20px; width: 45px; height: 45px;
+            border-radius: 50%; background: var(--main-purple); color: white; border: none;
+            font-size: 1.1em; cursor: pointer; box-shadow: var(--shadow-medium);
+            transition: all 0.3s ease; display: none; z-index: 999;
+        }
+        .back-to-top:hover { transform: scale(1.1); }
+
+        /* 结语 */
+        .conclusion {
+            text-align: center; padding: 60px 30px; background: var(--card-bg);
+            border-radius: var(--radius-large); margin-top: 30px; box-shadow: var(--shadow-light);
+        }
+        .conclusion h2 { font-size: 1.8em; color: var(--text-main); font-weight: 400; margin-bottom: 20px; }
+        .conclusion p { color: var(--text-sub); line-height: 2; max-width: 700px; margin: 0 auto; }
+
+        .footer { text-align: center; padding: 30px 15px; color: var(--text-light); font-size: 0.9em; }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            #home h1 { font-size: 2.2em; }
+            .day-card { padding: 20px; }
+            .day-image { height: 250px; }
+            .day-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .public-section { padding: 20px; }
+        }
+        @media (max-width: 480px) {
+            #home { padding: 100px 15px 60px; }
+            #home h1 { font-size: 1.8em; }
+            .day-image { height: 200px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <div class="top-nav">
+        <button class="nav-btn home-btn active" onclick="showSection('home')">首页</button>
+        <button class="nav-btn" onclick="showSection('day1')">Day1🚣♀️</button>
+        <button class="nav-btn" onclick="showSection('day2')">Day2🏛️</button>
+        <button class="nav-btn" onclick="showSection('day3')">Day3🦁</button>
+        <button class="nav-btn" onclick="showSection('day4')">Day4🏘️</button>
+        <button class="nav-btn" onclick="showSection('day5')">Day5🕊️</button>
+        <button class="nav-btn" onclick="showSection('day6')">Day6🚄</button>
+        <button class="nav-btn" onclick="showSection('day7')">Day7⛰️</button>
+        <button class="nav-btn" onclick="showSection('day8')">Day8🌿</button>
+    </div>
+
+    <!-- 底部Tab栏 -->
+    <div class="bottom-tab">
+        <button class="tab-item active" data-tab="itinerary" onclick="switchTab('itinerary')">
+            <span class="tab-icon">📅</span>
+            <span class="tab-text">行程</span>
+        </button>
+        <button class="tab-item" data-tab="food" onclick="switchTab('food')">
+            <span class="tab-icon">🍜</span>
+            <span class="tab-text">美食</span>
+        </button>
+        <button class="tab-item" data-tab="luggage" onclick="switchTab('luggage')">
+            <span class="tab-icon">🎒</span>
+            <span class="tab-text">清单</span>
+        </button>
+        <button class="tab-item" data-tab="avoid" onclick="switchTab('avoid')">
+            <span class="tab-icon">⚠️</span>
+            <span class="tab-text">避坑</span>
+        </button>
+        <button class="tab-item" data-tab="booking" onclick="switchTab('booking')">
+            <span class="tab-icon">📝</span>
+            <span class="tab-text">预约</span>
+        </button>
+    </div>
+
+    <!-- 内容容器 -->
+    <div class="content-container">
+        <!-- 封面页 -->
+        <section id="home" class="section active">
+            <h1>南京黄山之旅｜宁黄八日记</h1>
+            <div class="subtitle">
+                8天7晚 · 南京5天+黄山3天<br>
+                不特种兵 · 无回头路 · 全预约攻略
+            </div>
+            <button class="enter-btn" onclick="enterItinerary()">进入行程</button>
+        </section>
+
+        <!-- Day1 -->
+        <section id="day1" class="section">
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-label">Day1</div>
+                    <div class="day-date">下午3:00后 · 秦淮初探</div>
+                </div>
+                <div class="quote">"烟笼寒水月笼沙，夜泊秦淮近酒家。"<div class="quote-author">—— 杜牧《泊秦淮》</div></div>
+                <img src="https://images.unsplash.com/photo-1548018560-c7196e5eba01?w=800&h=400&fit=crop" alt="中华门瓮城" class="day-image" onclick="openModal(this.src)">
+                <div class="image-caption">📍 中华门瓮城 · 天下第一瓮城（本地路径：./images/day1-zhonghuamen.jpg）</div>
+
+                <div class="attraction-card" onclick="toggleCard(this)">
+                    <div class="attraction-title"><span>🏰</span> 中华门瓮城</div>
+                    <div class="attraction-detail">
+                        <p><span class="info-label">📍 地址：</span>南京市秦淮区中华门城堡</p>
+                        <p><span class="info-label">⏰ 开放时间：</span>8:00-22:00（夏季），8:00-21:30（冬季）</p>
+                        <p><span class="info-label">🎫 门票：</span>50元/人</p>
+                        <p><span class="info-label">⏱️ 建议游玩：</span>1.5-2小时</p>
+                    </div>
+                    <div class="prepare-box">
+                        <h4>🎒 准备物品</h4>
+                        <ul><li>舒适步行鞋</li><li>防晒帽/防晒霜</li><li>相机/手机</li><li>水瓶</li></ul>
+                    </div>
+                    <div class="tips-box">
+                        <h4>💡 建议</h4>
+                        <ul><li>下午3点后入园避开烈日</li><li>沿城墙步行至集庆门方向</li><li>傍晚景色最美</li></ul>
+                    </div>
+                </div>
+
+                <div class="attraction-card" onclick="toggleCard(this)">
+                    <div class="attraction-title"><span>🏮</span> 老门东</div>
+                    <div class="attraction-detail">
+                        <p><span class="info-label">📍 地址：</span>南京市秦淮区箍桶巷</p>
+                        <p><span class="info-label">⏰ 开放时间：</span>全天，商铺10:00-22:00</p>
+                        <p><span class="info-label">🎫 门票：</span>免费</p>
+                        <p><span class="info-label">⏱️ 建议游玩：</span>1.5-2小时</p>
+                    </div>
+                    <div class="prepare-box">
+                        <h4>🎒 准备物品</h4>
+                        <ul><li>空肚子</li><li>手机支付/少量现金</li><li>湿纸巾</li></ul>
+                    </div>
+                    <div class="tips-box">
+                        <h4>💡 必吃</h4>
+                        <ul><li>蒋有记锅贴</li><li>黄勤记凉粉</li><li>小郑酥烧饼</li></ul>
+                    </div>
+                </div>
+
+                <div class="attraction-card" onclick="toggleCard(this)">
+                    <div class="attraction-title"><span>🌙</span> 夫子庙 · 秦淮河夜游</div>
+                    <div class="attraction-detail">
+                        <p><span class="info-label">📍 地址：</span>南京市秦淮区贡院街</p>
+                        <p><span class="info-label">⏰ 开放时间：</span>街区全天，科举博物馆9:00-22:00</p>
+                        <p><span class="info-label">🎫 门票：</span>街区免费，科举博物馆50元，夜游画舫100元起</p>
+                        <p><span class="info-label">⏱️ 建议游玩：</span>2-3小时</p>
+                    </div>
+                    <div class="prepare-box">
+                        <h4>🎒 准备物品</h4>
+                        <ul><li>身份证</li><li>薄外套</li><li>相机</li></ul>
+                    </div>
+                </div>
+                <img src="https://images.unsplash.com/photo-1590068391159-3928e5409d?w=800&h=400&fit=crop" alt="秦淮河夜景" class="day-image" onclick="openModal(this.src)">
+                <div class="image-caption">🌙 秦淮河夜色 · 桨声灯影里的金陵梦（本地路径：./images/day1-qinhuai-night.jpg）</div>
+            </div>
+        </section>
+
+        <!-- Day2 -->
+        <section id="day2" class="section">
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-label">Day2</div>
+                    <div class="day-date">钟山访古 · 南大书香</div>
+                </div>
+                <div class="quote">"钟山龙蟠，石头虎踞，此帝王之宅也。"<div class="quote-author">—— 《太平御览》</div></div>
+                <img src="https://images.unsplash.com/photo-1545569341-9c7dd5e7c7d1?w=800&h=400&fit=crop" alt="明孝陵" class="day-image" onclick="openModal(this.src)">
+                <div class="image-caption">🍂 明孝陵神道 · 六百年石像生（本地路径：./images/day2-xiaoling.jpg）</div>
+
+                <div class="attraction-card" onclick="toggleCard(this)">
+                    <div class="attraction-title"><span>👑</span> 明孝陵</div>
+                    <div class="attraction-detail">
+                        <p><span class="info-label">🎫 门票：</span>70元/人（含梅花山）</p>
+                        <p><span class="info-label">⏱️ 建议游玩：</span>2.5-3小时</p>
+                    </div>
+                    <div class="prepare-box">
+                        <h4>🎒 准备物品</h4>
+                        <ul><li>舒适运动鞋</li><li>防晒用品</li><li>驱蚊水</li><li>足够的水</li></ul>
+                    </div>
+                </div>
+
+                <div class="attraction-card" onclick="toggleCard(this)">
+                    <div class="attraction-title"><span>🏛️</span> 中山陵 · 音乐台</div>
+                    <div class="attraction-detail">
+                        <p><span class="info-label">🎫 门票：</span>免费（需预约），音乐台10元</p>
+                        <p><span class="info-label">⏱️ 建议游玩：</span>2-3小时</p>
+                    </div>
+                    <div class="tips-box">
+                        <h4>💡 提醒</h4>
+                        <ul><li>周一闭馆，提前在"中山陵园风景区"公众号预约</li><li>整点白鸽群飞，备好相机</li></ul>
+                    </div>
+                </div>
+
+                <div class="attraction-card" onclick="toggleCard(this)">
+                    <div class="attraction-title"><span>🎓</span> 南京大学鼓楼校区 · 先锋书店</div>
+                    <div class="attraction-detail">
+                        <p><span class="info-label">🎫 门票：</span>均免费</p>
+                        <p><span class="info-label">⏱️ 建议游玩：</span>2-3小时</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Day3 -->
+        <section id="day3" class="section">
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-label">Day3</div>
+                    <div class="day-date">红山森林 · 城墙湖光</div>
+                </div>
+                <div class="quote">"动物园是城市的良心。"<div class="quote-author">—— 佚名</div></div>
+                <img src="https://images.unsplash.com/photo-1547407139-3c921a66005c?w=800&h=400&fit=crop" alt="红山动物园" class="day-image" onclick="openModal(this.src)">
+                <div class="image-caption">🐼 红山森林动物园 · 国内口碑最好的动物园之一（本地路径：./images/day3-zoo.jpg）</div>
+
+                <div class="attraction-card" onclick="toggleCard(this)">
+                    <div class="attraction-title"><span>🐘</span> 红山森林动物园</div>
+                    <div class="attraction-detail">
+                        <p><span class="info-label">🎫 门票：</span>40元/人（旺季）</p>
+                        <p><span class="info-label">⏱️ 建议游玩：</span>3-4小时</p>
+                    </div>
+                    <div class="prepare-box">
+                        <h4>🎒 准备物品</h4>
+                        <ul><li>舒适运动鞋</li><li>驱蚊水</li><li>充电宝</li><li>水和零食</li></ul>
+                    </div>
+                </div>
+
+                <div class="attraction-card" onclick="toggleCard(this)">
+                    <div class="attraction-title"><span>🏯</span> 鸡鸣寺 → 台城城墙 → 玄武湖</div>
+                    <div class="attraction-detail">
+                        <p><span class="info-label">🎫 门票：</span>鸡鸣寺10元，台城城墙30元，玄武湖免费</p>
+                        <p><span class="info-label">⏱️ 建议游玩：</span>3-4小时</p>
+                    </div>
+                    <div class="tips-box">
+                        <h4>💡 建议</h4>
+                        <ul><li>鸡鸣寺登药师佛塔拍紫峰大厦同框</li><li>台城城墙是拍玄武湖最佳机位</li><li>玄武湖可租自行车环湖</li></ul>
+                    </div>
+                </div>
+                <img src="https://images.unsplash.com/photo-1590068391159-3928e5409d?w=800&h=400&fit=crop" alt="玄武湖" class="day-image" onclick="openModal(this.src)">
+                <div class="image-caption">🌅 玄武湖 · 金陵明珠（本地路径：./images/day3-xuanwu.jpg）</div>
+            </div>
+        </section>
+
+        <!-- Day4 -->
+        <section id="day4" class="section">
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-label">Day4</div>
+                    <div class="day-date">民国遗韵 · 一整天慢慢走</div>
+                </div>
+                <div class="quote">"一条颐和路，半部民国史。"<div class="quote-author">—— 南京民谚</div></div>
+                <img src="https://images.unsplash.com/photo-1545569341-9c7dd5e7c7d1?w=800&h=400&fit=crop" alt="颐和路" class="day-image" onclick="openModal(this.src)">
+                <div class="image-caption">🌳 颐和路 · 梧桐树下的民国往事（本地路径：./images/day4-yihelu.jpg）</div>
+
+                <div class="attraction-card" onclick="toggleCard(this)">
+                    <div class="attraction-title"><span>🏛️</span> 总统府</div>
+                    <div class="attraction-detail">
+                        <p><span class="info-label">🎫 门票：</span>40元/人（需预约）</p>
+                        <p><span class="info-label">⏱️ 建议游玩：</span>2-3小时</p>
+                    </div>
+                    <div class="tips-box">
+                        <h4>💡 提醒</h4>
+                        <ul><li>提前在"南京总统府"公众号预约</li><li>周一闭馆</li><li>建议租讲解器</li></ul>
+                    </div>
+                </div>
+
+                <div class="attraction-card" onclick="toggleCard(this)">
+                    <div class="attraction-title"><span>🏘️</span> 颐和路公馆区</div>
+                    <div class="attraction-detail">
+                        <p><span class="info-label">🎫 门票：</span>免费</p>
+                        <p><span class="info-label">⏱️ 建议游玩：</span>2-3小时</p>
+                    </div>
+                    <div class="tips-box">
+                        <h4>💡 建议</h4>
+                        <ul><li>骑共享单车慢行</li><li>下午阳光透过梧桐光影最美</li></ul>
+                    </div>
+                </div>
+
+                <div class="public-card" style="margin-top: 20px;">
+                    <h3>✨ 今日特色</h3>
+                    <p>整个南京段最悠闲的一天，无赶场，只有树影和老房子。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Day5 -->
+        <section id="day5" class="section">
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-label">Day5</div>
+                    <div class="day-date">铭记历史 · 准备告别</div>
+                </div>
+                <div class="quote">"忘记历史就意味着背叛。"<div class="quote-author">—— 列宁</div></div>
+                <img src="https://images.unsplash.com/photo-1547407139-3c921a66005c?w=800&h=400&fit=crop" alt="纪念馆" class="day-image" onclick="openModal(this.src)">
+                <div class="image-caption">🕊️ 侵华日军南京大屠杀遇难同胞纪念馆 · 以史为鉴（本地路径：./images/day5-memorial.jpg）</div>
+
+                <div class="attraction-card" onclick="toggleCard(this)">
+                    <div class="attraction-title"><span>🕊️</span> 侵华日军南京大屠杀遇难同胞纪念馆</div>
+                    <div class="attraction-detail">
+                        <p><span class="info-label">🎫 门票：</span>免费（必须提前预约）</p>
+                        <p><span class="info-label">⏱️ 建议游玩：</span>2-3小时</p>
+                    </div>
+                    <div class="tips-box">
+                        <h4>💡 重要提醒</h4>
+                        <ul><li>提前在官方公众号预约</li><li>周一闭馆</li><li>保持肃静，部分区域禁止拍照</li></ul>
+                    </div>
+                </div>
+
+                <div class="attraction-card" onclick="toggleCard(this)">
+                    <div class="attraction-title"><span>🌺</span> 雨花台</div>
+                    <div class="attraction-detail">
+                        <p><span class="info-label">🎫 门票：</span>免费</p>
+                        <p><span class="info-label">⏱️ 建议游玩：</span>1.5-2小时</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Day6 -->
+        <section id="day6" class="section">
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-label">Day6</div>
+                    <div class="day-date">告别金陵 · 奔赴黄山</div>
+                </div>
+                <div class="quote">"江南佳丽地，金陵帝王州。"<div class="quote-author">—— 谢朓</div></div>
+
+                <div class="attraction-card" onclick="toggleCard(this)">
+                    <div class="attraction-title"><span>🍜</span> 上午自由/补漏</div>
+                    <div class="attraction-detail">
+                        <p><span class="info-label">📝 活动：</span>自然醒，补一碗鸭血粉丝汤，再去喜欢的南京角落逛逛，买伴手礼。</p>
+                    </div>
+                    <div class="tips-box">
+                        <h4>💡 推荐</h4>
+                        <ul><li>小潘记鸭血粉丝汤</li><li>再次光临先锋书店</li><li>买黄山烧饼、雨花茶作零食</li></ul>
+                    </div>
+                </div>
+
+                <div class="attraction-card" onclick="toggleCard(this)">
+                    <div class="attraction-title"><span>🚄</span> 高铁赴黄山</div>
+                    <div class="attraction-detail">
+                        <p><span class="info-label">📍 车次：</span>南京南→黄山北，中午前后，约2小时</p>
+                        <p><span class="info-label">🎫 票价：</span>二等座约150-180元</p>
+                    </div>
+                    <div class="prepare-box">
+                        <h4>🎒 准备物品</h4>
+                        <ul><li>身份证</li><li>充电宝</li><li>晕车药（盘山公路较绕）</li></ul>
+                    </div>
+                    <div class="tips-box">
+                        <h4>💡 交通</h4>
+                        <ul><li>黄山北站打车到汤口约50-60分钟，150-200元</li><li>也可乘旅游专线大巴（20元/人）</li></ul>
+                    </div>
+                </div>
+
+                <div class="attraction-card" onclick="toggleCard(this)">
+                    <div class="attraction-title"><span>🏨</span> 入住汤口桔子水晶酒店</div>
+                    <div class="attraction-detail">
+                        <p><span class="info-label">📝 提示：</span>晚上吃徽菜，补充次日登山补给。</p>
+                    </div>
+                    <div class="prepare-box">
+                        <h4>🎒 登山补给清单</h4>
+                        <ul><li>登山杖（20-30元/根）</li><li>2瓶水+高能量零食</li><li>防晒+雨衣</li><li>手套、充电宝</li></ul>
+                    </div>
+                </div>
+                <img src="https://images.unsplash.com/photo-1545569341-9c7dd5e7c7d1?w=800&h=400&fit=crop" alt="汤口镇" class="day-image" onclick="openModal(this.src)">
+                <div class="image-caption">🏨 汤口镇 · 黄山脚下休整（本地路径：./images/day6-tangkou.jpg）</div>
+            </div>
+        </section>
+
+        <!-- Day7 -->
+        <section id="day7" class="section">
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-label">Day7</div>
+                    <div class="day-date">黄山一日游 · 索道上下</div>
+                </div>
+                <div class="quote">"五岳归来不看山，黄山归来不看岳。"<div class="quote-author">—— 徐霞客</div></div>
+                <img src="https://images.unsplash.com/photo-1545569341-9c7dd5e7c7d1?w=800&h=400&fit=crop" alt="黄山云海" class="day-image" onclick="openModal(this.src)">
+                <div class="image-caption">☁️ 黄山 · 云海翻涌，松石画廊（本地路径：./images/day7-huangshan.jpg）</div>
+
+                <div class="attraction-card" onclick="toggleCard(this)">
+                    <div class="attraction-title"><span>🚡</span> 云谷索道上 → 玉屏索道下</div>
+                    <div class="attraction-detail">
+                        <p><span class="info-label">🎫 索道票：</span>云谷80元，玉屏90元（提前购）</p>
+                        <p><span class="info-label">📍 路线：</span>云谷上→白鹅岭→始信峰→光明顶→迎客松→玉屏下</p>
+                        <p><span class="info-label">⏱️ 全程：</span>6-7小时</p>
+                    </div>
+                    <div class="tips-box">
+                        <h4>💡 景点提示</h4>
+                        <ul><li>始信峰："始信黄山天下奇"</li><li>光明顶：第二高峰，360度观景台</li><li>迎客松：千年古松，黄山标志</li></ul>
+                    </div>
+                </div>
+
+                <div class="attraction-card" onclick="toggleCard(this)">
+                    <div class="attraction-title"><span>🏨</span> 下山回汤口酒店躺平</div>
+                    <div class="attraction-detail">
+                        <p><span class="info-label">📝 活动：</span>下山后直接回酒店休息，恢复体力，晚上在汤口吃徽菜。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Day8 -->
+        <section id="day8" class="section">
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-label">Day8</div>
+                    <div class="day-date">汤口闲逛 · 傍晚返程</div>
+                </div>
+                <div class="quote">"旅行不是逃避生活，而是让生活不再逃避我们。"<div class="quote-author">—— 佚名</div></div>
+                <img src="https://images.unsplash.com/photo-1590068391159-3928e5409d?w=800&h=400&fit=crop" alt="汤口周边" class="day-image" onclick="openModal(this.src)">
+                <div class="image-caption">🌿 汤口周边 · 自然醒的慢时光（本地路径：./images/day8-tangkou-around.jpg）</div>
+
+                <div class="attraction-card" onclick="toggleCard(this)">
+                    <div class="attraction-title"><span>🌅</span> 自然醒+周边闲逛</div>
+                    <div class="attraction-detail">
+                        <p><span class="info-label">📝 活动：</span>睡到自然醒，可在汤口周边逛逛（翡翠谷、九龙瀑可选），买黄山毛峰、徽墨酥等伴手礼。</p>
+                    </div>
+                    <div class="tips-box">
+                        <h4>💡 可选景点</h4>
+                        <ul><li>翡翠谷：有"情人谷"之称，溪水清澈</li><li>九龙瀑：黄山最大瀑布群</li></ul>
+                    </div>
+                </div>
+
+                <div class="attraction-card" onclick="toggleCard(this)">
+                    <div class="attraction-title"><span>🚄</span> 返程</div>
+                    <div class="attraction-detail">
+                        <p><span class="info-label">🚗 交通：</span>下午汤口→黄山北站（约40分钟）</p>
+                        <p><span class="info-label">🚄 高铁：</span>傍晚车次，返回出发地</p>
+                    </div>
+                    <div class="prepare-box">
+                        <h4>🎒 返程准备</h4>
+                        <ul><li>检查行李</li><li>伴手礼：黄山毛峰、徽墨酥、黄山烧饼</li><li>身份证</li></ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 美食板块 -->
+        <section id="food" class="section">
+            <div class="public-section">
+                <h2 class="public-title">🍜 美食总览</h2>
+                <div class="public-card">
+                    <h4>南京特色小吃</h4>
+                    <ul>
+                        <li>小潘记鸭血粉丝汤（珠江路）：本地人常去，汤鲜料足</li>
+                        <li>蒋有记锅贴（老门东）：牛肉锅贴，外脆里嫩</li>
+                        <li>黄勤记凉粉（老门东）：酸辣爽口，夏天必吃</li>
+                        <li>小郑酥烧饼：咸甜两种口味，趁热吃最佳</li>
+                        <li>盐水鸭：南京招牌，皮脆肉嫩，老卤汁是灵魂</li>
+                        <li>梅花糕/桂花糕：老门东、夫子庙周边都有，甜香软糯</li>
+                    </ul>
+                </div>
+                <div class="public-card">
+                    <h4>黄山徽菜</h4>
+                    <ul>
+                        <li>臭鳜鱼：徽菜代表作，闻着臭吃着香，肉质紧实</li>
+                        <li>毛豆腐：表面长毛的豆腐，煎后蘸辣酱，口感独特</li>
+                        <li>黄山烧饼：梅干菜肉馅，酥脆可口，伴手礼首选</li>
+                        <li>徽墨酥：传统糕点，甜而不腻，适合送长辈</li>
+                        <li>笋干烧肉：徽州特色，笋干吸满肉香，下饭神器</li>
+                        <li>黄山毛峰：中国十大名茶，清明前后采摘最佳</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 行李清单板块 -->
+        <section id="luggage" class="section">
+            <div class="public-section">
+                <h2 class="public-title">🎒 行李清单</h2>
+                <div class="public-card">
+                    <h4>通用证件（必带）</h4>
+                    <ul class="checklist">
+                        <li><input type="checkbox"> 身份证</li>
+                        <li><input type="checkbox"> 学生证（半价神器）</li>
+                        <li><input type="checkbox"> 充电宝+数据线</li>
+                        <li><input type="checkbox"> 现金（少量）</li>
+                        <li><input type="checkbox"> 预约码截图</li>
+                        <li><input type="checkbox"> 口罩</li>
+                    </ul>
+                </div>
+                <div class="public-card">
+                    <h4>南京·城市出行篇</h4>
+                    <ul class="checklist">
+                        <li><input type="checkbox"> 舒适平底鞋/小白鞋（日均步行1万+）</li>
+                        <li><input type="checkbox"> 防晒：帽子、墨镜、防晒霜</li>
+                        <li><input type="checkbox"> 薄外套（室内空调/傍晚降温）</li>
+                        <li><input type="checkbox"> 雨伞、水杯、湿纸巾</li>
+                        <li><input type="checkbox"> 肠胃药</li>
+                    </ul>
+                </div>
+                <div class="public-card">
+                    <h4>黄山·登山保命篇</h4>
+                    <ul class="checklist">
+                        <li><input type="checkbox"> 防滑登山鞋（拒绝高跟鞋/板鞋）</li>
+                        <li><input type="checkbox"> 登山杖（山下10-20元，省30%体力）</li>
+                        <li><input type="checkbox"> 一次性雨衣（山风大，禁打伞）</li>
+                        <li><input type="checkbox"> 护膝（下山护膝盖）、薄手套（扶锁链）</li>
+                        <li><input type="checkbox"> 薄羽绒/冲锋衣（山顶温差10℃+）</li>
+                        <li><input type="checkbox"> 高能量零食：巧克力、牛肉干、矿泉水2瓶</li>
+                        <li><input type="checkbox"> 晕车药（盘山公路必备）、创可贴</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 避坑指南板块 -->
+        <section id="avoid" class="section">
+            <div class="public-section">
+                <h2 class="public-title">⚠️ 避坑指南</h2>
+                <div class="public-card">
+                    <h4>南京避坑</h4>
+                    <ul>
+                        <li>❌ 夫子庙别买特产、别坐高价画舫，逛逛夜景即可</li>
+                        <li>✅ 老门东往里走，小吃更便宜，不用在入口排队</li>
+                        <li>✅ 景区周边鸭血粉丝汤慎选，推荐小潘记等本地人店</li>
+                        <li>✅ 钟山景区大，合理规划路线，别来回绕路</li>
+                        <li>📌 纪念馆保持肃穆，不拍照、不喧哗、不嬉笑</li>
+                    </ul>
+                </div>
+                <div class="public-card">
+                    <h4>黄山避坑</h4>
+                    <ul>
+                        <li>❌ 拒绝黄牛/野导，只在官方小程序买票</li>
+                        <li>✅ 山上物价极高，水10元/瓶，自备干粮和水</li>
+                        <li>✅ 别背大行李箱，索道/大巴空间小，用背包</li>
+                        <li>❌ 不穿新鞋/拖鞋爬山，台阶陡易崴脚</li>
+                        <li>✅ 特产别在山顶买，汤口镇/市区便宜一半</li>
+                        <li>✅ 旺季优先云谷索道上山，玉屏索道排队更久</li>
+                        <li>✅ 西海大峡谷建议坐地轨，别徒步出谷，耗体力</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 预约清单板块 -->
+        <section id="booking" class="section">
+            <div class="public-section">
+                <h2 class="public-title">📝 预约清单</h2>
+                <div class="public-card">
+                    <h4>南京必预约（提前1-3天）</h4>
+                    <ul>
+                        <li>📍 中山陵：公众号「中山陵园风景区」，免费预约，周一闭馆</li>
+                        <li>📍 南京总统府：公众号「南京总统府」，40元/人，周一闭馆</li>
+                        <li>📍 侵华日军南京大屠杀遇难同胞纪念馆：官方公众号，免费必约，周一闭馆</li>
+                        <li>📍 南京博物院：公众号「南京博物院」，免费预约，周一闭馆</li>
+                    </ul>
+                </div>
+                <div class="public-card">
+                    <h4>黄山必预约（提前3-7天·无预约不让进）</h4>
+                    <ul>
+                        <li>📍 黄山风景区门票：黄山旅游官方平台小程序，190元/人，实名分时预约</li>
+                        <li>📍 黄山索道票：云谷80元、玉屏90元，同小程序一起买，减少排队</li>
+                        <li>📍 景区大巴：汤口↔索道口，单程19元，必坐，私家车禁入景区</li>
+                        <li>📍 天都峰：旺季限流，需额外预约，建议提前7天抢票</li>
+                    </ul>
+                </div>
+                <div class="public-card" style="background: #fff3cd;">
+                    <p>✅ 预约小口诀：南京看周一，黄山看时段，截图保存预约码！</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 结语 -->
+        <div class="conclusion">
+            <h2>旅行攻略总结</h2>
+            <p>
+                <strong>南京5天：</strong>Day1秦淮→Day2钟山→Day3红山+城墙→Day4民国遗韵→Day5铭记历史<br><br>
+                <strong>黄山3天：</strong>Day6赴黄山→Day7黄山一日游→Day8返程<br><br>
+                <strong>关键提醒：</strong>所有需预约景点提前预约，黄山门票索道实名分时预约，旺季提前7天抢票
+            </p>
+        </div>
+
+        <div class="footer">
+            <p>✨ 南京黄山之旅 · 2026年 · 8天7晚深度旅行攻略</p>
+        </div>
+    </div>
+
+    <!-- 图片放大模态框 -->
+    <div class="modal" id="imageModal" onclick="closeModal()">
+        <button class="modal-close">×</button>
+        <img class="modal-img" id="modalImage" src="" alt="放大图片">
+    </div>
+
+    <!-- 回到顶部按钮 -->
+    <button class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑</button>
+
+    <script>
+        // 切换板块
+        function showSection(sectionId) {
+            // 隐藏所有板块
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            // 显示目标板块
+            document.getElementById(sectionId).classList.add('active');
+            // 更新顶部导航按钮状态
+            document.querySelectorAll('.top-nav .nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            // 更新底部Tab状态
+            updateBottomTab(sectionId);
+            // 滚动到顶部
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        // 进入行程（从封面跳转到Day1）
+        function enterItinerary() {
+            showSection('day1');
+            document.querySelector('.top-nav .nav-btn[onclick="showSection(\'day1\')"]').classList.add('active');
+        }
+
+        // 切换底部Tab
+        function switchTab(tabName) {
+            // 更新Tab状态
+            document.querySelectorAll('.bottom-tab .tab-item').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.closest('.tab-item').classList.add('active');
+            // 显示对应板块
+            let sectionId;
+            switch(tabName) {
+                case 'itinerary': sectionId = 'day1'; break;
+                case 'food': sectionId = 'food'; break;
+                case 'luggage': sectionId = 'luggage'; break;
+                case 'avoid': sectionId = 'avoid'; break;
+                case 'booking': sectionId = 'booking'; break;
+            }
+            showSection(sectionId);
+        }
+
+        // 更新底部Tab高亮
+        function updateBottomTab(sectionId) {
+            document.querySelectorAll('.bottom-tab .tab-item').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            const tabMap = {
+                'day1': 'itinerary', 'day2': 'itinerary', 'day3': 'itinerary', 'day4': 'itinerary',
+                'day5': 'itinerary', 'day6': 'itinerary', 'day7': 'itinerary', 'day8': 'itinerary',
+                'food': 'food', 'luggage': 'luggage', 'avoid': 'avoid', 'booking': 'booking'
+            };
+            const targetTab = document.querySelector(`.bottom-tab .tab-item[data-tab="${tabMap[sectionId]}"]`);
+            if (targetTab) targetTab.classList.add('active');
+        }
+
+        // 折叠/展开景点卡片
+        function toggleCard(card) {
+            card.classList.toggle('collapsed');
+        }
+
+        // 图片放大模态框
+        function openModal(src) {
+            document.getElementById('modalImage').src = src;
+            document.getElementById('imageModal').classList.add('active');
+        }
+        function closeModal() {
+            document.getElementById('imageModal').classList.remove('active');
+        }
+
+        // 回到顶部按钮显示/隐藏
+        window.addEventListener('scroll', function() {
+            const backToTop = document.querySelector('.back-to-top');
+            if (window.scrollY > 300) {
+                backToTop.style.display = 'block';
+            } else {
+                backToTop.style.display = 'none';
+            }
+        });
+
+        // 每日卡片左右滑动切换（移动端）
+        let touchStartX = 0;
+        let touchEndX = 0;
+        const daySections = ['day1', 'day2', 'day3', 'day4', 'day5', 'day6', 'day7', 'day8'];
+        document.querySelector('.content-container').addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+        document.querySelector('.content-container').addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            const diff = touchStartX - touchEndX;
+            if (Math.abs(diff) > 50) { // 滑动阈值
+                const currentSection = document.querySelector('.section.active');
+                const currentId = currentSection.id;
+                const currentIndex = daySections.indexOf(currentId);
+                if (currentIndex !== -1) {
+                    if (diff > 0 && currentIndex < daySections.length - 1) {
+                        // 左滑，下一个
+                        showSection(daySections[currentIndex + 1]);
+                        updateNavButton(daySections[currentIndex + 1]);
+                    } else if (diff < 0 && currentIndex > 0) {
+                        // 右滑，上一个
+                        showSection(daySections[currentIndex - 1]);
+                        updateNavButton(daySections[currentIndex - 1]);
+                    }
+                }
+            }
+        });
+
+        // 更新导航按钮状态
+        function updateNavButton(sectionId) {
+            document.querySelectorAll('.top-nav .nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            const targetBtn = document.querySelector(`.top-nav .nav-btn[onclick="showSection(\'${sectionId}\')"]`);
+            if (targetBtn) targetBtn.classList.add('active');
+        }
+    </script>
+</body>
+</html>
