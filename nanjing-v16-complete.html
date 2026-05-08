@@ -2340,7 +2340,7 @@
                     <p><span class="info-label">🎓 免票：</span>中山陵、南博、纪念馆、玄武湖</p>
                 </div>
 
-                <div class="public-card">
+                <div class="public-card budget-summary-card">
                     <h4>📊 总预算一览</h4>
                     <table style="width:100%; border-collapse:collapse; font-size:0.9em; margin:10px 0;">
                         <tr style="background:#fff3e0;"><td><strong>🚗 交通总计</strong></td><td style="text-align:right;"><span class="total-amount transport-total" style="font-weight:bold;color:var(--main-purple);font-size:1.1em;">286</span>元</td></tr>
@@ -2464,22 +2464,32 @@
                     border-bottom: none;
                 }
                 .budget-day-card {
-                    background: #f8f9fa;
-                    border-radius: var(--radius-medium);
-                    padding: 15px;
-                    margin: 10px 0;
+                    background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
+                    border-radius: 16px;
+                    padding: 16px;
+                    margin: 12px 0;
                     cursor: pointer;
-                    transition: var(--transition-normal);
-                    border-left: 3px solid var(--main-purple);
+                    transition: all 0.3s ease;
+                    border: 1px solid #eee;
+                    border-left: 4px solid var(--main-purple);
                 }
                 .budget-day-card:hover {
-                    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+                    transform: translateY(-2px);
+                    box-shadow: 0 8px 20px rgba(122,134,193,0.15);
+                }
+                .budget-day-card .attraction-title {
+                    font-size: 1.05em;
+                    font-weight: 500;
+                    color: var(--text-main);
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
                 }
                 .budget-day-card .attraction-title::after {
                     content: "▼";
-                    float: right;
-                    font-size: 0.7em;
-                    color: var(--text-light);
+                    font-size: 0.65em;
+                    color: var(--main-purple);
+                    transition: transform 0.3s ease;
                 }
                 .budget-day-card.collapsed .attraction-detail {
                     display: none;
@@ -2487,12 +2497,56 @@
                 .budget-day-card.collapsed .attraction-title::after {
                     transform: rotate(-90deg);
                 }
+                .budget-day-card .attraction-detail {
+                    margin-top: 12px;
+                    padding-top: 12px;
+                    border-top: 1px dashed #eee;
+                }
+                .budget-day-card .attraction-detail p {
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 6px 0;
+                    color: var(--text-sub);
+                    font-size: 0.9em;
+                }
+                .budget-day-card .attraction-detail p span:first-child {
+                    color: var(--text-main);
+                }
                 .total-amount {
                     font-size: 1.2em;
                 }
+                .reset-btn {
+                    background: linear-gradient(135deg, var(--main-purple), #9fa8da) !important;
+                    color: white !important;
+                    padding: 8px 16px !important;
+                    border-radius: 20px !important;
+                    font-weight: 500 !important;
+                    border: none !important;
+                    cursor: pointer !important;
+                    transition: all 0.3s ease !important;
+                }
                 .reset-btn:hover {
-                    transform: translateY(-1px);
-                    box-shadow: 0 2px 8px rgba(122,134,193,0.3);
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 12px rgba(122,134,193,0.4);
+                }
+                .budget-summary-card {
+                    background: linear-gradient(135deg, #f0f4ff 0%, #e8f5e9 100%);
+                    border-radius: 16px;
+                    padding: 20px;
+                    margin: 15px 0;
+                    border: 1px solid #e0e0e0;
+                }
+                .budget-summary-card table {
+                    background: white;
+                    border-radius: 12px;
+                    overflow: hidden;
+                }
+                .budget-summary-card tr:hover {
+                    background: #f8f9fa;
+                }
+                .budget-summary-card tr:last-child {
+                    background: linear-gradient(135deg, var(--main-purple), #5c6bc0);
+                    color: white;
                 }
             </style>
             <script>
