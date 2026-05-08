@@ -2451,6 +2451,325 @@
             </div>
         </section>
 
+        <!-- ==========================================
+             公共板块：预算清单（可编辑）
+             内容：学生优惠 + 每日预算 + 自动计算
+             ========================================== -->
+        <section id="budget" class="section">
+            <div class="public-section">
+                <h2 class="public-title">💰 预算清单 <button class="reset-btn" onclick="resetBudget()" style="float:right;font-size:0.8em;padding:4px 12px;background:var(--main-purple);color:white;border:none;border-radius:12px;cursor:pointer;">🔄 恢复默认</button></h2>
+
+                <div class="public-card">
+                    <h4>📌 学生半价优惠</h4>
+                    <table style="width:100%; border-collapse:collapse; font-size:0.85em; margin:10px 0;">
+                        <tr style="background:#e8f5e9;"><th>景点</th><th>原价</th><th>学生价</th><th>省多少</th></tr>
+                        <tr><td>明孝陵</td><td>70元</td><td><span class="editable-amount" data-key="day2_ticket_1">35</span>元</td><td style="color:green;">-35元</td></tr>
+                        <tr><td>音乐台</td><td>10元</td><td><span class="editable-amount" data-key="day2_ticket_2">5</span>元</td><td style="color:green;">-5元</td></tr>
+                        <tr><td>红山动物园</td><td>40元</td><td><span class="editable-amount" data-key="day3_ticket_1">20</span>元</td><td style="color:green;">-20元</td></tr>
+                        <tr><td>台城城墙</td><td>30元</td><td><span class="editable-amount" data-key="day3_ticket_2">15</span>元</td><td style="color:green;">-15元</td></tr>
+                        <tr><td>总统府</td><td>40元</td><td><span class="editable-amount" data-key="day4_ticket">20</span>元</td><td style="color:green;">-20元</td></tr>
+                        <tr><td>黄山门票</td><td>190元</td><td><span class="editable-amount" data-key="day7_ticket">95</span>元</td><td style="color:green;">-95元</td></tr>
+                    </table>
+                    <p><span class="info-label">🎓 免票：</span>中山陵、南博、纪念馆、玄武湖</p>
+                </div>
+
+                <div class="public-card">
+                    <h4>📊 总预算一览</h4>
+                    <table style="width:100%; border-collapse:collapse; font-size:0.9em; margin:10px 0;">
+                        <tr style="background:#fff3e0;"><td><strong>🚗 交通总计</strong></td><td style="text-align:right;"><span class="total-amount transport-total" style="font-weight:bold;color:var(--main-purple);font-size:1.1em;">286</span>元</td></tr>
+                        <tr style="background:#e3f2fd;"><td><strong>🏨 住宿总计</strong></td><td style="text-align:right;"><span class="total-amount hotel-total" style="font-weight:bold;color:var(--main-purple);font-size:1.1em;">1220</span>元</td></tr>
+                        <tr style="background:#f3e5f5;"><td><strong>🍜 餐饮总计</strong></td><td style="text-align:right;"><span class="total-amount food-total" style="font-weight:bold;color:var(--main-purple);font-size:1.1em;">875</span>元</td></tr>
+                        <tr style="background:#e8f5e9;"><td><strong>🎫 门票总计</strong></td><td style="text-align:right;"><span class="total-amount ticket-total" style="font-weight:bold;color:var(--main-purple);font-size:1.1em;">395</span>元</td></tr>
+                        <tr style="background:#263238;color:white;"><td><strong>💰 总预算</strong></td><td style="text-align:right;font-size:1.2em;"><span class="grand-total" style="font-weight:bold;font-size:1.3em;">2776</span>元</td></tr>
+                    </table>
+                </div>
+
+                <div class="public-card">
+                    <h4>📋 每日预算明细</h4>
+                    
+                    <div class="budget-day-card collapsed" onclick="toggleCard(this)">
+                        <div class="attraction-title"><span>📅</span> Day1 抵达日 · 小计：<span class="day-total" style="color:var(--main-purple);font-weight:bold;">275</span>元</div>
+                        <div class="attraction-detail">
+                            <p>🚗 交通：机场→酒店地铁 <span class="editable-amount" data-key="day1_transport">5</span> + 全天步行0 = <span class="subtotal" data-keys="day1_transport">5</span>元</p>
+                            <p>🏨 住宿：<span class="editable-amount" data-key="day1_hotel">150</span>元</p>
+                            <p>🍜 餐饮：午餐30 + 晚餐50 + 零食15 = <span class="editable-amount" data-key="day1_food">95</span>元</p>
+                            <p>🎫 门票：甘熙宅第 <span class="editable-amount" data-key="day1_ticket">25</span>元</p>
+                        </div>
+                    </div>
+
+                    <div class="budget-day-card collapsed" onclick="toggleCard(this)">
+                        <div class="attraction-title"><span>📅</span> Day2 钟山访古 · 小计：<span class="day-total" style="color:var(--main-purple);font-weight:bold;">331</span>元</div>
+                        <div class="attraction-detail">
+                            <p>🚗 交通：地铁3 + 观光车10 + 打车13 + 骑行2 = <span class="editable-amount" data-key="day2_transport">28</span>元</p>
+                            <p>🏨 住宿：<span class="editable-amount" data-key="day2_hotel">150</span>元</p>
+                            <p>🍜 餐饮：早餐15 + 午餐35 + 晚餐50 + 零食15 = <span class="editable-amount" data-key="day2_food">115</span>元</p>
+                            <p>🎫 门票：明孝陵 <span class="editable-amount" data-key="day2_ticket_1">35</span> + 音乐台 <span class="editable-amount" data-key="day2_ticket_2">5</span> = <span class="subtotal" data-keys="day2_ticket_1,day2_ticket_2">40</span>元</p>
+                        </div>
+                    </div>
+
+                    <div class="budget-day-card collapsed" onclick="toggleCard(this)">
+                        <div class="attraction-title"><span>📅</span> Day3 红山/城墙 · 小计：<span class="day-total" style="color:var(--main-purple);font-weight:bold;">262</span>元</div>
+                        <div class="attraction-detail">
+                            <p>🚗 交通：地铁3 + 地铁3 = <span class="editable-amount" data-key="day3_transport">6</span>元</p>
+                            <p>🏨 住宿：<span class="editable-amount" data-key="day3_hotel">150</span>元</p>
+                            <p>🍜 餐饮：早餐15 + 午餐30 + 晚餐50 + 零食15 = <span class="editable-amount" data-key="day3_food">110</span>元</p>
+                            <p>🎫 门票：红山 <span class="editable-amount" data-key="day3_ticket_1">20</span> + 鸡鸣寺10 + 城墙 <span class="editable-amount" data-key="day3_ticket_2">15</span> = <span class="subtotal" data-keys="day3_ticket_1,day3_ticket_2">45</span>元</p>
+                        </div>
+                    </div>
+
+                    <div class="budget-day-card collapsed" onclick="toggleCard(this)">
+                        <div class="attraction-title"><span>📅</span> Day4 博物之旅 · 小计：<span class="day-total" style="color:var(--main-purple);font-weight:bold;">160</span>元</div>
+                        <div class="attraction-detail">
+                            <p>🚗 交通：地铁3 + 步行0 = <span class="editable-amount" data-key="day4_transport">3</span>元</p>
+                            <p>🏨 住宿：<span class="editable-amount" data-key="day4_hotel">150</span>元</p>
+                            <p>🍜 餐饮：早餐15 + 午餐35 + 晚餐50 + 零食15 = <span class="editable-amount" data-key="day4_food">115</span>元</p>
+                            <p>🎫 门票：总统府 <span class="editable-amount" data-key="day4_ticket">20</span>元（南博免费）</p>
+                        </div>
+                    </div>
+
+                    <div class="budget-day-card collapsed" onclick="toggleCard(this)">
+                        <div class="attraction-title"><span>📅</span> Day5 铭记+治愈 · 小计：<span class="day-total" style="color:var(--main-purple);font-weight:bold;">153</span>元</div>
+                        <div class="attraction-detail">
+                            <p>🚗 交通：地铁3 + 地铁3 = <span class="editable-amount" data-key="day5_transport">6</span>元</p>
+                            <p>🏨 住宿：<span class="editable-amount" data-key="day5_hotel">150</span>元</p>
+                            <p>🍜 餐饮：早餐15 + 午餐35 + 晚餐50 + 零食15 = <span class="editable-amount" data-key="day5_food">115</span>元</p>
+                            <p>🎫 门票：纪念馆免费 + 云锦博物馆免费 = 0元</p>
+                        </div>
+                    </div>
+
+                    <div class="budget-day-card collapsed" onclick="toggleCard(this)">
+                        <div class="attraction-title"><span>📅</span> Day6 奔赴黄山 · 小计：<span class="day-total" style="color:var(--main-purple);font-weight:bold;">295</span>元</div>
+                        <div class="attraction-detail">
+                            <p>🚗 交通：高铁 <span class="editable-amount" data-key="day6_transport_1">150</span> + 大巴25 = <span class="subtotal" data-keys="day6_transport_1">175</span>元</p>
+                            <p>🏨 住宿：<span class="editable-amount" data-key="day6_hotel">120</span>元</p>
+                            <p>🍜 餐饮：早餐15 + 午餐40 + 晚餐50 + 零食15 = <span class="editable-amount" data-key="day6_food">120</span>元</p>
+                            <p>🎫 门票：无</p>
+                        </div>
+                    </div>
+
+                    <div class="budget-day-card collapsed" onclick="toggleCard(this)">
+                        <div class="attraction-title"><span>📅</span> Day7 黄山登顶 · 小计：<span class="day-total" style="color:var(--main-purple);font-weight:bold;">440</span>元</div>
+                        <div class="attraction-detail">
+                            <p>🚗 交通：景区交通往返38元 = <span class="editable-amount" data-key="day7_transport">38</span>元</p>
+                            <p>🏨 住宿：<span class="editable-amount" data-key="day7_hotel">120</span>元</p>
+                            <p>🍜 餐饮：早餐15 + 午餐40 + 晚餐60 + 零食20 = <span class="editable-amount" data-key="day7_food">135</span>元</p>
+                            <p>🎫 门票：黄山 <span class="editable-amount" data-key="day7_ticket">95</span> + 云谷80 + 玉屏90 = <span class="subtotal" data-keys="day7_ticket">265</span>元</p>
+                        </div>
+                    </div>
+
+                    <div class="budget-day-card collapsed" onclick="toggleCard(this)">
+                        <div class="attraction-title"><span>📅</span> Day8 返程 · 小计：<span class="day-total" style="color:var(--main-purple);font-weight:bold;">95</span>元</div>
+                        <div class="attraction-detail">
+                            <p>🚗 交通：汤口→黄山北 <span class="editable-amount" data-key="day8_transport">25</span>元</p>
+                            <p>🏨 住宿：无</p>
+                            <p>🍜 餐饮：早餐15 + 午餐40 = <span class="editable-amount" data-key="day8_food">55</span>元</p>
+                            <p>🎫 门票：无</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="public-card">
+                    <h4>💡 省钱建议</h4>
+                    <ul>
+                        <li>🔸 住宿选青旅床位可省50元/晚</li>
+                        <li>🔸 餐饮以路边摊+便利店为主</li>
+                        <li>🔸 交通优先地铁，打车用拼车</li>
+                        <li>🔸 务必带学生证！部分景区需身份证+学生证同时出示</li>
+                    </ul>
+                </div>
+            </div>
+            <style>
+                .editable-amount {
+                    background: #fffde7;
+                    border-bottom: 1px dashed #ccc;
+                    padding: 2px 6px;
+                    cursor: text;
+                    display: inline-block;
+                    min-width: 30px;
+                    text-align: center;
+                }
+                .editable-amount:hover {
+                    background: #fff59d;
+                }
+                .editable-amount:focus {
+                    background: white;
+                    outline: 2px solid var(--main-purple);
+                    border-bottom: none;
+                }
+                .budget-day-card {
+                    background: #f8f9fa;
+                    border-radius: var(--radius-medium);
+                    padding: 15px;
+                    margin: 10px 0;
+                    cursor: pointer;
+                    transition: var(--transition-normal);
+                    border-left: 3px solid var(--main-purple);
+                }
+                .budget-day-card:hover {
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+                }
+                .budget-day-card .attraction-title::after {
+                    content: "▼";
+                    float: right;
+                    font-size: 0.7em;
+                    color: var(--text-light);
+                }
+                .budget-day-card.collapsed .attraction-detail {
+                    display: none;
+                }
+                .budget-day-card.collapsed .attraction-title::after {
+                    transform: rotate(-90deg);
+                }
+                .total-amount {
+                    font-size: 1.2em;
+                }
+                .reset-btn:hover {
+                    transform: translateY(-1px);
+                    box-shadow: 0 2px 8px rgba(122,134,193,0.3);
+                }
+            </style>
+            <script>
+                // 预算计算和存储
+                const defaultBudget = {
+                    // 交通
+                    day1_transport: 5, day2_transport: 28, day3_transport: 6, day4_transport: 3,
+                    day5_transport: 6, day6_transport_1: 150, day7_transport: 38, day8_transport: 25,
+                    // 住宿
+                    day1_hotel: 150, day2_hotel: 150, day3_hotel: 150, day4_hotel: 150,
+                    day5_hotel: 150, day6_hotel: 120, day7_hotel: 120, day8_hotel: 0,
+                    // 餐饮
+                    day1_food: 95, day2_food: 115, day3_food: 110, day4_food: 115,
+                    day5_food: 115, day6_food: 120, day7_food: 135, day8_food: 55,
+                    // 门票
+                    day1_ticket: 25, day2_ticket_1: 35, day2_ticket_2: 5, 
+                    day3_ticket_1: 20, day3_ticket_2: 15, day4_ticket: 20,
+                    day5_ticket: 0, day7_ticket: 95
+                };
+
+                // 加载保存的预算
+                function loadBudget() {
+                    const saved = localStorage.getItem('budgetData');
+                    return saved ? JSON.parse(saved) : {};
+                }
+
+                // 保存预算
+                function saveBudget(data) {
+                    localStorage.setItem('budgetData', JSON.stringify(data));
+                }
+
+                // 计算并更新总计
+                function recalculateAll() {
+                    const data = loadBudget();
+                    const budget = { ...defaultBudget, ...data };
+                    
+                    // 计算各类总计
+                    let transport = 0, hotel = 0, food = 0, ticket = 0;
+                    
+                    // 交通
+                    transport += (budget.day1_transport || 0);
+                    transport += (budget.day2_transport || 0);
+                    transport += (budget.day3_transport || 0);
+                    transport += (budget.day4_transport || 0);
+                    transport += (budget.day5_transport || 0);
+                    transport += (budget.day6_transport_1 || 0);
+                    transport += (budget.day7_transport || 0);
+                    transport += (budget.day8_transport || 0);
+                    
+                    // 住宿
+                    hotel += (budget.day1_hotel || 0);
+                    hotel += (budget.day2_hotel || 0);
+                    hotel += (budget.day3_hotel || 0);
+                    hotel += (budget.day4_hotel || 0);
+                    hotel += (budget.day5_hotel || 0);
+                    hotel += (budget.day6_hotel || 0);
+                    hotel += (budget.day7_hotel || 0);
+                    
+                    // 餐饮
+                    food += (budget.day1_food || 0);
+                    food += (budget.day2_food || 0);
+                    food += (budget.day3_food || 0);
+                    food += (budget.day4_food || 0);
+                    food += (budget.day5_food || 0);
+                    food += (budget.day6_food || 0);
+                    food += (budget.day7_food || 0);
+                    food += (budget.day8_food || 0);
+                    
+                    // 门票
+                    ticket += (budget.day1_ticket || 0);
+                    ticket += (budget.day2_ticket_1 || 0);
+                    ticket += (budget.day2_ticket_2 || 0);
+                    ticket += (budget.day3_ticket_1 || 0);
+                    ticket += (budget.day3_ticket_2 || 0);
+                    ticket += (budget.day4_ticket || 0);
+                    ticket += (budget.day7_ticket || 0);
+                    
+                    // 更新显示
+                    document.querySelector('.transport-total').textContent = transport;
+                    document.querySelector('.hotel-total').textContent = hotel;
+                    document.querySelector('.food-total').textContent = food;
+                    document.querySelector('.ticket-total').textContent = ticket;
+                    document.querySelector('.grand-total').textContent = transport + hotel + food + ticket;
+                    
+                    // 更新每日小计
+                    const days = ['day1', 'day2', 'day3', 'day4', 'day5', 'day6', 'day7', 'day8'];
+                    const totals = document.querySelectorAll('.day-total');
+                    days.forEach((day, i) => {
+                        let dayTotal = 0;
+                        dayTotal += (budget[day + '_transport'] || 0);
+                        dayTotal += (budget[day + '_transport_1'] || 0);
+                        dayTotal += (budget[day + '_hotel'] || 0);
+                        dayTotal += (budget[day + '_food'] || 0);
+                        dayTotal += (budget[day + '_ticket'] || 0);
+                        dayTotal += (budget[day + '_ticket_1'] || 0);
+                        dayTotal += (budget[day + '_ticket_2'] || 0);
+                        if (totals[i]) totals[i].textContent = dayTotal;
+                    });
+                }
+
+                // 初始化可编辑金额
+                function initEditable() {
+                    document.querySelectorAll('.editable-amount').forEach(el => {
+                        const key = el.dataset.key;
+                        const saved = loadBudget();
+                        if (saved[key] !== undefined) {
+                            el.textContent = saved[key];
+                        }
+                        
+                        el.addEventListener('blur', function() {
+                            const val = parseInt(this.textContent) || 0;
+                            const data = loadBudget();
+                            data[key] = val;
+                            saveBudget(data);
+                            recalculateAll();
+                        });
+                        
+                        el.addEventListener('keydown', function(e) {
+                            if (e.key === 'Enter') {
+                                e.preventDefault();
+                                this.blur();
+                            }
+                        });
+                    });
+                }
+
+                // 恢复默认
+                function resetBudget() {
+                    localStorage.removeItem('budgetData');
+                    document.querySelectorAll('.editable-amount').forEach(el => {
+                        const key = el.dataset.key;
+                        el.textContent = defaultBudget[key] || 0;
+                    });
+                    recalculateAll();
+                }
+
+                // 页面加载时初始化
+                window.addEventListener('load', function() {
+                    initEditable();
+                    recalculateAll();
+                });
+            </script>
+        </section>
+
 <!-- ==========================================
              公共板块4：避坑须知
              内容：南京避坑 + 黄山避坑 + 雨天备选
