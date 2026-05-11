@@ -4,8 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>南京黄山之旅｜宁黄八日记 v16（动画增强版）</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script type="text/javascript">
+        window._AMapSecurityConfig = {
+            securityJsCode: 'd7d83063a11623ff7253a8cccace422d',
+        }
+    </script>
+    <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=53ce9f6e97b883f635d36ed3f43f32b0&plugin=AMap.Walking,AMap.Driving,AMap.Transfer,AMap.RoadInfo,AMap.PlaceSearch"></script>
     <style>
+        /* ==========================================
+           打印样式优化 - 导出PDF更美观
+           ========================================== */
+        @media print {
+            body { font-size: 12pt; color: #333; background: white; }
+            .section { page-break-after: auto; }
+            .day-card, .attraction-card, .public-card { 
+                box-shadow: none; 
+                border: 1px solid #ddd; 
+                break-inside: avoid;
+            }
+            .top-nav, .bottom-tab, .toolbar, .back-to-top, .search-bar, 
+            .export-menu, .top-export-btn, .enter-btn, .scroll-overlay { 
+                display: none !important; 
+            }
+            .transport-card .transport-detail,
+            .attraction-card .attraction-detail { display: block !important; }
+            .day-image { max-height: 200px; object-fit: cover; }
+            .info-label { font-weight: 600; }
+            .day-header { background: #f5f5f5 !important; -webkit-print-color-adjust: exact; }
+            @page { margin: 1cm; size: A4 portrait; }
+        }
+
         /* ==========================================
            全局变量 - 高级莫兰迪配色
            ========================================== */
@@ -39,9 +71,154 @@
             --radius-medium: 16px;
             --radius-small: 12px;
             
-            /* 过渡动画 */
-            --transition-fast: 0.2s ease;
-            --transition-normal: 0.3s ease;
+            /* 过渡动画 - 更流畅的缓动曲线 */
+            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-smooth: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* 性能优化：使用GPU加速 */
+        * {
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* 骨架屏动画 */
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 8px;
+        }
+        .skeleton-text {
+            height: 16px;
+            margin: 8px 0;
+            border-radius: 4px;
+        }
+        .skeleton-title {
+            height: 24px;
+            width: 60%;
+            margin-bottom: 12px;
+            border-radius: 6px;
+        }
+        .skeleton-image {
+            height: 200px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+        
+        /* 微交互：按钮点击波纹效果 */
+        .ripple {
+            position: relative;
+            overflow: hidden;
+        }
+        .ripple::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s;
+        }
+        .ripple:active::after {
+            width: 200px;
+            height: 200px;
+        }
+        
+        /* 微交互：卡片悬停上浮 */
+        .attraction-card, .public-card, .day-step-card, .transport-card {
+            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s ease;
+        }
+        .attraction-card:hover, .public-card:hover, .day-step-card:hover, .transport-card:hover {
+            transform: translateY(-3px);
+        }
+        
+        /* 微交互：按钮悬停缩放 */
+        .nav-btn, .tab-item, .toolbar-btn {
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s ease;
+        }
+        .nav-btn:hover, .tab-item:hover, .toolbar-btn:hover {
+            transform: scale(1.05);
+        }
+        .nav-btn:active, .tab-item:active, .toolbar-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* 图片性能优化 */
+        .day-image {
+            transform: translateZ(0);
+            will-change: opacity, transform;
+        }
+
+        /* 卡片性能优化 */
+        .day-card, .attraction-card, .public-card {
+            transform: translateZ(0);
+            will-change: transform, box-shadow;
+        }
+        
+        /* 每日地图容器 */
+        .day-map-container {
+            width: 100%;
+            height: 280px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(107,91,149,0.15);
+            background: linear-gradient(135deg, #f8f7f5 0%, #eceae5 100%);
+            position: relative;
+        }
+        .day-map-container::before {
+            content: '🗺️ 地图加载中...';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--text-light);
+            font-size: 0.9em;
+            z-index: 1;
+        }
+        .day-map-container.loaded::before {
+            display: none;
+        }
+        .map-legend {
+            font-size: 0.8em;
+            color: var(--text-sub);
+            margin-bottom: 12px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .map-legend span {
+            margin: 0 8px;
+        }
+        @media (max-width: 480px) {
+            .day-map-container {
+                height: 220px;
+            }
+        }
+        }
+
+        /* 按钮性能优化 */
+        .checkin-btn, .toolbar-btn, .nav-btn, .tab-item, .copy-btn, .map-btn {
+            transform: translateZ(0);
+            will-change: transform;
+        }
+
+        /* 动画使用GPU */
+        .section.active, .day-step-card, .back-to-top, .search-result-item {
+            transform: translateZ(0);
+            will-change: opacity, transform;
         }
 
         * {
@@ -105,6 +282,41 @@
             /* 打印时展开交通卡片 */
             .transport-card .transport-detail {
                 display: block !important;
+            }
+            /* 单页打印优化 */
+            body.printing-single .top-nav, 
+            body.printing-single .bottom-tab, 
+            body.printing-single .toolbar,
+            body.printing-single .back-to-top,
+            body.printing-single .search-bar,
+            body.printing-single .enter-btn,
+            body.printing-single .scroll-overlay {
+                display: none !important;
+            }
+            body.printing-single {
+                background: white;
+            }
+            body.printing-single .section {
+                display: block !important;
+                page-break-inside: avoid;
+            }
+            body.printing-single .day-card,
+            body.printing-single .public-section {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+            body.printing-single .transport-card .transport-detail,
+            body.printing-single .attraction-card .attraction-detail {
+                display: block !important;
+                max-height: none !important;
+            }
+            body.printing-single .toolbar,
+            body.printing-single .export-menu {
+                display: none !important;
+            }
+            @page {
+                margin: 1cm;
+                size: A4;
             }
         }
 
@@ -347,6 +559,134 @@
         .tab-item:focus-visible, .nav-btn:focus-visible {
             outline: 2px solid var(--main-purple);
             outline-offset: 2px;
+        }
+
+        /* 工具栏 - 固定在视口右侧中间 */
+        .toolbar {
+            position: fixed;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .toolbar-btn {
+            width: 44px;
+            height: 44px;
+            font-size: 1.2em;
+        }
+        
+/* 顶部导出按钮 - 导航栏右侧固定 */
+        .top-export-btn {
+            position: fixed;
+            top: 10px;
+            right: 15px;
+            z-index: 1001;
+            display: none;
+        }
+        .top-export-btn.visible {
+            display: block;
+        }
+        .export-toggle-btn {
+            padding: 8px 18px;
+            background: linear-gradient(135deg, var(--main-purple), #7a6a9e);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(107,91,149,0.3);
+            transition: all 0.25s ease;
+        }
+        .export-toggle-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(107,91,149,0.4);
+        }
+        .export-toggle-btn.active {
+            background: linear-gradient(135deg, #5a4a84, #6b5b95);
+        }
+        
+        /* 导出选项按钮 - 展开显示在导出按钮下方 */
+        .export-options {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 8px;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.25s ease;
+        }
+        .export-options.active {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .export-option-btn {
+            padding: 10px 16px;
+            background: white;
+            color: var(--text-main);
+            border: 1px solid rgba(107,91,149,0.2);
+            border-radius: 10px;
+            font-size: 0.85em;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(107,91,149,0.15);
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+        .export-option-btn:hover {
+            background: linear-gradient(135deg, #f0eeff 0%, #f8f6ff 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(107,91,149,0.2);
+        }
+        .export-option-btn:active {
+            transform: scale(0.96);
+        }
+        
+        .content-container {
+            position: relative;
+            overflow: visible;
+            min-height: 100vh;
+        }
+        .toolbar-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, #6b5b95, #7a6a9e) !important;
+            color: white !important;
+            font-size: 1.1em;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(107,91,149,0.3);
+            transition: all 0.3s ease;
+        }
+        .toolbar-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 20px rgba(107,91,149,0.4);
+        }
+        .toolbar-btn:active {
+            transform: scale(0.95);
+        }
+
+        
+
+        /* 导出加载中 */
+        .export-loading {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 20px 40px;
+            border-radius: 15px;
+            z-index: 3000;
+            display: none;
+        }
+        .export-loading.active {
+            display: block;
         }
 
 /* ==========================================
@@ -646,12 +986,103 @@
             100% { opacity: 1; transform: translateY(0) rotate(0); }
         }
         
-        /* 夜间模式渐变过渡 */
+        /* 夜间模式渐变过渡 - 更平滑的动画 */
         body {
-            transition: background-color 0.5s ease, color 0.5s ease;
+            transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+                        color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                        border-color 0.6s ease,
+                        box-shadow 0.6s ease;
         }
         body.night-mode * {
-            transition: all 0.3s ease;
+            transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                        color 0.4s ease,
+                        border-color 0.4s ease,
+                        box-shadow 0.4s ease !important;
+        }
+        
+        /* 夜间模式遮罩动画 */
+        body.night-mode::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            pointer-events: none;
+            z-index: 9999;
+            animation: nightFadeIn 0.5s ease forwards;
+        }
+        @keyframes nightFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* 夜间模式颜色变量 */
+        body.night-mode {
+            --bg-main: #121212;
+            --bg-light: #1e1e1e;
+            --bg-secondary: #252525;
+            --card-bg: #1a1a1a;
+            --text-main: #e0e0e0;
+            --text-sub: #a0a0a0;
+            --text-light: #707070;
+        }
+        
+        /* 夜间模式卡片增强 */
+        body.night-mode .day-card,
+        body.night-mode .public-section {
+            background: linear-gradient(145deg, #1e1e1e 0%, #161616 100%);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.06);
+        }
+        body.night-mode .day-card:hover {
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 4px 12px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* 夜间模式景点卡片 */
+        body.night-mode .attraction-card {
+            background: linear-gradient(135deg, #1e1e1e 0%, #252525 100%);
+            border-color: rgba(255, 255, 255, 0.06);
+        }
+        body.night-mode .attraction-card:hover {
+            background: linear-gradient(135deg, #252525 0%, #2a2a2a 100%);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+        
+        /* 夜间模式步骤卡片 */
+        body.night-mode .day-step-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #1e1e1e 100%);
+            border-color: rgba(255, 255, 255, 0.05);
+        }
+        body.night-mode .day-step-card::before {
+            background: linear-gradient(180deg, #8a7ba8, #6b8a7e);
+        }
+        
+        /* 夜间模式按钮 */
+        body.night-mode .nav-btn,
+        body.night-mode .tab-item {
+            background: linear-gradient(135deg, #252525 0%, #1a1a1a 100%);
+            color: #a0a0a0;
+        }
+        body.night-mode .nav-btn.active {
+            background: linear-gradient(135deg, #4a4a6a 0%, #3a3a5a 100%);
+            color: #c0c0d0;
+        }
+        
+        /* 夜间模式搜索栏 */
+        body.night-mode .search-bar {
+            background: #1e1e1e;
+            border-color: #333;
+        }
+        
+        /* 夜间模式标题文字发光效果 */
+        body.night-mode h1,
+        body.night-mode h2,
+        body.night-mode h3,
+        body.night-mode .day-label {
+            text-shadow: 0 0 10px rgba(200, 200, 255, 0.1);
         }
         
         /* 搜索结果跳转动画 */
@@ -1143,34 +1574,44 @@
            每日行程卡片
            ========================================== */
         .day-card {
-            background: var(--card-bg);
+            background: linear-gradient(145deg, #ffffff 0%, #faf9f7 100%);
             border-radius: var(--radius-large);
             padding: 30px;
             margin-bottom: 20px;
             margin-left: auto;
             margin-right: auto;
             max-width: 720px;
-            box-shadow: 0 6px 20px rgba(107,91,149,0.08);
+            box-shadow: 0 4px 20px rgba(107,91,149,0.08), 0 1px 3px rgba(0,0,0,0.04);
             transition: var(--transition-normal);
             position: relative;
-            border: 1px solid rgba(107,91,149,0.08);
+            border: 1px solid rgba(107,91,149,0.06);
+        }
+        .day-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 30px;
+            right: 30px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(107,91,149,0.15), transparent);
         }
         .day-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 32px rgba(107,91,149,0.15);
+            transform: translateY(-6px);
+            box-shadow: 0 12px 40px rgba(107,91,149,0.15), 0 4px 12px rgba(0,0,0,0.06);
+            border-color: rgba(107,91,149,0.12);
         }
 
         /* 公共板块 */
         .public-section {
-            background: var(--card-bg);
+            background: linear-gradient(145deg, #ffffff 0%, #faf9f7 100%);
             border-radius: var(--radius-large);
             padding: 30px;
             margin-bottom: 20px;
             margin-left: auto;
             margin-right: auto;
             max-width: 720px;
-            box-shadow: 0 6px 20px rgba(107,91,149,0.08);
-            border: 1px solid rgba(107,91,149,0.08);
+            box-shadow: 0 4px 20px rgba(107,91,149,0.08), 0 1px 3px rgba(0,0,0,0.04);
+            border: 1px solid rgba(107,91,149,0.06);
         }
 
         .day-header {
@@ -1451,16 +1892,7 @@
                 padding: 8px 4px;
             }
             
-            /* 工具栏 - 移动端始终显示 */
-            .toolbar {
-                bottom: 85px;
-                right: 8px;
-                gap: 6px;
-                display: flex;
-                flex-direction: column;
-                z-index: 998;
-                padding-bottom: 50px;
-            }
+            /* 工具栏 - 移动端保持固定 */
             .toolbar-btn {
                 width: 44px;
                 height: 44px;
@@ -1503,7 +1935,7 @@
                 display: none;
             }
             
-            /* 桌面端工具栏正常显示 */
+            /* 桌面端工具栏横向排列 */
             @media (min-width: 769px) {
                 .toolbar-toggle-btn {
                     display: none;
@@ -1514,7 +1946,6 @@
                 }
                 .toolbar {
                     flex-direction: row;
-                    bottom: 90px;
                 }
             }
             
@@ -2983,7 +3414,7 @@
             --text-light: #707070;
             --main-purple: #9fa8da;
             --main-green: #81c784;
-            background: #0d0d0d;
+            background: linear-gradient(180deg, #0d0d0d 0%, #121212 100%);
         }
         body.night-mode .section,
         body.night-mode .day-card,
@@ -2994,17 +3425,26 @@
         body.night-mode .old-tips,
         body.night-mode .prepare-box,
         body.night-mode .transport-card {
-            background: #161616;
+            background: linear-gradient(145deg, #1a1a1a 0%, #151515 100%);
             color: #e8e8e8;
-            border-color: #2a2a2a;
+            border-color: rgba(255, 255, 255, 0.08);
         }
         body.night-mode .top-nav {
             background: linear-gradient(180deg, #1a1a1a 0%, #151515 100%);
-            border-bottom: 1px solid #2a2a2a;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
         body.night-mode .top-nav .nav-btn {
-            background: #252525;
+            background: linear-gradient(135deg, #252525 0%, #1e1e1e 100%);
             color: #888;
+        }
+        body.night-mode .top-nav .nav-btn.active {
+            background: linear-gradient(135deg, #3a3a5a 0%, #2a2a4a 100%);
+            color: #c0c0d0;
+            box-shadow: 0 4px 15px rgba(159, 168, 218, 0.2);
+        }
+        body.night-mode .bottom-tab {
+            background: linear-gradient(180deg, #151515 0%, #0d0d0d 100%);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
         }
         body.night-mode .top-nav .nav-btn.active {
             background: linear-gradient(135deg, #3a3a5a, #2a2a4a);
@@ -3052,9 +3492,41 @@
             color: #707070;
         }
         body.night-mode .image-caption {
-            background: #161616;
+            background: linear-gradient(180deg, transparent 0%, rgba(22, 22, 22, 0.9) 100%);
             color: #b0b0b0;
-            border-top: 1px solid #2a2a2a;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        /* 夜间模式图片降噪处理 */
+        body.night-mode .day-image {
+            filter: brightness(0.9) contrast(1.05);
+        }
+        
+        /* 夜间模式输入框 */
+        body.night-mode input[type="text"],
+        body.night-mode input[type="search"],
+        body.night-mode textarea {
+            background: #1e1e1e;
+            border-color: #333;
+            color: #e0e0e0;
+        }
+        
+        /* 夜间模式复选框增强 */
+        body.night-mode .checklist input[type="checkbox"] {
+            border-color: #5a5a8a;
+            background: #1e1e1e;
+        }
+        body.night-mode .checklist input[type="checkbox"]:checked {
+            background: #5a5a8a;
+            border-color: #7a7aaa;
+        }
+        
+        /* 夜间模式标题发光效果 */
+        body.night-mode #home h1 {
+            text-shadow: 0 0 20px rgba(159, 168, 218, 0.3);
+        }
+        body.night-mode .day-label {
+            box-shadow: 0 3px 10px rgba(159, 168, 218, 0.3);
         }
         body.night-mode .tips-box {
             background: linear-gradient(135deg, #1a1a2a 0%, #16162a 100%);
@@ -3387,6 +3859,35 @@
         .quick-call-btn:hover {
             background: linear-gradient(135deg, #ffcdd2, #ef9a9a);
         }
+
+        /* 夜间模式切换按钮动画 */
+        .night-toggle-btn {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .night-toggle-btn:active {
+            transform: scale(0.9);
+        }
+        body.night-mode .night-toggle-btn {
+            box-shadow: 0 0 15px rgba(255, 200, 100, 0.3);
+            animation: nightPulse 2s ease-in-out infinite;
+        }
+        @keyframes nightPulse {
+            0%, 100% { box-shadow: 0 0 10px rgba(255, 200, 100, 0.2); }
+            50% { box-shadow: 0 0 20px rgba(255, 200, 100, 0.4); }
+        }
+
+        /* 夜间模式切换时的页面渐变动画 */
+        body.switching-night * {
+            animation: none;
+        }
+        body.switching-night {
+            animation: backgroundShift 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        @keyframes backgroundShift {
+            0% { filter: brightness(1); }
+            50% { filter: brightness(0.5); }
+            100% { filter: brightness(1); }
+        }
 </style>
 </head>
 <body>
@@ -3404,6 +3905,15 @@
         <button class="nav-btn" onclick="showSection('day6')" aria-label="Day6 奔赴黄山">Day6🚄</button>
         <button class="nav-btn" onclick="showSection('day7')" aria-label="Day7 黄山登顶">Day7⛰️</button>
         <button class="nav-btn" onclick="showSection('day8')" aria-label="Day8 返程">Day8🌿</button>
+    </div>
+
+    <!-- 导出按钮 - 固定在导航栏右侧 -->
+    <div class="top-export-btn" id="topExportBtn">
+        <button class="export-toggle-btn" onclick="toggleExportOptions(event)">📤 导出</button>
+        <div class="export-options" id="exportOptions">
+            <button class="export-option-btn" onclick="exportAsImage()">🖼️ 导出长图片</button>
+            <button class="export-option-btn" onclick="exportAsPDF()">📄 导出PDF</button>
+        </div>
     </div>
 
     <!-- ==========================================
@@ -3446,24 +3956,24 @@
         <div class="search-results"></div>
     </div>
 
-    <!-- 工具栏 -->
-    <div class="toolbar">
-        <button class="toolbar-btn" onclick="toggleSearch()" aria-label="搜索">🔍</button>
-        <button class="toolbar-btn night-mode-btn" onclick="toggleNightMode()" aria-label="夜间模式">🌙</button>
-        <button class="toolbar-btn font-btn" onclick="setFontSize('small')" aria-label="小字号">A-</button>
-        <button class="toolbar-btn font-btn active" onclick="setFontSize('medium')" aria-label="中字号">A</button>
-        <button class="toolbar-btn font-btn" onclick="setFontSize('large')" aria-label="大字号">A+</button>
-        <button class="toolbar-btn" onclick="showOfflineTip()" aria-label="离线缓存">📥</button>
-    </div>
-
-    <!-- ==========================================
-         主内容容器 - 所有板块都在这里
-         ========================================== -->
+<!-- ==========================================
+          主内容容器 - 所有板块都在这里
+          ========================================== -->
     <div class="content-container">
         
+        <!-- 工具栏 -->
+        <div class="toolbar">
+            <button class="toolbar-btn" onclick="toggleSearch()" aria-label="搜索">🔍</button>
+            <button class="toolbar-btn night-mode-btn" onclick="toggleNightMode()" aria-label="夜间模式">🌙</button>
+            <button class="toolbar-btn font-btn" onclick="setFontSize('small')" aria-label="小字号">A-</button>
+            <button class="toolbar-btn font-btn active" onclick="setFontSize('medium')" aria-label="中字号">A</button>
+            <button class="toolbar-btn font-btn" onclick="setFontSize('large')" aria-label="大字号">A+</button>
+            <button class="toolbar-btn" onclick="showOfflineTip()" aria-label="离线缓存">📥</button>
+</div>
+        
         <!-- ==========================================
-             封面页 - 标题+副标题+进入按钮
-             ========================================== -->
+              封面页 - 标题+副标题+进入按钮
+              ========================================== -->
         <section id="home" class="section active">
             <div class="home-decor">✦</div>
             <h1>南京黄山之旅<span class="stamp">宁黄八记</span></h1>
@@ -3486,6 +3996,13 @@
                 <div class="day-header">
                     <div class="day-label">Day1</div>
                     <div class="day-date">下午3:00后 · 秦淮初探 <span class="weather-widget" data-city="Nanjing"></span></div>
+                </div>
+                
+                <div class="day-map-container" id="day1-map"></div>
+                <div class="map-legend">
+                    <span>🟠 驾车/观光车</span>
+                    <span>🔵 步行</span>
+                    <span>🟢 地铁</span>
                 </div>
                 
                 <div class="quote">"烟笼寒水月笼沙，夜泊秦淮近酒家。"<div class="quote-author">—— 杜牧《泊秦淮》</div></div>
@@ -3633,6 +4150,13 @@
                 <div class="day-header">
                     <div class="day-label">Day2</div>
                     <div class="day-date">钟山访古 · 梧桐漫步 <span class="weather-widget" data-city="Nanjing"></span></div>
+                </div>
+                
+                <div class="day-map-container" id="day2-map"></div>
+                <div class="map-legend">
+                    <span>🟠 驾车/观光车</span>
+                    <span>🔵 步行</span>
+                    <span>🟢 地铁</span>
                 </div>
                 
                 <!-- 步骤1：前往明孝陵 -->
@@ -3852,6 +4376,13 @@
                     <div class="day-date">红山探秘 · 城墙漫步 <span class="weather-widget" data-city="Nanjing"></span></div>
                 </div>
                 
+                <div class="day-map-container" id="day3-map"></div>
+                <div class="map-legend">
+                    <span>🟠 驾车/观光车</span>
+                    <span>🔵 步行</span>
+                    <span>🟢 地铁</span>
+                </div>
+                
                 <!-- 步骤1：前往红山动物园 -->
                 <div class="day-step-card" onclick="toggleStepCard(this, event)">
                     <div class="step-number">1</div>
@@ -4024,6 +4555,13 @@
                     <div class="day-date">铭记历史 · 治愈收尾 <span class="weather-widget" data-city="Nanjing"></span></div>
                 </div>
                 
+                <div class="day-map-container" id="day4-map"></div>
+                <div class="map-legend">
+                    <span>🟠 驾车/观光车</span>
+                    <span>🔵 步行</span>
+                    <span>🟢 地铁</span>
+                </div>
+                
                 <!-- 步骤1：上午自由活动 -->
                 <div class="day-step-card" onclick="toggleStepCard(this, event)">
                     <div class="step-number">1</div>
@@ -4127,6 +4665,13 @@
                 <div class="day-header">
                     <div class="day-label">Day5</div>
                     <div class="day-date">民国遗韵 · 博物之旅 <span class="weather-widget" data-city="Nanjing"></span></div>
+                </div>
+                
+                <div class="day-map-container" id="day5-map"></div>
+                <div class="map-legend">
+                    <span>🟠 驾车/观光车</span>
+                    <span>🔵 步行</span>
+                    <span>🟢 地铁</span>
                 </div>
                 
                 <!-- 步骤1：前往南京博物院 -->
@@ -4256,6 +4801,13 @@
                     <div class="day-date">告别金陵 · 奔赴黄山 <span class="weather-widget" data-city="Huangshan"></span></div>
                 </div>
                 
+                <div class="day-map-container" id="day6-map"></div>
+                <div class="map-legend">
+                    <span>🟠 驾车/观光车</span>
+                    <span>🔵 步行</span>
+                    <span>🟢 地铁</span>
+                </div>
+                
                 <!-- 步骤1：上午自由活动 -->
                 <div class="day-step-card" onclick="toggleStepCard(this, event)">
                     <div class="step-number">1</div>
@@ -4329,11 +4881,18 @@
              ========================================== -->
         <section id="day7" class="section">
             <div class="day-card">
-                <div class="day-header">
+<div class="day-header">
                     <div class="day-label">Day7</div>
                     <div class="day-date">黄山一日游 · 索道上下 <span class="weather-widget" data-city="Huangshan"></span></div>
                 </div>
                 
+                <div class="day-map-container" id="day7-map"></div>
+                <div class="map-legend">
+                    <span>🟠 驾车/观光车</span>
+                    <span>🔵 步行</span>
+                    <span>🟢 地铁</span>
+                </div>
+
                 <!-- 步骤1：早起前往云谷索道 -->
                 <div class="day-step-card" onclick="toggleStepCard(this, event)">
                     <div class="step-number">1</div>
@@ -4429,6 +4988,13 @@
                 <div class="day-header">
                     <div class="day-label">Day8</div>
                     <div class="day-date">汤口闲逛 · 傍晚返程 <span class="weather-widget" data-city="Huangshan"></span></div>
+                </div>
+                
+                <div class="day-map-container" id="day8-map"></div>
+                <div class="map-legend">
+                    <span>🟠 驾车/观光车</span>
+                    <span>🔵 步行</span>
+                    <span>🟢 地铁</span>
                 </div>
                 
                 <!-- 步骤1：起床 → 周边闲逛 -->
@@ -6016,6 +6582,18 @@
             } else {
                 window.scrollTo({top: 0, behavior: 'smooth'});
             }
+            
+            // 更新顶部导出按钮显示
+            const exportBtn = document.getElementById('topExportBtn');
+            if (exportBtn) {
+                if (sectionId.startsWith('day')) {
+                    exportBtn.classList.add('visible');
+                } else {
+                    exportBtn.classList.remove('visible');
+                }
+            }
+            // 关闭导出选项
+            closeExportOptions();
         }
 
 /* ==========================================
@@ -6864,7 +7442,97 @@
             // 实际实现需要Service Worker，这里只是提示
         }
 
-        // 10. 工具栏展开/收起（移动端）
+        // 10. 导出菜单展开/收起
+        function toggleExportOptions(e) {
+            e.stopPropagation();
+            const options = document.getElementById('exportOptions');
+            options.classList.toggle('active');
+        }
+
+        function closeExportOptions() {
+            document.getElementById('exportOptions').classList.remove('active');
+        }
+
+        // 点击其他地方关闭导出选项
+        document.addEventListener('click', function(e) {
+            const container = document.getElementById('topExportBtn');
+            if (container && !container.contains(e.target)) {
+                closeExportOptions();
+            }
+        });
+
+        // 导出为长图片
+        async function exportAsImage() {
+            closeExportOptions();
+            const loading = document.createElement('div');
+            loading.className = 'export-loading active';
+            loading.textContent = '📸 正在生成图片...';
+            document.body.appendChild(loading);
+
+            try {
+                const activeSection = document.querySelector('.section.active');
+                if (!activeSection) {
+                    alert('无法获取当前页面');
+                    return;
+                }
+
+                // 临时修改样式以确保内容完整渲染
+                const originalOverflow = activeSection.style.overflow;
+                activeSection.style.overflow = 'visible';
+                
+                const dayLabel = activeSection.querySelector('.day-label')?.textContent || '行程';
+                const canvas = await html2canvas(activeSection, {
+                    scale: 2,
+                    useCORS: true,
+                    allowTaint: true,
+                    backgroundColor: '#f5f4f0',
+                    width: activeSection.scrollWidth,
+                    height: activeSection.scrollHeight,
+                    windowWidth: activeSection.scrollWidth,
+                    windowHeight: activeSection.scrollHeight
+                });
+
+                // 恢复样式
+                activeSection.style.overflow = originalOverflow;
+
+                const link = document.createElement('a');
+                link.download = `南京黄山之旅_${dayLabel}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            } catch (e) {
+                alert('导出失败: ' + e.message);
+                console.error(e);
+            } finally {
+                loading.remove();
+            }
+        }
+
+        // 导出为PDF（调用打印）
+        function exportAsPDF() {
+            closeExportOptions();
+            const activeSection = document.querySelector('.section.active');
+            if (!activeSection) {
+                alert('无法获取当前页面');
+                return;
+            }
+            
+            const dayLabel = activeSection.querySelector('.day-label')?.textContent || '行程';
+            
+            // 临时设置打印样式
+            document.body.classList.add('printing-single');
+            activeSection.style.display = 'block';
+            
+            // 滚动到顶部
+            window.scrollTo(0, 0);
+            
+            setTimeout(() => {
+                window.print();
+                // 恢复
+                document.body.classList.remove('printing-single');
+            }, 100);
+        }
+
+        // 11. 工具栏展开/收起（移动端）
         function initToolbar() {
             const toolbar = document.querySelector('.toolbar');
             if (!toolbar) return;
@@ -6925,7 +7593,379 @@
             
             // 加载打卡
             loadCheckins();
+            
+            // 等待AMap加载后初始化地图
+            function waitForAMap() {
+                if (typeof AMap !== 'undefined') {
+                    initDayMaps();
+                } else {
+                    setTimeout(waitForAMap, 100);
+                }
+            }
+            waitForAMap();
         });
+
+        // 每日地图数据
+        var dayMapData = {
+            'day1': {
+                spots: [
+                    { name: '甘熙宅第', lnglat: [118.785, 32.013] },
+                    { name: '老门东', lnglat: [118.769, 32.017] },
+                    { name: '夫子庙', lnglat: [118.787, 32.014] }
+                ],
+                routes: [
+                    { from: [118.785, 32.013], to: [118.769, 32.017], mode: 'walking', color: '#2196f3' },
+                    { from: [118.769, 32.017], to: [118.787, 32.014], mode: 'walking', color: '#2196f3' }
+                ],
+                center: [118.778, 32.015]
+            },
+            'day2': {
+                spots: [
+                    { name: '明孝陵', lnglat: [118.840, 32.054] },
+                    { name: '中山陵', lnglat: [118.856, 32.064] },
+                    { name: '梧桐大道', lnglat: [118.776, 32.058] },
+                    { name: '南京大学', lnglat: [118.780, 32.060] }
+                ],
+                routes: [
+                    { from: [118.840, 32.054], to: [118.856, 32.064], mode: 'driving', color: '#ff9800' },
+                    { from: [118.856, 32.064], to: [118.776, 32.058], mode: 'driving', color: '#ff9800' },
+                    { from: [118.776, 32.058], to: [118.780, 32.060], mode: 'walking', color: '#2196f3' }
+                ],
+                center: [118.820, 32.058]
+            },
+            'day3': {
+                spots: [
+                    { name: '红山动物园', lnglat: [118.932, 32.127] },
+                    { name: '鸡鸣寺', lnglat: [118.803, 32.060] },
+                    { name: '玄武湖', lnglat: [118.796, 32.058] }
+                ],
+                routes: [
+                    { from: [118.932, 32.127], to: [118.803, 32.060], mode: 'driving', color: '#4caf50' },
+                    { from: [118.803, 32.060], to: [118.796, 32.058], mode: 'walking', color: '#2196f3' }
+                ],
+                center: [118.864, 32.092]
+            },
+            'day4': {
+                spots: [
+                    { name: '纪念馆', lnglat: [118.738, 32.029] },
+                    { name: '南京眼', lnglat: [118.710, 32.008] }
+                ],
+                routes: [
+                    { from: [118.738, 32.029], to: [118.710, 32.008], mode: 'driving', color: '#ff9800' }
+                ],
+                center: [118.724, 32.018]
+            },
+            'day5': {
+                spots: [
+                    { name: '南京博物院', lnglat: [118.812, 32.049] },
+                    { name: '总统府', lnglat: [118.796, 32.028] }
+                ],
+                routes: [
+                    { from: [118.812, 32.049], to: [118.796, 32.028], mode: 'walking', color: '#2196f3' }
+                ],
+                center: [118.804, 32.038]
+            },
+            'day6': {
+                spots: [
+                    { name: '南京南站', lnglat: [118.804, 31.970] },
+                    { name: '黄山北站', lnglat: [118.337, 29.687] },
+                    { name: '汤口镇', lnglat: [118.282, 29.602] }
+                ],
+                routes: [
+                    { from: [118.804, 31.970], to: [118.337, 29.687], mode: 'driving', color: '#ff9800' },
+                    { from: [118.337, 29.687], to: [118.282, 29.602], mode: 'driving', color: '#ff9800' }
+                ],
+                center: [118.543, 30.786]
+            },
+            'day7': {
+                spots: [
+                    { name: '云谷寺', lnglat: [118.303, 29.677] },
+                    { name: '始信峰', lnglat: [118.283, 29.704] },
+                    { name: '光明顶', lnglat: [118.288, 29.714] },
+                    { name: '迎客松', lnglat: [118.301, 29.716] },
+                    { name: '玉屏楼', lnglat: [118.299, 29.718] }
+                ],
+                routes: [
+                    { from: [118.303, 29.677], to: [118.283, 29.704], mode: 'walking', color: '#2196f3' },
+                    { from: [118.283, 29.704], to: [118.288, 29.714], mode: 'walking', color: '#2196f3' },
+                    { from: [118.288, 29.714], to: [118.301, 29.716], mode: 'walking', color: '#2196f3' },
+                    { from: [118.301, 29.716], to: [118.299, 29.718], mode: 'walking', color: '#2196f3' }
+                ],
+                center: [118.290, 29.700]
+            },
+            'day8': {
+                spots: [
+                    { name: '汤口镇', lnglat: [118.282, 29.602] },
+                    { name: '黄山北站', lnglat: [118.337, 29.687] }
+                ],
+                routes: [
+                    { from: [118.282, 29.602], to: [118.337, 29.687], mode: 'driving', color: '#ff9800' }
+                ],
+                center: [118.310, 29.644]
+            }
+        };
+
+        // 初始化地图
+        var initializedMaps = {};
+        
+        function initDayMaps() {
+            // 检测暗黑模式
+            var isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            var mapStyle = isDark ? 'amap://styles/dark' : 'amap://styles/light';
+            
+            // 监听section切换，懒加载地图
+            var originalShowSection = window.showSection;
+            window.showSection = function(sectionId, direction) {
+                originalShowSection.call(this, sectionId, direction);
+                
+                // 如果是Day页面，初始化该天地图
+                if (sectionId.startsWith('day') && !initializedMaps[sectionId]) {
+                    setTimeout(function() {
+                        if (typeof AMap !== 'undefined') {
+                            initMap(sectionId, mapStyle);
+                            initializedMaps[sectionId] = true;
+                        } else {
+                            console.log('AMap未加载');
+                        }
+                    }, 800);
+                }
+            };
+        }
+        
+        function initMap(dayId, mapStyle) {
+            var mapContainer = document.getElementById(dayId + '-map');
+            if (!mapContainer) return;
+            
+            var data = dayMapData[dayId];
+            if (!data) return;
+            
+            try {
+                // 创建地图
+                var map = new AMap.Map(dayId + '-map', {
+                    zoom: 13,
+                    center: data.center,
+                    mapStyle: mapStyle,
+                    resizeEnable: true
+                });
+                
+                // 添加实时路况图层（红黄绿显示）
+                try {
+                    var trafficLayer = new AMap.TrafficLayer({ zIndex: 10 });
+                    trafficLayer.setMap(map);
+                } catch(e) { console.log('路况图层:', e); }
+                
+                // 添加标记点
+                data.spots.forEach(function(spot, i) {
+                    var marker = new AMap.Marker({
+                        position: spot.lnglat,
+                        title: spot.name,
+                        icon: 'https://a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-' + (i+1) + '.png',
+                        offset: new AMap.Pixel(-13, -30)
+                    });
+                    marker.setLabel({
+                        content: (i+1).toString(),
+                        offset: new AMap.Pixel(0, -25),
+                        style: { fontSize: '12px', color: '#fff', background: 'rgba(0,0,0,0.5)', padding: '2px 6px', borderRadius: '10px' }
+                    });
+                    map.add(marker);
+                });
+                
+                // 绘制路线并计算实时时间
+                data.routes.forEach(function(route, idx) {
+                    drawRouteWithTime(map, route.from, route.to, route.mode, route.color, dayId, idx);
+                });
+                
+                // 添加周边搜索按钮
+                addNearbySearchBtn(map, data.spots[0], dayId);
+                
+                console.log(dayId + ' 地图初始化完成');
+                
+                // 标记加载完成，隐藏加载提示
+                mapContainer.classList.add('loaded');
+            } catch(e) {
+                console.error('地图初始化失败:', e);
+            }
+        }
+        
+        function drawRouteWithTime(map, start, end, mode, color, dayId, routeIdx) {
+            if (mode !== 'driving') {
+                // 非驾车路线只画线
+                var polyline = new AMap.Polyline({
+                    path: [start, end],
+                    strokeColor: color,
+                    strokeWeight: 5,
+                    strokeOpacity: 0.8
+                });
+                map.add(polyline);
+                return;
+            }
+            
+            // 驾车路线使用实时路况
+            var driving = new AMap.Driving({
+                map: map,
+                policy: AMap.DrivingPolicy.REAL_TRAFFIC,
+                autoFitView: false
+            });
+            
+            driving.search(start, end, function(status, result) {
+                if (status === 'complete' && result.routes && result.routes[0]) {
+                    // 绘制路线
+                    var path = [];
+                    result.routes[0].steps.forEach(function(step) {
+                        step.path.forEach(function(p) { path.push([p.lng, p.lat]); });
+                    });
+                    var polyline = new AMap.Polyline({
+                        path: path,
+                        strokeColor: color,
+                        strokeWeight: 5,
+                        strokeOpacity: 0.8
+                    });
+                    map.add(polyline);
+                    
+                    // 更新预计时间到卡片
+                    var timeMinutes = Math.ceil(result.routes[0].time / 60);
+                    var timeEl = document.getElementById(dayId + '-time-' + routeIdx);
+                    if (timeEl) timeEl.textContent = timeMinutes;
+                } else {
+                    // 降级画直线
+                    var polyline = new AMap.Polyline({
+                        path: [start, end],
+                        strokeColor: color,
+                        strokeWeight: 4,
+                        strokeOpacity: 0.8
+                    });
+                    map.add(polyline);
+                }
+            });
+        }
+        
+        // 存储每个day的地图实例
+        var dayMaps = {};
+        
+        function addNearbySearchBtn(map, firstSpot, dayId) {
+            // 存储地图实例到全局变量
+            dayMaps[dayId] = map;
+            
+            // 查找地图容器旁的legend
+            var mapContainer = document.getElementById(dayId + '-map');
+            if (!mapContainer) return;
+            var legend = mapContainer.nextElementSibling;
+            if (!legend || !legend.classList.contains('map-legend')) return;
+            
+            var searchBtn = document.createElement('button');
+            searchBtn.className = 'nearby-search-btn';
+            searchBtn.innerHTML = '🔍 搜附近';
+            searchBtn.onclick = function(e) { e.stopPropagation(); showNearbyMenu(firstSpot, dayId); };
+            
+            searchBtn.style.cssText = 'margin-left:15px;padding:5px 12px;background:linear-gradient(135deg,#4caf50,#45a049);color:white;border:none;border-radius:15px;font-size:0.8em;cursor:pointer;vertical-align:middle;';
+            legend.appendChild(searchBtn);
+        }
+        
+        function showNearbyMenu(spot, dayId) {
+            var menu = document.createElement('div');
+            menu.className = 'nearby-menu';
+            menu.innerHTML = `
+                <div style="background:white;padding:10px;border-radius:10px;box-shadow:0 4px 15px rgba(0,0,0,0.2);">
+                    <div style="font-size:0.85em;color:#666;margin-bottom:8px;">搜附近</div>
+                    <button onclick="doSearchNearby('地铁站','${dayId}')" style="padding:6px 12px;margin:3px;background:#e3f2fd;color:#1976d2;border:none;border-radius:15px;font-size:0.8em;cursor:pointer;">🚇 地铁站</button>
+                    <button onclick="doSearchNearby('便利店','${dayId}')" style="padding:6px 12px;margin:3px;background:#e8f5e9;color:#388e3c;border:none;border-radius:15px;font-size:0.8em;cursor:pointer;">🏪 便利店</button>
+                    <button onclick="doSearchNearby('卫生间','${dayId}')" style="padding:6px 12px;margin:3px;background:#fff3e0;color:#f57c00;border:none;border-radius:15px;font-size:0.8em;cursor:pointer;">🚻 卫生间</button>
+                </div>
+            `;
+            menu.style.cssText = 'position:absolute;right:10px;top:40px;z-index:100;';
+            
+            var oldMenu = document.querySelector('.nearby-menu');
+            if (oldMenu) oldMenu.remove();
+            
+            var mapContainer = document.getElementById(dayId + '-map');
+            if (mapContainer) mapContainer.parentNode.appendChild(menu);
+            
+            setTimeout(function() {
+                document.addEventListener('click', function closeMenu(e) {
+                    if (!menu.contains(e.target)) { menu.remove(); document.removeEventListener('click', closeMenu); }
+                });
+            }, 100);
+        }
+        
+        function doSearchNearby(keyword, dayId) {
+            var map = dayMaps[dayId];
+            var data = dayMapData[dayId];
+            if (!map || !data || !data.spots[0]) return;
+            
+            var spot = data.spots[0];
+            searchNearby(keyword, spot.lnglat[0], spot.lnglat[1], dayId, map);
+        }
+        
+        function searchNearby(keyword, lng, lat, dayId, map) {
+            var placeSearch = new AMap.PlaceSearch({ pageSize: 5, city: '025' });
+            placeSearch.searchNearBy(keyword, [parseFloat(lng), parseFloat(lat)], 1000, function(status, result) {
+                if (status === 'complete' && result.poiList && result.poiList.pois) {
+                    var pois = result.poiList.pois;
+                    var info = keyword + '附近找到 ' + pois.length + ' 个：\n';
+                    pois.forEach(function(p, i) {
+                        info += (i+1) + '. ' + p.name + ' (距' + p.distance + '米)\n';
+                        // 添加标记
+                        var marker = new AMap.Marker({
+                            position: p.location,
+                            title: p.name,
+                            icon: new AMap.Icon({ size: [20,20], image: 'https://a.amap.com/jsapi_demos/demo-center/icons/poi-marker-' + (i+1) + '.png', imageSize: [20,20] })
+                        });
+                        map.add(marker);
+                    });
+                    alert(info);
+                } else {
+                    alert('附近未找到' + keyword);
+                }
+            });
+            // 关闭菜单
+            var menu = document.querySelector('.nearby-menu');
+            if (menu) menu.remove();
+        }
+        
+        function drawRoute(map, start, end, mode, color) {
+            var plugin = mode === 'walking' ? AMap.Walking : (mode === 'driving' ? AMap.Driving : AMap.Transfer);
+            
+            if (!plugin) {
+                // 绘制简单连线
+                var polyline = new AMap.Polyline({
+                    path: [start, end],
+                    strokeColor: color,
+                    strokeWeight: 4,
+                    strokeOpacity: 0.8
+                });
+                map.add(polyline);
+                return;
+            }
+            
+            var driving = new plugin({ map: map, panel: '' });
+            driving.search(start, end, function(status, result) {
+                if (status === 'complete' && result.routes && result.routes[0]) {
+                    var path = [];
+                    result.routes[0].steps.forEach(function(step) {
+                        step.path.forEach(function(p) {
+                            path.push([p.lng, p.lat]);
+                        });
+                    });
+                    var polyline = new AMap.Polyline({
+                        path: path,
+                        strokeColor: color,
+                        strokeWeight: 5,
+                        strokeOpacity: 0.8,
+                        strokeStyle: 'solid'
+                    });
+                    map.add(polyline);
+                } else {
+                    // 降级：画直线
+                    var polyline = new AMap.Polyline({
+                        path: [start, end],
+                        strokeColor: color,
+                        strokeWeight: 4,
+                        strokeOpacity: 0.8
+                    });
+                    map.add(polyline);
+                }
+            });
+        }
     </script>
 </body>
 </html>
