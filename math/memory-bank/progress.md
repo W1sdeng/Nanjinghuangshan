@@ -8,17 +8,18 @@
 
 **操作内容**：
 1. 将 `AGENTS.md`、`RULES.md` 从 `math/` 根目录迁移到 `math/memory-bank/`
-2. 在 `math/` 目录执行 `flutter create --org com.yicun --project-name yicun .`
-3. 删除默认计数示例代码，替换为干净的 `YicunApp`
-4. 创建 `.gitignore`（Flutter + 生成代码排除规则）
-5. 创建 `analysis_options.yaml`（标准 lint 配置）
+2. 因 `math/` 非空目录，`flutter create` 无法执行，手动创建所有项目文件
+3. 手动创建 `pubspec.yaml`，按 tech-stack.md 写入 14 个运行时依赖 + 7 个开发依赖
+4. 创建 `lib/main.dart`：干净的 `YicunApp`，无计数示例代码
+5. 创建 `test/widget_test.dart`：一条 Widget 测试，验证欢迎语渲染
+6. 创建 `analysis_options.yaml`、`.gitignore`
 
 **创建的文件**：
 - `pubspec.yaml` — 项目依赖配置（14 运行时 + 7 开发依赖）
 - `lib/main.dart` — 入口文件，渲染 "进一寸，有一寸的欢喜。"
 - `test/widget_test.dart` — 验证入口渲染
 - `analysis_options.yaml` — lint 规则
-- `.gitignore` — Flutter 忽略规则
+- `.gitignore` — Flutter + 生成代码忽略规则
 
 **验证结果**：
 - `flutter pub get` — 126 个依赖安装成功
