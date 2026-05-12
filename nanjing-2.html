@@ -163,7 +163,8 @@
             line-height: 1.8;
             color: var(--text-main);
             background: var(--bg-light);
-            padding-bottom: 80px; 
+            padding-bottom: 80px;
+            padding-top: 55px;
             overflow-x: hidden;
             -webkit-overflow-scrolling: touch;
         }
@@ -364,7 +365,7 @@
            顶部固定导航栏
            ========================================== */
 .top-nav {
-            position: sticky;
+            position: fixed;
             top: 0;
             z-index: 999;
             background: rgba(255,255,255,0.95);
@@ -624,7 +625,7 @@
             ========================================== */
         .content-container {
             max-width: 1100px;
-            margin: 80px auto 0;
+            margin: 0 auto;
             padding: 0 15px;
         }
         
@@ -651,13 +652,11 @@
         }
         .section {
             display: none;
-            min-height: 100vh;
             width: 100%;
             box-sizing: border-box;
         }
         .section.active {
             display: block;
-            min-height: 100vh;
             width: 100%;
             box-sizing: border-box;
         }
