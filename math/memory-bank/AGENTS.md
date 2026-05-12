@@ -26,9 +26,9 @@ lib/
 ## 必读文档（开始前必须阅读）
 
 1. `RULES.md` — 全局编码规范、测试规范、Git 规范、错误处理（违规后果自负）
-2. `memory-bank/design-document.md` — 产品设计全局
-3. `memory-bank/architecture.md` — 技术架构
-4. `memory-bank/implementation-plan.md` — 当前阶段的实施步骤
+2. `design-document.md` — 产品设计全局
+3. `architecture.md` — 技术架构
+4. `implementation-plan.md` — 当前阶段的实施步骤
 
 ## 核心约束（违反 = 拒绝提交）
 
@@ -41,6 +41,6 @@ lib/
 
 ## 重要提示
 
-写任何代码前必须完整阅读 memory-bank/architecture.md
-写任何代码前必须完整阅读 memory-bank/design-document.md
-每完成一个重大功能或里程碑后，必须更新 memory-bank/architecture.md
+写任何代码前必须完整阅读 architecture.md
+写任何代码前必须完整阅读 design-document.md
+每完成一个重大功能或里程碑后，必须更新 architecture.md

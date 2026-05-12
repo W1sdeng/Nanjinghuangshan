@@ -188,7 +188,7 @@ AI 开发者（包括当前会话）必须遵守以下规则：
 | 5 | **有错先查测试** | 运行 `flutter test` 定位 bug，而非肉眼检查代码 |
 | 6 | **不引入未使用的依赖** | 新加 pub 依赖前必须先搜索确认项目是否已有同类依赖 |
 | 7 | **不删除未理解的代码** | 如果要删除现有逻辑，必须先理解它被依赖的方式 |
-| 8 | **按 Plan 执行** | 开发必须按 `memory-bank/implementation-plan.md` 的 Phase 顺序执行 |
+| 8 | **按 Plan 执行** | 开发必须按 `implementation-plan.md` 的 Phase 顺序执行 |
 
 ### 3.2 代码生成命令速查
 
@@ -463,9 +463,9 @@ feat: 实现难度滑杆三档切换
 
 在开始任何编码前：
 
-1. `memory-bank/design-document.md` — 产品设计全局
-2. `memory-bank/architecture.md` — 技术架构
-3. `memory-bank/implementation-plan.md` — 当前阶段要做什么
+1. `design-document.md` — 产品设计全局
+2. `architecture.md` — 技术架构
+3. `implementation-plan.md` — 当前阶段要做什么
 4. `RULES.md`（本文件）— 编码规则
 
 ---

@@ -20,17 +20,21 @@
 
 ## Phase 0 — 脚手架与基础设施
 
-### Step 0.1：创建 Flutter 项目
+### Step 0.1：迁移非代码文件 → 创建 Flutter 项目
 
 **指令**：
-1. 在 `math/` 目录下执行 `flutter create --org com.yicun --project-name yicun .`
-2. 确保项目在 `lib/` 根目录有 `main.dart`，在 `test/` 根目录有 `widget_test.dart`
-3. 删除默认的计数示例代码（CounterApp），保留干净的 `main.dart`
+1. 将 `math/` 根目录下的 `AGENTS.md`、`RULES.md` 移动到 `math/memory-bank/` 下（已执行）
+2. 确认 `math/` 根目录仅剩 `memory-bank/` 目录和 `.git` 目录，无独立文档文件
+3. 在 `math/` 目录执行 `flutter create --org com.yicun --project-name yicun .`（注意末尾 `.` 表示当前目录）
+4. 验证生成：`lib/`、`test/`、`pubspec.yaml`、`analysis_options.yaml` 均已出现
+5. 删除默认的计数示例代码（CounterApp），保留干净的 `main.dart`
+6. 更新所有文档中引用 `AGENTS.md`、`RULES.md` 的路径为 `memory-bank/AGENTS.md`、`memory-bank/RULES.md`
 
 **验证**：
 - 运行 `flutter analyze`，无错误
 - 运行 `flutter test`，至少通过一个占位测试
 - 运行 `flutter run -d chrome`（或模拟器），看到一个空白页面
+- `lib/`、`test/`、`pubspec.yaml` 均存在于 `math/` 根目录
 
 ---
 
@@ -76,13 +80,33 @@
 3. 在 `core/theme/app_theme.dart` 中组装 `ThemeData`，设置圆角 12px、轻投影、卡片底色
 4. 在 `main.dart` 中应用该主题
 
+4. 在 `lib/app.dart` 中创建 `App` 组件，使用刚定义的主题初始化 `MaterialApp`
+5. 在 `lib/main.dart` 中引入 `App` 组件并运行
+
 **验证**：
 - `flutter analyze` 无错误
 - 写一个 Widget 测试：创建 `MaterialApp` 使用该主题，渲染一个 `Container` 带卡片圆角，运行 `flutter test` 通过
 
 ---
 
-### Step 0.5：实现 Result 类型
+### Step 0.5：添加 UUID 依赖与 ID 生成工具
+
+**指令**：
+1. 在 `pubspec.yaml` 的 `dependencies` 中添加 `uuid: ^4.3.0`
+2. 运行 `flutter pub get`
+3. 在 `lib/core/utils/id_generator.dart` 中创建 `IdGenerator` 工具类：
+   - `static String newUuid()`：使用 `Uuid().v4()` 生成全局唯一 ID
+   - `static String newShortId()`：生成前 8 位短 ID（用于日志标识，非主键）
+
+**验证**：
+- `flutter pub get` 退出码为 0
+- 写单元测试：连续调用 100 次 `newUuid()`，验证全部唯一（`Set` 去重后长度 == 100）
+- 写单元测试：生成的 ID 符合 UUID v4 格式（36 字符，含 4 个连字符）
+- `flutter test` 通过
+
+---
+
+### Step 0.6：实现 Result 类型
 
 **指令**：
 1. 在 `domain/models/result.dart` 中定义 sealed class `Result<T>`，包含 `Success<T>` 和 `Failure<T>` 两个子类
@@ -97,12 +121,12 @@
 
 ---
 
-### Step 0.6：定义 drift 数据库表
+### Step 0.7：定义 drift 数据库表
 
 **指令**：
 1. 在 `data/database/tables/` 下依次创建 5 个表定义文件：
    - `goals_table.dart`：字段 id, title, subject, motivation, deadline(可空), status, created_at
-   - `tasks_table.dart`：字段 id, goal_id(外键), title, criteria_minimal, criteria_standard, criteria_冲刺, current_intensity, progress, status, completion_quality(可空), scheduled_date, last_interrupt_at(可空), interrupt_note(可空), carried_from(可空), consecutive_days, estimated_duration, actual_duration, created_at
+    - `tasks_table.dart`：字段 id, goal_id(外键), title, criteria_minimal, criteria_standard, criteria_sprint, current_intensity, progress, status, completion_quality(可空), scheduled_date, last_interrupt_at(可空), interrupt_note(可空), carried_from(可空), consecutive_days, estimated_duration, actual_duration, created_at
    - `sessions_table.dart`：字段 id, task_id(外键), start_time, end_time(可空), duration_planned, duration_actual, mood_before(可空), mood_after(可空)
    - `day_records_table.dart`：字段 id, date(唯一), energy(可空), mood(可空), reaction_time(可空), recommended_intensity(可空), reflection_reason(可空), reflection_suggestion(可空), total_focus_minutes
    - `templates_table.dart`：字段 id, subject, name, is_official, contributor(可空), status(可空), usage_count, task_templates_json(存储 JSON 字符串)
@@ -116,7 +140,7 @@
 
 ---
 
-### Step 0.7：定义 freezed 领域模型
+### Step 0.8：定义 freezed 领域模型
 
 **指令**：
 1. 在 `domain/models/` 下按设计文档第 4 节定义 freezed 模型：
@@ -136,7 +160,7 @@
 
 ---
 
-### Step 0.8：实现核心工具函数
+### Step 0.9：实现核心工具函数
 
 **指令**：
 1. 在 `core/utils/date_utils.dart` 中实现：
@@ -784,16 +808,23 @@
 
 **指令**：
 1. 实现 `Template` 的 drift 表 DAO：CRUD + 按科目查询
-2. 在 `data/database/app_database.dart` 的初始化回调中插入预置数据：
+2. 模板表的 `task_templates_json` 字段按以下分层约定处理：
+   - **Model 层**：`Template` 模型自带 `toJson()` 和 `factory Template.fromJson(Map<String, dynamic>)`，负责 JSON 的结构化映射
+   - **DAO 层**：存入时调用 `jsonEncode(template.toJson())`，读出时原样返回 String，不做解码
+   - **Repository 层**：负责 `jsonDecode` + `Template.fromJson`，并处理格式异常降级（损坏 JSON 返回空列表）
+3. 在 `data/database/app_database.dart` 的初始化回调中通过 Repository 插入预置数据：
    - 英语 6 个模板
    - 数学 5 个模板
    - 政治 4 个模板
    - 专业课 3 个模板
-3. 模板数据按设计文档第 3.2.2 节的规范编写
+4. 模板数据按设计文档第 3.2.2 节的规范编写
 
 **验证**：
 - 初始化数据库后 → 查询所有模板 → 返回 18 条
 - 按科目过滤 → 各科目返回正确数量
+- 写测试：插入损坏的 JSON → Repository 层返回空列表而非抛异常
+- Template 模型测试：toJson/fromJson 往返一致性（序列化后再反序列化，值不丢失）
+- 验证 DAO 层代码不调用 `jsonDecode` 或 `Template.fromJson`
 - `flutter test` 通过
 
 ---

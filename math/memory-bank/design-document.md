@@ -284,11 +284,11 @@ GoalCard {
   completion_criteria: {
     minimal: string            // 保底：看完定义和例题
     standard: string           // 标准：做完课后习题
-   冲刺: string                // 冲刺：完成错题整理+扩展题
+    sprint: string             // 冲刺：完成错题整理+扩展题
   }
 
   // 执行状态
-  current_intensity: 'minimal' | 'standard' | '冲刺'
+  current_intensity: 'minimal' | 'standard' | 'sprint'
   progress: number             // 0-100
   last_interrupt: {            // 上次中断点
     timestamp: datetime
@@ -770,11 +770,11 @@ Task
   ├── title: string
   ├── criteria_minimal: string
   ├── criteria_standard: string
-  ├── criteria_冲刺: string
-  ├── current_intensity: 'minimal' | 'standard' | '冲刺'
+  ├── criteria_sprint: string
+  ├── current_intensity: 'minimal' | 'standard' | 'sprint'
   ├── progress: number (0-100)
   ├── status: 'pending' | 'in_progress' | 'completed' | 'carried_over'
-  ├── completion_quality: 'minimal' | 'standard' | '冲刺' | null
+  ├── completion_quality: 'minimal' | 'standard' | 'sprint' | null
   ├── estimated_duration: number (minutes)
   ├── actual_duration: number (minutes)
   ├── scheduled_date: date

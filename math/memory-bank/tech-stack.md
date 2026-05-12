@@ -63,6 +63,9 @@ dependencies:
   # 路由
   go_router: ^14.0.0
 
+  # ID 生成
+  uuid: ^4.3.0
+
   # 本地偏好
   hive_flutter: ^1.1.0
 
@@ -211,7 +214,7 @@ class Tasks extends Table {
   TextColumn get title => text()();
   TextColumn get criteriaMinimal => text()();
   TextColumn get criteriaStandard => text()();
-  TextColumn get criteria冲刺 => text()();
+  TextColumn get criteriaSprint => text()();
   TextColumn get currentIntensity => text()();  // minimal|standard|冲刺
   RealColumn get progress => real()();           // 0-100
   TextColumn get status => text()();             // pending|in_progress|completed|carried_over
