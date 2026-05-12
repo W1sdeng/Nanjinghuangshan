@@ -28,3 +28,9 @@
 **注意事项**：
 - 国内网络需设置镜像：`PUB_HOSTED_URL=https://pub.flutter-io.cn` `FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn`
 - Flutter SDK 装在 `C:\tools\flutter`，版本 3.41.9 / Dart 3.11.5
+
+**执行中遇到的问题**：
+1. 根目录曾残留 AGENTS.md、design-document.md 等陈旧副本，需手动清理并提交删除
+2. memory-bank/ 下残留旧的 @architecture.md，已删除
+3. flutter pub get 首次下载 126 个包较慢（约 6 分钟），关闭 VPN 使用国内镜像后加速
+4. Flutter SDK 下载了错误版本（3.29.2 的 URL 返回 634KB 无效文件），改用 3.27.4 后正常
