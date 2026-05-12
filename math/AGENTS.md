@@ -23,12 +23,21 @@ lib/
 └── presentation/ UI、Provider
 ```
 
-## 开发规范
+## 必读文档（开始前必须阅读）
+
+1. `RULES.md` — 全局编码规范、测试规范、Git 规范、错误处理（违规后果自负）
+2. `memory-bank/design-document.md` — 产品设计全局
+3. `memory-bank/architecture.md` — 技术架构
+4. `memory-bank/implementation-plan.md` — 当前阶段的实施步骤
+
+## 核心约束（违反 = 拒绝提交）
 
 - domain 层零 Flutter 依赖
-- 使用 `Result<T>` 封装仓库返回值
+- 所有 Repository 返回 `Result<T>`，禁止抛异常
 - freezed 模型禁止手动修改生成文件
-- 核心逻辑（规则引擎、拆解器）必须编写单元测试
+- 核心逻辑（规则引擎、拆解器）必须编写单元测试，覆盖率 > 90%
+- 每步开发后必须运行 `flutter test`，全部通过才能提交
+- 禁止 `var` 推断返回值、禁止 `dynamic`、禁止 `!` 强制解包、禁止 `late`、禁止 `print()`
 
 ## 重要提示
 
