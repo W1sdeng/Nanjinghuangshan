@@ -15,107 +15,52 @@
     </script>
     <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=53ce9f6e97b883f635d36ed3f43f32b0&plugin=AMap.Walking,AMap.Driving,AMap.Transfer,AMap.RoadInfo,AMap.PlaceSearch"></script>
     <style>
-        /* ==========================================
-           打印样式优化 - 导出PDF更美观
-           ========================================== */
         @media print {
-            body { font-size: 12pt; color: #333; background: white; }
+            body { font-size: 12pt; color: #333; background: #fff; }
             .section { page-break-after: auto; }
-            .day-card, .attraction-card, .public-card { 
-                box-shadow: none; 
-                border: 1px solid #ddd; 
-                break-inside: avoid;
-            }
-            .top-nav, .bottom-tab, .toolbar, .back-to-top, .search-bar, 
-            .export-menu, .top-export-btn, .enter-btn, .scroll-overlay { 
-                display: none !important; 
-            }
-            .transport-card .transport-detail,
-            .attraction-card .attraction-detail { display: block !important; }
+            .day-card, .attraction-card, .public-card { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
+            .top-nav, .bottom-tab, .toolbar, .back-to-top, .search-bar, .export-menu, .top-export-btn, .enter-btn, .scroll-overlay { display: none !important; }
+            .transport-card .transport-detail, .attraction-card .attraction-detail { display: block !important; }
             .day-image { max-height: 200px; object-fit: cover; }
             .info-label { font-weight: 600; }
             .day-header { background: #f5f5f5 !important; -webkit-print-color-adjust: exact; }
             @page { margin: 1cm; size: A4 portrait; }
         }
-
-        /* ==========================================
-           全局变量 - 高级莫兰迪配色
-           ========================================== */
         :root {
-            --main-purple: #6b5b95;  /* 高级灰紫 */
-            --main-green: #5c7a6e;   /* 静谧青灰 */
-            --accent-warm: #b8a078;   /* 雅致金 */
-            --accent-coral: #c49a8c;  /* 烟粉 */
-            --transport-orange: #d4a574; /* 暖杏色 */
-            --tips-blue: #5d6d7e;     /* 灰蓝 */
-            --prepare-yellow: #d4b76a; /* 暗金 */
-            --info-blue: #5d7a8c;     /* 雾蓝 */
-            --emergency-red: #b56b6b; /* 暗红 */
-            --hotel-orange: #c4885a;  /* 焦糖 */
-            
-            /* 背景色 */
-            --bg-light: #f5f4f0;
-            --card-bg: #ffffff;
-            
-            /* 文字色 */
-            --text-main: #3a3a3a;
-            --text-sub: #6a6a6a;
-            --text-light: #8a8280;
-            
-            /* 阴影 */
-            --shadow-light: 0 4px 16px rgba(0,0,0,0.06);
-            --shadow-medium: 0 8px 28px rgba(0,0,0,0.1);
-            
-            /* 圆角 */
-            --radius-large: 20px;
-            --radius-medium: 16px;
-            --radius-small: 12px;
-            
-            /* 过渡动画 - 更流畅的缓动曲线 */
-            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-smooth: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            --main-purple: #6b5b95; --main-green: #5c7a6e; --accent-warm: #b8a078; --accent-coral: #c49a8c;
+            --transport-orange: #d4a574; --tips-blue: #5d6d7e; --prepare-yellow: #d4b76a; --info-blue: #5d7a8c; --emergency-red: #b56b6b; --hotel-orange: #c4885a;
+            --bg-light: #f5f4f0; --card-bg: #fff;
+            --text-main: #3a3a3a; --text-sub: #6a6a6a; --text-light: #8a8280;
+            --shadow-light: 0 4px 16px rgba(0,0,0,0.06); --shadow-medium: 0 8px 28px rgba(0,0,0,0.1);
+            --radius-large: 20px; --radius-medium: 16px; --radius-small: 12px;
+            --transition-fast: 0.2s cubic-bezier(0.4,0,0.2,1); --transition-normal: 0.3s cubic-bezier(0.4,0,0.2,1); --transition-smooth: 0.5s cubic-bezier(0.4,0,0.2,1);
         }
-
-        /* 性能优化 */
-        * {
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        /* 骨架屏动画 */
-        @keyframes shimmer {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
-        }
-        .skeleton {
-            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-            background-size: 200% 100%;
-            animation: shimmer 1.5s infinite;
-            border-radius: 8px;
-        }
-        .skeleton-text {
-            height: 16px;
-            margin: 8px 0;
-            border-radius: 4px;
-        }
-        .skeleton-title {
-            height: 24px;
-            width: 60%;
-            margin-bottom: 12px;
-            border-radius: 6px;
-        }
-        .skeleton-image {
-            height: 200px;
-            border-radius: 12px;
-            margin-bottom: 12px;
-        }
+        * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+        @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+        .skeleton { background: linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 8px; }
+        .skeleton-text { height: 16px; margin: 8px 0; border-radius: 4px; }
+        .skeleton-title { height: 24px; width: 60%; margin-bottom: 12px; border-radius: 6px; }
+        .skeleton-image { height: 200px; border-radius: 12px; margin-bottom: 12px; }
         
-        /* 微交互：按钮点击波纹效果 */
-        .ripple {
-            position: relative;
-            overflow: hidden;
+        .ripple { position: relative; overflow: hidden; }
+        .ripple::after { content: ''; position: absolute; top: 50%; left: 50%; width: 0; height: 0; background: rgba(255,255,255,0.3); border-radius: 50%; transform: translate(-50%,-50%); transition: width 0.3s, height 0.3s; }
+        .ripple:active::after { width: 200px; height: 200px; }
+        .attraction-card, .public-card, .day-step-card, .transport-card { transition: transform 0.25s cubic-bezier(0.4,0,0.2,1), box-shadow 0.25s ease; }
+        .attraction-card:hover, .public-card:hover, .day-step-card:hover, .transport-card:hover { transform: translateY(-3px); }
+        .nav-btn, .tab-item, .toolbar-btn { transition: transform 0.2s cubic-bezier(0.4,0,0.2,1), box-shadow 0.2s ease; }
+        .nav-btn:hover, .tab-item:hover, .toolbar-btn:hover { transform: scale(1.05); }
+        .nav-btn:active, .tab-item:active, .toolbar-btn:active { transform: scale(0.95); }
+        .day-image { transform: translateZ(0); will-change: opacity, transform; }
+        .day-card, .attraction-card, .public-card { transform: translateZ(0); will-change: transform, box-shadow; }
+        .day-map-container { width: 100%; height: 280px; border-radius: 12px; margin-bottom: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(107,91,149,0.15); background: linear-gradient(135deg,#f8f7f5 0%,#eceae5 100%); position: relative; }
+        .day-map-container::before { content: '🗺️ 地图加载中...'; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); color: var(--text-light); font-size: 0.9em; z-index: 1; }
+        .day-map-container.loaded::before { display: none; }
+        .map-legend { font-size: 0.8em; color: var(--text-sub); margin-top: -4px; margin-bottom: 12px; display: flex; gap: 12px; justify-content: center; }
+        .map-legend span { margin: 0 8px; }
+        @media (max-width: 480px) { .day-map-container { height: 220px; } }
         }
+        .checkin-btn, .toolbar-btn, .nav-btn, .tab-item, .copy-btn, .map-btn { transform: translateZ(0); will-change: transform; }
+        .section.active, .day-step-card, .back-to-top, .search-result-item { transform: translateZ(0); will-change: opacity, transform; }
         .ripple::after {
             content: '';
             position: absolute;
@@ -133,7 +78,7 @@
             height: 200px;
         }
         
-        /* 微交互：卡片悬停上浮 */
+        
         .attraction-card, .public-card, .day-step-card, .transport-card {
             transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s ease;
         }
@@ -141,7 +86,7 @@
             transform: translateY(-3px);
         }
         
-        /* 微交互：按钮悬停缩放 */
+        
         .nav-btn, .tab-item, .toolbar-btn {
             transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s ease;
         }
@@ -151,20 +96,7 @@
         .nav-btn:active, .tab-item:active, .toolbar-btn:active {
             transform: scale(0.95);
         }
-
-        /* 图片性能优化 */
-        .day-image {
-            transform: translateZ(0);
-            will-change: opacity, transform;
-        }
-
-        /* 卡片性能优化 */
-        .day-card, .attraction-card, .public-card {
-            transform: translateZ(0);
-            will-change: transform, box-shadow;
-        }
         
-        /* 每日地图容器 */
         .day-map-container {
             width: 100%;
             height: 280px;
@@ -207,13 +139,13 @@
         }
         }
 
-        /* 按钮性能优化 */
+        
         .checkin-btn, .toolbar-btn, .nav-btn, .tab-item, .copy-btn, .map-btn {
             transform: translateZ(0);
             will-change: transform;
         }
 
-        /* 动画使用GPU */
+        
         .section.active, .day-step-card, .back-to-top, .search-result-item {
             transform: translateZ(0);
             will-change: opacity, transform;
@@ -231,12 +163,12 @@
             line-height: 1.8;
             color: var(--text-main);
             background: var(--bg-light);
-            padding-bottom: 80px; /* 给底部Tab留空间 */
+            padding-bottom: 80px; 
             overflow-x: hidden;
             -webkit-overflow-scrolling: touch;
         }
         
-        /* 内容容器 */
+        
         .container {
             padding: 0 8px;
         }
@@ -277,11 +209,11 @@
                 box-shadow: none;
                 border: 1px solid #eee;
             }
-            /* 打印时展开交通卡片 */
+            
             .transport-card .transport-detail {
                 display: block !important;
             }
-            /* 单页打印优化 */
+            
             body.printing-single .top-nav, 
             body.printing-single .bottom-tab, 
             body.printing-single .toolbar,
@@ -318,7 +250,7 @@
             }
         }
 
-        /* 超小屏幕优化 (max-width: 360px) */
+        
         @media (max-width: 360px) {
             .day-header {
                 padding: 12px;
@@ -365,7 +297,7 @@
             }
         }
 
-        /* 大屏幕优化 (min-width: 1200px) */
+        
         @media (min-width: 1200px) {
             .content-container {
                 max-width: 1000px;
@@ -387,7 +319,7 @@
             }
         }
 
-        /* 横屏优化 */
+        
         @media (orientation: landscape) and (max-height: 500px) {
             .home-section {
                 padding: 20px;
@@ -404,14 +336,14 @@
             }
         }
 
-        /* 高像素密度屏幕优化 */
+        
         @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
             .day-image {
                 image-rendering: -webkit-optimize-contrast;
             }
         }
 
-        /* 触摸设备优化 */
+        
         @media (hover: none) {
             .attraction-card:active {
                 transform: scale(0.98);
@@ -530,7 +462,7 @@
         .tab-item.active {
             color: var(--main-purple);
         }
-        /* 底部Tab当前页指示小圆点 */
+        
         .tab-item.active::after {
             content: '';
             position: absolute;
@@ -553,13 +485,13 @@
         .tab-item:active {
             transform: scale(0.92);
         }
-        /* 无障碍：焦点样式 */
+        
         .tab-item:focus-visible, .nav-btn:focus-visible {
             outline: 2px solid var(--main-purple);
             outline-offset: 2px;
         }
 
-        /* 工具栏 - 固定在视口右侧中间 */
+        
         .toolbar {
             position: fixed;
             right: 15px;
@@ -576,7 +508,7 @@
             font-size: 1.2em;
         }
         
-/* 顶部导出按钮 - 导航栏右侧固定 */
+
         .top-export-btn {
             position: fixed;
             top: 10px;
@@ -607,7 +539,7 @@
             background: linear-gradient(135deg, #5a4a84, #6b5b95);
         }
         
-        /* 导出选项按钮 - 展开显示在导出按钮下方 */
+        
         .export-options {
             display: none;
             flex-direction: column;
@@ -670,7 +602,7 @@
 
         
 
-        /* 导出加载中 */
+        
         .export-loading {
             position: fixed;
             top: 50%;
@@ -696,7 +628,7 @@
             padding: 0 15px;
         }
         
-        /* 卷轴展开动画 */
+        
         .scroll-overlay {
             position: fixed;
             top: 0;
@@ -734,7 +666,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        /* 卡片展开/收起平滑过渡 */
+        
         .attraction-card {
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             overflow: hidden;
@@ -757,7 +689,7 @@
             transform: scale(0.98);
         }
         
-        /* 打卡成功动画 */
+        
         @keyframes checkinBounce {
             0% { transform: scale(1); }
             30% { transform: scale(1.3); }
@@ -769,7 +701,7 @@
             animation: checkinBounce 0.6s ease;
         }
 
-        /* 页面切换滑入动画 */
+        
         @keyframes slideInLeft {
             from { opacity: 0; transform: translateX(30px); }
             to { opacity: 1; transform: translateX(0); }
@@ -785,7 +717,7 @@
             animation: slideInRight 0.3s ease forwards;
         }
 
-        /* 导航按钮切换平滑过渡 */
+        
         .top-nav .nav-btn {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -794,7 +726,7 @@
             box-shadow: 0 4px 15px rgba(107, 91, 149, 0.4);
         }
 
-        /* 实时天气挂件 */
+        
         .weather-widget {
             display: inline-flex;
             align-items: center;
@@ -825,7 +757,7 @@
             color: var(--emergency-red);
         }
         
-        /* 图片加载优化 - 0.8s平滑渐入 + 骨架屏 + hover微动 */
+        
         .day-image {
             opacity: 0;
             transform: scale(1.02);
@@ -858,7 +790,7 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* 步骤卡片样式 - 美化设计 */
+        
         .day-step-card {
             background: linear-gradient(135deg, #faf9f7 0%, #ffffff 100%);
             border-radius: 16px;
@@ -971,7 +903,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        /* 回到顶部滑翔动画 */
+        
         .back-to-top {
             transition: all 0.3s ease;
         }
@@ -984,7 +916,7 @@
             100% { opacity: 1; transform: translateY(0) rotate(0); }
         }
         
-        /* 夜间模式渐变过渡 - 更平滑的动画 */
+        
         body {
             transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
                         color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
@@ -998,7 +930,7 @@
                         box-shadow 0.4s ease !important;
         }
         
-        /* 夜间模式遮罩动画 */
+        
         body.night-mode::after {
             content: '';
             position: fixed;
@@ -1016,7 +948,7 @@
             to { opacity: 1; }
         }
 
-        /* 夜间模式颜色变量 */
+        
         body.night-mode {
             --bg-main: #121212;
             --bg-light: #1e1e1e;
@@ -1027,7 +959,7 @@
             --text-light: #707070;
         }
         
-        /* 夜间模式卡片增强 */
+        
         body.night-mode .day-card,
         body.night-mode .public-section {
             background: linear-gradient(145deg, #1e1e1e 0%, #161616 100%);
@@ -1039,7 +971,7 @@
             border-color: rgba(255, 255, 255, 0.1);
         }
         
-        /* 夜间模式景点卡片 */
+        
         body.night-mode .attraction-card {
             background: linear-gradient(135deg, #1e1e1e 0%, #252525 100%);
             border-color: rgba(255, 255, 255, 0.06);
@@ -1049,7 +981,7 @@
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
         }
         
-        /* 夜间模式步骤卡片 */
+        
         body.night-mode .day-step-card {
             background: linear-gradient(135deg, #1a1a1a 0%, #1e1e1e 100%);
             border-color: rgba(255, 255, 255, 0.05);
@@ -1058,7 +990,7 @@
             background: linear-gradient(180deg, #8a7ba8, #6b8a7e);
         }
         
-        /* 夜间模式按钮 */
+        
         body.night-mode .nav-btn,
         body.night-mode .tab-item {
             background: linear-gradient(135deg, #252525 0%, #1a1a1a 100%);
@@ -1069,13 +1001,13 @@
             color: #c0c0d0;
         }
         
-        /* 夜间模式搜索栏 */
+        
         body.night-mode .search-bar {
             background: #1e1e1e;
             border-color: #333;
         }
         
-        /* 夜间模式标题文字发光效果 */
+        
         body.night-mode h1,
         body.night-mode h2,
         body.night-mode h3,
@@ -1083,14 +1015,14 @@
             text-shadow: 0 0 10px rgba(200, 200, 255, 0.1);
         }
         
-        /* 搜索结果跳转动画 */
+        
         @keyframes searchJumpIn {
             0% { opacity: 0; transform: translateY(-20px); }
             60% { transform: translateY(5px); }
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* 搜索结果入场动画 */
+        
         .search-result-item {
             animation: searchResultFadeIn 0.3s ease forwards;
             opacity: 0;
@@ -1111,7 +1043,7 @@
             font-weight: 500;
         }
         
-        /* 景点卡片悬停效果 */
+        
         .attraction-card {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -1120,7 +1052,7 @@
             box-shadow: 0 12px 32px rgba(107,91,149,0.15);
         }
 
-        /* 卡片展开弹性动画 */
+        
         @keyframes cardPopIn {
             0% { opacity: 0; transform: scale(0.95) translateY(10px); }
             60% { transform: scale(1.02) translateY(-2px); }
@@ -1130,7 +1062,7 @@
             animation: cardPopIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* 折叠箭头旋转动画 */
+        
         .attraction-title::after {
             content: '▼';
             float: right;
@@ -1141,7 +1073,7 @@
             transform: rotate(-90deg);
         }
 
-        /* 按钮点击波纹效果 */
+        
         .checkin-btn, .toolbar-btn, .nav-btn, .tab-item, .copy-btn, .map-btn {
             position: relative;
             overflow: hidden;
@@ -1163,7 +1095,7 @@
             height: 200px;
         }
 
-        /* 复制按钮反馈动画 */
+        
         .copy-btn {
             transition: all 0.2s ease;
         }
@@ -1179,13 +1111,13 @@
             100% { transform: scale(1); }
         }
 
-        /* 工具栏按钮hover效果 */
+        
         .toolbar-btn:hover {
             transform: translateY(-2px) scale(1.05);
             box-shadow: 0 6px 20px rgba(107,91,149,0.3);
         }
 
-        /* 复选框动画增强 */
+        
         .checklist input[type="checkbox"] {
             appearance: none;
             width: 20px;
@@ -1205,7 +1137,7 @@
             100% { transform: scale(1); }
         }
         
-        /* 交通卡片过渡 */
+        
         .transport-card {
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -1221,7 +1153,7 @@
             opacity: 1;
         }
         
-        /* Tab切换动画 - 左右滑动效果 */
+        
         .tab-item {
             transition: all 0.3s ease;
         }
@@ -1236,7 +1168,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        /* 顶部Day导航点击 - 平滑滚动 */
+        
         .top-nav .nav-btn {
             transition: all 0.2s ease;
         }
@@ -1244,7 +1176,7 @@
             transform: scale(0.95);
         }
         
-        /* 图片放大模态框 - 缩放弹跳效果 */
+        
         .modal.active {
             animation: modalBounceIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
@@ -1253,7 +1185,7 @@
             to { opacity: 1; transform: scale(1); }
         }
         
-        /* 复选框勾选 - 填充动画 */
+        
         .checklist input[type="checkbox"] {
             transition: all 0.2s ease;
         }
@@ -1266,7 +1198,7 @@
             100% { transform: scale(1); }
         }
         
-        /* 预算切换 - 金额数字滚动效果 */
+        
         .editable-amount {
             transition: all 0.3s ease;
         }
@@ -1279,7 +1211,7 @@
             100% { transform: translateY(0); opacity: 1; }
         }
         
-        /* 景点卡片展开 - 回弹效果 */
+        
         .attraction-card:not(.collapsed) {
             animation: cardExpandBounce 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
@@ -1288,7 +1220,7 @@
             to { transform: scale(1); }
         }
         
-        /* 复制/导航按钮 - 按下缩放反馈 */
+        
         .copy-btn, .map-btn, .checkin-btn, .quick-call-btn {
             transition: all 0.15s ease;
         }
@@ -1296,7 +1228,7 @@
             transform: scale(0.92);
         }
         
-        /* 回到顶部按钮 - 淡入滑入效果 */
+        
         .back-to-top {
             opacity: 0;
             transform: translateY(20px);
@@ -1312,12 +1244,12 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        /* 工具栏按钮点击效果 */
+        
         .toolbar-btn:active {
             transform: scale(0.85);
         }
         
-        /* 进入按钮动画增强 */
+        
         .enter-btn {
             transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
@@ -1329,18 +1261,18 @@
             transform: scale(0.96);
         }
         
-        /* 导航按钮点击效果 */
+        
         .nav-btn:active {
             transform: scale(0.94);
         }
         
-        /* 搜索结果项点击效果 */
+        
         .search-result-item:active {
             background: rgba(107,91,149,0.15);
             transform: scale(0.98);
         }
         
-        /* 预算切换按钮动画 */
+        
         .budget-toggle-btn {
             transition: all 0.3s ease;
         }
@@ -1348,7 +1280,7 @@
             transform: scale(0.95);
         }
         
-        /* 分类按钮动画 */
+        
         .category-btn {
             transition: all 0.2s ease;
         }
@@ -1356,7 +1288,7 @@
             transform: scale(0.95);
         }
         
-        /* 按钮悬停动画 */
+        
         .toolbar-btn {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -1364,7 +1296,7 @@
             transform: translateY(-5px) scale(1.05);
         }
         
-        /* 搜索栏动画 */
+        
         .search-bar {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -1376,12 +1308,12 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        /* 图片轮播过渡 */
+        
         .slider-track {
             transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        /* 模态框动画 */
+        
         .modal {
             transition: opacity 0.3s ease;
         }
@@ -1599,7 +1531,7 @@
             border-color: rgba(107,91,149,0.12);
         }
 
-        /* 公共板块 */
+        
         .public-section {
             background: linear-gradient(145deg, #ffffff 0%, #faf9f7 100%);
             border-radius: var(--radius-large);
@@ -1644,7 +1576,7 @@
             font-size: 0.95em;
             letter-spacing: 0.5px;
         }
-        /* 天气图标占位符 */
+        
         .weather-icon {
             margin-left: 10px;
             font-size: 1.2em;
@@ -1682,7 +1614,7 @@
         }
 
  
-/* 移动端图片宽度100% */
+
   @media (max-width: 768px) {
       .day-images-grid {
           display: flex !important;
@@ -1701,7 +1633,7 @@
       }
   }
   
-/* ===== 图片轮播功能 ===== */
+
  .image-slider {
      position: relative;
      width: 90%;
@@ -1767,7 +1699,7 @@
             display: none;
         }
 
-        /* 图片两列布局（桌面端） */
+        
         @media (min-width: 769px) {
             .day-images-grid {
                 display: grid;
@@ -1784,9 +1716,9 @@
             }
         }
         
-        /* ===== 移动端适配 ===== */
+        
         @media (max-width: 480px) {
-            /* 每日行程卡片 */
+            
             .day-card {
                 padding: 14px 10px;
                 border-radius: 14px;
@@ -1808,7 +1740,7 @@
                 font-size: 0.9em;
             }
             
-            /* 景点卡片 */
+            
             .attraction-card {
                 padding: 14px;
                 margin: 10px 0;
@@ -1821,7 +1753,7 @@
                 gap: 6px;
             }
             
-            /* 预算总览 */
+            
             .budget-summary-card {
                 padding: 16px;
                 border-radius: 16px;
@@ -1845,7 +1777,7 @@
                 font-size: 2em;
             }
             
-            /* 每日预算明细 */
+            
             .budget-day-card {
                 padding: 12px;
                 margin: 8px 0;
@@ -1859,7 +1791,7 @@
                 gap: 4px;
             }
             
-            /* 公共板块 */
+            
             .public-section {
                 padding: 20px 16px;
             }
@@ -1871,7 +1803,7 @@
                 font-size: 1.05em;
             }
             
-            /* 导航栏 */
+            
             .top-nav {
                 padding: 10px 8px;
                 gap: 6px;
@@ -1881,7 +1813,7 @@
                 font-size: 0.8em;
             }
             
-            /* 底部Tab */
+            
             .bottom-tab {
                 padding: 8px 10px;
             }
@@ -1890,7 +1822,7 @@
                 padding: 8px 4px;
             }
             
-            /* 工具栏 - 移动端保持固定 */
+            
             .toolbar-btn {
                 width: 44px;
                 height: 44px;
@@ -1898,7 +1830,7 @@
                 box-shadow: 0 3px 12px rgba(0,0,0,0.15);
             }
             
-            /* 工具栏开关按钮 - 始终显示 */
+            
             .toolbar-toggle-btn {
                 display: flex;
                 width: 36px;
@@ -1922,7 +1854,7 @@
                 transform: scale(0.9);
             }
             
-            /* 工具栏内容 */
+            
             .toolbar-content {
                 display: flex;
                 flex-direction: column;
@@ -1933,7 +1865,7 @@
                 display: none;
             }
             
-            /* 桌面端工具栏横向排列 */
+            
             @media (min-width: 769px) {
                 .toolbar-toggle-btn {
                     display: none;
@@ -1947,7 +1879,7 @@
                 }
             }
             
-            /* 搜索栏 */
+            
             .search-bar {
                 top: 50px;
                 left: 10px;
@@ -1958,14 +1890,14 @@
                 padding: 10px 16px;
             }
             
-            /* 地图按钮 */
+            
             .map-btn {
                 padding: 3px 8px;
                 font-size: 0.7em;
                 margin-left: 4px;
             }
             
-            /* 交通卡片 */
+            
             .transport-card {
                 padding: 14px;
             }
@@ -1975,7 +1907,7 @@
                 gap: 8px;
             }
             
-            /* 预约信息 */
+            
             .booking-item {
                 padding: 12px;
             }
@@ -1985,12 +1917,12 @@
                 align-items: flex-start;
             }
             
-            /* 避坑须知 */
+            
             .tips-box, .old-tips, .prepare-box {
                 padding: 14px;
             }
             
-            /* 封面页 */
+            
             #home {
                 padding: 20px;
             }
@@ -2006,7 +1938,7 @@
                 font-size: 1.1em;
             }
             
-            /* 回到顶部 */
+            
             .back-to-top {
                 bottom: 140px;
                 right: 15px;
@@ -2014,7 +1946,7 @@
                 height: 40px;
             }
             
-            /* 图片 */
+            
             .day-image {
                 height: auto;
                 min-height: 180px;
@@ -2024,60 +1956,60 @@
                 border-radius: 10px;
             }
             
-            /* 引用文字 */
+            
             .quote {
                 padding: 12px 14px;
                 font-size: 0.95em;
             }
             
-            /* 实用信息表格 */
+            
             .info-table {
                 font-size: 0.85em;
             }
             
-            /* 优化内容显示 */
+            
             .day-card .attraction-detail p {
                 word-wrap: break-word;
                 overflow-wrap: break-word;
             }
             
-            /* 图片不超出容器 */
+            
             .day-image {
                 max-width: 100%;
                 width: 100%;
             }
             
-            /* 景点卡片内容优化 */
+            
             .attraction-detail {
                 word-break: break-word;
             }
             
-            /* 按钮不换行 */
+            
             .map-btn, .copy-btn, .checkin-btn {
                 white-space: nowrap;
                 margin: 4px 0;
             }
             
-            /* 表格横向滚动 */
+            
             .info-table-wrapper {
                 overflow-x: auto;
                 -webkit-overflow-scrolling: touch;
             }
             
-            /* 引用文字更窄 */
+            
             .quote {
                 margin: 12px 0;
                 font-size: 0.9em;
             }
             
-            /* 标签不换行 */
+            
             .info-label, .warning-tag {
                 display: inline-block;
                 white-space: nowrap;
             }
         }
         
-        /* ===== 平板端适配 ===== */
+        
         @media (min-width: 481px) and (max-width: 768px) {
             .day-card {
                 padding: 20px;
@@ -2228,7 +2160,7 @@
         .transport-detail p {
             padding: 3px 0;
         }
-        /* 交通费用小计 */
+        
         .transport-summary {
             margin-top: 10px;
             padding-top: 10px;
@@ -2237,7 +2169,7 @@
             color: var(--transport-orange);
         }
 
-        /* 提醒标注 */
+        
         .warning-tag {
             display: inline-block;
             background: #fff3e0;
@@ -2812,7 +2744,7 @@
             align-items: center;
             justify-content: center;
             transition: var(--transition-fast);
-            /* 无障碍 */
+            
             aria-label: "关闭图片";
         }
         .modal-close:hover {
@@ -2967,7 +2899,7 @@
             .tips-box {
                 background: #2a303a;
             }
-            /* 交通卡片在暗黑模式下调整对比度 */
+            
             .transport-card {
                 background: #2a2a20;
                 border-left-color: #ff9800;
@@ -2995,14 +2927,14 @@
                 --text-sub: #bbb;
                 --text-light: #999;
             }
-            /* 酒店状态标签暗黑模式 */
+            
             .booking-status.pending {
                 background: #3a2a10;
                 color: #ff9800;
             }
         }
     
-        /* v16 动画效果 */
+        
         #home h1 { animation: fadeInUp 0.8s ease forwards; }
         #home h1 .stamp { animation: fadeInUp 0.8s ease 0.3s forwards; opacity: 0; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -3213,7 +3145,7 @@
            新功能：地址跳转地图 + 快速搜索 + 工具栏
            ========================================== */
         
-        /* 地图跳转按钮 */
+        
         .map-btn {
             display: inline-flex;
             align-items: center;
@@ -3233,7 +3165,7 @@
             transform: translateY(-1px);
         }
 
-        /* 搜索栏 */
+        
         .search-bar {
             position: fixed;
             top: 60px;
@@ -3292,7 +3224,7 @@
             background: #f5f5f5;
         }
 
-        /* 搜索结果高亮动画 */
+        
         .search-highlight {
             background: linear-gradient(90deg, #fff59d, #ffeb3b, #fff59d);
             background-size: 200% 100%;
@@ -3332,7 +3264,7 @@
             z-index: 10;
         }
         
-        /* 搜索跳转指示器 */
+        
         .search-nav-indicator {
             position: fixed;
             top: 70px;
@@ -3356,7 +3288,7 @@
             to { opacity: 1; transform: translateX(-50%) translateY(0); }
         }
 
-        /* 夜间模式搜索高亮 */
+        
         body.night-mode .search-highlight {
             background: linear-gradient(90deg, #5a4a2a, #7a6a3a, #5a4a2a);
             background-size: 200% 100%;
@@ -3368,7 +3300,7 @@
             100% { background-position: -200% 0; }
         }
 
-        /* 工具栏（搜索/夜间/字号/离线） */
+        
         .toolbar {
             position: fixed;
             bottom: 80px;
@@ -3404,7 +3336,7 @@
             color: white;
         }
 
-        /* 夜间模式 - 优化版 */
+        
         body.night-mode {
             --card-bg: #1a1a1a;
             --text-main: #e8e8e8;
@@ -3495,12 +3427,12 @@
             border-top: 1px solid rgba(255, 255, 255, 0.08);
         }
         
-        /* 夜间模式图片降噪处理 */
+        
         body.night-mode .day-image {
             filter: brightness(0.9) contrast(1.05);
         }
         
-        /* 夜间模式输入框 */
+        
         body.night-mode input[type="text"],
         body.night-mode input[type="search"],
         body.night-mode textarea {
@@ -3509,7 +3441,7 @@
             color: #e0e0e0;
         }
         
-        /* 夜间模式复选框增强 */
+        
         body.night-mode .checklist input[type="checkbox"] {
             border-color: #5a5a8a;
             background: #1e1e1e;
@@ -3519,7 +3451,7 @@
             border-color: #7a7aaa;
         }
         
-        /* 夜间模式标题发光效果 */
+        
         body.night-mode #home h1 {
             text-shadow: 0 0 20px rgba(159, 168, 218, 0.3);
         }
@@ -3786,10 +3718,10 @@
             color: #c9a55a;
         }
 
-        /* 字号调节 */
+        
         body {
             font-size: 16px;
-            overscroll-behavior-x: none; /* 防止横向滑动触发浏览器后退 */
+            overscroll-behavior-x: none; 
         }
         body.font-small { font-size: 14px; }
         body.font-medium { font-size: 16px; }
@@ -3798,7 +3730,7 @@
         @media (max-width: 480px) {
             body { 
                 font-size: 15px;
-                overscroll-behavior-x: contain; /* 移动端防止滑动触发后退 */
+                overscroll-behavior-x: contain; 
             }
             body.font-small { font-size: 13px; }
             body.font-medium { font-size: 15px; }
@@ -3812,7 +3744,7 @@
             transform: scale(0.85);
         }
 
-        /* 打卡功能 */
+        
         .checkin-btn {
             display: inline-flex;
             align-items: center;
@@ -3839,7 +3771,7 @@
 
         
 
-        /* 快捷电话 */
+        
         .quick-call-btn {
             display: inline-flex;
             align-items: center;
@@ -3858,7 +3790,7 @@
             background: linear-gradient(135deg, #ffcdd2, #ef9a9a);
         }
 
-        /* 夜间模式切换按钮动画 */
+        
         .night-toggle-btn {
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -3874,7 +3806,7 @@
             50% { box-shadow: 0 0 20px rgba(255, 200, 100, 0.4); }
         }
 
-        /* 夜间模式切换时的页面渐变动画 */
+        
         body.switching-night * {
             animation: none;
         }
@@ -4169,7 +4101,7 @@
 
                 <div class="quote">"钟山龙蟠，石头虎踞，此帝王之宅也。"<div class="quote-author">—— 《太平御览》</div></div>
                 
-                <img src="images/明孝陵1.jpg" alt="明孝陵神道石像生" class="day-image" loading="lazy" onclick="openModal('day2', 0)">
+                <img src="images/day2-mingxiaoling1.jpg" alt="明孝陵神道石像生" class="day-image" loading="lazy" onclick="openModal('day2', 0)">
                 <div class="image-caption">🍂 明孝陵神道 · 六百年石像生</div>
 
                 <div class="attraction-card" onclick="toggleCard(this, event)">
@@ -5738,7 +5670,7 @@
                     box-shadow: 0 4px 12px rgba(122,134,193,0.4);
                 }
 
-                /* 预算分布可视化条形图 */
+                
                 .budget-distribution {
                     margin-top: 24px;
                     padding: 16px;
@@ -6543,45 +6475,36 @@
            参数：sectionId - 板块ID（如 'home', 'day1', 'food' 等）
            ========================================== */
         function showSection(sectionId, direction) {
-            // 隐藏所有板块
+            if (!sectionId.startsWith('day')) window.scrollTo(0, 0);
             document.querySelectorAll('.section').forEach(section => {
                 section.classList.remove('active');
                 section.style.width = '100%';
             });
-            // 显示目标板块（带滑入动画）
             const targetSection = document.getElementById(sectionId);
             targetSection.classList.remove('slide-out');
             targetSection.classList.add('active');
             targetSection.style.width = '100%';
-            
-            // 强制重绘后再检查尺寸
+
             void targetSection.offsetHeight;
-            
-            // 更新顶部导航按钮状态
+
             document.querySelectorAll('.top-nav .nav-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
-            // 如果有event.target则更新，否则根据sectionId查找对应按钮
             if (event && event.target && event.target.classList.contains('nav-btn')) {
                 event.target.classList.add('active');
             } else {
                 const targetBtn = document.querySelector(`.top-nav .nav-btn[onclick*="${sectionId}"]`);
                 if (targetBtn) targetBtn.classList.add('active');
             }
-            // 更新底部Tab状态
             updateBottomTab(sectionId);
-            
-            // 如果是Day页面，滚动到当天内容位置；否则滚动到顶部
+
             if (sectionId.startsWith('day')) {
                 const dayCard = document.querySelector(`#${sectionId} .day-card`);
                 if (dayCard) {
                     dayCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
-            } else {
-                window.scrollTo({top: 0, behavior: 'smooth'});
             }
-            
-            // 更新顶部导出按钮显示
+
             const exportBtn = document.getElementById('topExportBtn');
             if (exportBtn) {
                 if (sectionId.startsWith('day')) {
@@ -6590,7 +6513,6 @@
                     exportBtn.classList.remove('visible');
                 }
             }
-            // 关闭导出选项
             closeExportOptions();
         }
 
