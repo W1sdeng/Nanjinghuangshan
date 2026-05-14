@@ -6786,14 +6786,18 @@
            每日卡片滑动切换（移动端）- 带边界震动
            ========================================== */
         const daySections = ['day1', 'day2', 'day3', 'day4', 'day5', 'day6', 'day7', 'day8'];
-        let touchStartX = 0;
+        let touchStartX = 0, touchStartY = 0;
         document.querySelector('.content-container').addEventListener('touchstart', e => {
             touchStartX = e.changedTouches[0].screenX;
+            touchStartY = e.changedTouches[0].screenY;
         });
         document.querySelector('.content-container').addEventListener('touchend', e => {
             const touchEndX = e.changedTouches[0].screenX;
-            const diff = touchStartX - touchEndX;
-            if (Math.abs(diff) > 50) {
+            const touchEndY = e.changedTouches[0].screenY;
+            const diffX = Math.abs(touchStartX - touchEndX);
+            const diffY = Math.abs(touchStartY - touchEndY);
+            if (diffX > diffY * 1.5 && diffX > 50) {
+                const diff = touchStartX - touchEndX;
                 const currentSection = document.querySelector('.section.active');
                 const currentId = currentSection.id;
                 const currentIndex = daySections.indexOf(currentId);
@@ -6805,7 +6809,6 @@
                         showSection(daySections[currentIndex - 1]);
                         updateNavButton(daySections[currentIndex - 1]);
                     } else {
-                        // 边界震动反馈
                         if (navigator.vibrate) { navigator.vibrate(50); }
                     }
                 }
