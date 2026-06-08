@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>成都五日游 · 详细行程</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #f8f7f5;
+    --surface: rgba(255,255,255,0.6);
+    --surface-hover: rgba(255,255,255,0.85);
+    --border: rgba(0,0,0,0.05);
+    --shadow: 0 2px 16px rgba(0,0,0,0.03);
+    --shadow-hover: 0 8px 32px rgba(0,0,0,0.06);
+    --text: #1a1c1b;
+    --text-secondary: #7a807c;
+    --text-tertiary: #b0b5b2;
+    --green: #2d5a4a;
+    --green-light: rgba(45,90,74,0.08);
+    --green-mid: #5a8a72;
+    --gold: #c4a87a;
+    --sage: #8a9a8a;
+    --warm: #c47a5a;
+    --warm-light: rgba(196,122,90,0.1);
+    --font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1a1c1b;
+      --surface: rgba(44,46,44,0.5);
+      --surface-hover: rgba(56,58,56,0.7);
+      --border: rgba(255,255,255,0.04);
+      --shadow: 0 2px 16px rgba(0,0,0,0.2);
+      --shadow-hover: 0 8px 32px rgba(0,0,0,0.3);
+      --text: #ededea;
+      --text-secondary: #8a908c;
+      --text-tertiary: #5a605c;
+      --green: #5a9a7a;
+      --green-light: rgba(90,154,122,0.12);
+      --green-mid: #7aaa8a;
+      --gold: #c9b08a;
+      --sage: #7a8a7a;
+      --warm: #d48a6a;
+      --warm-light: rgba(212,138,106,0.12);
+    }
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .glow { position:fixed;top:-30%;left:-20%;width:60%;height:70%;background:radial-gradient(ellipse,rgba(45,90,74,0.04) 0%,transparent 70%);pointer-events:none;z-index:-1; }
+  .glow2 { position:fixed;bottom:-20%;right:-10%;width:50%;height:60%;background:radial-gradient(ellipse,rgba(196,168,122,0.03) 0%,transparent 70%);pointer-events:none;z-index:-1; }
+
+  /* ─── Nav ─── */
+  .nav {
+    position:sticky;top:0;z-index:100;
+    display:flex;justify-content:center;align-items:center;gap:2px;
+    padding:8px 16px;
+    backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);
+    background:rgba(248,247,245,0.78);
+    border-bottom:1px solid var(--border);
+    overflow-x:auto;-webkit-overflow-scrolling:touch;
+  }
+  @media (prefers-color-scheme: dark) { .nav { background:rgba(26,28,27,0.78); } }
+  .nav::-webkit-scrollbar { display:none; }
+
+  .nav a {
+    display:flex;align-items:center;justify-content:center;
+    height:30px;padding:0 12px;border-radius:7px;
+    font-size:12px;font-weight:500;
+    color:var(--text-secondary);text-decoration:none;
+    cursor:pointer;transition:all 0.2s ease;flex-shrink:0;letter-spacing:0.2px;
+  }
+  .nav a:hover { color:var(--text);background:var(--surface); }
+  .nav a.active { background:var(--text);color:var(--bg);font-weight:600; }
+
+  /* ─── Container ─── */
+  .container { max-width:720px;margin:0 auto;padding:0 24px 80px; }
+  @media (min-width: 1024px) { .container { max-width:780px;padding:0 32px 100px; } .glow { width:50%; } .glow2 { width:40%; } .home-header { padding:80px 0 0; } .day-card,.bg-card { padding:24px 28px;border-radius:18px; } .page-head { padding-top:32px; } .page-head .num { width:44px;height:44px;font-size:16px; } .page-head .info h2 { font-size:20px; } .dc-item { font-size:15px; } .route { margin-bottom:48px; } .stats { margin:28px 0 48px; } .start-wrap { padding:28px 0 64px; } }
+  @media (max-width: 640px) { .container { max-width:100%;padding:0 14px 56px; } }
+
+  /* ─── Pages ─── */
+  .page { display:none; }
+  .page.active { display:block; }
+
+  /* ─── Home ─── */
+  .home-header { text-align:center;padding:72px 0 0; }
+  .home-header .badge {
+    display:inline-flex;align-items:center;gap:5px;
+    font-size:11px;font-weight:500;color:var(--green);
+    background:var(--green-light);padding:4px 12px;border-radius:16px;
+    margin-bottom:20px;letter-spacing:0.5px;
+  }
+  .home-header h1 {
+    font-size:clamp(36px,5.5vw,52px);font-weight:700;
+    letter-spacing:-0.8px;color:var(--text);
+    margin-bottom:8px;line-height:1.1;
+  }
+  .home-header .sub { font-size:15px;color:var(--text-secondary);font-weight:400;letter-spacing:0.8px; }
+
+  .stats { display:flex;justify-content:center;gap:6px;margin:24px 0 44px;flex-wrap:wrap; }
+  .stats span {
+    font-size:12px;font-weight:500;color:var(--text-tertiary);
+    background:var(--surface);border:1px solid var(--border);
+    padding:4px 12px;border-radius:14px;letter-spacing:0.2px;
+  }
+
+  /* Route Overview */
+  .route {
+    display:flex;align-items:flex-start;justify-content:space-between;
+    margin-bottom:40px;padding:0 4px;position:relative;
+  }
+  .route::before {
+    content:'';position:absolute;
+    top:26px;left:28px;right:28px;height:1px;
+    background:linear-gradient(to right,var(--green),var(--green-mid),var(--gold),var(--green-mid),var(--green));
+    opacity:0.25;
+  }
+  .rt-stop { display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;flex:1; }
+  .rt-dot { width:10px;height:10px;border-radius:50%;background:var(--green);border:2px solid var(--bg);box-shadow:0 0 0 2px rgba(45,90,74,0.15); }
+  .rt-stop:nth-child(2) .rt-dot { background:var(--green-mid);box-shadow:0 0 0 2px rgba(90,138,114,0.15); }
+  .rt-stop:nth-child(3) .rt-dot { background:var(--gold);box-shadow:0 0 0 2px rgba(196,168,122,0.15); }
+  .rt-stop:nth-child(4) .rt-dot { background:var(--green-mid);box-shadow:0 0 0 2px rgba(90,138,114,0.15); }
+  .rt-stop:nth-child(5) .rt-dot { background:var(--green);box-shadow:0 0 0 2px rgba(45,90,74,0.15); }
+  .rt-emoji { font-size:18px;line-height:1; }
+  .rt-name { font-size:11px;font-weight:600;color:var(--text); }
+  .rt-label { font-size:8px;color:var(--text-tertiary);letter-spacing:0.8px;text-transform:uppercase;font-weight:500; }
+
+  /* Start button */
+  .start-wrap { text-align:center;padding:20px 0 56px; }
+  .start-btn {
+    display:inline-flex;align-items:center;gap:8px;
+    padding:14px 36px;
+    background:var(--green);color:#fff;
+    font-size:15px;font-weight:600;letter-spacing:0.3px;
+    border:none;border-radius:14px;
+    cursor:pointer;
+    transition:all 0.3s cubic-bezier(0.22,1,0.36,1);
+    box-shadow:0 4px 20px rgba(45,90,74,0.2);
+  }
+  .start-btn:hover {
+    background:#3a6a5a;
+    transform:translateY(-2px);
+    box-shadow:0 8px 30px rgba(45,90,74,0.3);
+  }
+  .start-btn:active { transform:translateY(0); }
+
+  /* ─── Page Header ─── */
+  .page-head {
+    display:flex;align-items:center;gap:10px;margin-bottom:24px;padding-top:24px;
+  }
+  .page-head .num {
+    width:36px;height:36px;border-radius:10px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:14px;font-weight:700;color:#fff;
+  }
+  .page-head .num.d1 { background:var(--green); }
+  .page-head .num.d2 { background:var(--green-mid); }
+  .page-head .num.d3 { background:var(--gold); }
+  .page-head .num.d4 { background:var(--green-mid); }
+  .page-head .num.d5 { background:var(--green); }
+  .page-head .num.budget { background:var(--warm); }
+
+  .page-head .info {  }
+  .page-head .info h2 { font-size:18px;font-weight:600;color:var(--text); }
+  .page-head .info p { font-size:12px;color:var(--text-tertiary);margin-top:2px; }
+
+  /* ─── Day Cards ─── */
+  .day-card {
+    background:var(--surface);
+    backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+    border:1px solid var(--border);border-radius:16px;
+    padding:20px 22px;margin-bottom:14px;
+  }
+  .day-card:last-child { margin-bottom:0; }
+
+  .dc-title {
+    font-size:13px;font-weight:600;color:var(--text);
+    margin-bottom:10px;display:flex;align-items:center;gap:6px;
+  }
+  .dc-title .tag {
+    font-size:9px;font-weight:600;letter-spacing:0.5px;
+    padding:2px 7px;border-radius:5px;
+    background:var(--green-light);color:var(--green);
+  }
+
+  .dc-item {
+    display:flex;align-items:flex-start;gap:8px;padding:4px 0;
+    font-size:14px;line-height:1.6;color:var(--text-secondary);
+  }
+  .dc-item .ico { flex-shrink:0;width:20px;text-align:center;font-size:13px;margin-top:2px; }
+  .dc-item .hl { color:var(--text);font-weight:500; }
+  .dc-item .price { color:var(--warm);font-weight:500; }
+
+  .dc-tags { display:flex;flex-wrap:wrap;gap:4px;margin-top:8px; }
+  .dc-tags span {
+    font-size:10px;font-weight:500;padding:2px 8px;border-radius:6px;
+    background:var(--green-light);color:var(--text-tertiary);
+    border:1px solid var(--border);
+  }
+
+  .dc-divider { height:1px;background:var(--border);margin:12px 0; }
+
+  .dc-cost-row {
+    display:flex;justify-content:space-between;align-items:center;
+    font-size:12px;color:var(--text-secondary);
+  }
+  .dc-cost-row .val { font-weight:600;color:var(--text); }
+
+  /* ─── Budget Page ─── */
+  .budget-total {
+    text-align:center;padding:32px 0 24px;
+  }
+  .budget-total .big {
+    font-size:44px;font-weight:700;color:var(--green);
+    letter-spacing:-1px;
+  }
+  .budget-total .lbl {
+    font-size:13px;color:var(--text-tertiary);margin-top:4px;
+  }
+
+  .bg-card {
+    background:var(--surface);
+    backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+    border:1px solid var(--border);border-radius:16px;
+    padding:20px 22px;margin-bottom:12px;
+  }
+  .bg-card:last-child { margin-bottom:0; }
+
+  .bg-header {
+    display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;
+  }
+  .bg-header .l { display:flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:var(--text); }
+  .bg-header .r { font-size:16px;font-weight:700;color:var(--text); }
+
+  .bg-item {
+    display:flex;justify-content:space-between;align-items:center;
+    padding:3px 0 3px 24px;font-size:12px;color:var(--text-secondary);
+  }
+  .bg-item .v { font-weight:500;color:var(--text); }
+
+  .bg-bar { height:4px;border-radius:2px;background:var(--border);margin-bottom:8px;overflow:hidden; }
+  .bg-fill { height:100%;border-radius:2px; }
+
+  .bg-green { background:var(--green); }
+  .bg-mid { background:var(--green-mid); }
+  .bg-gold { background:var(--gold); }
+  .bg-sage { background:var(--sage); }
+  .bg-warm { background:var(--warm); }
+
+  /* ─── Footer ─── */
+  footer { text-align:center;padding:48px 0 0;color:var(--text-tertiary);font-size:11px;letter-spacing:0.5px; }
+
+  /* ─── Tablet (768-1024px) ─── */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .container { max-width:700px;padding:0 32px 80px; }
+    .home-header { padding:60px 0 0; }
+    .home-header h1 { font-size:clamp(34px,5vw,44px); }
+    .page-head { padding-top:28px; }
+    .page-head .num { width:42px;height:42px;font-size:16px;border-radius:12px; }
+    .page-head .info h2 { font-size:20px; }
+    .day-card,.bg-card { padding:22px 26px; }
+    .dc-item { font-size:15px; }
+    .budget-total .big { font-size:48px; }
+    .nav a { padding:0 16px;font-size:13px;height:34px; }
+    /* budget items 2-col */
+    .bg-card { display:grid;grid-template-columns:1fr 1fr;gap:4px 16px; }
+    .bg-card .bg-header,.bg-card .bg-bar { grid-column:1/-1; }
+    .bg-item { padding:3px 0; }
+    .route { margin-bottom:44px; }
+    .stats { margin:22px 0 40px; }
+    .start-wrap { padding:24px 0 48px; }
+  }
+
+  /* ─── Phone (≤ 640px) ─── */
+  @media (max-width: 640px) {
+    .home-header { padding:36px 0 0; }
+    .home-header h1 { font-size:clamp(26px,7vw,34px); }
+    .home-header .sub { font-size:13px;letter-spacing:0.5px; }
+
+    .nav { gap:0;padding:6px 8px; }
+    .nav a { padding:0 8px;font-size:11px;height:32px;min-width:40px;border-radius:8px; }
+
+    .stats { gap:4px;margin:16px 0 28px; }
+    .stats span { font-size:11px;padding:3px 10px;border-radius:12px; }
+
+    .route { gap:0;margin-bottom:28px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch;scrollbar-width:none; }
+    .route::-webkit-scrollbar { display:none; }
+    .route::before { left:14px;right:14px;top:22px; }
+    .rt-stop { min-width:56px;gap:4px; }
+    .rt-emoji { font-size:14px; }
+    .rt-name { font-size:8px; }
+    .rt-label { font-size:7px; }
+    .rt-dot { width:7px;height:7px; }
+
+    .start-btn { width:100%;justify-content:center;padding:12px 24px;font-size:14px;border-radius:12px; }
+    .start-wrap { padding:12px 0 32px; }
+
+    .page-head { flex-direction:column;align-items:flex-start;gap:6px;padding-top:14px;margin-bottom:18px; }
+    .page-head .num { width:30px;height:30px;font-size:12px;border-radius:8px; }
+    .page-head .info h2 { font-size:15px; }
+    .page-head .info p { font-size:11px;line-height:1.4; }
+
+    .day-card,.bg-card { padding:14px 16px;border-radius:12px;margin-bottom:10px; }
+    .dc-title { font-size:12px;margin-bottom:8px; }
+    .dc-title .tag { font-size:8px;padding:2px 6px; }
+    .dc-item { font-size:13px;line-height:1.5;gap:6px;padding:3px 0; }
+    .dc-item .ico { width:16px;font-size:11px;margin-top:1px; }
+    .dc-tags { margin-top:6px; }
+    .dc-tags span { font-size:9px;padding:2px 6px;border-radius:5px; }
+    .dc-divider { margin:8px 0; }
+    .dc-cost-row { font-size:11px; }
+
+    .budget-total { padding:20px 0 16px; }
+    .budget-total .big { font-size:30px; }
+    .budget-total .lbl { font-size:11px; }
+
+    .bg-header { margin-bottom:6px; }
+    .bg-header .l { font-size:13px; }
+    .bg-header .r { font-size:14px; }
+    .bg-item { font-size:11px;padding:2px 0 2px 14px; }
+    .bg-bar { height:3px;margin-bottom:6px; }
+
+    footer { padding:28px 0 0;font-size:10px; }
+  }
+
+  /* ─── Small Phone (≤ 400px) ─── */
+  @media (max-width: 400px) {
+    .route {  }
+    .rt-stop { min-width:48px; }
+    .rt-name { font-size:7px; }
+    .rt-emoji { font-size:12px; }
+    .rt-dot { width:6px;height:6px; }
+    .route::before { left:10px;right:10px;top:20px; }
+
+    .day-card,.bg-card { padding:12px 12px;border-radius:10px; }
+    .dc-item { font-size:12px; }
+    .page-head .info h2 { font-size:14px; }
+
+    .nav a { padding:0 6px;font-size:10px;height:28px;min-width:32px; }
+    .home-header h1 { font-size:24px; }
+  }
+
+  /* ─── Touch devices: bigger tap targets, kill hover ─── */
+  @media (hover: none) and (pointer: coarse) {
+    .nav a { min-height:38px; }
+    .start-btn { min-height:48px;font-size:15px; }
+    .nav a:hover { color:var(--text-secondary);background:transparent; }
+    .day:hover,.cost:hover,.sc:hover { background:var(--surface);box-shadow:var(--shadow);border-color:var(--border); }
+  }
+</style>
+</head>
+<body>
+
+<div class="glow"></div>
+<div class="glow2"></div>
+
+<!-- Nav -->
+<nav class="nav" id="topNav">
+  <a onclick="showPage('home')" class="active">首页</a>
+  <a onclick="showPage('day1')">Day1</a>
+  <a onclick="showPage('day2')">Day2</a>
+  <a onclick="showPage('day3')">Day3</a>
+  <a onclick="showPage('day4')">Day4</a>
+  <a onclick="showPage('day5')">Day5</a>
+  <a onclick="showPage('budget')">预算</a>
+</nav>
+
+<div class="container">
+
+  <!-- ===== HOME ===== -->
+  <div class="page active" id="page-home">
+    <div class="home-header">
+      <div class="badge">2026 · 五日行程</div>
+      <h1>成都五日游</h1>
+      <p class="sub">九寨沟 · 黄龙 · 青城山 · 都江堰 · 三星堆</p>
+      <div class="stats">
+        <span>五天四晚</span>
+        <span>人均 ¥1,937</span>
+        <span>2-4 人</span>
+      </div>
+    </div>
+
+    <div class="route">
+      <div class="rt-stop">
+        <div class="rt-emoji">🚄</div>
+        <div class="rt-dot"></div>
+        <div class="rt-name">成都东</div>
+        <div class="rt-label">Day 1</div>
+      </div>
+      <div class="rt-stop">
+        <div class="rt-emoji">🏞️</div>
+        <div class="rt-dot"></div>
+        <div class="rt-name">九寨沟</div>
+        <div class="rt-label">Day 2</div>
+      </div>
+      <div class="rt-stop">
+        <div class="rt-emoji">⛰️</div>
+        <div class="rt-dot"></div>
+        <div class="rt-name">青城山</div>
+        <div class="rt-label">Day 3</div>
+      </div>
+      <div class="rt-stop">
+        <div class="rt-emoji">🏛️</div>
+        <div class="rt-dot"></div>
+        <div class="rt-name">三星堆</div>
+        <div class="rt-label">Day 4</div>
+      </div>
+      <div class="rt-stop">
+        <div class="rt-emoji">🌆</div>
+        <div class="rt-dot"></div>
+        <div class="rt-name">成都</div>
+        <div class="rt-label">Day 5</div>
+      </div>
+    </div>
+
+    <div class="start-wrap">
+      <button class="start-btn" onclick="showPage('day1')">
+        开始行程 →
+      </button>
+    </div>
+
+    <footer>2026 年 6 月 · 祝旅途愉快</footer>
+  </div>
+
+  <!-- ===== DAY 1 ===== -->
+  <div class="page" id="page-day1">
+    <div class="page-head">
+      <div class="num d1">1</div>
+      <div class="info">
+        <h2>成都东 → 黄龙 → 九寨沟沟口</h2>
+        <p>6月某日 · 交通 ¥231 · 门票 ¥85 · 索道+氧 ¥100 · 住宿 ¥130</p>
+      </div>
+    </div>
+
+    <div class="day-card">
+      <div class="dc-title"><span class="tag">AM 07:00</span>成都东站出发</div>
+      <div class="dc-item"><span class="ico">🚄</span><span>成都东站乘高铁至<span class="hl">黄龙九寨站</span>，车程约 2h</span></div>
+      <div class="dc-tags"><span>高铁 ¥135</span></div>
+    </div>
+
+    <div class="day-card">
+      <div class="dc-title"><span class="tag">AM 09:00</span>抵达黄龙九寨站 → 黄龙景区</div>
+      <div class="dc-item"><span class="ico">🚌</span><span>换乘大巴至<span class="hl">黄龙景区</span>，车程约 1h</span></div>
+      <div class="dc-tags"><span>接驳 ¥28</span><span>门票 ¥85</span></div>
+    </div>
+
+    <div class="day-card">
+      <div class="dc-title"><span class="tag">AM 10:00</span>游览黄龙景区</div>
+      <div class="dc-item"><span class="ico">🚡</span><span>乘坐上行索道至山顶，步行游览五彩池等景点</span></div>
+      <div class="dc-item"><span class="ico">🫁</span><span>海拔约 3500m，建议携带氧气瓶，缓步慢行</span></div>
+      <div class="dc-tags"><span>索道 ¥80</span><span>氧气瓶 ¥20</span><span>游览约 3-4h</span></div>
+    </div>
+
+    <div class="day-card">
+      <div class="dc-title"><span class="tag">PM 02:00</span>黄龙 → 九寨沟沟口</div>
+      <div class="dc-item"><span class="ico">🚌</span><span>乘车至<span class="hl">九寨沟沟口</span>，车程约 2h</span></div>
+      <div class="dc-item"><span class="ico">🏨</span><span>抵达沟口，入住酒店，周边用餐</span></div>
+      <div class="dc-tags"><span>接驳 ¥68</span><span>住宿 ¥130</span></div>
+    </div>
+
+    <div class="day-card">
+      <div class="dc-cost-row"><span>本日交通合计</span><span class="val">¥231</span></div>
+      <div class="dc-divider"></div>
+      <div class="dc-cost-row"><span>本日总花费（含餐饮 ¥80）</span><span class="val" style="color:var(--warm);font-size:15px;font-weight:700">¥626</span></div>
+    </div>
+  </div>
+
+  <!-- ===== DAY 2 ===== -->
+  <div class="page" id="page-day2">
+    <div class="page-head">
+      <div class="num d2">2</div>
+      <div class="info">
+        <h2>九寨沟 → 成都市区</h2>
+        <p>6月某日 · 交通 ¥191 · 门票 ¥185 · 住宿 ¥130</p>
+      </div>
+    </div>
+
+    <div class="day-card">
+      <div class="dc-title"><span class="tag">AM 08:00</span>九寨沟景区游览</div>
+      <div class="dc-item"><span class="ico">🏞️</span><span>全天游览<span class="hl">九寨沟景区</span>（日则沟、则查洼沟、树正沟）</span></div>
+      <div class="dc-item"><span class="ico">🍱</span><span>建议自备午餐干粮，景区内餐饮较贵</span></div>
+      <div class="dc-tags"><span>门票 ¥185</span><span>游览约 6-7h</span></div>
+    </div>
+
+    <div class="day-card">
+      <div class="dc-title"><span class="tag">PM 03:00</span>九寨沟 → 九寨黄龙站</div>
+      <div class="dc-item"><span class="ico">🚌</span><span>乘车至<span class="hl">九寨黄龙站</span>，车程约 30min</span></div>
+      <div class="dc-tags"><span>接驳 ¥56</span></div>
+    </div>
+
+    <div class="day-card">
+      <div class="dc-title"><span class="tag">PM 04:30</span>九寨黄龙站 → 成都东站</div>
+      <div class="dc-item"><span class="ico">🚄</span><span>高铁返回<span class="hl">成都东站</span>，车程约 2h</span></div>
+      <div class="dc-tags"><span>高铁 ¥135</span></div>
+    </div>
+
+    <div class="day-card">
+      <div class="dc-title"><span class="tag">PM 07:00</span>成都市区夜游</div>
+      <div class="dc-item"><span class="ico">🌃</span><span>推荐游览：<span class="hl">春熙路</span>、<span class="hl">太古里</span>、<span class="hl">宽窄巷子</span></span></div>
+      <div class="dc-item"><span class="ico">🍜</span><span>晚餐品尝成都火锅/串串</span></div>
+      <div class="dc-tags"><span>住宿 ¥130</span></div>
+    </div>
+
+    <div class="day-card">
+      <div class="dc-cost-row"><span>本日交通合计</span><span class="val">¥191</span></div>
+      <div class="dc-divider"></div>
+      <div class="dc-cost-row"><span>本日总花费（含餐饮 ¥80）</span><span class="val" style="color:var(--warm);font-size:15px;font-weight:700">¥586</span></div>
+    </div>
+  </div>
+
+  <!-- ===== DAY 3 ===== -->
+  <div class="page" id="page-day3">
+    <div class="page-head">
+      <div class="num d3">3</div>
+      <div class="info">
+        <h2>青城山 → 都江堰</h2>
+        <p>6月某日 · 交通 ¥75 · 门票 ¥80 · 住宿 ¥130</p>
+      </div>
+    </div>
+
+    <div class="day-card">
+      <div class="dc-title"><span class="tag">AM 08:00</span>出发前往青城山</div>
+      <div class="dc-item"><span class="ico">🚌</span><span>成都市区乘车至<span class="hl">青城山</span>，车程约 1h</span></div>
+      <div class="dc-tags"><span>去程 ¥10</span></div>
+    </div>
+
+    <div class="day-card">
+      <div class="dc-title"><span class="tag">AM 09:00</span>游览青城山前山</div>
+      <div class="dc-item"><span class="ico">🚌</span><span>乘坐观光车至山门</span></div>
+      <div class="dc-item"><span class="ico">🏔️</span><span>游览<span class="hl">青城山前山</span>（道教文化，建福宫、天师洞、上清宫）</span></div>
+      <div class="dc-tags"><span>观光车 ¥35</span><span>门票 ¥40</span><span>游览约 3h</span></div>
+    </div>
+
+    <div class="day-card">
+      <div class="dc-title"><span class="tag">PM 01:00</span>青城山 → 都江堰</div>
+      <div class="dc-item"><span class="ico">🚌</span><span>乘车至<span class="hl">都江堰景区</span>，车程约 30min</span></div>
+      <div class="dc-tags"><span>去程 ¥20</span></div>
+    </div>
+
+    <div class="day-card">
+      <div class="dc-title"><span class="tag">PM 02:00</span>游览都江堰</div>
+      <div class="dc-item"><span class="ico">🌊</span><span>游览<span class="hl">都江堰水利工程</span>（鱼嘴、飞沙堰、宝瓶口）</span></div>
+      <div class="dc-tags"><span>门票 ¥40</span><span>游览约 2-3h</span></div>
+    </div>
+
+    <div class="day-card">
+      <div class="dc-title"><span class="tag">PM 05:00</span>返回成都市区</div>
+      <div class="dc-item"><span class="ico">🚌</span><span>乘车返回成都市区</span></div>
+      <div class="dc-tags"><span>回程 ¥10</span><span>住宿 ¥130</span></div>
+    </div>
+
+    <div class="day-card">
+      <div class="dc-cost-row"><span>本日交通合计</span><span class="val">¥75</span></div>
+      <div class="dc-divider"></div>
+      <div class="dc-cost-row"><span>本日总花费（含餐饮 ¥80）</span><span class="val" style="color:var(--warm);font-size:15px;font-weight:700">¥365</span></div>
+    </div>
+  </div>
+
+  <!-- ===== DAY 4 ===== -->
+  <div class="page" id="page-day4">
+    <div class="page-head">
+      <div class="num d4">4</div>
+      <div class="info">
+        <h2>三星堆 → 成都市区</h2>
+        <p>6月某日 · 交通 ¥20 · 门票 ¥40 · 住宿 ¥130</p>
+      </div>
+    </div>
+
+    <div class="day-card">
+      <div class="dc-title"><span class="tag">AM 09:00</span>出发前往三星堆</div>
+      <div class="dc-item"><span class="ico">🚇</span><span>成都市区乘地铁/高铁至<span class="hl">三星堆博物馆</span></span></div>
+      <div class="dc-tags"><span>地铁 ¥10</span></div>
+    </div>
+
+    <div class="day-card">
+      <div class="dc-title"><span class="tag">AM 10:30</span>参观三星堆博物馆</div>
+      <div class="dc-item"><span class="ico">🏛️</span><span>参观<span class="hl">三星堆博物馆</span>（含讲解，深入了解古蜀文明）</span></div>
+      <div class="dc-item"><span class="ico">⭐</span><span>必看：青铜神树、青铜大立人、黄金面具、纵目面具</span></div>
+      <div class="dc-tags"><span>门票(含讲解) ¥40</span><span>参观约 2-3h</span></div>
+    </div>
+
+    <div class="day-card">
+      <div class="dc-title"><span class="tag">PM 02:00</span>返回成都市区</div>
+      <div class="dc-item"><span class="ico">🚇</span><span>返回成都市区，地铁约 ¥10</span></div>
+    </div>
+
+    <div class="day-card">
+      <div class="dc-title"><span class="tag">PM 03:00</span>成都市区自由活动</div>
+      <div class="dc-item"><span class="ico">🍜</span><span>品尝成都美食：火锅、串串香、担担面、钟水饺</span></div>
+      <div class="dc-item"><span class="ico">🛍️</span><span>推荐：锦里、武侯祠、文殊院</span></div>
+      <div class="dc-tags"><span>住宿 ¥130</span></div>
+    </div>
+
+    <div class="day-card">
+      <div class="dc-cost-row"><span>本日交通合计</span><span class="val">¥20</span></div>
+      <div class="dc-divider"></div>
+      <div class="dc-cost-row"><span>本日总花费（含餐饮 ¥80）</span><span class="val" style="color:var(--warm);font-size:15px;font-weight:700">¥270</span></div>
+    </div>
+  </div>
+
+  <!-- ===== DAY 5 ===== -->
+  <div class="page" id="page-day5">
+    <div class="page-head">
+      <div class="num d5">5</div>
+      <div class="info">
+        <h2>成都市区 → 返程</h2>
+        <p>6月某日 · 交通 ¥10</p>
+      </div>
+    </div>
+
+    <div class="day-card">
+      <div class="dc-title"><span class="tag">AM 09:00</span>成都市区自由活动</div>
+      <div class="dc-item"><span class="ico">🌅</span><span>推荐前往<span class="hl">人民公园</span>（鹤鸣茶社体验成都慢生活）</span></div>
+      <div class="dc-item"><span class="ico">🛍️</span><span>也可前往武侯祠、锦里、文殊院补上未去的景点</span></div>
+      <div class="dc-tags"><span>地铁约 ¥10</span></div>
+    </div>
+
+    <div class="day-card">
+      <div class="dc-title"><span class="tag">PM</span>根据航班/高铁时间返程</div>
+      <div class="dc-item"><span class="ico">👋</span><span>结束愉快的成都之旅！</span></div>
+    </div>
+
+    <div class="day-card">
+      <div class="dc-cost-row"><span>本日交通合计</span><span class="val">¥10</span></div>
+      <div class="dc-divider"></div>
+      <div class="dc-cost-row"><span>本日总花费（含餐饮 ¥80）</span><span class="val" style="color:var(--warm);font-size:15px;font-weight:700">¥90</span></div>
+    </div>
+  </div>
+
+  <!-- ===== BUDGET ===== -->
+  <div class="page" id="page-budget">
+    <div class="page-head">
+      <div class="num budget">¥</div>
+      <div class="info">
+        <h2>费用明细</h2>
+        <p>五天四晚 · 人均总花费</p>
+      </div>
+    </div>
+
+    <div class="budget-total">
+      <div class="big">¥1,937</div>
+      <div class="lbl">人均总计（含餐饮 ¥400）</div>
+    </div>
+
+    <!-- 住宿 -->
+    <div class="bg-card">
+      <div class="bg-header">
+        <span class="l">🏨 住宿</span>
+        <span class="r">¥520</span>
+      </div>
+      <div class="bg-bar"><div class="bg-fill bg-mid" style="width:99%"></div></div>
+      <div class="bg-item"><span>4 晚 × ¥130/晚</span><span class="v">¥520</span></div>
+    </div>
+
+    <!-- 交通 -->
+    <div class="bg-card">
+      <div class="bg-header">
+        <span class="l">🚄 交通</span>
+        <span class="r">¥527</span>
+      </div>
+      <div class="bg-bar"><div class="bg-fill bg-green" style="width:100%"></div></div>
+      <div class="bg-item"><span>🚄 成都东 ↔ 黄龙九寨（往返）</span><span class="v">¥270</span></div>
+      <div class="bg-item"><span>🚌 黄龙九寨站 → 黄龙景区</span><span class="v">¥28</span></div>
+      <div class="bg-item"><span>🚌 黄龙景区 → 九寨沟沟口</span><span class="v">¥68</span></div>
+      <div class="bg-item"><span>🚌 九寨沟 → 九寨黄龙站</span><span class="v">¥56</span></div>
+      <div class="bg-item"><span>🚌 青城山去程</span><span class="v">¥10</span></div>
+      <div class="bg-item"><span>🚌 青城山观光车</span><span class="v">¥35</span></div>
+      <div class="bg-item"><span>🚌 去都江堰</span><span class="v">¥20</span></div>
+      <div class="bg-item"><span>🚌 都江堰回程</span><span class="v">¥10</span></div>
+      <div class="bg-item"><span>🚇 成都地铁（约）</span><span class="v">¥30</span></div>
+    </div>
+
+    <!-- 门票 -->
+    <div class="bg-card">
+      <div class="bg-header">
+        <span class="l">🎫 门票</span>
+        <span class="r">¥390</span>
+      </div>
+      <div class="bg-bar"><div class="bg-fill bg-gold" style="width:74%"></div></div>
+      <div class="bg-item"><span>九寨沟</span><span class="v">¥185</span></div>
+      <div class="bg-item"><span>黄龙景区</span><span class="v">¥85</span></div>
+      <div class="bg-item"><span>青城山前山</span><span class="v">¥40</span></div>
+      <div class="bg-item"><span>都江堰</span><span class="v">¥40</span></div>
+      <div class="bg-item"><span>三星堆（含讲解）</span><span class="v">¥40</span></div>
+    </div>
+
+    <!-- 索道+氧气 -->
+    <div class="bg-card">
+      <div class="bg-header">
+        <span class="l">🫁 索道 &amp; 氧气</span>
+        <span class="r">¥100</span>
+      </div>
+      <div class="bg-bar"><div class="bg-fill bg-warm" style="width:19%"></div></div>
+      <div class="bg-item"><span>黄龙上行索道</span><span class="v">¥80</span></div>
+      <div class="bg-item"><span>氧气瓶</span><span class="v">¥20</span></div>
+    </div>
+
+    <!-- 餐饮 -->
+    <div class="bg-card">
+      <div class="bg-header">
+        <span class="l">🍜 餐饮</span>
+        <span class="r">¥400</span>
+      </div>
+      <div class="bg-bar"><div class="bg-fill bg-sage" style="width:76%"></div></div>
+      <div class="bg-item"><span>5 天餐饮（均 ¥80/天）</span><span class="v">¥400</span></div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+  function showPage(name) {
+    // hide all pages
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    // show target
+    const target = document.getElementById('page-' + name);
+    if (target) target.classList.add('active');
+    // update nav
+    document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'));
+    const navLinks = document.querySelectorAll('.nav a');
+    const idx = ['home','day1','day2','day3','day4','day5','budget'].indexOf(name);
+    if (idx >= 0 && navLinks[idx]) navLinks[idx].classList.add('active');
+    // scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>
