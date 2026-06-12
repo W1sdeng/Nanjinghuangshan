@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>南京黄山六日游 · 详细行程</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+  img { max-width: 100%; display: block; }
+
+  :root {
+    --bg: #2a1614;
+    --card: #3d2220;
+    --border: rgba(220,180,160,0.10);
+    --text: #f0e8e0;
+    --text-secondary: #b09888;
+    --text-tertiary: #786858;
+    --accent: #d4a373;
+    --accent-dim: rgba(212,163,115,0.10);
+    --warm: #c9755a;
+    --warm-dim: rgba(201,117,90,0.10);
+    --ease: cubic-bezier(0.2,0,0.2,1);
+    --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-title: 'Playfair Display', 'Noto Serif SC', Georgia, serif;
+    --font-body: 'Noto Serif SC', Georgia, 'Songti SC', serif;
+    --font-hkcs: 'SimSun', 'STSong', 'Songti SC', 'Noto Serif CJK SC', 'Noto Serif SC', serif;
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #f5efea;
+      --card: #ece4db;
+      --border: rgba(160,100,80,0.10);
+      --text: #1a1412;
+      --text-secondary: #7a6a5e;
+      --text-tertiary: #b8a898;
+      --accent: #a06950;
+      --accent-dim: rgba(160,105,80,0.08);
+      --warm: #b85c4a;
+      --warm-dim: rgba(184,92,74,0.08);
+    }
+  }
+
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration:0.01ms!important; animation-iteration-count:1!important; transition-duration:0.01ms!important; scroll-behavior:auto!important; }
+  }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.7;
+  }
+
+  body::after {
+    content: ''; position: fixed; inset: 0; z-index: 9999;
+    pointer-events: none; opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 256px 256px;
+  }
+
+  ::selection { background: var(--accent-dim); color: var(--text); }
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--text-tertiary); }
+  ::-webkit-scrollbar-thumb:hover { background: var(--text-secondary); }
+
+  .container { max-width: 680px; margin: 0 auto; padding: 0 24px 80px; }
+  @media (min-width: 1024px) { .container { max-width: 720px; padding: 0 32px 100px; } }
+  @media (max-width: 640px) { .container { max-width: 100%; padding: 0 16px 56px; } }
+
+  .nav {
+    position: relative; top: 0; z-index: 100;
+    display: flex; justify-content: center; align-items: center; gap: 2px;
+    padding: 0 16px; height: 40px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .nav::-webkit-scrollbar { display: none; }
+
+  .nav a {
+    font-family: var(--font-ui);
+    font-size: 12px; font-weight: 400;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 0 10px;
+    height: 32px;
+    display: flex; align-items: center;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: color 0.2s ease;
+    touch-action: manipulation;
+  }
+  .nav a:hover { color: var(--text); }
+  .nav a.active { color: var(--text); }
+
+  .nav-indicator {
+    position: absolute; bottom: 0; left: 0;
+    height: 2px;
+    background: var(--accent);
+    transition: left 0.25s var(--ease), width 0.25s var(--ease);
+    pointer-events: none;
+  }
+
+  .page { display: none; }
+  .page.active { display: block; animation: fadeIn 0.3s ease; }
+
+  #page-home.active {
+    display: flex; flex-direction: column; justify-content: center;
+    min-height: calc(100vh - 40px); position: relative;
+  }
+  #page-home.active::before {
+    content: ''; position: absolute;
+    top: 50%; left: 50%;
+    width: min(80vw, 500px); height: min(80vw, 500px);
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(187,206,140,0.08) 0%, transparent 65%);
+    pointer-events: none; z-index: 0;
+  }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  .home-header { text-align: center; padding: 20px 0 0; position: relative; z-index: 1; }
+  .home-header::before {
+    content: ''; position: absolute;
+    inset: -80px -100px;
+    border-radius: 60px;
+    background:
+      radial-gradient(ellipse 90% 70% at 50% 0%,
+        rgba(187,206,140,0.18) 0%,
+        rgba(238,189,142,0.07) 30%,
+        transparent 80%);
+    z-index: -1;
+    pointer-events: none;
+  }
+  .home-header::after {
+    content: ''; position: absolute;
+    inset: -80px -100px;
+    border-radius: 60px;
+    border: 1px solid rgba(187,206,140,0.06);
+    z-index: -1;
+    pointer-events: none;
+  }
+  .home-header .date {
+    font-family: var(--font-title);
+    font-size: 16px; font-style: italic;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+    letter-spacing: 0.3px;
+  }
+  .home-header h1 {
+    font-family: var(--font-hkcs);
+    font-size: clamp(36px, 6vw, 60px);
+    font-weight: 400;
+    color: var(--text);
+    letter-spacing: -0.3px;
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+  .home-header h1::after {
+    content: ''; display: block;
+    width: 100%; height: 2px;
+    margin: 16px auto 0;
+    background: linear-gradient(90deg,
+      transparent 0%, var(--accent) 35%,
+      var(--accent) 65%, transparent 100%);
+    border-radius: 1px; opacity: 0.5;
+  }
+  .home-header .sub {
+    font-size: 18px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  .stats {
+    display: flex; justify-content: center; gap: 6px 20px;
+    margin: 20px 0 44px; flex-wrap: wrap;
+    position: relative;
+  }
+  .stats::after {
+    content: ''; position: absolute;
+    bottom: -22px; left: 50%; transform: translateX(-50%);
+    width: 90%; max-width: 400px; height: 1px;
+    background: linear-gradient(90deg,
+      transparent 0%, var(--border) 25%,
+      var(--border) 75%, transparent 100%);
+  }
+  .stats span { font-family: var(--font-ui); font-size: 15px; color: var(--text-secondary); }
+
+  .route {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    margin-bottom: 36px; padding: 0 4px; position: relative;
+  }
+  .route::before {
+    content: ''; position: absolute;
+    top: 15px; left: 28px; right: 28px; height: 1px;
+    background: var(--border);
+  }
+  .rt-stop { display: flex; flex-direction: column; align-items: center; gap: 4px; position: relative; z-index: 1; flex: 1; }
+  .rt-dot {
+    width: 9px; height: 9px; border-radius: 50%;
+    background: transparent;
+    border: 2px solid var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-dim);
+  }
+  .rt-name { font-size: 14px; color: var(--text); line-height: 1.3; }
+  .rt-label { font-family: var(--font-ui); font-size: 9px; color: var(--text-secondary); letter-spacing: 0.4px; }
+
+  .start-wrap { text-align: center; padding: 16px 0 24px; }
+  .start-btn {
+    font-family: var(--font-ui);
+    font-size: 15px; font-weight: 400;
+    color: var(--text-secondary);
+    background: none; border: none;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    padding: 0;
+    transition: color 0.2s ease;
+    position: relative;
+  }
+  .start-btn::after {
+    content: ''; position: absolute;
+    bottom: -3px; left: 0; width: 100%; height: 1px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transition: transform 0.35s ease, opacity 0.35s ease;
+    opacity: 0;
+  }
+  .start-arrow { display: inline-block; margin-left: 4px; }
+  .start-btn:hover { color: var(--text); }
+  .start-btn:hover::after { transform: scaleX(1); opacity: 0.5; }
+
+  .page-head {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 28px; padding-top: 28px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 18px;
+  }
+  .page-head .info h2 {
+    font-family: var(--font-title);
+    font-size: 20px; font-weight: 400;
+    color: var(--text); line-height: 1.35;
+  }
+  .page-head .info p {
+    font-family: var(--font-ui);
+    font-size: 12px; color: var(--text-secondary);
+    margin-top: 2px;
+  }
+
+  .day-hero {
+    padding: 32px 0 16px; margin-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+  }
+  .day-hero .h-badge {
+    font-family: var(--font-hkcs);
+    font-size: 15px; font-style: italic;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+  }
+  .day-hero h2 {
+    font-family: var(--font-hkcs);
+    font-size: clamp(24px, 5vw, 34px);
+    font-weight: 400;
+    color: var(--text);
+    line-height: 1.25;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+  }
+  .day-hero .h-meta {
+    display: flex; flex-wrap: wrap; gap: 4px 16px;
+    font-size: 14px; color: var(--text-secondary);
+  }
+
+  .route-map {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    padding: 20px 8px 12px; margin-bottom: 16px; position: relative;
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .route-map::-webkit-scrollbar { display: none; }
+  .route-map::before {
+    content: ''; position: absolute;
+    top: 32px; left: 20px; right: 20px; height: 1px;
+    background: var(--border);
+  }
+  .rm-stop { display: flex; flex-direction: column; align-items: center; gap: 4px; position: relative; z-index: 1; flex: 0 0 auto; min-width: 0; }
+  .rm-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+  .rm-name { font-size: 15px; color: var(--text); text-align: center; white-space: nowrap; }
+  .rm-label { font-size: 13px; color: var(--text-secondary); letter-spacing: 0.4px; white-space: nowrap; }
+
+  .info-banner {
+    display: flex; flex-wrap: wrap; gap: 6px 20px;
+    padding: 12px 0 16px; margin-bottom: 16px;
+    font-size: 14px; color: var(--text-secondary);
+    border-bottom: 1px solid var(--border);
+    line-height: 1.7;
+  }
+  .info-banner .hl { color: var(--text); font-weight: 500; }
+
+  .tl-wrap { position: relative; padding-left: 28px; }
+  .tl-wrap::before {
+    content: ''; position: absolute;
+    left: 7px; top: 12px; bottom: 12px; width: 1px;
+    background: var(--border);
+  }
+  .tl-item {
+    position: relative;
+    cursor: pointer;
+    padding-bottom: 8px;
+    transition: opacity 0.2s ease;
+    touch-action: manipulation;
+  }
+  .tl-item:last-child { padding-bottom: 0; }
+  .tl-item.tl-no-click { cursor: default; }
+
+  .tl-dot {
+    position: absolute; left: -21px; top: 24px;
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    z-index: 2;
+    transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+  }
+  .tl-item.done .tl-dot { background: var(--accent); border-color: var(--accent); transform: scale(1.15); }
+  .tl-content { width: 100%; }
+
+  .day-card {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    touch-action: manipulation;
+  }
+  .day-card:last-child { border-bottom: none; }
+
+  .dc-title {
+    font-family: var(--font-title);
+    font-size: 19px; font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+    line-height: 1.5;
+    display: flex; align-items: center; gap: 6px;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 1px;
+    text-decoration-color: var(--border);
+  }
+  .dc-title .tag {
+    font-family: var(--font-ui);
+    font-size: 14px; font-weight: 500;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  .dc-item {
+    font-family: var(--font-body);
+    font-size: 15px; line-height: 1.8;
+    color: var(--text-secondary);
+    padding: 6px 0;
+  }
+  .dc-item .hl { color: var(--text); font-family: var(--font-body); }
+  .dc-item .price { color: var(--warm); }
+
+  .dc-tags {
+    display: flex; flex-wrap: wrap; gap: 4px 10px;
+    margin-top: 10px;
+  }
+  .dc-tags span {
+    font-family: var(--font-ui);
+    font-size: 12px;
+    color: var(--text-tertiary);
+  }
+
+  .dc-divider { height: 1px; background: var(--border); margin: 16px 0; }
+
+  .dc-cost-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 6px 0; font-size: 14px; color: var(--text-secondary);
+    font-family: var(--font-ui);
+  }
+  .dc-cost-row .val { color: var(--text); font-variant-numeric: tabular-nums; }
+  .dc-cost-row.total { padding: 6px 0 0; margin-top: 4px; border-top: 1px solid var(--border); font-size: 15px; color: var(--text); }
+  .dc-cost-row.total .val { color: var(--warm); }
+
+  .tl-item.done .dc-title,
+  .tl-item.done .dc-item,
+  .tl-item.done .dc-tags span {
+    text-decoration: line-through;
+    opacity: 0.35;
+    transition: opacity 0.3s ease 0.15s;
+  }
+
+  .day-card.collapsible .dc-title { cursor: pointer; user-select: none; position: relative; padding-right: 16px; }
+  .day-card.collapsible .dc-title::after {
+    content: ''; position: absolute; right: 0; top: 6px;
+    width: 5px; height: 5px;
+    border: 1px solid var(--text-tertiary);
+    border-top: none; border-left: none;
+    transform: rotate(45deg);
+    transition: transform 0.2s ease;
+  }
+  .day-card.collapsible.collapsed .dc-title::after { transform: rotate(-45deg); }
+  .day-card.collapsible .dc-detail-wrap { overflow: hidden; transition: max-height 0.35s ease, opacity 0.25s ease, padding 0.3s ease; max-height: 3000px; opacity: 1; padding: 4px 0; }
+  .day-card.collapsible.collapsed .dc-detail-wrap { max-height: 0; opacity: 0; padding: 0 0; }
+
+  .budget-total { text-align: center; padding: 36px 0 32px; }
+  .budget-total .big {
+    font-family: var(--font-title);
+    font-size: 48px; font-weight: 400;
+    color: var(--text);
+    letter-spacing: -0.5px;
+    font-variant-numeric: tabular-nums;
+  }
+  .budget-total .lbl { font-size: 13px; color: var(--text-secondary); margin-top: 6px; }
+
+  .bg-card { padding: 20px 0; margin-bottom: 8px; border-bottom: 1px solid var(--border); }
+  .bg-card:last-child { border-bottom: none; }
+
+  .bg-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 10px;
+    position: relative;
+  }
+  .bg-header::after {
+    content: ''; position: absolute;
+    bottom: -3px; left: 0; height: 2px;
+    width: calc(var(--pct, 0) * 1%);
+    background: var(--accent-dim);
+    transition: width 0.4s ease;
+  }
+  .bg-header .l { font-size: 16px; color: var(--text); font-family: var(--font-title); }
+  .bg-header .r { font-family: var(--font-title); font-size: 18px; color: var(--text); font-variant-numeric: tabular-nums; }
+
+  .bg-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 5px 0 5px 16px;
+    font-family: var(--font-ui);
+    font-size: 14px; color: var(--text-secondary);
+    line-height: 1.5;
+  }
+  .bg-item .v { color: var(--text); font-variant-numeric: tabular-nums; }
+
+  footer {
+    text-align: center; padding: 48px 0 0;
+    font-size: 13px; color: var(--text-tertiary);
+    font-family: var(--font-ui);
+    letter-spacing: 0.4px;
+  }
+
+  .back-top {
+    position: fixed; bottom: 28px; right: 20px;
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--card); border: 1px solid var(--border);
+    color: var(--text-secondary); font-size: 18px;
+    cursor: pointer; opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 50;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+  .back-top.visible { opacity: 1; }
+  .back-top:hover { transform: translateY(-3px); color: var(--text); }
+
+  @media (max-width: 640px) {
+    .container { padding: 0 16px 56px; }
+    .home-header h1 { font-size: 32px; }
+    .day-hero h2 { font-size: 22px; }
+    .dc-title { font-size: 17px; }
+    .dc-item { font-size: 14px; }
+    .stats span { font-size: 13px; }
+    .budget-total .big { font-size: 36px; }
+    .route { gap: 2px; }
+    .rt-name { font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav" id="topNav">
+  <a onclick="showPage('home')" class="active">首页</a>
+  <a onclick="showPage('day1')">Day1</a>
+  <a onclick="showPage('day2')">Day2</a>
+  <a onclick="showPage('day3')">Day3</a>
+  <a onclick="showPage('day4')">Day4</a>
+  <a onclick="showPage('day5')">Day5</a>
+  <a onclick="showPage('day6')">Day6</a>
+  <a onclick="showPage('budget')">预算</a>
+  <div class="nav-indicator"></div>
+</nav>
+
+<div class="container">
+
+  <!-- ===== HOME ===== -->
+  <div class="page active" id="page-home">
+    <div class="home-header">
+      <div class="date"></div>
+      <h1>南京黄山六日游</h1>
+      <p class="sub">黄山 · 宏村 · 钟山 · 红山 · 南博 · 鸡鸣</p>
+      <div class="stats">
+        <span>6.26→7.1</span>
+        <span>人均 ¥1,796</span>
+        <span>1 人出游</span>
+      </div>
+    </div>
+
+    <div class="route">
+      <div class="rt-stop">
+        <div class="rt-dot"></div>
+        <div class="rt-name">宏村</div>
+        <div class="rt-label">Day 1</div>
+      </div>
+      <div class="rt-stop">
+        <div class="rt-dot"></div>
+        <div class="rt-name">黄山</div>
+        <div class="rt-label">Day 2</div>
+      </div>
+      <div class="rt-stop">
+        <div class="rt-dot"></div>
+        <div class="rt-name">钟山</div>
+        <div class="rt-label">Day 3</div>
+      </div>
+      <div class="rt-stop">
+        <div class="rt-dot"></div>
+        <div class="rt-name">红山</div>
+        <div class="rt-label">Day 4</div>
+      </div>
+      <div class="rt-stop">
+        <div class="rt-dot"></div>
+        <div class="rt-name">博物</div>
+        <div class="rt-label">Day 5</div>
+      </div>
+      <div class="rt-stop">
+        <div class="rt-dot"></div>
+        <div class="rt-name">鸡鸣</div>
+        <div class="rt-label">Day 6</div>
+      </div>
+    </div>
+
+    <div class="start-wrap">
+      <button class="start-btn" onclick="showPage('day1')">
+        开始行程 <span class="start-arrow">→</span>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- ===== DAY 1 · 6/26 Fri 宏村→汤口 ===== -->
+  <div class="page" id="page-day1">
+    <div class="day-hero">
+      <div class="h-badge">Day 1 · 6/26 周五</div>
+      <h2>到黄山北 → 宏村 → 入住汤口</h2>
+      <div class="h-meta">
+        <span>10:00 抵达黄山北站</span>
+        <span>预估 ¥292</span>
+      </div>
+    </div>
+
+    <div class="route-map">
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">黄山北站</div><div class="rm-label">10:00 到</div></div>
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">宏村</div><div class="rm-label">拼车 50min</div></div>
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">汤口</div><div class="rm-label">拼车 40min</div></div>
+    </div>
+
+    <div class="info-banner">
+      <span><span class="hl">🚕 黄山北→宏村拼车 ¥20</span> 行李放后备箱</span>
+      <span><span class="hl">🏨 黄山南大门换乘中心美居酒店</span> 换乘中心附近，别住屯溪</span>
+    </div>
+
+    <div class="tl-wrap">
+      <div class="tl-item" data-key="d1_check1">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="day-card">
+            <div class="dc-title"><span class="tag">10:00</span> 黄山北站 → 宏村</div>
+            <div class="dc-item">出站后拼车/大巴直达<span class="hl">宏村</span>，行李放后备箱</div>
+            <div class="dc-item">车程约 50min，拼车 ¥20 或大巴 ¥30</div>
+            <div class="dc-tags"><span>🚌 拼车 ¥20</span><span>⏱ 50min</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item" data-key="d1_check2">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="day-card">
+            <div class="dc-title"><span class="tag">11:00</span> 宏村游览</div>
+            <div class="dc-item"><span class="hl">宏村</span>·学生票 ¥52</div>
+            <div class="dc-item">路线：南湖 → 画桥 → 月沼 → 承志堂 → 汪氏宗祠 → 南湖书院</div>
+            <div class="dc-item">月沼拍倒影必打卡，中午前光线最好</div>
+            <div class="dc-item">村内吃午餐：徽州毛豆腐、臭鳜鱼、蟹壳黄烧饼</div>
+            <div class="dc-tags"><span>🎫 ¥94（学生¥52）</span><span>⏱ 2-3h</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item" data-key="d1_check3">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="day-card">
+            <div class="dc-title"><span class="tag">14:00</span> 宏村 → 汤口</div>
+            <div class="dc-item">拼车至<span class="hl">汤口镇</span>（约 40min，¥15）</div>
+            <div class="dc-item">入住<span class="hl">黄山南大门换乘中心美居酒店</span></div>
+            <div class="dc-item">下午休息、补给：买登山干粮、水、登山杖</div>
+            <div class="dc-item">晚餐吃徽菜：笋干烧肉、徽州一品锅</div>
+            <div class="dc-tags"><span>🚌 拼车 ¥15</span><span>🏨 住宿 ¥125</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item tl-no-click cost-summary">
+        <div class="tl-dot" style="border-color:var(--warm);"></div>
+        <div class="tl-content">
+          <div class="day-card">
+            <div class="dc-cost-row"><span>交通（黄山北→宏村→汤口）</span><span class="val">¥35</span></div>
+            <div class="dc-cost-row"><span>住宿</span><span class="val">¥125</span></div>
+            <div class="dc-cost-row"><span>餐饮</span><span class="val">¥80</span></div>
+            <div class="dc-cost-row"><span>宏村学生票</span><span class="val">¥52</span></div>
+            <div class="dc-divider"></div>
+            <div class="dc-cost-row total"><span>本日总花费</span><span class="val">¥292</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== DAY 2 · 6/27 Sat 黄山→南京 ===== -->
+  <div class="page" id="page-day2">
+    <div class="day-hero">
+      <div class="h-badge">Day 2 · 6/27 周六 · ⛰️ 含天都峰</div>
+      <h2>徒步爬黄山（含天都峰）→ 高铁到南京</h2>
+      <div class="h-meta">
+        <span>6:30 起床 · 7:00 出发</span>
+        <span>预估 ¥503</span>
+      </div>
+    </div>
+
+    <div class="route-map">
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">南大门</div><div class="rm-label">7:00 出发</div></div>
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">云谷寺</div><div class="rm-label">景交车</div></div>
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">白鹅岭</div><div class="rm-label">徒步上山</div></div>
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">光明顶</div><div class="rm-label">精华段</div></div>
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">迎客松</div><div class="rm-label">老道口</div></div>
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">天都峰</div><div class="rm-label">鲫鱼背</div></div>
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">慈光阁</div><div class="rm-label">新道口出</div></div>
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">南京南</div><div class="rm-label">20:49</div></div>
+    </div>
+
+    <div class="info-banner">
+      <span><span class="hl">⛰️ 天都峰·老道口上·新道口下</span> 不回头，迎客松→鲫鱼背→慈光阁</span>
+      <span><span class="hl">⚠️ 天都峰需提前预约！</span> "黄山旅游官方平台"小程序，入园前2天21:00抢</span>
+      <span><span class="hl">🥾 酒店免费提供登山杖</span> 天都峰陡，建议带</span>
+      <span><span class="hl">🚄 19:02–20:49 黄山北→南京南</span> 17:10 出园完全来得及</span>
+    </div>
+
+    <div class="tl-wrap">
+      <div class="tl-item" data-key="d2_check1">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="day-card">
+            <div class="dc-title"><span class="tag">06:30</span> 起床 · 退房寄存行李</div>
+            <div class="dc-item">起床洗漱，退房，行李寄存在酒店前台</div>
+            <div class="dc-item">酒店取免费登山杖</div>
+            <div class="dc-item">自备干粮和水（全天餐标 ¥80 含山上）</div>
+            <div class="dc-tags"><span>🏨 前一晚 ¥125</span><span>🥾 免费登山杖</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item" data-key="d2_check2">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="day-card">
+            <div class="dc-title"><span class="tag">07:00</span> 南大门换乘中心 → 云谷寺</div>
+            <div class="dc-item">步行至<span class="hl">南大门换乘中心</span>（5min）</div>
+            <div class="dc-item">购<span class="hl">景交车票 ¥19</span> 至云谷寺（约 20min）</div>
+            <div class="dc-tags"><span>🚌 景交车 ¥19</span><span>🎫 黄山学生票 ¥95</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item" data-key="d2_check3">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="day-card">
+            <div class="dc-title"><span class="tag">07:30</span> 徒步上山 · 云谷寺→白鹅岭</div>
+            <div class="dc-item">云谷寺→<span class="hl">白鹅岭</span> 约 7.5km，爬升 600m</div>
+            <div class="dc-item">体力好者约 2-2.5h</div>
+            <div class="dc-item">沿途：入胜亭→仙人翻桌→天狗望月</div>
+            <div class="dc-tags"><span>⏱ 2-2.5h</span><span>🥾 全程步行</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item" data-key="d2_check4">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="day-card">
+            <div class="dc-title"><span class="tag">10:00</span> 全线精华 · 始信峰→光明顶→迎客松</div>
+            <div class="dc-item">白鹅岭→<span class="hl">始信峰</span>（梦笔生花）→黑虎松→<span class="hl">光明顶</span>（360°全景）</div>
+            <div class="dc-item">光明顶→鳌鱼峰→<span class="hl">迎客松</span>（黄山标志打卡）</div>
+            <div class="dc-item">路上吃干粮当午饭</div>
+            <div class="dc-tags"><span>⏱ 约 2.5h</span><span>📸 光明顶全景</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item" data-key="d2_check5">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="day-card">
+            <div class="dc-title"><span class="tag">12:30</span> 天都峰 · 鲫鱼背（老道口上·新道口下）</div>
+            <div class="dc-item">迎客松步行 5min 到<span class="hl">老道口</span>（天都峰入口），刷身份证进入</div>
+            <div class="dc-item">登顶约 40min-1.5h，途经<span class="hl">鲫鱼背</span>—两侧悬崖，紧抓铁链</div>
+            <div class="dc-item">从<span class="hl">新道口</span>方向下山（约 1.5h）→半山寺→慈光阁</div>
+            <div class="dc-item"><span class="hl">不回头路！</span> 始信峰→光明顶→迎客松全部覆盖，一路向前</div>
+            <div class="dc-tags"><span>⏱ 约 3h</span><span>⚠️ 需提前预约天都峰名额</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item" data-key="d2_check6">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="day-card">
+            <div class="dc-title"><span class="tag">15:30</span> 慈光阁→景交车回换乘中心</div>
+            <div class="dc-item">新道口→半山寺→<span class="hl">慈光阁</span>（约 1h），坐景交车<span class="hl">¥19</span> 回换乘中心</div>
+            <div class="dc-item">17:10 闭园，时间充裕</div>
+            <div class="dc-tags"><span>🚌 景交车 ¥19</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item" data-key="d2_check7">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="day-card">
+            <div class="dc-title"><span class="tag">17:00</span> 取行李 → 出发去黄山北站</div>
+            <div class="dc-item">换乘中心 → 酒店取寄存行李</div>
+            <div class="dc-item">拼车/大巴至<span class="hl">黄山北站</span> ¥20（约 50min）</div>
+            <div class="dc-item">在汤口吃个晚饭再走也来得及</div>
+            <div class="dc-tags"><span>🚌 汤口→黄山北 ¥20</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item" data-key="d2_check8">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="day-card">
+            <div class="dc-title"><span class="tag">19:02</span> 高铁赴南京</div>
+            <div class="dc-item">黄山北站 → <span class="hl">南京南站</span></div>
+            <div class="dc-item">19:02–20:49 · 二等座约 ¥131</div>
+            <div class="dc-tags"><span>🚄 高铁 ¥131</span><span>⏱ 1h47min</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item" data-key="d2_check9">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="day-card">
+            <div class="dc-title"><span class="tag">20:49</span> 入住 · 你好酒店（红山动物园站）</div>
+            <div class="dc-item">到南京南站坐 <span class="hl">地铁 3 号线</span> 至红山动物园站（约 15min）</div>
+            <div class="dc-item">到酒店安顿，点个外卖或附近吃碗面</div>
+            <div class="dc-item">爬了一天山+天都峰，好好休息</div>
+            <div class="dc-tags"><span>🏨 住宿 ¥90</span><span>🚇 地铁 ¥4</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item tl-no-click cost-summary">
+        <div class="tl-dot" style="border-color:var(--warm);"></div>
+        <div class="tl-content">
+          <div class="day-card">
+            <div class="dc-cost-row"><span>交通（景交车+黄山北+高铁+地铁）</span><span class="val">¥193</span></div>
+            <div class="dc-cost-row"><span>住宿</span><span class="val">¥90</span></div>
+            <div class="dc-cost-row"><span>餐饮（全天餐标）</span><span class="val">¥80</span></div>
+            <div class="dc-cost-row"><span>黄山学生票+索道下行</span><span class="val">¥140</span></div>
+            <div class="dc-divider"></div>
+            <div class="dc-cost-row total"><span>本日总花费</span><span class="val">¥503</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== DAY 3 · 6/28 Sun 钟山线 ===== -->
+  <div class="page" id="page-day3">
+    <div class="day-hero">
+      <div class="h-badge">Day 3 · 6/28 周日 ✅ 全开</div>
+      <h2>明孝陵 → 中山陵·音乐台 → 美龄宫 → 南京大学</h2>
+      <div class="h-meta">
+        <span>建议 8:00 出门</span>
+        <span>预估 ¥288</span>
+      </div>
+    </div>
+
+    <div class="route-map">
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">明孝陵</div><div class="rm-label">8:30</div></div>
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">中山陵</div><div class="rm-label">观光车</div></div>
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">美龄宫</div><div class="rm-label">步行</div></div>
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">南京大学</div><div class="rm-label">鼓楼</div></div>
+    </div>
+
+    <div class="info-banner">
+      <span><span class="hl">🌅 石象路清晨最佳</span> 10-11 点侧光最美</span>
+      <span><span class="hl">🕊️ 音乐台整点喂鸽</span> 门票 ¥10</span>
+      <span><span class="hl">🏛️ 美龄宫就在中山陵旁</span> 步行可达，别错过"宝石项链"</span>
+    </div>
+
+    <div class="tl-wrap">
+      <div class="tl-item" data-key="d3_check1">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="day-card">
+            <div class="dc-title"><span class="tag">08:30</span> 明孝陵 · 5号门进→3号门出</div>
+            <div class="dc-item">地铁 2 号线至<span class="hl">苜蓿园站</span>（1 号口），步行至<span class="hl">5号门</span></div>
+            <div class="dc-item">路线：5号门→网红天桥（拍梧桐大道）→<span class="hl">四方城</span>→<span class="hl">石象路</span>（最美600米）→翁仲路</div>
+            <div class="dc-item">→文武方门→享殿→<span class="hl">方城明楼</span>（明孝陵核心）→<span class="hl">燕雀湖</span>→长生鹿苑→3号门出</div>
+            <div class="dc-item">学生票 ¥35，3号门出后步行 10min 即到中山陵</div>
+            <div class="dc-tags"><span>🎫 学生¥35</span><span>⏱ 2-2.5h</span><span>🚇 地铁 ¥4</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item" data-key="d3_check2">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="day-card">
+            <div class="dc-title"><span class="tag">11:00</span> 中山陵 · 音乐台</div>
+            <div class="dc-item">明孝陵 3 号门出，步行 10min 至<span class="hl">中山陵</span>（免费，需预约）</div>
+            <div class="dc-item">392 级台阶 → 祭堂俯瞰金陵全景</div>
+            <div class="dc-item">下山后去旁边的<span class="hl">音乐台 ¥10</span>，整点鸽子齐飞</div>
+            <div class="dc-tags"><span>🎫 免费（需预约）</span><span>🎵 音乐台 ¥10</span><span>🚌 观光车 ¥10</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item" data-key="d3_check3">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="day-card">
+            <div class="dc-title"><span class="tag">13:00</span> 美龄宫</div>
+            <div class="dc-item">从音乐台步行 10min 至<span class="hl">美龄宫</span></div>
+            <div class="dc-item">俯瞰视角的"梧桐项链"吊坠就是这里</div>
+            <div class="dc-item">学生票 ¥15，建议 1h</div>
+            <div class="dc-tags"><span>🎫 学生¥15</span><span>⏱ 1h</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item" data-key="d3_check4">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="day-card">
+            <div class="dc-title"><span class="tag">14:30</span> 南京大学 · 先锋书店</div>
+            <div class="dc-item">美龄宫→地铁 2 号线至<span class="hl">新街口站</span>换 1 号线至<span class="hl">鼓楼站</span>（¥4）</div>
+            <div class="dc-item">出站步行 5min 至<span class="hl">南大鼓楼校区</span>（免费）</div>
+            <div class="dc-item">北大楼草坪 → 南大南门步行 10min → <span class="hl">先锋书店</span>（五台山总店）</div>
+            <div class="dc-item">晚上可选：新街口晚餐或回老门东附近吃</div>
+            <div class="dc-tags"><span>⏱ 1.5-2h</span><span>免费</span><span>🚇 ¥4</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item tl-no-click cost-summary">
+        <div class="tl-dot" style="border-color:var(--warm);"></div>
+        <div class="tl-content">
+          <div class="day-card">
+            <div class="dc-cost-row"><span>交通（地铁+观光车）</span><span class="val">¥18</span></div>
+            <div class="dc-cost-row"><span>住宿（花间堂朱雀里）</span><span class="val">¥130</span></div>
+            <div class="dc-cost-row"><span>餐饮</span><span class="val">¥80</span></div>
+            <div class="dc-cost-row"><span>门票（学生票）</span><span class="val">¥60</span></div>
+            <div class="dc-divider"></div>
+            <div class="dc-cost-row total"><span>本日总花费</span><span class="val">¥288</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== DAY 4 · 6/29 Mon 红山动物园 ===== -->
+  <div class="page" id="page-day4">
+    <div class="day-hero">
+      <div class="h-badge">Day 4 · 6/29 周一</div>
+      <h2>红山森林动物园（全天）</h2>
+      <div class="h-meta">
+        <span>北门进，大熊猫上午最活跃</span>
+        <span>预估 ¥299</span>
+      </div>
+    </div>
+
+    <div class="info-banner">
+      <span><span class="hl">🐼 大熊猫上午 9 点前最活跃</span> 北门进</span>
+      <span><span class="hl">🏨 南京老门东花间堂朱雀里</span> 动物园出来回酒店</span>
+    </div>
+
+    <div class="tl-wrap">
+      <div class="tl-item" data-key="d4_check1">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="day-card">
+            <div class="dc-title"><span class="tag">08:30</span> 红山森林动物园</div>
+            <div class="dc-item">地铁 3 号线至<span class="hl">红山动物园站</span>（北门进）</div>
+            <div class="dc-item"><span class="hl">北门进！</span> 大熊猫上午最活跃</div>
+            <div class="dc-item">路线：大熊猫馆 → 考拉馆 → 长颈鹿馆 → 猴山 → 熊馆 → 狼馆</div>
+            <div class="dc-item">学生票 ¥20，建议 3-4h</div>
+            <div class="dc-tags"><span>🎫 学生¥20</span><span>⏱ 3-4h</span><span>🚇 地铁 ¥4</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item" data-key="d4_check2">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="day-card">
+            <div class="dc-title"><span class="tag">下午</span> 回老门东 · 自由活动</div>
+            <div class="dc-item">动物园逛完回<span class="hl">老门东花间堂朱雀里</span>酒店休息</div>
+            <div class="dc-item">老门东吃小吃：鸭血粉丝汤、牛肉锅贴、糖芋苗</div>
+            <div class="dc-item">晚上可逛夫子庙秦淮河夜景（步行即到）</div>
+            <div class="dc-tags"><span>🏨 花间堂朱雀里</span><span>⏱ 自由安排</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item tl-no-click cost-summary">
+        <div class="tl-dot" style="border-color:var(--warm);"></div>
+        <div class="tl-content">
+          <div class="day-card">
+            <div class="dc-cost-row"><span>交通（地铁）</span><span class="val">¥4</span></div>
+            <div class="dc-cost-row"><span>住宿（花间堂朱雀里）</span><span class="val">¥195</span></div>
+            <div class="dc-cost-row"><span>餐饮</span><span class="val">¥80</span></div>
+            <div class="dc-cost-row"><span>门票（红山学生票）</span><span class="val">¥20</span></div>
+            <div class="dc-divider"></div>
+            <div class="dc-cost-row total"><span>本日总花费</span><span class="val">¥299</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== DAY 5 · 6/30 Tue 博物线 ===== -->
+  <div class="page" id="page-day5">
+    <div class="day-hero">
+      <div class="h-badge">Day 5 · 6/30 周二</div>
+      <h2>纪念馆 → 南博 → 总统府 → 甘熙宅第</h2>
+      <div class="h-meta">
+        <span>9:00 前出门</span>
+        <span>预估 ¥316</span>
+      </div>
+    </div>
+
+    <div class="route-map">
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">纪念馆</div><div class="rm-label">Line 2 云锦路</div></div>
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">南博</div><div class="rm-label">Line 2 向东</div></div>
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">总统府</div><div class="rm-label">Line 2 大行宫</div></div>
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">甘熙宅第</div><div class="rm-label">步行/地铁</div></div>
+    </div>
+
+    <div class="info-banner">
+      <span><span class="hl">⚠️ 纪念馆必须提前预约</span> 提前 7 天 0 点蹲守</span>
+      <span><span class="hl">⚠️ 南博也必须提前预约</span> 提前 7 天抢票</span>
+      <span><span class="hl">🚇 全程地铁 2 号线</span> 云锦路→明故宫→大行宫，一线直达</span>
+    </div>
+
+    <div class="tl-wrap">
+      <div class="tl-item" data-key="d5_check1">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="day-card">
+            <div class="dc-title"><span class="tag">09:00</span> 纪念馆</div>
+            <div class="dc-item"><span class="hl">侵华日军南京大屠杀遇难同胞纪念馆</span>（免费，最难约！）</div>
+            <div class="dc-item">地铁 2 号线至<span class="hl">云锦路站</span>（2 号口出），步行 3min</div>
+            <div class="dc-item">路线：史料陈列厅 → 万人坑遗址 → 冥思厅 → 和平公园</div>
+            <div class="dc-item">馆内保持肃穆，禁止拍照</div>
+            <div class="dc-tags"><span>🎫 免费（需预约）</span><span>⏱ 2-3h</span><span>🚇 ¥2</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item" data-key="d5_check2">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="day-card">
+            <div class="dc-title"><span class="tag">12:00</span> 南京博物院</div>
+            <div class="dc-item">纪念馆 → 地铁 2 号线至<span class="hl">明故宫站</span>（20min）</div>
+            <div class="dc-item"><span class="hl">南京博物院</span>（免费，需预约）</div>
+            <div class="dc-item">路线：历史馆 → 特展馆（镇馆之宝）→ 艺术馆 → 民国馆 → 非遗馆</div>
+            <div class="dc-item">民国馆秒穿越民国，历史馆旋转楼梯出片</div>
+            <div class="dc-tags"><span>🎫 免费（需预约）</span><span>⏱ 2-3h</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item" data-key="d5_check3">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="day-card">
+            <div class="dc-title"><span class="tag">15:00</span> 总统府 · 1912 街区</div>
+            <div class="dc-item">南博 → 地铁 2 号线至<span class="hl">大行宫站</span>（5min）</div>
+            <div class="dc-item"><span class="hl">总统府</span> 学生票 ¥20（需预约）</div>
+            <div class="dc-item">路线：门楼 → 大堂 → 东楼 → 子超楼 → 煦园</div>
+            <div class="dc-item">总统府出口即是<span class="hl">1912 街区</span>，适合喝杯咖啡</div>
+            <div class="dc-tags"><span>🎫 学生¥20</span><span>⏱ 1.5-2h</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item" data-key="d5_check4">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="day-card">
+            <div class="dc-title"><span class="tag">17:30</span> 甘熙宅第 · 回酒店</div>
+            <div class="dc-item"><span class="hl">甘熙宅第（九十九间半）</span>学生票 ¥13</div>
+            <div class="dc-item">总统府打车 10min 或地铁 1 号线至<span class="hl">三山街站</span></div>
+            <div class="dc-item">距酒店步行仅 5min，也可改天顺路去</div>
+            <div class="dc-tags"><span>🎫 学生¥13</span><span>⏱ 1-1.5h</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item tl-no-click cost-summary">
+        <div class="tl-dot" style="border-color:var(--warm);"></div>
+        <div class="tl-content">
+          <div class="day-card">
+            <div class="dc-cost-row"><span>交通（地铁）</span><span class="val">¥8</span></div>
+            <div class="dc-cost-row"><span>住宿</span><span class="val">¥195</span></div>
+            <div class="dc-cost-row"><span>餐饮</span><span class="val">¥80</span></div>
+            <div class="dc-cost-row"><span>门票（学生票）</span><span class="val">¥33</span></div>
+            <div class="dc-divider"></div>
+            <div class="dc-cost-row total"><span>本日总花费</span><span class="val">¥316</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== DAY 6 · 7/1 Wed 鸡鸣寺→玄武湖→返程 ===== -->
+  <div class="page" id="page-day6">
+    <div class="day-hero">
+      <div class="h-badge">Day 6 · 7/1 周三</div>
+      <h2>鸡鸣寺 → 玄武湖 → 返程</h2>
+      <div class="h-meta">
+        <span>最后一天，下午返程</span>
+        <span>预估 ¥98</span>
+      </div>
+    </div>
+
+    <div class="route-map">
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">鸡鸣寺</div><div class="rm-label">9:00</div></div>
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">玄武湖</div><div class="rm-label">步行</div></div>
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">返程</div><div class="rm-label">南京南站</div></div>
+    </div>
+
+    <div class="info-banner">
+      <span><span class="hl">📸 鸡鸣寺药师佛塔拍紫峰大厦同框</span></span>
+      <span><span class="hl">🕐 12:00 前退房</span> 行李可寄存前台</span>
+      <span><span class="hl">🎁 老门东买伴手礼</span> 鸭子、糕点、雨花石</span>
+    </div>
+
+    <div class="tl-wrap">
+      <div class="tl-item" data-key="d6_check1">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="day-card">
+            <div class="dc-title"><span class="tag">09:00</span> 鸡鸣寺</div>
+            <div class="dc-item">地铁 3 号线至<span class="hl">鸡鸣寺站</span> · 门票 ¥10</div>
+            <div class="dc-item">路线：山门 → 天王殿 → 大雄宝殿 → 药师佛塔 → 豁蒙楼</div>
+            <div class="dc-item">药师佛塔拍紫峰大厦同框</div>
+            <div class="dc-tags"><span>🎫 ¥10</span><span>⏱ 1-1.5h</span><span>🚇 ¥4</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item" data-key="d6_check2">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="day-card">
+            <div class="dc-title"><span class="tag">11:00</span> 玄武湖</div>
+            <div class="dc-item">鸡鸣寺出口步行至<span class="hl">玄武湖公园</span>（解放门进，免费）</div>
+            <div class="dc-item">沿环湖路散步，或租自行车骑行（¥30/h）</div>
+            <div class="dc-item">玄武门方向出，地铁返酒店取行李</div>
+            <div class="dc-tags"><span>🎫 免费</span><span>⏱ 1.5-2h</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item" data-key="d6_check3">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="day-card">
+            <div class="dc-title"><span class="tag">下午</span> 返程</div>
+            <div class="dc-item">回酒店取寄存行李（<span class="hl">12:00 前退房</span>）</div>
+            <div class="dc-item">从 <span class="hl">南京南站</span> 出发返程</div>
+            <div class="dc-item">地铁 3 号线至南京南站（约 20min），预留 1h</div>
+            <div class="dc-tags"><span>🚇 地铁 ¥4</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item tl-no-click cost-summary">
+        <div class="tl-dot" style="border-color:var(--warm);"></div>
+        <div class="tl-content">
+          <div class="day-card">
+            <div class="dc-cost-row"><span>交通（地铁）</span><span class="val">¥8</span></div>
+            <div class="dc-cost-row"><span>住宿</span><span class="val">¥0</span></div>
+            <div class="dc-cost-row"><span>餐饮</span><span class="val">¥80</span></div>
+            <div class="dc-cost-row"><span>门票（鸡鸣寺）</span><span class="val">¥10</span></div>
+            <div class="dc-divider"></div>
+            <div class="dc-cost-row total"><span>本日总花费</span><span class="val">¥98</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== BUDGET ===== -->
+  <div class="page" id="page-budget">
+    <div class="page-head">
+      <div class="info">
+        <h2>费用明细</h2>
+        <p>六天五晚 · 学生优惠已计入 · 方案三</p>
+      </div>
+    </div>
+
+    <div class="budget-total">
+      <div class="big">¥1,796</div>
+      <div class="lbl">人均总计（不含出发/返程大交通）</div>
+    </div>
+
+    <div class="bg-card">
+      <div class="bg-header" style="--pct:15">
+        <span class="l">🚄 交通</span>
+        <span class="r">¥266</span>
+      </div>
+      <div class="bg-item"><span>Day 1 黄山北→宏村→汤口</span><span class="v">¥35</span></div>
+      <div class="bg-item"><span>Day 2 景交车+汤口→黄山北+高铁+地铁</span><span class="v">¥193</span></div>
+      <div class="bg-item"><span>Day 3 钟山（地铁+观光车）</span><span class="v">¥18</span></div>
+      <div class="bg-item"><span>Day 4 地铁</span><span class="v">¥4</span></div>
+      <div class="bg-item"><span>Day 5 地铁</span><span class="v">¥8</span></div>
+      <div class="bg-item"><span>Day 6 地铁</span><span class="v">¥8</span></div>
+    </div>
+
+    <div class="bg-card">
+      <div class="bg-header" style="--pct:41">
+        <span class="l">🏨 住宿</span>
+        <span class="r">¥735</span>
+      </div>
+      <div class="bg-item"><span>6/26 美居酒店（黄山南大门）</span><span class="v">¥125</span></div>
+      <div class="bg-item"><span>6/27 你好酒店·红山动物园站</span><span class="v">¥90</span></div>
+      <div class="bg-item"><span>6/28 花间堂朱雀里（老门东）</span><span class="v">¥130</span></div>
+      <div class="bg-item"><span>6/29–6/30 花间堂朱雀里（老门东）</span><span class="v">¥390</span></div>
+    </div>
+
+    <div class="bg-card">
+      <div class="bg-header" style="--pct:26">
+        <span class="l">🍜 餐饮</span>
+        <span class="r">¥480</span>
+      </div>
+      <div class="bg-item"><span>Day 1–6 每日餐标 ¥80</span><span class="v">¥480</span></div>
+    </div>
+
+    <div class="bg-card">
+      <div class="bg-header" style="--pct:17">
+        <span class="l">🎫 门票</span>
+        <span class="r">¥315</span>
+      </div>
+      <div class="bg-item"><span>宏村学生票</span><span class="v">¥52</span></div>
+      <div class="bg-item"><span>黄山学生票+玉屏索道</span><span class="v">¥140</span></div>
+      <div class="bg-item"><span>明孝陵+音乐台+美龄宫</span><span class="v">¥60</span></div>
+      <div class="bg-item"><span>红山学生票</span><span class="v">¥20</span></div>
+      <div class="bg-item"><span>总统府+甘熙宅第</span><span class="v">¥33</span></div>
+      <div class="bg-item"><span>鸡鸣寺</span><span class="v">¥10</span></div>
+    </div>
+    <div class="bg-item"><span style="color:var(--text-secondary);font-size:14px;">Day 4 节省鸡鸣寺¥10+城墙¥15，Day 6 新增鸡鸣寺¥10</span></div>
+  </div>
+
+  <footer>南京黄山六日游</footer>
+
+</div>
+
+<button class="back-top" id="backTop" aria-label="回到顶部">&#8593;</button>
+
+<script>
+var scrollPositions = {};
+var pageOrder = ['home','day1','day2','day3','day4','day5','day6','budget'];
+
+function showPage(name) {
+  var prev = document.querySelector('.page.active');
+  if (prev) scrollPositions[prev.id.replace('page-', '')] = window.scrollY;
+
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const target = document.getElementById('page-' + name);
+  if (target) target.classList.add('active');
+  document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'));
+  const navLinks = document.querySelectorAll('.nav a');
+  const idx = pageOrder.indexOf(name);
+  if (idx >= 0 && navLinks[idx]) { navLinks[idx].classList.add('active'); navLinks[idx].scrollIntoView({ inline: 'center', behavior: 'smooth', block: 'nearest' }); }
+  updateNavIndicator();
+  if (scrollPositions[name] && scrollPositions[name] > 0) {
+    requestAnimationFrame(function() { window.scrollTo({ top: scrollPositions[name] }); });
+  } else {
+    window.scrollTo({ top: 0 });
+  }
+}
+
+function updateNavIndicator() {
+  var active = document.querySelector('.nav a.active');
+  var indicator = document.querySelector('.nav-indicator');
+  if (active && indicator) {
+    indicator.style.left = active.offsetLeft + 'px';
+    indicator.style.width = active.offsetWidth + 'px';
+  }
+}
+
+// Collapsible cards
+document.addEventListener('click', function(e) {
+  var card = e.target.closest('.day-card.collapsible');
+  if (card) {
+    card.classList.toggle('collapsed');
+  }
+});
+
+// Timeline toggle done
+document.querySelectorAll('.tl-item:not(.tl-no-click)').forEach(function(item) {
+  item.addEventListener('click', function() {
+    this.classList.toggle('done');
+  });
+});
+
+// Back to top
+var backTop = document.getElementById('backTop');
+window.addEventListener('scroll', function() {
+  backTop.classList.toggle('visible', window.scrollY > 300);
+});
+backTop.addEventListener('click', function() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// Init nav indicator
+updateNavIndicator();
+window.addEventListener('resize', updateNavIndicator);
+</script>
+
+</body>
+</html>

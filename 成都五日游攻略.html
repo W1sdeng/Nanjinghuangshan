@@ -4,877 +4,22 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>成都五日游 · 详细行程</title>
+<link rel="preload" href="chengdu/huanglong-1.jpg" as="image">
+<link rel="preload" href="chengdu/huanglong-2.jpg" as="image">
+<link rel="preload" href="chengdu/huanglong-3.jpg" as="image">
+<link rel="preload" href="chengdu/huanglong-4.jpg" as="image">
+<link rel="preload" href="chengdu/huanglong-5.jpg" as="image">
+<link rel="preload" href="chengdu/huanglong-6.jpg" as="image">
+<link rel="stylesheet" href="style.css">
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  img { max-width: 100%; }
-
-  :root {
-    --bg: #f8f7f5;
-    --surface: rgba(255,255,255,0.6);
-    --surface-hover: rgba(255,255,255,0.85);
-    --border: rgba(0,0,0,0.05);
-    --shadow: 0 0 1px rgba(0,0,0,0.03), 0 4px 12px rgba(0,0,0,0.04);
-    --shadow-hover: 0 0 1px rgba(0,0,0,0.03), 0 4px 12px rgba(0,0,0,0.04), 0 12px 32px rgba(0,0,0,0.06);
-    --text: #1a1c1b;
-    --text-secondary: #7a807c;
-    --text-tertiary: #b0b5b2;
-    --green: #2d5a4a;
-    --green-light: rgba(45,90,74,0.08);
-    --green-mid: #5a8a72;
-    --gold: #c4a87a;
-    --sage: #8a9a8a;
-    --warm: #c47a5a;
-    --warm-light: rgba(196,122,90,0.1);
-    --font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #1a1c1b;
-      --surface: rgba(44,46,44,0.5);
-      --surface-hover: rgba(56,58,56,0.7);
-      --border: rgba(255,255,255,0.04);
-      --shadow: 0 0 1px rgba(255,255,255,0.02), 0 4px 12px rgba(0,0,0,0.2);
-      --shadow-hover: 0 0 1px rgba(255,255,255,0.02), 0 4px 12px rgba(0,0,0,0.2), 0 12px 32px rgba(0,0,0,0.3);
-      --text: #ededea;
-      --text-secondary: #8a908c;
-      --text-tertiary: #5a605c;
-      --green: #5a9a7a;
-      --green-light: rgba(90,154,122,0.12);
-      --green-mid: #7aaa8a;
-      --gold: #c9b08a;
-      --sage: #7a8a7a;
-      --warm: #d48a6a;
-      --warm-light: rgba(212,138,106,0.12);
-    }
-    .image-slider { background: #1c1e1c; border-color: rgba(255,255,255,0.04); }
-    .slider-slide { background: linear-gradient(90deg, #2a2c2a 25%, #343634 50%, #2a2c2a 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; }
-    .slider-slide[data-loaded] { background: #1c1e1c; animation: none; }
-    .slider-slide img { border-radius: 6px; }
-    .image-caption { color: #6a706c; }
-  }
-
-  html { scroll-behavior: smooth; }
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { animation-duration:0.01ms!important; animation-iteration-count:1!important; transition-duration:0.01ms!important; scroll-behavior:auto!important; }
-  }
-  body {
-    font-family: var(--font);
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-  ::selection { background:rgba(45,90,74,0.15); color:var(--text); }
-  ::-moz-selection { background:rgba(45,90,74,0.15); color:var(--text); }
-
-  .glow { position:fixed;top:-30%;left:-20%;width:60%;height:70%;background:radial-gradient(ellipse,rgba(45,90,74,0.04) 0%,transparent 70%);pointer-events:none;z-index:-1; animation:glowDrift 20s ease-in-out infinite alternate; }
-  .glow2 { position:fixed;bottom:-20%;right:-10%;width:50%;height:60%;background:radial-gradient(ellipse,rgba(196,168,122,0.03) 0%,transparent 70%);pointer-events:none;z-index:-1; animation:glowDrift2 25s ease-in-out infinite alternate; }
-  @keyframes glowDrift { from { transform:translate(0,0); } to { transform:translate(5%,3%); } }
-  @keyframes glowDrift2 { from { transform:translate(0,0); } to { transform:translate(-4%,-2%); } }
-
-  /* ─── Nav ─── */
-  .nav {
-    position:sticky;top:0;z-index:100;
-    display:flex;justify-content:center;align-items:center;gap:2px;
-    padding:8px 16px;
-    backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);
-    background:rgba(248,247,245,0.78);
-    border-bottom:1px solid var(--border);
-    overflow-x:auto;-webkit-overflow-scrolling:touch;
-  }
-  @media (prefers-color-scheme: dark) { .nav { background:rgba(26,28,27,0.78); } }
-  .nav::-webkit-scrollbar { display:none; }
-  ::-webkit-scrollbar { width:6px; height:6px; }
-  ::-webkit-scrollbar-track { background:transparent; }
-  ::-webkit-scrollbar-thumb { background:var(--text-tertiary); border-radius:3px; }
-  ::-webkit-scrollbar-thumb:hover { background:var(--text-secondary); }
-
-  .nav a {
-    display:flex;align-items:center;justify-content:center;
-    height:30px;padding:0 12px;border-radius:7px;
-    font-size:12px;font-weight:500;
-    color:var(--text-secondary);text-decoration:none;
-    cursor:pointer;
-    transition:color 0.25s cubic-bezier(0.22,1,0.36,1), background 0.25s cubic-bezier(0.22,1,0.36,1);
-    flex-shrink:0;letter-spacing:0.2px;
-  }
-  .nav a:hover { color:var(--text);background:var(--surface); }
-  .nav a.active { background:var(--text);color:var(--bg);font-weight:600; }
-
-  /* ─── Container ─── */
-  .container { max-width:720px;margin:0 auto;padding:0 24px 80px; }
-  @media (min-width: 1024px) { .container { max-width:780px;padding:0 32px 100px; } .glow { width:50%; } .glow2 { width:40%; } .home-header { padding:80px 0 0; } .day-card,.bg-card { padding:24px 28px;border-radius:18px; } .page-head { padding-top:32px; } .page-head .num { width:44px;height:44px;font-size:16px; } .page-head .info h2 { font-size:20px; } .dc-item { font-size:15px; } .route { margin-bottom:48px; } .stats { margin:28px 0 48px; } .start-wrap { padding:28px 0 64px; } }
-  @media (max-width: 640px) { .container { max-width:100%;padding:0 14px 56px; } }
-
-  /* ─── Pages ─── */
-  .page { display:none; }
-  .page.active { display:block; animation:fadeIn 0.35s ease; }
-  @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-  @keyframes fadeInUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
-  @keyframes heroBg { from { background-position:0% 50%; } to { background-position:100% 50%; } }
-  .page.active .day-hero { animation:fadeInUp 0.5s cubic-bezier(0.22,1,0.36,1) 0.08s both, heroBg 12s ease-in-out 0.58s infinite alternate; }
-  .page.active .route-map { animation:fadeInUp 0.5s cubic-bezier(0.22,1,0.36,1) 0.15s both; }
-  .page.active .info-banner { animation:fadeInUp 0.5s cubic-bezier(0.22,1,0.36,1) 0.22s both; }
-
-  /* Home page sequential entrance */
-  #page-home.active .badge { animation:fadeInUp 0.5s cubic-bezier(0.22,1,0.36,1) 0.05s both; }
-  #page-home.active h1 { animation:fadeInUp 0.5s cubic-bezier(0.22,1,0.36,1) 0.1s both; }
-  #page-home.active .sub { animation:fadeInUp 0.5s cubic-bezier(0.22,1,0.36,1) 0.15s both; }
-  #page-home.active .stats { animation:fadeInUp 0.5s cubic-bezier(0.22,1,0.36,1) 0.2s both; }
-  #page-home.active .rt-stop:nth-child(1) { animation:fadeInUp 0.4s cubic-bezier(0.22,1,0.36,1) 0.25s both; }
-  #page-home.active .rt-stop:nth-child(2) { animation:fadeInUp 0.4s cubic-bezier(0.22,1,0.36,1) 0.3s both; }
-  #page-home.active .rt-stop:nth-child(3) { animation:fadeInUp 0.4s cubic-bezier(0.22,1,0.36,1) 0.35s both; }
-  #page-home.active .rt-stop:nth-child(4) { animation:fadeInUp 0.4s cubic-bezier(0.22,1,0.36,1) 0.4s both; }
-  #page-home.active .rt-stop:nth-child(5) { animation:fadeInUp 0.4s cubic-bezier(0.22,1,0.36,1) 0.45s both; }
-  #page-home.active .start-wrap { animation:fadeInUp 0.5s cubic-bezier(0.22,1,0.36,1) 0.5s both; }
-
-  /* ─── Home ─── */
-  .home-header { text-align:center;padding:72px 0 0; }
-  .home-header .badge {
-    display:inline-flex;align-items:center;gap:5px;
-    font-size:11px;font-weight:500;color:var(--green);
-    background:var(--green-light);padding:4px 12px;border-radius:16px;
-    margin-bottom:20px;letter-spacing:0.5px;
-  }
-  .home-header h1 {
-    font-size:clamp(36px,5.5vw,52px);font-weight:700;
-    letter-spacing:-0.8px;color:var(--text);
-    margin-bottom:8px;line-height:1.1;
-  }
-  .home-header .sub { font-size:15px;color:var(--text-secondary);font-weight:400;letter-spacing:0.8px; }
-
-  .stats { display:flex;justify-content:center;gap:6px;margin:24px 0 44px;flex-wrap:wrap; }
-  .stats span {
-    font-size:12px;font-weight:500;color:var(--text-tertiary);
-    background:var(--surface);border:1px solid var(--border);
-    padding:4px 12px;border-radius:14px;letter-spacing:0.2px;
-  }
-
-  /* Route Overview */
-  .route {
-    display:flex;align-items:flex-start;justify-content:space-between;
-    margin-bottom:40px;padding:0 4px;position:relative;
-  }
-  .route::before {
-    content:'';position:absolute;
-    top:26px;left:28px;right:28px;height:2px;
-    background:linear-gradient(to right,var(--green),var(--green-mid),var(--gold),var(--green-mid),var(--green));
-    opacity:0.35;
-  }
-  .rt-stop { display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;flex:1; }
-  .rt-dot { width:10px;height:10px;border-radius:50%;background:var(--green);border:2px solid var(--bg);box-shadow:0 0 0 2px rgba(45,90,74,0.15); }
-  .rt-stop:nth-child(2) .rt-dot { background:var(--green-mid);box-shadow:0 0 0 2px rgba(90,138,114,0.15); }
-  .rt-stop:nth-child(3) .rt-dot { background:var(--gold);box-shadow:0 0 0 2px rgba(196,168,122,0.15); }
-  .rt-stop:nth-child(4) .rt-dot { background:var(--green-mid);box-shadow:0 0 0 2px rgba(90,138,114,0.15); }
-  .rt-stop:nth-child(5) .rt-dot { background:var(--green);box-shadow:0 0 0 2px rgba(45,90,74,0.15); }
-  .rt-emoji {
-    display:inline-flex;align-items:center;justify-content:center;
-    width:32px;height:32px;border-radius:8px;
-    font-size:14px;font-weight:700;color:#fff;
-    background:linear-gradient(135deg,var(--green-mid),var(--green));
-    box-shadow:0 2px 8px rgba(45,90,74,0.15);
-  }
-  
-  .rt-name { font-size:11px;font-weight:600;color:var(--text); }
-  .rt-label { font-size:8px;color:var(--text-tertiary);letter-spacing:0.8px;text-transform:uppercase;font-weight:500; }
-
-  /* Start button */
-  .start-wrap { text-align:center;padding:20px 0 56px; }
-  .start-btn {
-    display:inline-flex;align-items:center;gap:8px;
-    padding:14px 36px;
-    background:var(--green);color:#fff;
-    font-size:15px;font-weight:600;letter-spacing:0.3px;
-    border:none;border-radius:14px;
-    cursor:pointer;
-    transition:all 0.3s cubic-bezier(0.22,1,0.36,1);
-    box-shadow:0 0 1px rgba(0,0,0,0.03), 0 4px 20px rgba(45,90,74,0.2);
-  }
-  .start-arrow { display:inline-block; transition:transform 0.3s cubic-bezier(0.22,1,0.36,1); }
-  .start-btn:hover .start-arrow { transform:translateX(4px); }
-  .start-btn:hover {
-    background:#3a6a5a;
-    transform:translateY(-2px);
-    box-shadow:0 0 1px rgba(0,0,0,0.03), 0 4px 20px rgba(45,90,74,0.2), 0 12px 40px rgba(45,90,74,0.3);
-  }
-  .start-btn:active { transform:translateY(0) scale(0.97); }
-
-  /* ─── Page Header ─── */
-  .page-head {
-    display:flex;align-items:center;gap:10px;margin-bottom:24px;padding-top:24px;
-  }
-  .page-head .num {
-    width:36px;height:36px;border-radius:10px;
-    display:flex;align-items:center;justify-content:center;
-    font-size:14px;font-weight:700;color:#fff;
-    position:relative; overflow:hidden;
-    box-shadow:0 0 1px rgba(0,0,0,0.05), 0 2px 8px rgba(0,0,0,0.08);
-  }
-  .page-head .num::after {
-    content:''; position:absolute; inset:0;
-    background:linear-gradient(135deg,rgba(255,255,255,0.2) 0%,transparent 50%);
-    pointer-events:none;
-  }
-  .page-head .num.d1 { background:linear-gradient(135deg,#3a7a5a,#2d5a4a); }
-  .page-head .num.d2 { background:linear-gradient(135deg,#6a9a7a,#5a8a72); }
-  .page-head .num.d3 { background:linear-gradient(135deg,#d4b88a,#c4a87a); }
-  .page-head .num.d4 { background:linear-gradient(135deg,#6a9a7a,#5a8a72); }
-  .page-head .num.d5 { background:linear-gradient(135deg,#3a7a5a,#2d5a4a); }
-  .page-head .num.budget { background:linear-gradient(135deg,#d48a6a,#c47a5a); }
-  @media (prefers-color-scheme: dark) {
-    .page-head .num { box-shadow:0 0 1px rgba(255,255,255,0.04), 0 2px 8px rgba(0,0,0,0.2); }
-  }
-
-  .page-head .info {  }
-  .page-head .info h2 { font-size:18px;font-weight:600;color:var(--text); }
-  .page-head .info p { font-size:12px;color:var(--text-tertiary);margin-top:2px; }
-
-  /* ─── Day Cards ─── */
-  .day-card {
-    background:var(--surface);
-    backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-    border:1px solid var(--border);border-radius:16px;
-    padding:20px 22px;margin-bottom:14px;
-    box-shadow:var(--shadow);
-    position:relative;
-  }
-  .day-card::after {
-    content:''; position:absolute; top:0; left:0; right:0; height:1px;
-    background:linear-gradient(to right,transparent,rgba(255,255,255,0.3) 30%,rgba(255,255,255,0.3) 70%,transparent);
-    border-radius:16px 16px 0 0; pointer-events:none;
-  }
-  .day-card:last-child { margin-bottom:0; }
-
-  .dc-title {
-    font-size:14px;font-weight:600;color:var(--text);
-    margin-bottom:10px;display:flex;align-items:center;gap:8px;
-  }
-  .dc-title .tag {
-    font-size:12px;font-weight:600;letter-spacing:0.3px;
-    padding:3px 9px;border-radius:6px;
-    background:var(--green-light);color:var(--green);
-    white-space:nowrap;
-  }
-
-  .dc-item {
-    display:flex;align-items:flex-start;gap:8px;padding:5px 0;
-    font-size:14px;line-height:1.65;color:var(--text-secondary);
-  }
-  .dc-item .ico {
-    display:inline;
-    font-size:13px;
-    line-height:1;
-    margin-right:2px;
-  }
-
-  .dc-item .hl { color:var(--text);font-weight:500; }
-  .dc-item .price { color:var(--warm);font-weight:600; }
-
-  .dc-tags { display:flex;flex-wrap:wrap;gap:5px;margin-top:10px; }
-  .dc-tags span {
-    font-size:10px;font-weight:500;padding:3px 9px;border-radius:6px;
-    background:var(--green-light);color:var(--text-tertiary);
-    border:1px solid var(--border);
-    transition:background 0.2s ease, color 0.2s ease;
-  }
-  .dc-tags span:hover { background:var(--green);color:#fff;border-color:var(--green); }
-
-  .dc-divider { height:1px;background:linear-gradient(to right,transparent,var(--border) 20%,var(--border) 80%,transparent);margin:14px 0; }
-
-  .dc-cost-row {
-    display:flex;justify-content:space-between;align-items:center;
-    padding:4px 0;font-size:12px;color:var(--text-tertiary);
-  }
-  .dc-cost-row .val { font-weight:600;color:var(--text); }
-  .dc-cost-row.total { padding:6px 0 0;margin-top:4px;border-top:1px solid var(--border);font-size:13px;font-weight:600;color:var(--text); }
-  .dc-cost-row.total .val { color:var(--warm); }
-
-  /* ─── Budget Page ─── */
-  .budget-total {
-    text-align:center;padding:32px 0 24px;
-  }
-  .budget-total .big {
-    font-size:44px;font-weight:700;color:var(--green);
-    letter-spacing:-1px;
-    opacity:0; transform:scale(0.8);
-    transition:opacity 0.5s cubic-bezier(0.22,1,0.36,1), transform 0.5s cubic-bezier(0.22,1,0.36,1);
-  }
-  #page-budget.active .budget-total .big {
-    opacity:1; transform:scale(1);
-    transition-delay:0.15s;
-  }
-  .budget-total .lbl {
-    font-size:13px;color:var(--text-tertiary);margin-top:4px;
-  }
-  .bg-fill { width:0; transition:width 0.8s cubic-bezier(0.22,1,0.36,1); }
-
-  .bg-card {
-    background:var(--surface);
-    backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-    border:1px solid var(--border);border-radius:16px;
-    padding:20px 22px;margin-bottom:12px;
-    box-shadow:var(--shadow);
-    position:relative;
-  }
-  .bg-card::after {
-    content:''; position:absolute; top:0; left:0; right:0; height:1px;
-    background:linear-gradient(to right,transparent,rgba(255,255,255,0.3) 30%,rgba(255,255,255,0.3) 70%,transparent);
-    border-radius:16px 16px 0 0; pointer-events:none;
-  }
-  .bg-card:last-child { margin-bottom:0; }
-
-  .bg-header {
-    display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;
-  }
-  .bg-header .l { display:flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:var(--text); }
-  .bg-header .r { font-size:16px;font-weight:700;color:var(--text); }
-
-  .bg-item {
-    display:flex;justify-content:space-between;align-items:center;
-    padding:3px 0 3px 24px;font-size:12px;color:var(--text-secondary);
-  }
-  .bg-item .v { font-weight:500;color:var(--text); }
-
-  .bg-bar { height:4px;border-radius:2px;background:var(--border);margin-bottom:8px;overflow:hidden; }
-  .bg-fill { height:100%;border-radius:2px; }
-
-  .bg-green { background:var(--green); }
-  .bg-mid { background:var(--green-mid); }
-  .bg-gold { background:var(--gold); }
-  .bg-sage { background:var(--sage); }
-  .bg-warm { background:var(--warm); }
-
-
-
-  /* ─── Footer ─── */
-  footer { text-align:center;padding:48px 0 0;color:var(--text-tertiary);font-size:11px;letter-spacing:0.5px; }
-
-  /* ─── Tablet (768-1024px) ─── */
-  @media (min-width: 768px) and (max-width: 1023px) {
-    .container { max-width:700px;padding:0 32px 80px; }
-    .home-header { padding:60px 0 0; }
-    .home-header h1 { font-size:clamp(34px,5vw,44px); }
-    .page-head { padding-top:28px; }
-    .page-head .num { width:42px;height:42px;font-size:16px;border-radius:12px; }
-    .page-head .info h2 { font-size:20px; }
-    .day-card,.bg-card { padding:22px 26px; }
-    .dc-item { font-size:15px; }
-    .budget-total .big { font-size:48px; }
-    .nav a { padding:0 16px;font-size:13px;height:34px; }
-    /* budget items 2-col */
-    .bg-card { display:grid;grid-template-columns:1fr 1fr;gap:4px 16px; }
-    .bg-card .bg-header,.bg-card .bg-bar { grid-column:1/-1; }
-    .bg-item { padding:3px 0; }
-    .route { margin-bottom:44px; }
-    .stats { margin:22px 0 40px; }
-    .start-wrap { padding:24px 0 48px; }
-  }
-
-  /* ─── Shimmer Skeleton ─── */
-  @keyframes shimmer {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
-  }
-
-  /* ─── Image Slider (小红书风格) ─── */
-  .image-slider {
-    position: relative;
-    width: 100%;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 0 1px rgba(0,0,0,0.03), 0 4px 16px rgba(45,90,74,0.10);
-    border: 1px solid rgba(0,0,0,0.04);
-    background: #fff;
-  }
-  .slider-track {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    transition: transform 0.45s cubic-bezier(0.22, 0.1, 0.25, 1);
-  }
-  .slider-slide {
-    flex: 0 0 100%;
-    width: 100%;
-    height: 60vh;
-    max-height: 500px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%);
-    background-size: 200% 100%;
-    animation: shimmer 1.5s infinite;
-    overflow: hidden;
-  }
-  .slider-slide[data-loaded] {
-    background: #fff;
-    animation: none;
-  }
-  .slider-slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    display: block;
-    border-radius: 8px;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-  }
-  .slider-slide img[data-loaded] {
-    opacity: 1;
-  }
-  .slider-dots {
-    position: absolute;
-    bottom: 12px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 8px;
-    z-index: 5;
-    padding: 4px 10px;
-    border-radius: 20px;
-    background: rgba(0,0,0,0.25);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-  }
-  .slider-dots .dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.5);
-    cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.22,1,0.36,1);
-    border: none;
-    padding: 0;
-    position:relative;
-  }
-  .slider-dots .dot.active {
-    width: 20px;
-    border-radius: 3px;
-    background: #fff;
-  }
-  .slider-dots .dot.active::after {
-    content:''; position:absolute; inset:-4px;
-    border-radius:4px;
-    border:1.5px solid rgba(255,255,255,0.4);
-    border-top-color:rgba(255,255,255,0.8);
-    animation:sliderProgress 4s linear infinite;
-    pointer-events:none;
-  }
-  @keyframes sliderProgress { to { transform:rotate(360deg); } }
-  .slider-dots .dot:hover {
-    background: rgba(255,255,255,0.8);
-    transform: scale(1.3);
-  }
-  .slider-dots .dot.nodots {
-    display: none;
-  }
-
-  .image-caption {
-    text-align: center;
-    color: var(--text-tertiary);
-    font-size: 0.82em;
-    padding: 10px 4px 4px;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.5;
-  }
-
-  @media (max-width: 768px) {
-    .image-slider {
-      border-radius: 10px;
-      box-shadow: 0 0 1px rgba(0,0,0,0.03), 0 3px 12px rgba(45,90,74,0.08);
-      border-width:0.5px;
-    }
-    .slider-slide {
-      height: 50vh;
-      max-height: 350px;
-    }
-    .slider-dots {
-      bottom: 8px;
-      gap: 7px;
-      padding: 3px 8px;
-    }
-    .slider-dots .dot {
-      width: 5px;
-      height: 5px;
-    }
-    .slider-dots .dot.active {
-      width: 16px;
-    }
-    .slider-dots .dot.active::after { inset:-3px; border-radius:3px; border-width:1px; }
-    .image-caption {
-      font-size: 0.78em;
-      padding: 8px 2px 2px;
-    }
-  }
-
-  /* ─── Phone (≤ 640px) ─── */
-  @media (max-width: 640px) {
-    .home-header { padding:36px 0 0; }
-    .home-header h1 { font-size:clamp(26px,7vw,34px); }
-    .home-header .sub { font-size:13px;letter-spacing:0.5px; }
-
-    .nav { gap:0;padding:6px 8px; }
-    .nav a { padding:0 8px;font-size:11px;height:32px;min-width:40px;border-radius:8px; }
-
-    .stats { gap:4px;margin:16px 0 28px; }
-    .stats span { font-size:11px;padding:3px 10px;border-radius:12px; }
-
-    .route { gap:0;margin-bottom:28px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch; }
-    .route::-webkit-scrollbar { display:none; }
-    @supports (scrollbar-width:none) { .route { scrollbar-width:none; } }
-    .route::before { left:14px;right:14px;top:22px; }
-    .rt-stop { min-width:56px;gap:4px; }
-    .rt-emoji { width:28px;height:28px;border-radius:7px; }
-
-    .rt-name { font-size:8px; }
-    .rt-label { font-size:7px; }
-    .rt-dot { width:7px;height:7px; }
-
-    .start-btn { width:100%;justify-content:center;padding:12px 24px;font-size:14px;border-radius:12px; }
-    .start-wrap { padding:12px 0 32px; }
-
-    .page-head { flex-direction:column;align-items:flex-start;gap:6px;padding-top:14px;margin-bottom:18px; }
-    .page-head .num { width:30px;height:30px;font-size:12px;border-radius:8px; }
-    .page-head .info h2 { font-size:15px; }
-    .page-head .info p { font-size:11px;line-height:1.4; }
-
-    .day-card,.bg-card { padding:14px 16px;border-radius:12px;margin-bottom:10px; }
-    .dc-title { font-size:13px;margin-bottom:8px;gap:6px; }
-    .dc-title .tag { font-size:11px;padding:2px 7px;border-radius:5px; }
-    .dc-item { font-size:13px;line-height:1.55;gap:6px;padding:4px 0; }
-    .dc-item .ico { font-size:12px;margin-right:1px; }
-
-    .dc-tags { margin-top:8px;gap:4px; }
-    .dc-tags span { font-size:9px;padding:2px 7px;border-radius:5px; }
-    .dc-divider { margin:10px 0; }
-    .dc-cost-row { font-size:11px; }
-
-    .budget-total { padding:20px 0 16px; }
-    .budget-total .big { font-size:30px; }
-    .budget-total .lbl { font-size:11px; }
-
-    .bg-header { margin-bottom:6px; }
-    .bg-header .l { font-size:13px; }
-    .bg-header .r { font-size:14px; }
-    .bg-item { font-size:11px;padding:2px 0 2px 14px; }
-    .bg-bar { height:3px;margin-bottom:6px; }
-
-    footer { padding:28px 0 0;font-size:10px; }
-  }
-
-  /* ─── Small Phone (≤ 400px) ─── */
-  @media (max-width: 400px) {
-    .route {  }
-    .rt-stop { min-width:48px; }
-    .rt-name { font-size:7px; }
-    .rt-emoji { width:22px;height:22px;border-radius:6px; }
-
-    .rt-dot { width:6px;height:6px; }
-    .route::before { left:10px;right:10px;top:20px; }
-
-    .day-card,.bg-card { padding:12px 12px;border-radius:10px; }
-    .dc-item { font-size:12px; }
-    .page-head .info h2 { font-size:14px; }
-
-    .nav a { padding:0 6px;font-size:10px;height:28px;min-width:32px; }
-    .home-header h1 { font-size:24px; }
-  }
-
-  /* ─── Scroll Reveal ─── */
-  .reveal {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .tl-item .reveal { transition-delay:0s; }
-  .tl-item:nth-child(1) .reveal { transition-delay:0.03s; }
-  .tl-item:nth-child(2) .reveal { transition-delay:0.06s; }
-  .tl-item:nth-child(3) .reveal { transition-delay:0.09s; }
-  .tl-item:nth-child(4) .reveal { transition-delay:0.12s; }
-  .tl-item:nth-child(5) .reveal { transition-delay:0.15s; }
-  .tl-item:nth-child(6) .reveal { transition-delay:0.18s; }
-  .tl-item:nth-child(7) .reveal { transition-delay:0.21s; }
-  .tl-item:nth-child(8) .reveal { transition-delay:0.24s; }
-  .tl-item:nth-child(9) .reveal { transition-delay:0.27s; }
-  .tl-item:nth-child(10) .reveal { transition-delay:0.3s; }
-  .tl-item:nth-child(11) .reveal { transition-delay:0.33s; }
-  .tl-item:nth-child(12) .reveal { transition-delay:0.36s; }
-
-  /* ─── Card Hover ─── */
-  .day-card, .bg-card {
-    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .day-card:hover, .bg-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 1px rgba(0,0,0,0.03), 0 4px 12px rgba(0,0,0,0.04), 0 12px 32px rgba(0,0,0,0.06);
-    border-color: rgba(45,90,74,0.08);
-  }
-  @media (prefers-color-scheme: dark) {
-  .day-card.cost-summary {
-    background:var(--warm-light);
-    border-color:rgba(196,122,90,0.15);
-  }
-  .day-card.cost-summary .dc-divider { margin:10px 0; }
-  @media (prefers-color-scheme: dark) {
-    .day-card.cost-summary { border-color:rgba(212,138,106,0.2); }
-  }
-  .day-card:hover, .bg-card:hover {
-      box-shadow: 0 0 1px rgba(255,255,255,0.02), 0 4px 12px rgba(0,0,0,0.2), 0 12px 32px rgba(0,0,0,0.3);
-      border-color: rgba(255,255,255,0.06);
-    }
-    .day-card::after, .bg-card::after { opacity:0.3; }
-  }
-
-  /* ─── Image Modal ─── */
-  .modal {
-    display: flex;
-    position: fixed;
-    z-index: 200;
-    left: 0; top: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0);
-    backdrop-filter: blur(0px);
-    -webkit-backdrop-filter: blur(0px);
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    pointer-events: none;
-    transition: background 0.35s ease, backdrop-filter 0.35s ease, -webkit-backdrop-filter 0.35s ease;
-  }
-  .modal.active {
-    background: rgba(0,0,0,0.92);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    pointer-events: auto;
-  }
-  .modal-content {
-    max-width: 92vw;
-    max-height: 85vh;
-    border-radius: 12px;
-    box-shadow: 0 0 1px rgba(0,0,0,0.05), 0 8px 40px rgba(0,0,0,0.4);
-    object-fit: contain;
-    transform: scale(0.88);
-    opacity: 0;
-    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
-  }
-  .modal.active .modal-content { transform: scale(1); opacity: 1; }
-  .modal-close {
-    position: absolute; top: 20px; right: 28px;
-    color: rgba(255,255,255,0.7);
-    font-size: 36px; font-weight: 300;
-    cursor: pointer; transition: color 0.2s;
-    z-index: 201; line-height: 1;
-  }
-  .modal-close:hover { color: #fff; }
-  .modal-nav {
-    position: absolute; top: 50%; transform: translateY(-50%);
-    color: rgba(255,255,255,0.6);
-    font-size: 32px; font-weight: 300;
-    cursor: pointer; padding: 20px 16px;
-    transition: color 0.2s, background 0.2s;
-    border-radius: 12px; -webkit-user-select:none; user-select: none; z-index: 201;
-  }
-  .modal-nav:hover { color: #fff; background: rgba(255,255,255,0.1); }
-  .modal-prev { left: 16px; }
-  .modal-next { right: 16px; }
-  .modal-counter {
-    position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
-    color: rgba(255,255,255,0.6); font-size: 13px; font-weight: 500;
-    letter-spacing: 0.5px;
-    background: rgba(0,0,0,0.4); padding: 6px 16px; border-radius: 16px;
-    backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
-    z-index: 201;
-  }
-  @media (max-width: 640px) {
-    .modal-nav { font-size: 24px; padding: 16px 10px; }
-    .modal-prev { left: 8px; }
-    .modal-next { right: 8px; }
-    .modal-close { top: 14px; right: 18px; font-size: 28px; }
-    .modal-content { max-width: 96vw; max-height: 80vh; border-radius: 8px; }
-  }
-
-  /* ─── Day Hero ─── */
-  .day-hero {
-    position:relative; overflow:hidden;
-    background: linear-gradient(135deg, #2d5a4a 0%, #3a6a5a 40%, #5a8a72 100%);
-    background-size: 200% 200%;
-    background-position: 0% 50%;
-    border-radius: 18px; padding: 28px 24px 20px; margin-bottom: 20px;
-    color: #fff;
-    box-shadow:0 0 1px rgba(0,0,0,0.04), 0 4px 16px rgba(45,90,74,0.15);
-  }
-  @media (prefers-color-scheme: dark) {
-    .day-hero { background: linear-gradient(135deg, #1a3a2a 0%, #2a5a4a 40%, #4a7a62 100%); box-shadow:0 0 1px rgba(255,255,255,0.02), 0 4px 16px rgba(0,0,0,0.25); }
-  }
-  .day-hero::before {
-    content: ''; position:absolute; inset:0;
-    background: radial-gradient(ellipse at 20% 30%, rgba(255,255,255,0.1) 0%, transparent 60%);
-    pointer-events:none;
-  }
-  .day-hero::after {
-    content:''; position:absolute; inset:0;
-    background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.04) 1px, transparent 0);
-    background-size: 12px 12px;
-    pointer-events:none;
-    opacity:0.5;
-  }
-  .day-hero .h-badge {
-    display:inline-flex; align-items:center; gap:4px;
-    font-size:11px; font-weight:600; letter-spacing:0.8px;
-    background:rgba(255,255,255,0.15); -webkit-backdrop-filter:blur(4px); backdrop-filter:blur(4px);
-    padding:3px 10px; border-radius:8px; margin-bottom:12px;
-  }
-  .day-hero h2 { font-size:clamp(20px,4vw,26px); font-weight:700; letter-spacing:-0.3px; line-height:1.2; margin-bottom:8px; }
-  .day-hero .h-meta { display:flex; flex-wrap:wrap; gap:6px 14px; font-size:12px; opacity:0.8; margin-bottom:12px; }
-  .day-hero .h-tags { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:14px; }
-  .day-hero .h-tags span {
-    font-size:10px; font-weight:500; padding:3px 10px; border-radius:6px;
-    background:rgba(255,255,255,0.12); -webkit-backdrop-filter:blur(4px); backdrop-filter:blur(4px);
-  }
-  .day-hero .h-progress { display:flex; align-items:center; gap:10px; }
-  .day-hero .h-progress .track {
-    flex:1; height:4px; border-radius:2px; background:rgba(255,255,255,0.2);
-    overflow:hidden;
-  }
-  .day-hero .h-progress .track .fill {
-    height:100%; border-radius:2px; background:#fff; width:0%;
-    transition:width 0.5s cubic-bezier(0.22,1,0.36,1);
-  }
-  .day-hero .h-progress .lbl { font-size:10px; opacity:0.65; white-space:nowrap; }
-  @media (max-width:640px) {
-    .day-hero { border-radius:14px; padding:20px 16px 16px; margin-bottom:14px; }
-    .day-hero .h-meta { gap:4px 10px; font-size:11px; }
-    .day-hero .h-tags span { font-size:9px; padding:2px 8px; }
-  }
-
-  /* ─── Route Map ─── */
-  .route-map {
-    display:flex; align-items:flex-start; justify-content:space-between;
-    padding:16px 8px 8px; margin-bottom:16px; position:relative;
-  }
-  .route-map::before {
-    content:''; position:absolute; top:38px; left:24px; right:24px; height:2px;
-    background:linear-gradient(to right,var(--green),var(--green-mid),var(--gold),var(--green-mid),var(--green));
-    opacity:0.25;
-  }
-  .rm-stop { display:flex; flex-direction:column; align-items:center; gap:4px; position:relative; z-index:1; flex:1; min-width:0; }
-  .rm-icon { font-size:16px; line-height:1; }
-  
-  .rm-dot { width:8px; height:8px; border-radius:50%; background:var(--green); border:2px solid var(--bg); box-shadow:0 0 0 2px rgba(45,90,74,0.12); }
-  .rm-stop:nth-child(3) .rm-dot { background:var(--gold); box-shadow:0 0 0 2px rgba(196,168,122,0.15); }
-  .rm-stop:nth-child(5) .rm-dot { background:var(--green-mid); box-shadow:0 0 0 2px rgba(90,138,114,0.12); }
-  .rm-name { font-size:9px; font-weight:600; color:var(--text); text-align:center; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%; }
-  .rm-label { font-size:7px; color:var(--text-tertiary); letter-spacing:0.5px; font-weight:500; }
-  @media (max-width:640px) {
-    .route-map { padding:10px 2px 4px; margin-bottom:10px; }
-    .route-map::before { left:10px; right:10px; top:34px; }
-    .rm-icon { font-size:13px; }
-
-    .rm-dot { width:6px; height:6px; }
-    .rm-name { font-size:7px; }
-    .rm-label { font-size:6px; }
-  }
-
-  /* ─── Info Banner ─── */
-  .info-banner {
-    display:flex; flex-wrap:wrap; gap:8px; align-items:center;
-    background:var(--surface); border:1px solid var(--border); border-radius:12px;
-    padding:12px 16px; margin-bottom:18px; font-size:12px; color:var(--text-secondary);
-    backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
-  }
-  .info-banner span { display:inline-flex; align-items:center; gap:4px; line-height:1.4; }
-  .info-banner .hl { color:var(--text); font-weight:500; }
-  @media (max-width:640px) { .info-banner { font-size:11px; padding:10px 12px; margin-bottom:12px; gap:6px; } }
-
-  /* ─── Timeline ─── */
-  .tl-wrap { position:relative; padding-left:28px; }
-  .tl-wrap::before {
-    content:''; position:absolute; left:8px; top:8px; bottom:8px; width:1.5px;
-    background:linear-gradient(to bottom, var(--green), var(--green-mid) 30%, var(--gold) 50%, var(--green-mid) 70%, var(--green));
-    opacity:0.35; border-radius:1px;
-  }
-  .tl-item { position:relative; padding-bottom:6px; }
-  .tl-item:last-child { padding-bottom:0; }
-  .tl-dot {
-    position:absolute; left:-22px; top:20px;
-    width:12px; height:12px; border-radius:50%;
-    background:var(--surface); border:2px solid var(--green);
-    z-index:2; box-shadow:0 0 0 3px var(--bg);
-    transition:all 0.3s cubic-bezier(0.22,1,0.36,1);
-  }
-  .tl-item:first-child .tl-dot {
-    background:var(--green);
-    box-shadow:0 0 0 3px var(--bg), 0 0 0 5px rgba(45,90,74,0.12);
-  }
-  .tl-item:nth-child(7) .tl-dot { border-color:var(--gold); }
-  .tl-item .tl-check {
-    position:absolute; left:-24px; top:16px; z-index:3;
-    width:16px; height:16px; border-radius:50%; border:2px solid var(--border);
-    background:var(--surface); cursor:pointer; -webkit-appearance:none; appearance:none;
-    display:flex; align-items:center; justify-content:center;
-    transition:all 0.25s cubic-bezier(0.22,1,0.36,1);
-  }
-  .tl-item .tl-check:hover { border-color:var(--green-mid); }
-  .tl-item .tl-check:checked:hover { border-color:var(--green); }
-  .tl-item .tl-check:checked {
-    background:var(--green); border-color:var(--green);
-    animation:checkPop 0.3s cubic-bezier(0.22,1,0.36,1);
-  }
-  @keyframes checkPop {
-    0% { transform:scale(1); }
-    40% { transform:scale(1.25); }
-    100% { transform:scale(1); }
-  }
-  .tl-item .tl-check:checked::after {
-    content:'✓'; color:#fff; font-size:11px; font-weight:700; line-height:1;
-  }
-  .tl-content { width:100%; }
-  @media (max-width:640px) {
-    .tl-wrap { padding-left:24px; }
-    .tl-dot { left:-18px; top:18px; width:10px; height:10px; }
-    .tl-item .tl-check { left:-20px; top:14px; width:14px; height:14px; }
-  }
-
-  /* ─── Collapsible Card ─── */
-  .day-card.collapsible { cursor:pointer; }
-  .day-card.collapsible .dc-title {
-    -webkit-user-select:none; user-select:none;
-    position:relative; padding-right:20px;
-  }
-  .day-card.collapsible .dc-title::after {
-    content:'▼'; position:absolute; right:0; top:0;
-    font-size:8px; color:var(--text-tertiary);
-    transition:transform 0.3s cubic-bezier(0.22,1,0.36,1);
-  }
-  .day-card.collapsible.collapsed .dc-title::after { transform:rotate(-90deg); }
-  .day-card.collapsible .dc-detail-wrap { overflow:hidden; transition:max-height 0.4s cubic-bezier(0.22,1,0.36,1), opacity 0.3s ease; max-height:600px; opacity:1; }
-  .day-card.collapsible.collapsed .dc-detail-wrap { max-height:0; opacity:0; }
-
-  /* ─── Touch devices: bigger tap targets, kill hover ─── */
-  @media (hover: none) and (pointer: coarse) {
-    .nav a { min-height:38px; }
-    .start-btn { min-height:48px;font-size:15px; }
-    .nav a:hover { color:var(--text-secondary);background:transparent; }
-    .day:hover,.cost:hover,.sc:hover { background:var(--surface);box-shadow:var(--shadow);border-color:var(--border); }
-    .slider-dots .dot { width:7px;height:7px;margin:2px; }
-    .slider-dots .dot.active { width:20px; }
-    .slider-dots .dot:hover { background:rgba(255,255,255,0.55);transform:none; }
-  }
+  .editable { display:inline-block; min-width:30px; text-align:right; border-bottom:1px dashed rgba(200,190,180,0.3); cursor:text; padding:0 2px; transition:background 0.2s; }
+  .editable:hover { background:rgba(187,206,140,0.1); }
+  .editable:focus { outline:none; border-bottom-color:var(--accent); background:rgba(187,206,140,0.15); }
+  .reset-btn { background:transparent; border:1px solid rgba(200,190,180,0.2); color:var(--text-secondary); padding:2px 10px; border-radius:8px; cursor:pointer; font-size:0.8em; vertical-align:middle; margin-left:8px; transition:all 0.2s; }
+  .reset-btn:hover { border-color:var(--accent); color:var(--accent); }
 </style>
-
 </head>
 <body>
-
-<div class="glow"></div>
-<div class="glow2"></div>
 
 <!-- Nav -->
 <nav class="nav" id="topNav">
@@ -885,6 +30,7 @@
   <a onclick="showPage('day4')">Day4</a>
   <a onclick="showPage('day5')">Day5</a>
   <a onclick="showPage('budget')">预算</a>
+  <div class="nav-indicator"></div>
 </nav>
 
 <div class="container">
@@ -892,11 +38,11 @@
   <!-- ===== HOME ===== -->
   <div class="page active" id="page-home">
     <div class="home-header">
-      <div class="badge">2026 · 五日行程</div>
+      <div class="date">2026 · 9.5 → 9.9</div>
       <h1>成都五日游</h1>
       <p class="sub">黄龙 · 九寨沟 · 三星堆 · 青城山 · 都江堰 · 杜甫草堂</p>
       <div class="stats">
-        <span>五天四晚</span>
+        <span>9.5→9.9</span>
         <span>人均 ¥2,054</span>
         <span>2-4 人</span>
       </div>
@@ -904,31 +50,26 @@
 
     <div class="route">
       <div class="rt-stop">
-        <div class="rt-emoji">🏔️</div>
         <div class="rt-dot"></div>
         <div class="rt-name">黄龙</div>
         <div class="rt-label">Day 1</div>
       </div>
       <div class="rt-stop">
-        <div class="rt-emoji">🏞️</div>
         <div class="rt-dot"></div>
         <div class="rt-name">九寨沟</div>
         <div class="rt-label">Day 2</div>
       </div>
       <div class="rt-stop">
-        <div class="rt-emoji">🏛️</div>
         <div class="rt-dot"></div>
         <div class="rt-name">三星堆</div>
         <div class="rt-label">Day 3</div>
       </div>
       <div class="rt-stop">
-        <div class="rt-emoji">⛰️</div>
         <div class="rt-dot"></div>
         <div class="rt-name">青城山</div>
         <div class="rt-label">Day 4</div>
       </div>
       <div class="rt-stop">
-        <div class="rt-emoji">🏙️</div>
         <div class="rt-dot"></div>
         <div class="rt-name">成都</div>
         <div class="rt-label">Day 5</div>
@@ -939,9 +80,10 @@
       <button class="start-btn" onclick="showPage('day1')">
         开始行程 <span class="start-arrow">→</span>
       </button>
+
     </div>
 
-    <footer>2026 年 6 月 · 祝旅途愉快</footer>
+    <footer>2026 年 9 月 · 祝旅途愉快</footer>
   </div>
 
   <!-- ===== DAY 1 ===== -->
@@ -949,149 +91,129 @@
 
     <!-- Hero -->
     <div class="day-hero">
-      <div class="h-badge">Day 1 · 6月某日</div>
+      <div class="h-badge">Day 1 · 9月5日</div>
       <h2>成都西 → 黄龙 → 九寨沟</h2>
       <div class="h-meta">
-        <span>🌡️ 18-28°C</span>
-        <span>⛰️ 海拔 500→3500m</span>
-        <span>💰 预估 ¥656</span>
-      </div>
-      <div class="h-tags">
-        <span>🚄 高铁 1h39min</span>
-        <span>🚌 景区接驳</span>
-        <span>🏞️ 黄龙 5h</span>
-        <span>🍲 牦牛汤锅</span>
-      </div>
-      <div class="h-progress">
-        <div class="track"><div class="fill" id="day1Progress"></div></div>
-        <span class="lbl" id="day1ProgressLabel">0% 完成</span>
+        <span>海拔 500→3500m</span>
+        <span>预估 ¥656</span>
       </div>
     </div>
 
     <!-- Route Map -->
     <div class="route-map">
-      <div class="rm-stop"><div class="rm-icon">🚉</div><div class="rm-dot"></div><div class="rm-name">成都西站</div><div class="rm-label">出发</div></div>
-      <div class="rm-stop"><div class="rm-icon">🚄</div><div class="rm-dot"></div><div class="rm-name">成都东站</div><div class="rm-label">换乘</div></div>
-      <div class="rm-stop"><div class="rm-icon">🚄</div><div class="rm-dot"></div><div class="rm-name">黄龙九寨站</div><div class="rm-label">1h39min</div></div>
-      <div class="rm-stop"><div class="rm-icon">🏞️</div><div class="rm-dot"></div><div class="rm-name">黄龙景区</div><div class="rm-label">5h</div></div>
-      <div class="rm-stop"><div class="rm-icon">🏨</div><div class="rm-dot"></div><div class="rm-name">九寨沟沟口</div><div class="rm-label">住宿</div></div>
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">成都西站</div><div class="rm-label">出发</div></div>
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">成都东站</div><div class="rm-label">换乘</div></div>
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">黄龙九寨站</div><div class="rm-label">1h39min</div></div>
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">黄龙景区</div><div class="rm-label">5h</div></div>
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">九寨沟沟口</div><div class="rm-label">住宿</div></div>
     </div>
 
-    <!-- Info Banner -->
     <div class="info-banner">
-      <span>👕 <span class="hl">穿衣：</span>短袖+薄外套，黄龙山顶需加外套</span>
-      <span>💨 <span class="hl">高反：</span>黄龙海拔 3000-3500m，建议备氧气瓶</span>
-      <span>🎒 <span class="hl">必备：</span>防滑鞋、防晒、雨衣、水</span>
+      <span><span class="hl">穿衣</span> 短袖+薄外套，黄龙山顶需加外套</span>
+      <span><span class="hl">高反</span> 黄龙海拔 3000-3500m，建议备氧气瓶</span>
+      <span><span class="hl">必备</span> 防滑鞋、防晒、雨衣、水</span>
     </div>
 
     <!-- Timeline -->
     <div class="tl-wrap">
 
-      <div class="tl-item">
+      <div class="tl-item" data-key="d1_check1">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d1_check1" onchange="updateDay1Progress()">
         <div class="tl-content">
           <div class="day-card">
             <div class="dc-title"><span class="tag">05:49</span>抵达成都西站</div>
-            <div class="dc-item"><span class="ico ico-train">🚉</span><span>出站后步行至附近早餐店（推荐：<span class="hl">老街担担面</span> / <span class="hl">陈麻婆豆腐</span> 西站店），用餐约 30min</span></div>
+            <div class="dc-item"><span>出站后步行至附近早餐店（推荐：<span class="hl">老街担担面</span> / <span class="hl">陈麻婆豆腐</span> 西站店），用餐约 30min</span></div>
             <div class="dc-tags"><span>早餐 ¥25-35</span></div>
           </div>
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item" data-key="d1_check2">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d1_check2" onchange="updateDay1Progress()">
         <div class="tl-content">
           <div class="day-card">
             <div class="dc-title"><span class="tag">06:45</span>地铁前往成都东站</div>
-            <div class="dc-item"><span class="ico ico-subway">🚇</span><span>成都西站乘坐 <span class="hl">地铁 7号线</span>（崇州方向）至 <span class="hl">三瓦窑站</span> 换乘 <span class="hl">地铁 2号线</span>（龙泉驿方向）至 <span class="hl">成都东客站</span>，全程约 45min</span></div>
-            <div class="dc-item"><span class="ico ico-time">⏰</span><span>最晚 <span class="hl">07:10</span> 进站，预留 30min 取票/安检</span></div>
+            <div class="dc-item"><span>成都西站乘坐 <span class="hl">地铁 7号线</span>（崇州方向）至 <span class="hl">三瓦窑站</span> 换乘 <span class="hl">地铁 2号线</span>（龙泉驿方向）至 <span class="hl">成都东客站</span>，全程约 45min</span></div>
+            <div class="dc-item"><span>最晚 <span class="hl">07:10</span> 进站，预留 30min 取票/安检</span></div>
             <div class="dc-tags"><span>地铁 ¥4</span></div>
           </div>
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item" data-key="d1_check3">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d1_check3" onchange="updateDay1Progress()">
         <div class="tl-content">
           <div class="day-card">
             <div class="dc-title"><span class="tag">08:12</span>成都东 → 黄龙九寨</div>
-            <div class="dc-item"><span class="ico ico-train">🚄</span><span>乘坐 <span class="hl">D8662/D8663</span> 次动车（二等座 ¥143），历时 1h39min</span></div>
+            <div class="dc-item"><span>乘坐 <span class="hl">D8662/D8663</span> 次动车（二等座 ¥143），历时 1h39min</span></div>
             <div class="dc-tags"><span>高铁 ¥143</span><span>1h39min</span></div>
           </div>
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item" data-key="d1_check4">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d1_check4" onchange="updateDay1Progress()">
         <div class="tl-content">
           <div class="day-card">
             <div class="dc-title"><span class="tag">10:01</span>抵达黄龙九寨站</div>
-            <div class="dc-item"><span class="ico ico-walk">🚶</span><span>出站 → 前往游客中心换乘点（约 25min，含取行李/上厕所/买水）</span></div>
+            <div class="dc-item"><span>出站 → 前往游客中心换乘点（约 25min，含取行李/上厕所/买水）</span></div>
             <div class="dc-tags"><span>换乘准备 25min</span></div>
           </div>
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item" data-key="d1_check5">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d1_check5" onchange="updateDay1Progress()">
         <div class="tl-content">
           <div class="day-card">
             <div class="dc-title"><span class="tag">10:30</span>大巴前往黄龙景区</div>
-            <div class="dc-item"><span class="ico ico-bus">🚌</span><span>乘坐景区换乘车至 <span class="hl">黄龙景区游客中心</span>，车程约 35min</span></div>
+            <div class="dc-item"><span>乘坐景区换乘车至 <span class="hl">黄龙景区游客中心</span>，车程约 35min</span></div>
             <div class="dc-tags"><span>接驳 ¥28</span><span>约 35min</span></div>
           </div>
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item" data-key="d1_check6">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d1_check6" onchange="updateDay1Progress()">
         <div class="tl-content">
           <div class="day-card">
             <div class="dc-title"><span class="tag">11:05</span>抵达黄龙游客中心</div>
-            <div class="dc-item"><span class="ico ico-bag">🎒</span><span>寄存大件行李（¥10/件/天），仅带轻装上山</span></div>
+            <div class="dc-item"><span>寄存大件行李（¥10/件/天），仅带轻装上山</span></div>
             <div class="dc-tags"><span>寄存 ¥10/件</span></div>
           </div>
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item" data-key="d1_check7">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d1_check7" onchange="updateDay1Progress()">
         <div class="tl-content">
-          <div class="day-card collapsible reveal" data-key="d1_card7" onclick="toggleCollapsible(this, event)">
-            <div class="dc-title"><span class="tag">11:30</span>正式游览黄龙景区</div>
+          <div class="day-card collapsible" data-key="d1_card7">
+            <div class="dc-title" onclick="toggleCollapsible(this, event)"><span class="tag">11:30</span>正式游览黄龙景区</div>
             <div class="dc-detail-wrap">
-              <div class="dc-item"><span class="ico ico-ticket">🎫</span><span><span class="hl">门票</span> 全价 ¥170（学生半价 ¥85）</span></div>
-              <div class="dc-item"><span class="ico ico-train">🚡</span><span><span class="hl">上行索道</span> ¥80，下行 ¥40（建议单程上行，下山步行约 2h）</span></div>
-              <div class="dc-item"><span class="ico ico-oxygen">💨</span><span><span class="hl">氧气瓶</span> 景区售 ¥20-30（建议成都提前买 ¥15），海拔 3000-3500m 必备</span></div>
-              <div class="dc-item"><span class="ico ico-time">⏰</span><span>建议游览 <span class="hl">5h</span>：索道上行 → 五彩池 → 金沙铺地 → 仙子潭 → 步行下山或下行索道</span></div>
-              <div class="dc-item">💡<span><span class="hl">温馨提示</span>：① 早 11:30 前上山避开高峰 ② 穿防滑鞋/登山杖 ③ 高反者勿强行深入 ④ 垃圾带走 ⑤ 下山前确认末班索道时间（通常 16:30-17:00）</span></div>
+              <div class="dc-item"><span><span class="hl">门票</span> 全价 ¥170（学生半价 ¥85）</span></div>
+              <div class="dc-item"><span><span class="hl">上行索道</span> ¥80，下行 ¥40（建议单程上行，下山步行约 2h）</span></div>
+              <div class="dc-item"><span><span class="hl">氧气瓶</span> 景区售 ¥20-30（建议成都提前买 ¥15），海拔 3000-3500m 必备</span></div>
+              <div class="dc-item"><span>建议游览 <span class="hl">5h</span>：索道上行 → 五彩池 → 金沙铺地 → 仙子潭 → 步行下山或下行索道</span></div>
+              <div class="dc-item"><span><span class="hl">温馨提示</span>：① 早 11:30 前上山避开高峰 ② 穿防滑鞋/登山杖 ③ 高反者勿强行深入 ④ 垃圾带走 ⑤ 下山前确认末班索道时间（通常 16:30-17:00）</span></div>
               <div class="dc-tags"><span>门票 ¥85</span><span>索道上行 ¥80</span><span>氧气瓶 ¥20</span><span>游览 5h</span></div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item tl-no-click">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d1_check8" onchange="updateDay1Progress()">
         <div class="tl-content">
-          <div class="day-card reveal">
-            <div class="dc-title"><span class="tag">📸</span>黄龙景区实拍</div>
+          <div class="day-card">
+            <div class="dc-title"><span class="tag">实拍</span>黄龙景区</div>
             <div class="image-slider" data-interval="4000">
               <div class="slider-track">
-                <div class="slider-slide"><img src="chengdu/huanglong-1.jpg" alt="五彩池全景" loading="lazy"></div>
-                <div class="slider-slide"><img src="chengdu/huanglong-2.jpg" alt="金沙铺地" loading="lazy"></div>
-                <div class="slider-slide"><img src="chengdu/huanglong-3.jpg" alt="仙子潭倒影" loading="lazy"></div>
-                <div class="slider-slide"><img src="chengdu/huanglong-4.jpg" alt="古寺远眺" loading="lazy"></div>
-                <div class="slider-slide"><img src="chengdu/huanglong-5.jpg" alt="彩池细节" loading="lazy"></div>
-                <div class="slider-slide"><img src="chengdu/huanglong-6.jpg" alt="山顶俯瞰" loading="lazy"></div>
+                <div class="slider-slide"><img width="1440" height="1920" src="chengdu/huanglong-1.jpg" alt="黄龙风景" loading="eager" decoding="async" fetchpriority="high"></div>
+                <div class="slider-slide"><img width="1440" height="1878" src="chengdu/huanglong-2.jpg" alt="黄龙风景" loading="lazy" decoding="async"></div>
+                <div class="slider-slide"><img width="720" height="1174" src="chengdu/huanglong-3.jpg" alt="黄龙风景" loading="lazy" decoding="async"></div>
+                <div class="slider-slide"><img width="1280" height="1686" src="chengdu/huanglong-4.jpg" alt="黄龙风景" loading="lazy" decoding="async"></div>
+                <div class="slider-slide"><img width="1280" height="1578" src="chengdu/huanglong-5.jpg" alt="黄龙风景" loading="lazy" decoding="async"></div>
+                <div class="slider-slide"><img width="720" height="1082" src="chengdu/huanglong-6.jpg" alt="黄龙风景" loading="lazy" decoding="async"></div>
               </div>
               <div class="slider-dots">
                 <span class="dot active"></span><span class="dot"></span><span class="dot"></span>
@@ -1103,53 +225,50 @@
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item" data-key="d1_check9">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d1_check9" onchange="updateDay1Progress()">
         <div class="tl-content">
           <div class="day-card">
             <div class="dc-title"><span class="tag">16:30</span>结束游览，出景区</div>
-            <div class="dc-item"><span class="ico ico-walk">🚶</span><span>从出口取回行李，前往停车场乘车</span></div>
+            <div class="dc-item"><span>从出口取回行李，前往停车场乘车</span></div>
             <div class="dc-tags"><span>16:30 出景区</span></div>
           </div>
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item" data-key="d1_check10">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d1_check10" onchange="updateDay1Progress()">
         <div class="tl-content">
           <div class="day-card">
             <div class="dc-title"><span class="tag">17:00</span>黄龙 → 汉庭九寨沟游客中心酒店</div>
-            <div class="dc-item"><span class="ico ico-bus">🚌</span><span>乘车前往 <span class="hl">汉庭酒店·九寨沟游客中心店</span>，车程约 2h</span></div>
-            <div class="dc-item"><span class="ico ico-hotel">🏨</span><span>预计 <span class="hl">19:20</span> 抵达，办理入住，稍作休息</span></div>
+            <div class="dc-item"><span>乘车前往 <span class="hl">汉庭酒店·九寨沟游客中心店</span>，车程约 2h</span></div>
+            <div class="dc-item"><span>预计 <span class="hl">19:20</span> 抵达，办理入住，稍作休息</span></div>
             <div class="dc-tags"><span>接驳 ¥68</span><span>住宿 ¥160</span><span>车程 2h</span></div>
           </div>
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item" data-key="d1_check11">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d1_check11" onchange="updateDay1Progress()">
         <div class="tl-content">
-          <div class="day-card reveal">
+          <div class="day-card">
             <div class="dc-title"><span class="tag">19:30</span>晚餐：九寨铜锅牦牛肉汤锅</div>
-            <div class="dc-item"><span class="ico ico-food">🍲</span><span>特色铜锅炖牦牛肉，汤底浓郁，肉质酥烂，配青稞饼/糌粑</span></div>
-            <div class="dc-item"><span class="ico ico-location">📍</span><span>推荐：酒店周边 <span class="hl">九寨印象</span> / <span class="hl">牦牛肉汤锅专门店</span>，人均 ¥80-100</span></div>
-            <div class="dc-item">💡<span>汤锅清补不辣，适合高原养胃；可加手工面/青稞面饼</span></div>
+            <div class="dc-item"><span>特色铜锅炖牦牛肉，汤底浓郁，肉质酥烂，配青稞饼/糌粑</span></div>
+            <div class="dc-item"><span>推荐：酒店周边 <span class="hl">九寨印象</span> / <span class="hl">牦牛肉汤锅专门店</span>，人均 ¥80-100</span></div>
+            <div class="dc-item"><span>汤锅清补不辣，适合高原养胃；可加手工面/青稞面饼</span></div>
             <div class="dc-tags"><span>晚餐 ¥90</span></div>
           </div>
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item tl-no-click">
         <div class="tl-dot"></div>
         <div class="tl-content">
-          <div class="day-card reveal">
-            <div class="dc-title"><span class="tag">📸</span>牦牛汤锅实拍</div>
+          <div class="day-card">
+            <div class="dc-title"><span class="tag">实拍</span>牦牛汤锅</div>
             <div class="image-slider" data-interval="0">
               <div class="slider-track">
-                <div class="slider-slide"><img src="chengdu/maoniu-1.jpg" alt="铜锅牦牛肉汤锅" loading="lazy"></div>
+                <div class="slider-slide"><img width="1440" height="1920" src="chengdu/maoniu-1.jpg" alt="牦牛肉汤锅" loading="lazy" decoding="async"></div>
               </div>
             </div>
             <div class="image-caption">铜锅牦牛肉汤锅：汤底浓郁，肉质酥烂，配青稞饼/糌粑</div>
@@ -1157,13 +276,13 @@
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item tl-no-click cost-summary">
         <div class="tl-dot" style="border-color:var(--warm);"></div>
         <div class="tl-content">
-          <div class="day-card cost-summary">
+          <div class="day-card">
             <div class="dc-cost-row"><span>本日交通合计</span><span class="val">¥231</span></div>
             <div class="dc-divider"></div>
-            <div class="dc-cost-row"><span>本日总花费（含餐饮 ¥80）</span><span class="val" style="color:var(--warm);font-size:15px;font-weight:700">¥656</span></div>
+            <div class="dc-cost-row"><span>本日总花费（含餐饮 ¥80）</span><span class="val">¥656</span></div>
           </div>
         </div>
       </div>
@@ -1175,120 +294,223 @@
   <div class="page" id="page-day2">
 
     <div class="day-hero">
-      <div class="h-badge">Day 2 · 6月某日</div>
+      <div class="h-badge">Day 2 · 9月6日</div>
       <h2>九寨沟深度游 → 成都</h2>
       <div class="h-meta">
-        <span>🌡️ 15-22°C</span>
-        <span>⛰️ 海拔 2000→500m</span>
-        <span>💰 预估 ¥615</span>
-      </div>
-      <div class="h-tags">
-        <span>🏞️ 九寨沟 9h深度游</span>
-        <span>🚌 松潘站接驳</span>
-        <span>🚄 高铁 1h40min</span>
-        <span>🏨 桔子水晶酒店</span>
-      </div>
-      <div class="h-progress">
-        <div class="track"><div class="fill" id="day2Progress"></div></div>
-        <span class="lbl" id="day2ProgressLabel">0% 完成</span>
+        <span>海拔 2000→500m</span>
+        <span>预估 ¥615</span>
       </div>
     </div>
 
     <div class="route-map">
-      <div class="rm-stop"><div class="rm-icon">🏨</div><div class="rm-dot"></div><div class="rm-name">九寨沟酒店</div><div class="rm-label">步行</div></div>
-      <div class="rm-stop"><div class="rm-icon">🏞️</div><div class="rm-dot"></div><div class="rm-name">九寨沟景区</div><div class="rm-label">9h游玩</div></div>
-      <div class="rm-stop"><div class="rm-icon">🚌</div><div class="rm-dot"></div><div class="rm-name">松潘站</div><div class="rm-label">2h10min</div></div>
-      <div class="rm-stop"><div class="rm-icon">🚄</div><div class="rm-dot"></div><div class="rm-name">成都东站</div><div class="rm-label">高铁1h40min</div></div>
-      <div class="rm-stop"><div class="rm-icon">🏨</div><div class="rm-dot"></div><div class="rm-name">桔子水晶酒店</div><div class="rm-label">地铁</div></div>
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">九寨沟酒店</div><div class="rm-label">步行</div></div>
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">九寨沟景区</div><div class="rm-label">9h游玩</div></div>
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">松潘站</div><div class="rm-label">2h10min</div></div>
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">成都东站</div><div class="rm-label">高铁1h40min</div></div>
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">桔子水晶酒店</div><div class="rm-label">地铁</div></div>
     </div>
 
     <div class="info-banner">
-      <span>👕 <span class="hl">穿衣：</span>九寨沟温差大，薄外套+冲锋衣必备，中午可穿短袖</span>
-      <span>🍜 <span class="hl">午餐：</span>诺日朗中心有餐厅（¥60-80/人），也可自备干粮省时间</span>
-      <span>📸 <span class="hl">拍照：</span>镜海 09:00 前无风倒影最佳；五花海中午色彩最艳</span>
+      <span><span class="hl">穿衣</span> 九寨沟温差大，薄外套+冲锋衣必备，中午可穿短袖</span>
+      <span><span class="hl">午餐</span> 诺日朗中心有餐厅（¥60-80/人），也可自备干粮</span>
+      <span><span class="hl">拍照</span> 镜海 09:00 前无风倒影最佳；五花海中午色彩最艳</span>
     </div>
 
     <div class="tl-wrap">
 
-      <!-- 07:00 起床 -->
-      <div class="tl-item">
+      <div class="tl-item" data-key="d2_check1">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d2_check1" onchange="updateDay2Progress()">
         <div class="tl-content">
           <div class="day-card">
             <div class="dc-title"><span class="tag">07:00</span>起床 · 洗漱 · 早饭</div>
-            <div class="dc-item"><span class="ico ico-scene">🌅</span><span>早起收拾，酒店吃早饭（推荐：青稞饼+酥油茶，补充能量）</span></div>
-            <div class="dc-item"><span class="ico ico-bag">🎒</span><span>检查装备：防滑鞋、雨衣、防晒霜、充电宝、干粮、水</span></div>
+            <div class="dc-item"><span>早起收拾，酒店吃早饭（推荐：青稞饼+酥油茶，补充能量）</span></div>
+            <div class="dc-item"><span>检查装备：防滑鞋、雨衣、防晒霜、充电宝、干粮、水</span></div>
             <div class="dc-tags"><span>早餐含在房费</span></div>
           </div>
         </div>
       </div>
 
-      <!-- 08:10 步行去景区 -->
-      <div class="tl-item">
+      <div class="tl-item" data-key="d2_check2">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d2_check2" onchange="updateDay2Progress()">
         <div class="tl-content">
           <div class="day-card">
             <div class="dc-title"><span class="tag">08:10</span>步行前往九寨沟景区</div>
-            <div class="dc-item"><span class="ico ico-walk">🚶</span><span>从酒店步行至九寨沟游客中心，约 15-20min</span></div>
-            <div class="dc-item"><span class="ico ico-ticket">🎫</span><span>提前网上购票，刷身份证直接入园</span></div>
+            <div class="dc-item"><span>从酒店步行至九寨沟游客中心，约 15-20min</span></div>
+            <div class="dc-item"><span>提前网上购票，刷身份证直接入园</span></div>
           </div>
         </div>
       </div>
 
-      <!-- 08:30-17:30 九寨沟9小时深度游 -->
-      <div class="tl-item">
+      <div class="tl-item" data-key="d2_check3">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d2_check3" onchange="updateDay2Progress()">
         <div class="tl-content">
-          <div class="day-card collapsible reveal" data-key="d2_card3" onclick="toggleCollapsible(this, event)">
-            <div class="dc-title"><span class="tag">08:30-17:30</span>九寨沟 9 小时深度游（所有景点全覆盖）</div>
+          <div class="day-card collapsible" data-key="d2_card3">
+            <div class="dc-title" onclick="toggleCollapsible(this, event)"><span class="tag">08:30-17:30</span>九寨沟 9 小时深度游（所有景点全覆盖）</div>
             <div class="dc-detail-wrap">
-              <div class="dc-item" style="font-size:12px;opacity:0.7;margin-bottom:6px;">▸ 全程乘坐观光车+步行，三条沟全部走遍</div>
+              <div class="dc-item dc-route">
+                <span class="t">08:30-09:00</span>
+                <span>沟口</span>
+                <span class="a">→</span>
+                <span class="to hl">原始森林</span>
+                <span class="d">观光车直达日则沟顶，车程30min</span>
+              </div>
+              <div class="dc-item dc-route">
+                <span class="t">09:00-09:40</span>
+                <span>原始森林</span>
+                <span class="a">→</span>
+                <span class="to hl">芳草海</span>
+                <span class="d">步行1.5km，高原森林氧吧，游览+拍照30min</span>
+              </div>
+              <div class="dc-item dc-route">
+                <span class="t">09:40-09:55</span>
+                <span>芳草海</span>
+                <span class="a">→</span>
+                <span class="to hl">天鹅海</span>
+                <span class="d">乘车5min，湖面如镜，游览10min</span>
+              </div>
+              <div class="dc-item dc-route">
+                <span class="t">09:55-10:25</span>
+                <span>天鹅海</span>
+                <span class="a">→</span>
+                <span class="to hl">箭竹海</span>
+                <span class="d">乘车15min+游览15min，箭竹海瀑布超美</span>
+              </div>
+              <div class="dc-item dc-route">
+                <span class="t">10:25-10:50</span>
+                <span>箭竹海</span>
+                <span class="a">→</span>
+                <span class="to hl">熊猫海</span>
+                <span class="d">乘车10min+游览15min，熊猫海瀑布壮观</span>
+              </div>
+              <div class="dc-item dc-route">
+                <span class="t">10:50-11:20</span>
+                <span>熊猫海</span>
+                <span class="a">→</span>
+                <span class="to hl">五花海</span>
+                <span class="d">乘车10min+游览20min，九寨沟最精华</span>
+              </div>
+              <div class="dc-item dc-route">
+                <span class="t">11:20-11:50</span>
+                <span>五花海</span>
+                <span class="a">→</span>
+                <span class="to hl">珍珠滩瀑布</span>
+                <span class="d">步行800m，86版西游记取景地</span>
+              </div>
+              <div class="dc-item dc-route">
+                <span class="t">11:50-12:10</span>
+                <span>珍珠滩</span>
+                <span class="a">→</span>
+                <span class="to hl">镜海</span>
+                <span class="d">乘车10min+游览10min，正午看倒影</span>
+              </div>
+              <div class="dc-item dc-route">
+                <span class="t">12:10-13:00</span>
+                <span>镜海</span>
+                <span class="a">→</span>
+                <span class="to hl">诺日朗中心站</span>
+                <span class="d">午餐休息，可看诺日朗瀑布</span>
+              </div>
+              <div class="dc-item dc-route">
+                <span class="t">13:00-13:40</span>
+                <span>诺日朗</span>
+                <span class="a">→</span>
+                <span class="to hl">长海</span>
+                <span class="d">乘车30min，九寨沟最高点3100m，拍全景</span>
+              </div>
+              <div class="dc-item dc-route">
+                <span class="t">13:40-14:00</span>
+                <span>长海</span>
+                <span class="a">→</span>
+                <span class="to hl">五彩池</span>
+                <span class="d">步行15min+游览5min，最小却最艳丽的池子</span>
+              </div>
+              <div class="dc-item dc-route">
+                <span class="t">14:00-14:40</span>
+                <span>五彩池</span>
+                <span class="a">→</span>
+                <span class="to hl">犀牛海</span>
+                <span class="d">乘车30min+游览10min</span>
+              </div>
+              <div class="dc-item dc-route">
+                <span class="t">14:40-15:00</span>
+                <span>犀牛海</span>
+                <span class="a">→</span>
+                <span class="to hl">老虎海</span>
+                <span class="d"></span>
+              </div>
+              <div class="dc-item dc-route">
+                <span class="t">15:00-15:20</span>
+                <span>老虎海</span>
+                <span class="a">→</span>
+                <span class="to hl">树正瀑布</span>
+                <span class="d"></span>
+              </div>
+              <div class="dc-item dc-route">
+                <span class="t">15:20-15:40</span>
+                <span>树正瀑布</span>
+                <span class="a">→</span>
+                <span class="to hl">树正群海</span>
+                <span class="d">步行游览树正沟上部</span>
+              </div>
+              <div class="dc-item dc-route">
+                <span class="t">15:40-16:00</span>
+                <span>树正群海</span>
+                <span class="a">→</span>
+                <span class="to hl">卧龙海</span>
+                <span class="d"></span>
+              </div>
+              <div class="dc-item dc-route">
+                <span class="t">16:00-16:15</span>
+                <span>卧龙海</span>
+                <span class="a">→</span>
+                <span class="to hl">火花海</span>
+                <span class="d"></span>
+              </div>
+              <div class="dc-item dc-route">
+                <span class="t">16:15-16:30</span>
+                <span>火花海</span>
+                <span class="a">→</span>
+                <span class="to hl">双龙海</span>
+                <span class="d">步行游览树正沟下部</span>
+              </div>
+              <div class="dc-item dc-route">
+                <span class="t">16:30-17:00</span>
+                <span>双龙海</span>
+                <span class="a">→</span>
+                <span class="to hl">芦苇海</span>
+                <span class="d">乘车+拍照，金色芦苇超美</span>
+              </div>
+              <div class="dc-item dc-route">
+                <span class="t">17:00-17:30</span>
+                <span>盆景滩</span>
+                <span class="a">→</span>
+                <span class="to hl">沟口</span>
+                <span class="d">乘车15min出园</span>
+              </div>
 
-              <div class="dc-item"><span class="ico ico-bus">🚌</span><span><span class="hl">08:30-09:00</span> 沟口 → <span class="hl">原始森林</span>（观光车直达日则沟顶，车程30min）</span></div>
-              <div class="dc-item">•<span><span class="hl">09:00-09:40</span> 原始森林 → <span class="hl">芳草海</span>（步行1.5km，感受高原森林氧吧，游览+拍照30min）</span></div>
-              <div class="dc-item">•<span><span class="hl">09:40-09:55</span> 芳草海 → <span class="hl">天鹅海</span>（乘车5min，湖面如镜，游览10min）</span></div>
-              <div class="dc-item">•<span><span class="hl">09:55-10:25</span> 天鹅海 → <span class="hl">箭竹海</span>（乘车15min+游览15min，箭竹海瀑布超美）</span></div>
-              <div class="dc-item">•<span><span class="hl">10:25-10:50</span> 箭竹海 → <span class="hl">熊猫海</span>（乘车10min+游览15min，熊猫海瀑布壮观）</span></div>
-              <div class="dc-item">•<span><span class="hl">10:50-11:20</span> 熊猫海 → <span class="hl">五花海</span>（乘车10min+游览20min 荐<span class="hl">九寨沟最精华！</span>）</span></div>
-              <div class="dc-item">•<span><span class="hl">11:20-11:50</span> 五花海 → <span class="hl">珍珠滩瀑布</span>（步行800m，86版西游记取景地，震撼！）</span></div>
-              <div class="dc-item">•<span><span class="hl">11:50-12:10</span> 珍珠滩 → <span class="hl">镜海</span>（乘车10min+游览10min，正午看倒影）</span></div>
-              <div class="dc-item"><span class="ico ico-food">🍜</span><span><span class="hl">12:10-13:00</span> 镜海 → <span class="hl">诺日朗中心站</span>（午餐休息，可看诺日朗瀑布）</span></div>
-              <div class="dc-item">•<span><span class="hl">13:00-13:40</span> 诺日朗 → <span class="hl">长海</span>（乘车30min，九寨沟海拔最高点3100m，拍全景）</span></div>
-              <div class="dc-item">•<span><span class="hl">13:40-14:00</span> 长海 → <span class="hl">五彩池</span>（步行15min+游览5min，最小却最艳丽的池子）</span></div>
-              <div class="dc-item">•<span><span class="hl">14:00-14:40</span> 五彩池 → <span class="hl">犀牛海</span>（乘车30min+游览10min）</span></div>
-              <div class="dc-item">•<span><span class="hl">14:40-15:40</span> 犀牛海 → <span class="hl">老虎海</span> → <span class="hl">树正瀑布</span> → <span class="hl">树正群海</span>（步行游览树正沟上部）</span></div>
-              <div class="dc-item">•<span><span class="hl">15:40-16:30</span> 树正群海 → <span class="hl">卧龙海</span> → <span class="hl">火花海</span> → <span class="hl">双龙海</span>（步行游览树正沟下部）</span></div>
-              <div class="dc-item">•<span><span class="hl">16:30-17:00</span> 双龙海 → <span class="hl">芦苇海</span> → <span class="hl">盆景滩</span>（乘车+拍照，金色芦苇超美）</span></div>
-              <div class="dc-item"><span class="ico ico-bus">🚌</span><span><span class="hl">17:00-17:30</span> 盆景滩 → <span class="hl">沟口</span>（乘车15min出园）</span></div>
-
-              <div class="dc-item" style="margin-top:8px;"><span class="ico ico-ticket">🎫</span><span>门票 ¥185（含观光车）</span></div>
-              <div class="dc-item">💡<span>温馨提示：① 镜海 09:00 前无风倒影最清晰 ② 五花海是必打卡NO.1 ③ 树正沟下午光线柔和适合拍照 ④ 穿防滑鞋，带雨衣</span></div>
+              <div class="dc-item" style="margin-top:8px;"><span>门票 ¥185（含观光车）</span></div>
+              <div class="dc-item"><span><span class="hl">温馨提示</span>：① 镜海 09:00 前无风倒影最清晰 ② 五花海是必打卡NO.1 ③ 树正沟下午光线柔和适合拍照 ④ 穿防滑鞋，带雨衣</span></div>
               <div class="dc-tags"><span>门票 ¥185</span><span>游览 9h</span><span>3条沟全覆盖</span></div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 九寨沟实拍 slider -->
-      <div class="tl-item">
+      <div class="tl-item tl-no-click">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d2_check4" onchange="updateDay2Progress()">
         <div class="tl-content">
-          <div class="day-card reveal">
-            <div class="dc-title"><span class="tag">📸</span>九寨沟景区实拍</div>
+          <div class="day-card">
+            <div class="dc-title"><span class="tag">实拍</span>九寨沟景区</div>
             <div class="image-slider" data-interval="4000">
               <div class="slider-track">
-                <div class="slider-slide"><img src="chengdu/jiuzhaigou-1.jpg" alt="九寨沟全景" loading="lazy"></div>
-                <div class="slider-slide"><img src="chengdu/jiuzhaigou-2.jpg" alt="五花海" loading="lazy"></div>
-                <div class="slider-slide"><img src="chengdu/jiuzhaigou-3.jpg" alt="镜海倒影" loading="lazy"></div>
-                <div class="slider-slide"><img src="chengdu/jiuzhaigou-4.jpg" alt="珍珠滩瀑布" loading="lazy"></div>
-                <div class="slider-slide"><img src="chengdu/jiuzhaigou-5.jpg" alt="长海" loading="lazy"></div>
-                <div class="slider-slide"><img src="chengdu/jiuzhaigou-6.jpg" alt="五彩池" loading="lazy"></div>
-                <div class="slider-slide"><img src="chengdu/jiuzhaigou-7.jpg" alt="诺日朗瀑布" loading="lazy"></div>
-                <div class="slider-slide"><img src="chengdu/jiuzhaigou-8.jpg" alt="树正群海" loading="lazy"></div>
+                <div class="slider-slide"><img width="1440" height="960" src="chengdu/jiuzhaigou-1.jpg" alt="九寨沟风景" loading="eager" decoding="async"></div>
+                <div class="slider-slide"><img width="1440" height="1920" src="chengdu/jiuzhaigou-2.jpg" alt="九寨沟风景" loading="eager" decoding="async"></div>
+                <div class="slider-slide"><img width="1280" height="1668" src="chengdu/jiuzhaigou-3.jpg" alt="九寨沟风景" loading="eager" decoding="async"></div>
+                <div class="slider-slide"><img width="1440" height="1920" src="chengdu/jiuzhaigou-4.jpg" alt="九寨沟风景" loading="eager" decoding="async"></div>
+                <div class="slider-slide"><img width="1440" height="1080" src="chengdu/jiuzhaigou-5.jpg" alt="九寨沟风景" loading="eager" decoding="async"></div>
+                <div class="slider-slide"><img width="720" height="1280" src="chengdu/jiuzhaigou-6.jpg" alt="九寨沟风景" loading="eager" decoding="async"></div>
+                <div class="slider-slide"><img width="1440" height="1920" src="chengdu/jiuzhaigou-7.jpg" alt="九寨沟风景" loading="eager" decoding="async"></div>
+                <div class="slider-slide"><img width="1440" height="1920" src="chengdu/jiuzhaigou-8.jpg" alt="九寨沟风景" loading="eager" decoding="async"></div>
               </div>
               <div class="slider-dots">
                 <span class="dot active"></span><span class="dot"></span><span class="dot"></span>
@@ -1301,66 +523,59 @@
         </div>
       </div>
 
-      <!-- 17:30 出园 -->
-      <div class="tl-item">
+      <div class="tl-item" data-key="d2_check5">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d2_check5" onchange="updateDay2Progress()">
         <div class="tl-content">
-          <div class="day-card reveal">
+          <div class="day-card">
             <div class="dc-title"><span class="tag">17:30</span>出园 → 前往松潘站</div>
-            <div class="dc-item"><span class="ico ico-walk">🚶</span><span>17:30 出园取行李，步行至景区直通车乘车点</span></div>
-            <div class="dc-item"><span class="ico ico-bus">🚌</span><span><span class="hl">18:10 前</span> 乘坐景区直通车前往 <span class="hl">松潘站</span>，车程约 2h10min</span></div>
+            <div class="dc-item"><span>17:30 出园取行李，步行至景区直通车乘车点</span></div>
+            <div class="dc-item"><span><span class="hl">18:10 前</span> 乘坐景区直通车前往 <span class="hl">松潘站</span>，车程约 2h10min</span></div>
             <div class="dc-tags"><span>接驳 ¥70</span><span>约 2h10min</span></div>
           </div>
         </div>
       </div>
 
-      <!-- 20:40 高铁 -->
-      <div class="tl-item">
+      <div class="tl-item" data-key="d2_check6">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d2_check6" onchange="updateDay2Progress()">
         <div class="tl-content">
-          <div class="day-card reveal">
+          <div class="day-card">
             <div class="dc-title"><span class="tag">20:40-22:20</span>松潘站 → 成都东站</div>
-            <div class="dc-item"><span class="ico ico-train">🚄</span><span>乘坐高铁从 <span class="hl">松潘站</span> 至 <span class="hl">成都东站</span>，历时 1h40min</span></div>
-            <div class="dc-item">💡<span>车上可休息/处理照片/充电</span></div>
+            <div class="dc-item"><span>乘坐高铁从 <span class="hl">松潘站</span> 至 <span class="hl">成都东站</span>，历时 1h40min</span></div>
+            <div class="dc-item"><span>车上可休息/处理照片/充电</span></div>
             <div class="dc-tags"><span>高铁 ¥135</span></div>
           </div>
         </div>
       </div>
 
-      <!-- 22:20 打车入住 -->
-      <div class="tl-item">
+      <div class="tl-item" data-key="d2_check7">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d2_check7" onchange="updateDay2Progress()">
         <div class="tl-content">
-          <div class="day-card collapsible reveal" data-key="d2_card7" onclick="toggleCollapsible(this, event)">
-            <div class="dc-title"><span class="tag">22:20</span>入住桔子水晶酒店 · 休息</div>
+          <div class="day-card collapsible" data-key="d2_card7">
+            <div class="dc-title" onclick="toggleCollapsible(this, event)"><span class="tag">22:20</span>入住桔子水晶酒店 · 休息</div>
             <div class="dc-detail-wrap">
-              <div class="dc-item"><span class="ico ico-subway">🚇</span><span>成都东站乘 <span class="hl">地铁7号线（外环）</span>至 <span class="hl">太平园站</span> 换乘 <span class="hl">3号线</span> 至 <span class="hl">红牌楼站</span>，约 35min，<span class="hl">票价约 ¥5</span>，出站步行至酒店约 600m</span></div>
-              <div class="dc-item"><span class="ico ico-hotel">🏨</span><span>办理入住，桔子水晶酒店（武侯祠红牌楼店）—— 环境舒适，智能客房</span></div>
-              <div class="dc-item"><span class="ico ico-bath">🛁</span><span>洗漱休息，结束充实的一天！</span></div>
+              <div class="dc-item"><span>成都东站乘 <span class="hl">地铁7号线（外环）</span>至 <span class="hl">太平园站</span> 换乘 <span class="hl">3号线</span> 至 <span class="hl">红牌楼站</span>，约 35min，<span class="hl">票价约 ¥5</span>，出站步行至酒店约 600m</span></div>
+              <div class="dc-item"><span>办理入住，桔子水晶酒店（武侯祠红牌楼店）</span></div>
+              <div class="dc-item"><span>洗漱休息，结束充实的一天</span></div>
               <div class="dc-tags"><span>地铁约 ¥5</span><span>住宿 ¥135</span></div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 费用汇总 -->
-      <div class="tl-item">
+      <div class="tl-item tl-no-click cost-summary">
         <div class="tl-dot" style="border-color:var(--warm);"></div>
         <div class="tl-content">
-          <div class="day-card cost-summary">
-            <div class="dc-cost-row"><span>🚌 接驳九寨沟→松潘站</span><span class="val">¥70</span></div>
-            <div class="dc-cost-row"><span>🚄 松潘站→成都东站高铁</span><span class="val">¥135</span></div>
-            <div class="dc-cost-row"><span>🚇 成都东站→桔子水晶地铁</span><span class="val">¥5</span></div>
+          <div class="day-card">
+            <div class="dc-cost-row"><span>接驳九寨沟→松潘站</span><span class="val">¥70</span></div>
+            <div class="dc-cost-row"><span>松潘站→成都东站高铁</span><span class="val">¥135</span></div>
+            <div class="dc-cost-row"><span>成都东站→桔子水晶地铁</span><span class="val">¥5</span></div>
             <div class="dc-divider"></div>
             <div class="dc-cost-row"><span>本日交通合计</span><span class="val">¥210</span></div>
-            <div class="dc-cost-row"><span>🎫 九寨沟门票</span><span class="val">¥185</span></div>
-            <div class="dc-cost-row"><span>🏨 桔子水晶住宿</span><span class="val">¥135</span></div>
-            <div class="dc-cost-row"><span>🍜 餐饮（早餐+午餐+晚餐）</span><span class="val">¥80</span></div>
+            <div class="dc-cost-row"><span>九寨沟门票</span><span class="val">¥185</span></div>
+            <div class="dc-cost-row"><span>桔子水晶住宿</span><span class="val">¥135</span></div>
+            <div class="dc-cost-row"><span>餐饮（早餐+午餐+晚餐）</span><span class="val">¥80</span></div>
             <div class="dc-divider"></div>
-            <div class="dc-cost-row"><span>本日总花费</span><span class="val" style="color:var(--warm);font-size:15px;font-weight:700">¥615</span></div>
+            <div class="dc-cost-row"><span>本日总花费</span><span class="val">¥615</span></div>
           </div>
         </div>
       </div>
@@ -1372,95 +587,80 @@
   <div class="page" id="page-day3">
 
     <div class="day-hero">
-      <div class="h-badge">Day 3 · 6月某日</div>
+      <div class="h-badge">Day 3 · 9月7日</div>
       <h2>三星堆 → 武侯祠 → 春熙路</h2>
       <div class="h-meta">
-        <span>🌡️ 25-32°C</span>
-        <span>🚇 地铁+打车</span>
-        <span>💰 预估 ¥193</span>
-      </div>
-      <div class="h-tags">
-        <span>🏛️ 三星堆 4h</span>
-        <span>🎧 讲解 1.5h</span>
-        <span>🏯 武侯祠 1.5h</span>
-        <span>🌃 春熙路商圈</span>
-      </div>
-      <div class="h-progress">
-        <div class="track"><div class="fill" id="day3Progress"></div></div>
-        <span class="lbl" id="day3ProgressLabel">0% 完成</span>
+        <span>地铁+打车</span>
+        <span>预估 ¥193</span>
       </div>
     </div>
 
     <div class="route-map">
-      <div class="rm-stop"><div class="rm-icon">🏨</div><div class="rm-dot"></div><div class="rm-name">成都酒店</div><div class="rm-label">出发</div></div>
-      <div class="rm-stop"><div class="rm-icon">🏛️</div><div class="rm-dot"></div><div class="rm-name">三星堆博物馆</div><div class="rm-label">4h</div></div>
-      <div class="rm-stop"><div class="rm-icon">🏯</div><div class="rm-dot"></div><div class="rm-name">武侯祠</div><div class="rm-label">1.5h</div></div>
-      <div class="rm-stop"><div class="rm-icon">🌃</div><div class="rm-dot"></div><div class="rm-name">春熙路</div><div class="rm-label">晚餐逛街</div></div>
-      <div class="rm-stop"><div class="rm-icon">🏨</div><div class="rm-dot"></div><div class="rm-name">回酒店</div><div class="rm-label">休息</div></div>
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">成都酒店</div><div class="rm-label">出发</div></div>
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">三星堆博物馆</div><div class="rm-label">4h</div></div>
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">武侯祠</div><div class="rm-label">1.5h</div></div>
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">春熙路</div><div class="rm-label">晚餐逛街</div></div>
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">回酒店</div><div class="rm-label">休息</div></div>
     </div>
 
     <div class="info-banner">
-      <span>🎧 <span class="hl">三星堆讲解：</span>建议跟讲解团，1h30min深入了解古蜀文明</span>
-      <span>🎒 <span class="hl">学生优惠：</span>武侯祠学生票半价 ¥25（全日制大学本科及以下）</span>
-      <span>📸 <span class="hl">拍照：</span>武侯祠红墙夹道很出片！春熙路夜景必拍</span>
+      <span><span class="hl">三星堆讲解</span> 建议跟讲解团，1h30min深入了解古蜀文明</span>
+      <span><span class="hl">学生优惠</span> 武侯祠学生票半价 ¥25（全日制大学本科及以下）</span>
+      <span><span class="hl">拍照</span> 武侯祠红墙夹道很出片，春熙路夜景必拍</span>
     </div>
 
     <div class="tl-wrap">
 
-      <div class="tl-item">
+      <div class="tl-item" data-key="d3_check1">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d3_check1" onchange="updateDay3Progress()">
         <div class="tl-content">
-          <div class="day-card reveal">
+          <div class="day-card">
             <div class="dc-title"><span class="tag">09:00</span>起床 · 洗漱 · 酒店早餐</div>
-            <div class="dc-item">☀️<span>早起收拾，在酒店吃好早餐，补充能量</span></div>
-            <div class="dc-item">🎒<span>检查随身物品：学生证、充电宝、水、遮阳帽</span></div>
+            <div class="dc-item"><span>早起收拾，在酒店吃好早餐，补充能量</span></div>
+            <div class="dc-item"><span>检查随身物品：学生证、充电宝、水、遮阳帽</span></div>
           </div>
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item" data-key="d3_check2">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d3_check2" onchange="updateDay3Progress()">
         <div class="tl-content">
-          <div class="day-card reveal">
+          <div class="day-card">
             <div class="dc-title"><span class="tag">10:00</span>出发前往三星堆博物馆</div>
-            <div class="dc-item">🚖<span>从桔子水晶酒店打车/乘车前往<span class="hl">三星堆博物馆</span>，直达约 ¥24，车程约 1.5h</span></div>
+            <div class="dc-item"><span>从桔子水晶酒店打车/乘车前往<span class="hl">三星堆博物馆</span>，直达约 ¥24，车程约 1.5h</span></div>
             <div class="dc-tags"><span>交通 ¥24</span><span>车程 1.5h</span></div>
           </div>
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item" data-key="d3_check3">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d3_check3" onchange="updateDay3Progress()">
         <div class="tl-content">
-          <div class="day-card collapsible reveal" data-key="d3_card3" onclick="toggleCollapsible(this, event)">
-            <div class="dc-title"><span class="tag">11:30</span>抵达三星堆博物馆 · 开始参观</div>
+          <div class="day-card collapsible" data-key="d3_card3">
+            <div class="dc-title" onclick="toggleCollapsible(this, event)"><span class="tag">11:30</span>抵达三星堆博物馆 · 开始参观</div>
             <div class="dc-detail-wrap">
-              <div class="dc-item">🎧<span><span class="hl">11:30-13:00</span> 听讲解（1h30min，讲解费约 ¥40）</span></div>
-              <div class="dc-item">•<span><span class="hl">13:00-15:00</span> 自由游览（2h，深入参观各展厅）</span></div>
-              <div class="dc-item">⭐<span>必看：<span class="hl">青铜神树</span>、<span class="hl">青铜大立人</span>、<span class="hl">黄金面具</span>、<span class="hl">纵目面具</span></span></div>
-              <div class="dc-item">💡<span>先看综合馆（青铜器、金器）→ 再逛青铜馆，文创店可买纪念品</span></div>
+              <div class="dc-item"><span><span class="hl">11:30-13:00</span> 听讲解（1h30min，讲解费约 ¥40）</span></div>
+              <div class="dc-item"><span><span class="hl">13:00-15:00</span> 自由游览（2h，深入参观各展厅）</span></div>
+              <div class="dc-item"><span>必看：<span class="hl">青铜神树</span>、<span class="hl">青铜大立人</span>、<span class="hl">黄金面具</span>、<span class="hl">纵目面具</span></span></div>
+              <div class="dc-item"><span>先看综合馆（青铜器、金器）→ 再逛青铜馆，文创店可买纪念品</span></div>
               <div class="dc-tags"><span>讲解约 ¥40</span><span>参观共 4h</span></div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item tl-no-click">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d3_check4" onchange="updateDay3Progress()">
         <div class="tl-content">
-          <div class="day-card reveal">
-            <div class="dc-title"><span class="tag">📸</span>三星堆实拍</div>
+          <div class="day-card">
+            <div class="dc-title"><span class="tag">实拍</span>三星堆</div>
             <div class="image-slider" data-interval="4000">
               <div class="slider-track">
-                <div class="slider-slide"><img src="chengdu/sanxingdui-1.jpg" alt="三星堆博物馆" loading="lazy"></div>
-                <div class="slider-slide"><img src="chengdu/sanxingdui-2.jpg" alt="青铜神树" loading="lazy"></div>
-                <div class="slider-slide"><img src="chengdu/sanxingdui-3.jpg" alt="青铜大立人" loading="lazy"></div>
-                <div class="slider-slide"><img src="chengdu/sanxingdui-4.jpg" alt="黄金面具" loading="lazy"></div>
-                <div class="slider-slide"><img src="chengdu/sanxingdui-5.jpg" alt="纵目面具" loading="lazy"></div>
+                <div class="slider-slide"><img width="720" height="1080" src="chengdu/sanxingdui-1.jpg" alt="三星堆文物" loading="lazy" decoding="async"></div>
+                <div class="slider-slide"><img width="1000" height="1600" src="chengdu/sanxingdui-2.jpg" alt="三星堆文物" loading="lazy" decoding="async"></div>
+                <div class="slider-slide"><img width="1000" height="1600" src="chengdu/sanxingdui-3.jpg" alt="三星堆文物" loading="lazy" decoding="async"></div>
+                <div class="slider-slide"><img width="1242" height="1646" src="chengdu/sanxingdui-4.jpg" alt="三星堆文物" loading="lazy" decoding="async"></div>
+                <div class="slider-slide"><img width="1440" height="1080" src="chengdu/sanxingdui-5.jpg" alt="三星堆文物" loading="lazy" decoding="async"></div>
               </div>
               <div class="slider-dots">
                 <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
@@ -1471,46 +671,43 @@
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item" data-key="d3_check5">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d3_check5" onchange="updateDay3Progress()">
         <div class="tl-content">
-          <div class="day-card reveal">
+          <div class="day-card">
             <div class="dc-title"><span class="tag">15:00</span>离开三星堆 → 前往武侯祠</div>
-            <div class="dc-item">🚖<span>从三星堆打车/乘车前往<span class="hl">武侯祠</span>，直达约 ¥24，车程约 1.5h</span></div>
+            <div class="dc-item"><span>从三星堆打车/乘车前往<span class="hl">武侯祠</span>，直达约 ¥24，车程约 1.5h</span></div>
             <div class="dc-tags"><span>交通 ¥24</span><span>车程 1.5h</span></div>
           </div>
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item" data-key="d3_check6">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d3_check6" onchange="updateDay3Progress()">
         <div class="tl-content">
-          <div class="day-card collapsible reveal" data-key="d3_card6" onclick="toggleCollapsible(this, event)">
-            <div class="dc-title"><span class="tag">16:30</span>游览武侯祠</div>
+          <div class="day-card collapsible" data-key="d3_card6">
+            <div class="dc-title" onclick="toggleCollapsible(this, event)"><span class="tag">16:30</span>游览武侯祠</div>
             <div class="dc-detail-wrap">
-              <div class="dc-item">🏛️<span>游览<span class="hl">武侯祠博物馆</span>（三国文化圣地）</span></div>
-              <div class="dc-item">•<span>推荐路线：大门 → 唐碑 → 明碑 → 刘备殿 → 诸葛亮殿 → 三义庙 → 红墙夹道</span></div>
-              <div class="dc-item">💡<span>红墙夹道是网红打卡点，很出片！游览约 1.5h</span></div>
-              <div class="dc-item">🎫<span>学生票 <span class="hl">¥25</span>（全价 ¥50，全日制大学本科及以下学生半价）</span></div>
+              <div class="dc-item"><span>游览<span class="hl">武侯祠博物馆</span>（三国文化圣地）</span></div>
+              <div class="dc-item"><span>推荐路线：大门 → 唐碑 → 明碑 → 刘备殿 → 诸葛亮殿 → 三义庙 → 红墙夹道</span></div>
+              <div class="dc-item"><span>红墙夹道是网红打卡点，很出片；游览约 1.5h</span></div>
+              <div class="dc-item"><span>学生票 <span class="hl">¥25</span>（全价 ¥50，全日制大学本科及以下学生半价）</span></div>
               <div class="dc-tags"><span>学生票 ¥25</span><span>游览 1.5h</span><span>18:30 闭园</span></div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item tl-no-click">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d3_check7" onchange="updateDay3Progress()">
         <div class="tl-content">
-          <div class="day-card reveal">
-            <div class="dc-title"><span class="tag">📸</span>武侯祠实拍</div>
+          <div class="day-card">
+            <div class="dc-title"><span class="tag">实拍</span>武侯祠</div>
             <div class="image-slider" data-interval="4000">
               <div class="slider-track">
-                <div class="slider-slide"><img src="chengdu/wuhouci-1.jpg" alt="武侯祠大门" loading="lazy"></div>
-                <div class="slider-slide"><img src="chengdu/wuhouci-2.jpg" alt="诸葛亮殿" loading="lazy"></div>
-                <div class="slider-slide"><img src="chengdu/wuhouci-3.jpg" alt="红墙夹道" loading="lazy"></div>
+                <div class="slider-slide"><img width="1440" height="1920" src="chengdu/wuhouci-1.jpg" alt="武侯祠" loading="lazy" decoding="async"></div>
+                <div class="slider-slide"><img width="1440" height="1920" src="chengdu/wuhouci-2.jpg" alt="武侯祠" loading="lazy" decoding="async"></div>
+                <div class="slider-slide"><img width="1440" height="1920" src="chengdu/wuhouci-3.jpg" alt="武侯祠" loading="lazy" decoding="async"></div>
               </div>
               <div class="slider-dots">
                 <span class="dot active"></span><span class="dot"></span><span class="dot"></span>
@@ -1521,29 +718,27 @@
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item" data-key="d3_check8">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d3_check8" onchange="updateDay3Progress()">
         <div class="tl-content">
-          <div class="day-card reveal">
+          <div class="day-card">
             <div class="dc-title"><span class="tag">18:00</span>闭园出景区 → 前往春熙路</div>
-            <div class="dc-item">🚇<span>高升桥站(3号线)→<span class="hl">春熙路站</span>（直达，¥3，15min）</span></div>
+            <div class="dc-item"><span>高升桥站(3号线)→<span class="hl">春熙路站</span>（直达，¥3，15min）</span></div>
             <div class="dc-tags"><span>地铁 ¥3</span></div>
           </div>
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item tl-no-click">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d3_check9" onchange="updateDay3Progress()">
         <div class="tl-content">
-          <div class="day-card reveal">
-            <div class="dc-title"><span class="tag">📸</span>春熙路商圈</div>
+          <div class="day-card">
+            <div class="dc-title"><span class="tag">实拍</span>春熙路商圈</div>
             <div class="image-slider" data-interval="4000">
               <div class="slider-track">
-                <div class="slider-slide"><img src="chengdu/chunxilu-1.jpg" alt="春熙路步行街" loading="lazy"></div>
-                <div class="slider-slide"><img src="chengdu/chunxilu-2.jpg" alt="IFS国际金融中心" loading="lazy"></div>
-                <div class="slider-slide"><img src="chengdu/chunxilu-3.jpg" alt="太古里" loading="lazy"></div>
+                <div class="slider-slide"><img width="1440" height="1920" src="chengdu/chunxilu-1.jpg" alt="春熙路" loading="lazy" decoding="async"></div>
+                <div class="slider-slide"><img width="1440" height="1918" src="chengdu/chunxilu-2.jpg" alt="春熙路" loading="lazy" decoding="async"></div>
+                <div class="slider-slide"><img width="1280" height="1920" src="chengdu/chunxilu-3.jpg" alt="春熙路" loading="lazy" decoding="async"></div>
               </div>
               <div class="slider-dots">
                 <span class="dot active"></span><span class="dot"></span><span class="dot"></span>
@@ -1554,41 +749,39 @@
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item" data-key="d3_check10">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d3_check10" onchange="updateDay3Progress()">
         <div class="tl-content">
-          <div class="day-card reveal">
+          <div class="day-card">
             <div class="dc-title"><span class="tag">19:00</span>春熙路晚餐 · 逛街</div>
-            <div class="dc-item">🍜<span>在春熙路商圈吃晚饭，推荐：火锅、钵钵鸡、麻辣兔头等成都美食</span></div>
-            <div class="dc-item">🛍️<span>逛 IFS、太古里、春熙路步行街，感受成都繁华夜景</span></div>
+            <div class="dc-item"><span>在春熙路商圈吃晚饭，推荐：火锅、钵钵鸡、麻辣兔头等成都美食</span></div>
+            <div class="dc-item"><span>逛 IFS、太古里、春熙路步行街，感受成都繁华夜景</span></div>
             <div class="dc-tags"><span>晚餐 ¥80</span></div>
           </div>
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item" data-key="d3_check11">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d3_check11" onchange="updateDay3Progress()">
         <div class="tl-content">
-          <div class="day-card reveal">
+          <div class="day-card">
             <div class="dc-title"><span class="tag">21:00</span>返回桔子水晶酒店</div>
-            <div class="dc-item">🚇<span>春熙路站(3号线)→<span class="hl">红牌楼站</span>（直达，¥3，15min）→步行回酒店休息</span></div>
+            <div class="dc-item"><span>春熙路站(3号线)→<span class="hl">红牌楼站</span>（直达，¥3，15min）→步行回酒店休息</span></div>
             <div class="dc-tags"><span>地铁 ¥3</span></div>
           </div>
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item tl-no-click cost-summary">
         <div class="tl-dot" style="border-color:var(--warm);"></div>
         <div class="tl-content">
-          <div class="day-card cost-summary">
-            <div class="dc-cost-row"><span>🚖 红牌楼→三星堆（直达）</span><span class="val">¥24</span></div>
-            <div class="dc-cost-row"><span>🚖 三星堆→武侯祠（直达）</span><span class="val">¥24</span></div>
-            <div class="dc-cost-row"><span>🎫 三星堆讲解费</span><span class="val">¥40</span></div>
-            <div class="dc-cost-row"><span>🎫 武侯祠学生票</span><span class="val">¥25</span></div>
+          <div class="day-card">
+            <div class="dc-cost-row"><span>红牌楼→三星堆（直达）</span><span class="val">¥24</span></div>
+            <div class="dc-cost-row"><span>三星堆→武侯祠（直达）</span><span class="val">¥24</span></div>
+            <div class="dc-cost-row"><span>三星堆讲解费</span><span class="val">¥40</span></div>
+            <div class="dc-cost-row"><span>武侯祠学生票</span><span class="val">¥25</span></div>
             <div class="dc-divider"></div>
-            <div class="dc-cost-row"><span>本日总花费（含餐饮 ¥80）</span><span class="val" style="color:var(--warm);font-size:15px;font-weight:700">¥193</span></div>
+            <div class="dc-cost-row"><span>本日总花费（含餐饮 ¥80）</span><span class="val">¥193</span></div>
           </div>
         </div>
       </div>
@@ -1599,97 +792,82 @@
   <div class="page" id="page-day4">
 
     <div class="day-hero">
-      <div class="h-badge">Day 4 · 6月某日</div>
+      <div class="h-badge">Day 4 · 9月8日</div>
       <h2>青城山 → 都江堰</h2>
       <div class="h-meta">
-        <span>🌡️ 22-30°C</span>
-        <span>⛰️ 海拔 500→1200m</span>
-        <span>💰 预估 ¥200</span>
-      </div>
-      <div class="h-tags">
-        <span>⛰️ 青城山 3-4h</span>
-        <span>🌊 都江堰 2-3h</span>
-        <span>💎 蓝眼泪 20:00</span>
-        <span>🎒 学生优惠</span>
-      </div>
-      <div class="h-progress">
-        <div class="track"><div class="fill" id="day4Progress"></div></div>
-        <span class="lbl" id="day4ProgressLabel">0% 完成</span>
+        <span>海拔 500→1200m</span>
+        <span>预估 ¥200</span>
       </div>
     </div>
 
     <div class="route-map">
-      <div class="rm-stop"><div class="rm-icon">🏨</div><div class="rm-dot"></div><div class="rm-name">成都市区</div><div class="rm-label">出发</div></div>
-      <div class="rm-stop"><div class="rm-icon">⛰️</div><div class="rm-dot"></div><div class="rm-name">青城山</div><div class="rm-label">3-4h</div></div>
-      <div class="rm-stop"><div class="rm-icon">🌊</div><div class="rm-dot"></div><div class="rm-name">都江堰</div><div class="rm-label">2-3h</div></div>
-      <div class="rm-stop"><div class="rm-icon">💎</div><div class="rm-dot"></div><div class="rm-name">蓝眼泪</div><div class="rm-label">20:00</div></div>
-      <div class="rm-stop"><div class="rm-icon">🏨</div><div class="rm-dot"></div><div class="rm-name">成都市区</div><div class="rm-label">返程</div></div>
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">成都市区</div><div class="rm-label">出发</div></div>
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">青城山</div><div class="rm-label">3-4h</div></div>
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">都江堰</div><div class="rm-label">2-3h</div></div>
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">蓝眼泪</div><div class="rm-label">20:00</div></div>
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">成都市区</div><div class="rm-label">返程</div></div>
     </div>
 
     <div class="info-banner">
-      <span>🎒 <span class="hl">学生优惠：</span>青城山学生票¥40（原价¥80），带好学生证验票</span>
-      <span>👕 <span class="hl">穿衣：</span>青城山蚊虫多，建议长裤+防蚊液；石阶多，穿防滑鞋</span>
-      <span>☂️ <span class="hl">天气：</span>山区阵雨频繁，随身带伞</span>
-      <span>💎 <span class="hl">蓝眼泪：</span>南桥/天府源廊桥，夏天约 20:00 开灯，免费观赏至 24:00</span>
+      <span><span class="hl">学生优惠</span> 青城山学生票¥40（原价¥80），带好学生证验票</span>
+      <span><span class="hl">穿衣</span> 青城山蚊虫多，建议长裤+防蚊液；石阶多，穿防滑鞋</span>
+      <span><span class="hl">天气</span> 山区阵雨频繁，随身带伞</span>
+      <span><span class="hl">蓝眼泪</span> 南桥/天府源廊桥，夏天约 20:00 开灯，免费观赏至 24:00</span>
     </div>
 
     <div class="tl-wrap">
 
-      <div class="tl-item">
+      <div class="tl-item" data-key="d4_check1">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d4_check1" onchange="updateDay4Progress()">
         <div class="tl-content">
-          <div class="day-card reveal">
+          <div class="day-card">
             <div class="dc-title"><span class="tag">07:00</span>起床，酒店早餐</div>
-            <div class="dc-item"><span class="ico ico-food">🍜</span><span>酒店享用早餐，提前准备防蚊液、防晒、雨伞</span></div>
+            <div class="dc-item"><span>酒店享用早餐，提前准备防蚊液、防晒、雨伞</span></div>
           </div>
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item" data-key="d4_check2">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d4_check2" onchange="updateDay4Progress()">
         <div class="tl-content">
-          <div class="day-card reveal">
+          <div class="day-card">
             <div class="dc-title"><span class="tag">08:00</span>出发前往青城山</div>
-            <div class="dc-item"><span class="ico ico-bus">🚇</span><span>红牌楼站(3号线)→太平园站(转7号线外环)→一品天下站(转2号线)→<span class="hl">犀浦站</span></span></div>
-            <div class="dc-item"><span class="ico ico-bus">🚄</span><span>高铁犀浦站→<span class="hl">青城山站</span>（25-35min，¥10）</span></div>
+            <div class="dc-item"><span>红牌楼站(3号线)→太平园站(转7号线外环)→一品天下站(转2号线)→<span class="hl">犀浦站</span></span></div>
+            <div class="dc-item"><span>高铁犀浦站→<span class="hl">青城山站</span>（25-35min，¥10）</span></div>
             <div class="dc-tags"><span>地铁 ¥5</span><span>高铁 ¥10</span><span>全程约 1.5h</span></div>
           </div>
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item" data-key="d4_check3">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d4_check3" onchange="updateDay4Progress()">
         <div class="tl-content">
-          <div class="day-card collapsible reveal" data-key="d4_card3" onclick="toggleCollapsible(this, event)">
-            <div class="dc-title"><span class="tag">09:00</span>游览青城山前山</div>
+          <div class="day-card collapsible" data-key="d4_card3">
+            <div class="dc-title" onclick="toggleCollapsible(this, event)"><span class="tag">09:00</span>游览青城山前山</div>
             <div class="dc-detail-wrap">
-              <div class="dc-item"><span class="ico ico-bus">🚌</span><span>青城山站出站后乘景区观光车或打车至<span class="hl">青城山山门</span>（约15min，观光车¥35往返）</span></div>
-              <div class="dc-item">💡<span>推荐路线：山门 → 天然阁 → 建福宫（30min）→ 月城湖（可乘船¥5）→ 索道上山（¥35单程）→ 上清宫（1h）→ 老君阁（30min，青城最高点，俯瞰群山）→ 步行下山 → 天师洞（1h，道教发源地）→ 回山门</span></div>
-              <div class="dc-item">•<span>游览<span class="hl">青城山前山</span>（道教发源地之一，建福宫、天师洞、上清宫、老君阁为四大核心景点）</span></div>
-              <div class="dc-item">•<span>体力有限可选索道上下（往返¥60），核心游览上清宫+老君阁+天师洞</span></div>
-              <div class="dc-item">•<span>石阶较多，穿防滑鞋；蚊虫多，注意防蚊；建议自带水瓶，山上水贵</span></div>
-              <div class="dc-item">🎒<span>必带：学生证（检票核验）、充电宝、防晒帽、少量零食</span></div>
+              <div class="dc-item"><span>青城山站出站后乘景区观光车或打车至<span class="hl">青城山山门</span>（约15min，观光车¥35往返）</span></div>
+              <div class="dc-item"><span>推荐路线：山门 → 天然阁 → 建福宫（30min）→ 月城湖（可乘船¥5）→ 索道上山（¥35单程）→ 上清宫（1h）→ 老君阁（30min，青城最高点，俯瞰群山）→ 步行下山 → 天师洞（1h，道教发源地）→ 回山门</span></div>
+              <div class="dc-item"><span>游览<span class="hl">青城山前山</span>（道教发源地之一，建福宫、天师洞、上清宫、老君阁为四大核心景点）</span></div>
+              <div class="dc-item"><span>体力有限可选索道上下（往返¥60），核心游览上清宫+老君阁+天师洞</span></div>
+              <div class="dc-item"><span>石阶较多，穿防滑鞋；蚊虫多，注意防蚊；建议自带水瓶，山上水贵</span></div>
+              <div class="dc-item"><span>必带：学生证（检票核验）、充电宝、防晒帽、少量零食</span></div>
               <div class="dc-tags"><span>学生票 ¥40</span><span>索道单程¥35/往返¥60</span><span>游览约 3-4h</span></div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item tl-no-click">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d4_check4" onchange="updateDay4Progress()">
         <div class="tl-content">
-          <div class="day-card reveal">
-            <div class="dc-title"><span class="tag">📸</span>青城山实拍</div>
+          <div class="day-card">
+            <div class="dc-title"><span class="tag">实拍</span>青城山</div>
             <div class="image-slider" data-interval="4000">
               <div class="slider-track">
-                <div class="slider-slide"><img src="chengdu/qingchengshan-1.jpg" alt="青城山门" loading="lazy"></div>
-                <div class="slider-slide"><img src="chengdu/qingchengshan-2.jpg" alt="建福宫" loading="lazy"></div>
-                <div class="slider-slide"><img src="chengdu/qingchengshan-3.jpg" alt="天师洞" loading="lazy"></div>
-                <div class="slider-slide"><img src="chengdu/qingchengshan-4.jpg" alt="上清宫" loading="lazy"></div>
+                <div class="slider-slide"><img width="1440" height="1920" src="chengdu/qingchengshan-1.jpg" alt="青城山" loading="lazy" decoding="async"></div>
+                <div class="slider-slide"><img width="1440" height="1920" src="chengdu/qingchengshan-2.jpg" alt="青城山" loading="lazy" decoding="async"></div>
+                <div class="slider-slide"><img width="720" height="1200" src="chengdu/qingchengshan-3.jpg" alt="青城山" loading="lazy" decoding="async"></div>
+                <div class="slider-slide"><img width="720" height="1082" src="chengdu/qingchengshan-4.jpg" alt="青城山" loading="lazy" decoding="async"></div>
               </div>
               <div class="slider-dots">
                 <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
@@ -1700,46 +878,43 @@
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item" data-key="d4_check5">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d4_check5" onchange="updateDay4Progress()">
         <div class="tl-content">
-          <div class="day-card reveal">
+          <div class="day-card">
             <div class="dc-title"><span class="tag">12:00</span>午餐 + 转场都江堰</div>
-            <div class="dc-item"><span class="ico ico-food">🍜</span><span>青城山脚下午餐</span></div>
-            <div class="dc-item"><span class="ico ico-bus">🚄</span><span>高铁青城山站→<span class="hl">离堆公园站</span>（10min）</span></div>
+            <div class="dc-item"><span>青城山脚下午餐</span></div>
+            <div class="dc-item"><span>高铁青城山站→<span class="hl">离堆公园站</span>（10min）</span></div>
             <div class="dc-tags"><span>午餐 ¥60</span><span>高铁 ¥10</span></div>
           </div>
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item" data-key="d4_check6">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d4_check6" onchange="updateDay4Progress()">
         <div class="tl-content">
-          <div class="day-card collapsible reveal" data-key="d4_card6" onclick="toggleCollapsible(this, event)">
-            <div class="dc-title"><span class="tag">14:00</span>游览都江堰</div>
+          <div class="day-card collapsible" data-key="d4_card6">
+            <div class="dc-title" onclick="toggleCollapsible(this, event)"><span class="tag">14:00</span>游览都江堰</div>
             <div class="dc-detail-wrap">
-              <div class="dc-item"><span class="ico ico-water">🌊</span><span>游览<span class="hl">都江堰水利工程</span>（鱼嘴、飞沙堰、宝瓶口）</span></div>
-              <div class="dc-item">💡<span>推荐路线：景区入口 → 伏龙观 → 宝瓶口 → 飞沙堰 → 鱼嘴 → 安澜索桥 → 二王庙</span></div>
+              <div class="dc-item"><span>游览<span class="hl">都江堰水利工程</span>（鱼嘴、飞沙堰、宝瓶口）</span></div>
+              <div class="dc-item"><span>推荐路线：景区入口 → 伏龙观 → 宝瓶口 → 飞沙堰 → 鱼嘴 → 安澜索桥 → 二王庙</span></div>
               <div class="dc-tags"><span>门票 ¥40</span><span>游览约 2-3h</span></div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item tl-no-click">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d4_check7" onchange="updateDay4Progress()">
         <div class="tl-content">
-          <div class="day-card reveal">
-            <div class="dc-title"><span class="tag">📸</span>都江堰实拍</div>
+          <div class="day-card">
+            <div class="dc-title"><span class="tag">实拍</span>都江堰</div>
             <div class="image-slider" data-interval="4000">
               <div class="slider-track">
-                <div class="slider-slide"><img src="chengdu/dujiangyan-1.jpg" alt="都江堰全景" loading="lazy"></div>
-                <div class="slider-slide"><img src="chengdu/dujiangyan-2.jpg" alt="鱼嘴" loading="lazy"></div>
-                <div class="slider-slide"><img src="chengdu/dujiangyan-3.jpg" alt="飞沙堰" loading="lazy"></div>
-                <div class="slider-slide"><img src="chengdu/dujiangyan-4.jpg" alt="宝瓶口" loading="lazy"></div>
+                <div class="slider-slide"><img width="720" height="1082" src="chengdu/dujiangyan-1.jpg" alt="都江堰" loading="lazy" decoding="async"></div>
+                <div class="slider-slide"><img width="720" height="1082" src="chengdu/dujiangyan-2.jpg" alt="都江堰" loading="lazy" decoding="async"></div>
+                <div class="slider-slide"><img width="720" height="1032" src="chengdu/dujiangyan-3.jpg" alt="都江堰" loading="lazy" decoding="async"></div>
+                <div class="slider-slide"><img width="1440" height="1440" src="chengdu/dujiangyan-4.jpg" alt="都江堰" loading="lazy" decoding="async"></div>
               </div>
               <div class="slider-dots">
                 <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
@@ -1750,58 +925,55 @@
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item" data-key="d4_check8">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d4_check8" onchange="updateDay4Progress()">
         <div class="tl-content">
-          <div class="day-card reveal">
+          <div class="day-card">
             <div class="dc-title"><span class="tag">17:00</span>都江堰古镇晚餐</div>
-            <div class="dc-item"><span class="ico ico-food">🍜</span><span>逛<span class="hl">西街</span>、<span class="hl">南街</span>，品尝都江堰特色美食</span></div>
-            <div class="dc-item">💡<span>推荐：太平张醪糟、老号尤兔头、文革葱葱卷</span></div>
+            <div class="dc-item"><span>逛<span class="hl">西街</span>、<span class="hl">南街</span>，品尝都江堰特色美食</span></div>
+            <div class="dc-item"><span>推荐：太平张醪糟、老号尤兔头、文革葱葱卷</span></div>
             <div class="dc-tags"><span>晚餐 ¥80</span></div>
           </div>
         </div>
       </div>
 
-      <div class="tl-item">
-        <div class="tl-dot" style="border-color:var(--gold);"></div>
-        <input type="checkbox" class="tl-check" data-key="d4_check9" onchange="updateDay4Progress()">
+      <div class="tl-item" data-key="d4_check9">
+        <div class="tl-dot" style="border-color:var(--accent);"></div>
         <div class="tl-content">
-          <div class="day-card collapsible reveal" data-key="d4_card9" onclick="toggleCollapsible(this, event)">
-            <div class="dc-title"><span class="tag">20:00</span>观赏蓝眼泪</div>
+          <div class="day-card collapsible" data-key="d4_card9">
+            <div class="dc-title" onclick="toggleCollapsible(this, event)"><span class="tag">20:00</span>观赏蓝眼泪</div>
             <div class="dc-detail-wrap">
-              <div class="dc-item">💡<span class="hl">亮灯时间：</span>夏天约 20:00-20:20 开灯（天黑后），亮灯至 24:00</div>
-              <div class="dc-item">•<span>最佳观赏点①：<span class="hl">南桥</span> — 经典的蓝眼泪观赏地，夜晚灯光璀璨</span></div>
-              <div class="dc-item">•<span>最佳观赏点②：<span class="hl">天府源廊桥</span> — 与南桥平行而立，人相对少，拍照效果好</span></div>
-              <div class="dc-item"><span class="ico ico-camera">📸</span><span>建议使用夜景模式拍摄，效果更佳</span></div>
+              <div class="dc-item"><span class="hl">亮灯时间：</span>夏天约 20:00-20:20 开灯（天黑后），亮灯至 24:00</div>
+              <div class="dc-item"><span>最佳观赏点①：<span class="hl">南桥</span> — 经典的蓝眼泪观赏地，夜晚灯光璀璨</span></div>
+              <div class="dc-item"><span>最佳观赏点②：<span class="hl">天府源廊桥</span> — 与南桥平行而立，人相对少，拍照效果好</span></div>
+              <div class="dc-item"><span>建议使用夜景模式拍摄，效果更佳</span></div>
               <div class="dc-tags"><span>免费观赏</span><span>20:00开灯</span></div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item" data-key="d4_check10">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d4_check10" onchange="updateDay4Progress()">
         <div class="tl-content">
-          <div class="day-card reveal">
+          <div class="day-card">
             <div class="dc-title"><span class="tag">21:00</span>返程回桔子水晶酒店</div>
-            <div class="dc-item"><span class="ico ico-bus">🚄</span><span>离堆公园站→<span class="hl">犀浦站</span>（高铁，约30min，¥10，末班约22:00）</span></div>
-            <div class="dc-item"><span class="ico ico-bus">🚇</span><span>犀浦站(2号线)→一品天下站(转7号线内环)→太平园站(转3号线)→<span class="hl">红牌楼站</span>（步行回酒店）</span></div>
+            <div class="dc-item"><span>离堆公园站→<span class="hl">犀浦站</span>（高铁，约30min，¥10，末班约22:00）</span></div>
+            <div class="dc-item"><span>犀浦站(2号线)→一品天下站(转7号线内环)→太平园站(转3号线)→<span class="hl">红牌楼站</span>（步行回酒店）</span></div>
             <div class="dc-tags"><span>高铁 ¥10</span><span>地铁 ¥5</span></div>
           </div>
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item tl-no-click cost-summary">
         <div class="tl-dot" style="border-color:var(--warm);"></div>
         <div class="tl-content">
-          <div class="day-card cost-summary">
+          <div class="day-card">
             <div class="dc-cost-row"><span>本日交通合计</span><span class="val">¥40</span></div>
             <div class="dc-divider"></div>
             <div class="dc-cost-row"><span>门票</span><span class="val">¥80（青城山学生¥40 + 都江堰¥40）</span></div>
             <div class="dc-divider"></div>
-            <div class="dc-cost-row"><span>本日总花费（含餐饮 ¥80，不含索道）</span><span class="val" style="color:var(--warm);font-size:15px;font-weight:700">¥200</span></div>
+            <div class="dc-cost-row"><span>本日总花费（含餐饮 ¥80，不含索道）</span><span class="val">¥200</span></div>
           </div>
         </div>
       </div>
@@ -1813,96 +985,81 @@
   <div class="page" id="page-day5">
 
     <div class="day-hero">
-      <div class="h-badge">Day 5 · 6月某日</div>
+      <div class="h-badge">Day 5 · 9月9日</div>
       <h2>杜甫草堂 → 四川博物院 → 返程</h2>
       <div class="h-meta">
-        <span>🌡️ 25-32°C</span>
-        <span>🏛️ 人文之旅</span>
-        <span>💰 预估 ¥150</span>
-      </div>
-      <div class="h-tags">
-        <span>🏛️ 杜甫草堂 1.5h</span>
-        <span>🏛️ 四川博物院 1.5h</span>
-        <span>🏨 16:00退房</span>
-        <span>🚄 19:30发车</span>
-      </div>
-      <div class="h-progress">
-        <div class="track"><div class="fill" id="day5Progress"></div></div>
-        <span class="lbl" id="day5ProgressLabel">0% 完成</span>
+        <span>人文之旅</span>
+        <span>预估 ¥150</span>
       </div>
     </div>
 
     <div class="route-map">
-      <div class="rm-stop"><div class="rm-icon">🏨</div><div class="rm-dot"></div><div class="rm-name">桔子水晶酒店</div><div class="rm-label">出发</div></div>
-      <div class="rm-stop"><div class="rm-icon">🏛️</div><div class="rm-dot"></div><div class="rm-name">杜甫草堂</div><div class="rm-label">1.5h</div></div>
-      <div class="rm-stop"><div class="rm-icon">🏛️</div><div class="rm-dot"></div><div class="rm-name">四川博物院</div><div class="rm-label">1.5h</div></div>
-      <div class="rm-stop"><div class="rm-icon">🏨</div><div class="rm-dot"></div><div class="rm-name">回桔子水晶</div><div class="rm-label">取行李</div></div>
-      <div class="rm-stop"><div class="rm-icon">🚄</div><div class="rm-dot"></div><div class="rm-name">成都东站</div><div class="rm-label">19:30发车</div></div>
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">桔子水晶酒店</div><div class="rm-label">出发</div></div>
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">杜甫草堂</div><div class="rm-label">1.5h</div></div>
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">四川博物院</div><div class="rm-label">1.5h</div></div>
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">回桔子水晶</div><div class="rm-label">取行李</div></div>
+      <div class="rm-stop"><div class="rm-dot"></div><div class="rm-name">成都西站</div><div class="rm-label">19:30发车</div></div>
     </div>
 
     <div class="info-banner">
-      <span>🎒 <span class="hl">学生优惠：</span>杜甫草堂学生票¥25（全价¥50），带好学生证</span>
-      <span>🏛️ <span class="hl">四川博物院：</span>免费参观，需提前在公众号预约，周一闭馆</span>
-      <span>⏰ <span class="hl">时间：</span>酒店16:00退房→成都东站→19:30火车出发，预留充足时间</span>
+      <span><span class="hl">学生优惠</span> 杜甫草堂学生票¥25（全价¥50），带好学生证</span>
+      <span><span class="hl">四川博物院</span> 免费参观，需提前在公众号预约，周一闭馆</span>
+      <span><span class="hl">时间</span> 酒店16:00退房→成都西站→19:30火车出发，预留充足时间</span>
     </div>
 
     <div class="tl-wrap">
 
-      <div class="tl-item">
+      <div class="tl-item" data-key="d5_check1">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d5_check1" onchange="updateDay5Progress()">
         <div class="tl-content">
-          <div class="day-card reveal">
+          <div class="day-card">
             <div class="dc-title"><span class="tag">09:00</span>起床 · 早餐 · 收拾行李</div>
-            <div class="dc-item"><span class="ico ico-food">🍜</span><span>酒店享用早餐，收拾行李</span></div>
-            <div class="dc-item">💡<span>酒店 16:00 退房，行李可先放房间，轻装出门</span></div>
+            <div class="dc-item"><span>酒店享用早餐，收拾行李</span></div>
+            <div class="dc-item"><span>酒店 16:00 退房，行李可先放房间，轻装出门</span></div>
           </div>
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item" data-key="d5_check2">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d5_check2" onchange="updateDay5Progress()">
         <div class="tl-content">
-          <div class="day-card reveal">
+          <div class="day-card">
             <div class="dc-title"><span class="tag">10:00</span>出发前往杜甫草堂</div>
-            <div class="dc-item">🚖<span>红牌楼打车前往<span class="hl">杜甫草堂</span>（约15min，¥15）</span></div>
+            <div class="dc-item"><span>红牌楼打车前往<span class="hl">杜甫草堂</span>（约15min，¥15）</span></div>
             <div class="dc-tags"><span>打车 ¥15</span></div>
           </div>
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item" data-key="d5_check3">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d5_check3" onchange="updateDay5Progress()">
         <div class="tl-content">
-          <div class="day-card collapsible reveal" data-key="d5_card3" onclick="toggleCollapsible(this, event)">
-            <div class="dc-title"><span class="tag">10:30</span>游览杜甫草堂</div>
+          <div class="day-card collapsible" data-key="d5_card3">
+            <div class="dc-title" onclick="toggleCollapsible(this, event)"><span class="tag">10:30</span>游览杜甫草堂</div>
             <div class="dc-detail-wrap">
-              <div class="dc-item">🏛️<span>游览<span class="hl">杜甫草堂博物馆</span>——诗圣杜甫流寓成都时的故居</span></div>
-              <div class="dc-item">•<span>推荐路线：正门 → 大廨 → 诗史堂 → 柴门 → 工部祠 → 茅屋故居 → 花径 → 红墙影壁</span></div>
-              <div class="dc-item">⭐<span>必看：<span class="hl">茅屋故居</span>（复原茅屋）、<span class="hl">红墙竹影</span>（很出片）、<span class="hl">花径</span>（红墙夹道）</span></div>
-              <div class="dc-item">🎫<span>学生票 <span class="hl">¥25</span>（全价 ¥50，带好学生证）</span></div>
+              <div class="dc-item"><span>游览<span class="hl">杜甫草堂博物馆</span>——诗圣杜甫流寓成都时的故居</span></div>
+              <div class="dc-item"><span>推荐路线：正门 → 大廨 → 诗史堂 → 柴门 → 工部祠 → 茅屋故居 → 花径 → 红墙影壁</span></div>
+              <div class="dc-item"><span>必看：<span class="hl">茅屋故居</span>（复原茅屋）、<span class="hl">红墙竹影</span>（很出片）、<span class="hl">花径</span>（红墙夹道）</span></div>
+              <div class="dc-item"><span>学生票 <span class="hl">¥25</span>（全价 ¥50，带好学生证）</span></div>
               <div class="dc-tags"><span>学生票 ¥25</span><span>游览约 1.5h</span></div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item tl-no-click">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d5_check4" onchange="updateDay5Progress()">
         <div class="tl-content">
-          <div class="day-card reveal">
-            <div class="dc-title"><span class="tag">📸</span>杜甫草堂实拍</div>
+          <div class="day-card">
+            <div class="dc-title"><span class="tag">实拍</span>杜甫草堂</div>
             <div class="image-slider" data-interval="4000">
               <div class="slider-track">
-                <div class="slider-slide"><img src="chengdu/dufucaotang-1.jpg" alt="杜甫草堂" loading="lazy"></div>
-                <div class="slider-slide"><img src="chengdu/dufucaotang-2.jpg" alt="草堂茅屋" loading="lazy"></div>
-                <div class="slider-slide"><img src="chengdu/dufucaotang-3.jpg" alt="红墙竹影" loading="lazy"></div>
-                <div class="slider-slide"><img src="chengdu/dufucaotang-4.jpg" alt="草堂内景" loading="lazy"></div>
-                <div class="slider-slide"><img src="chengdu/dufucaotang-5.jpg" alt="诗史堂" loading="lazy"></div>
-                <div class="slider-slide"><img src="chengdu/dufucaotang-6.jpg" alt="花径" loading="lazy"></div>
+                <div class="slider-slide"><img width="1440" height="1920" src="chengdu/dufucaotang-1.jpg" alt="杜甫草堂" loading="lazy" decoding="async"></div>
+                <div class="slider-slide"><img width="1440" height="1920" src="chengdu/dufucaotang-2.jpg" alt="杜甫草堂" loading="lazy" decoding="async"></div>
+                <div class="slider-slide"><img width="720" height="1280" src="chengdu/dufucaotang-3.jpg" alt="杜甫草堂" loading="lazy" decoding="async"></div>
+                <div class="slider-slide"><img width="1440" height="1920" src="chengdu/dufucaotang-4.jpg" alt="杜甫草堂" loading="lazy" decoding="async"></div>
+                <div class="slider-slide"><img width="1440" height="958" src="chengdu/dufucaotang-5.jpg" alt="杜甫草堂" loading="lazy" decoding="async"></div>
+                <div class="slider-slide"><img width="1440" height="958" src="chengdu/dufucaotang-6.jpg" alt="杜甫草堂" loading="lazy" decoding="async"></div>
               </div>
               <div class="slider-dots">
                 <span class="dot active"></span><span class="dot"></span><span class="dot"></span>
@@ -1914,48 +1071,45 @@
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item" data-key="d5_check5">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d5_check5" onchange="updateDay5Progress()">
         <div class="tl-content">
-          <div class="day-card reveal">
+          <div class="day-card">
             <div class="dc-title"><span class="tag">12:00</span>午餐 · 草堂附近</div>
-            <div class="dc-item"><span class="ico ico-food">🍜</span><span>在草堂北路/浣花溪附近午餐，推荐川菜小馆</span></div>
+            <div class="dc-item"><span>在草堂北路/浣花溪附近午餐，推荐川菜小馆</span></div>
             <div class="dc-tags"><span>午餐 ¥50</span></div>
           </div>
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item" data-key="d5_check6">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d5_check6" onchange="updateDay5Progress()">
         <div class="tl-content">
-          <div class="day-card collapsible reveal" data-key="d5_card6" onclick="toggleCollapsible(this, event)">
-            <div class="dc-title"><span class="tag">13:00</span>参观四川博物院</div>
+          <div class="day-card collapsible" data-key="d5_card6">
+            <div class="dc-title" onclick="toggleCollapsible(this, event)"><span class="tag">13:00</span>参观四川博物院</div>
             <div class="dc-detail-wrap">
-              <div class="dc-item">🏛️<span>紧邻杜甫草堂，步行即可到达<span class="hl">四川博物院</span></span></div>
-              <div class="dc-item">•<span>常设展览：远古四川、巴蜀青铜馆、汉代陶石馆、万佛寺石刻馆、书画馆</span></div>
-              <div class="dc-item">⭐<span>必看：<span class="hl">巴蜀青铜器</span>、<span class="hl">汉代画像砖</span>、<span class="hl">张大千书画馆</span></span></div>
-              <div class="dc-item">💡<span>免费参观，需提前在"四川博物院"公众号预约，周一闭馆</span></div>
+              <div class="dc-item"><span>紧邻杜甫草堂，步行即可到达<span class="hl">四川博物院</span></span></div>
+              <div class="dc-item"><span>常设展览：远古四川、巴蜀青铜馆、汉代陶石馆、万佛寺石刻馆、书画馆</span></div>
+              <div class="dc-item"><span>必看：<span class="hl">巴蜀青铜器</span>、<span class="hl">汉代画像砖</span>、<span class="hl">张大千书画馆</span></span></div>
+              <div class="dc-item"><span>免费参观，需提前在"四川博物院"公众号预约，周一闭馆</span></div>
               <div class="dc-tags"><span>免费</span><span>需预约</span><span>游览约 1.5h</span></div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item tl-no-click">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d5_check7" onchange="updateDay5Progress()">
         <div class="tl-content">
-          <div class="day-card reveal">
-            <div class="dc-title"><span class="tag">📸</span>四川博物院实拍</div>
+          <div class="day-card">
+            <div class="dc-title"><span class="tag">实拍</span>四川博物院</div>
             <div class="image-slider" data-interval="4000">
               <div class="slider-track">
-                <div class="slider-slide"><img src="chengdu/sichuanbowuyuan-1.jpg" alt="四川博物院" loading="lazy"></div>
-                <div class="slider-slide"><img src="chengdu/sichuanbowuyuan-2.jpg" alt="巴蜀青铜器" loading="lazy"></div>
-                <div class="slider-slide"><img src="chengdu/sichuanbowuyuan-3.jpg" alt="汉代陶石" loading="lazy"></div>
-                <div class="slider-slide"><img src="chengdu/sichuanbowuyuan-4.jpg" alt="张大千画作" loading="lazy"></div>
-                <div class="slider-slide"><img src="chengdu/sichuanbowuyuan-5.jpg" alt="博物院展厅" loading="lazy"></div>
+                <div class="slider-slide"><img width="1280" height="1920" src="chengdu/sichuanbowuyuan-1.jpg" alt="四川博物院" loading="lazy" decoding="async"></div>
+                <div class="slider-slide"><img width="1279" height="1706" src="chengdu/sichuanbowuyuan-2.jpg" alt="四川博物院" loading="lazy" decoding="async"></div>
+                <div class="slider-slide"><img width="1279" height="1706" src="chengdu/sichuanbowuyuan-3.jpg" alt="四川博物院" loading="lazy" decoding="async"></div>
+                <div class="slider-slide"><img width="1440" height="960" src="chengdu/sichuanbowuyuan-4.jpg" alt="四川博物院" loading="lazy" decoding="async"></div>
+                <div class="slider-slide"><img width="1440" height="960" src="chengdu/sichuanbowuyuan-5.jpg" alt="四川博物院" loading="lazy" decoding="async"></div>
               </div>
               <div class="slider-dots">
                 <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
@@ -1966,55 +1120,52 @@
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item" data-key="d5_check8">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d5_check8" onchange="updateDay5Progress()">
         <div class="tl-content">
-          <div class="day-card reveal">
+          <div class="day-card">
             <div class="dc-title"><span class="tag">15:00</span>返回桔子水晶酒店</div>
-            <div class="dc-item">🚖<span>从博物院打车回<span class="hl">桔子水晶酒店</span>取行李（约15min，¥15）</span></div>
-            <div class="dc-item">🧳<span>回房休息整理，16:00前退房</span></div>
+            <div class="dc-item"><span>从博物院打车回<span class="hl">桔子水晶酒店</span>取行李（约15min，¥15）</span></div>
+            <div class="dc-item"><span>回房休息整理，16:00前退房</span></div>
             <div class="dc-tags"><span>打车 ¥15</span></div>
           </div>
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item" data-key="d5_check9">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d5_check9" onchange="updateDay5Progress()">
         <div class="tl-content">
-          <div class="day-card reveal">
-            <div class="dc-title"><span class="tag">16:00</span>退房 → 前往成都东站</div>
-            <div class="dc-item">🏨<span>办理退房，拖着行李出发</span></div>
-            <div class="dc-item">🚇<span>红牌楼站(3号线)→太平园站(转7号线)→<span class="hl">成都东站</span>（约30min，¥5）</span></div>
+          <div class="day-card">
+            <div class="dc-title"><span class="tag">16:00</span>退房 → 前往成都西站</div>
+            <div class="dc-item"><span>办理退房，拖着行李出发</span></div>
+            <div class="dc-item"><span>红牌楼站(3号线)→太平园站(转7号线)→<span class="hl">成都西站</span>（约35min，¥5）</span></div>
             <div class="dc-tags"><span>地铁 ¥5</span></div>
           </div>
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item" data-key="d5_check10">
         <div class="tl-dot"></div>
-        <input type="checkbox" class="tl-check" data-key="d5_check10" onchange="updateDay5Progress()">
         <div class="tl-content">
-          <div class="day-card reveal">
-            <div class="dc-title"><span class="tag">19:30</span>发车 · 再见成都！</div>
-            <div class="dc-item">🚄<span>从<span class="hl">成都东站</span>出发，结束愉快的成都之旅！</span></div>
-            <div class="dc-item">💡<span>提前到站后可取票/候车、买点零食饮料带上车</span></div>
+          <div class="day-card">
+            <div class="dc-title"><span class="tag">19:30</span>发车 · 再见成都</div>
+            <div class="dc-item"><span>从<span class="hl">成都西站</span>出发，结束愉快的成都之旅</span></div>
+            <div class="dc-item"><span>提前到站后可取票/候车、买点零食饮料带上车</span></div>
             <div class="dc-tags"><span>晚餐车上解决约 ¥30</span></div>
           </div>
         </div>
       </div>
 
-      <div class="tl-item">
+      <div class="tl-item tl-no-click cost-summary">
         <div class="tl-dot" style="border-color:var(--warm);"></div>
         <div class="tl-content">
-          <div class="day-card cost-summary">
-            <div class="dc-cost-row"><span>🚖 酒店→杜甫草堂</span><span class="val">¥15</span></div>
-            <div class="dc-cost-row"><span>🎫 杜甫草堂学生票</span><span class="val">¥25</span></div>
-            <div class="dc-cost-row"><span>🚖 博物院→酒店</span><span class="val">¥15</span></div>
-            <div class="dc-cost-row"><span>🎫 四川博物院（免费需预约）</span><span class="val">¥0</span></div>
+          <div class="day-card">
+            <div class="dc-cost-row"><span>酒店→杜甫草堂</span><span class="val">¥15</span></div>
+            <div class="dc-cost-row"><span>杜甫草堂学生票</span><span class="val">¥25</span></div>
+            <div class="dc-cost-row"><span>博物院→酒店</span><span class="val">¥15</span></div>
+            <div class="dc-cost-row"><span>四川博物院（免费需预约）</span><span class="val">¥0</span></div>
             <div class="dc-divider"></div>
-            <div class="dc-cost-row"><span>本日总花费（含午餐¥50+车上晚餐¥30）</span><span class="val" style="color:var(--warm);font-size:15px;font-weight:700">¥140</span></div>
+            <div class="dc-cost-row"><span>本日总花费（含午餐¥50+车上晚餐¥30）</span><span class="val">¥140</span></div>
           </div>
         </div>
       </div>
@@ -2025,88 +1176,76 @@
   <!-- ===== BUDGET ===== -->
   <div class="page" id="page-budget">
     <div class="page-head">
-      <div class="num budget">¥</div>
       <div class="info">
         <h2>费用明细</h2>
-        <p>五天四晚 · 人均总花费</p>
+        <p>五天四晚 · 点击金额可编辑 <button class="reset-btn" onclick="budgetReset()"><b><i><u>恢复默认</u></i></b></button></p>
       </div>
     </div>
 
     <div class="budget-total">
-      <div class="big">¥2,054</div>
-      <div class="lbl">人均总计（含餐饮 ¥400）</div>
+      <div class="big">¥<span id="budget-grand-total">2,054</span></div>
+      <div class="lbl">人均总计（含餐饮）</div>
     </div>
 
-    <!-- 住宿 -->
     <div class="bg-card">
-      <div class="bg-header">
+      <div class="bg-header" id="bg-header-0">
         <span class="l">住宿</span>
-        <span class="r">¥565</span>
+        <span class="r">¥<span id="bg-total-0">565</span></span>
       </div>
-      <div class="bg-bar"><div class="bg-fill bg-mid" data-pct="100"></div></div>
-      <div class="bg-item"><span>🏨 九寨沟汉庭 1晚</span><span class="v">¥160</span></div>
-      <div class="bg-item"><span>🏨 桔子水晶（武侯祠红牌楼店）3晚</span><span class="v">¥405</span></div>
+      <div class="bg-item"><span>九寨沟汉庭 1晚</span><span class="v"><span class="editable" contenteditable="true" data-key="bh1">160</span></span></div>
+      <div class="bg-item"><span>桔子水晶（武侯祠红牌楼店）3晚</span><span class="v"><span class="editable" contenteditable="true" data-key="bh2">405</span></span></div>
     </div>
 
-    <!-- 交通 -->
     <div class="bg-card">
-      <div class="bg-header">
+      <div class="bg-header" id="bg-header-1">
         <span class="l">交通</span>
-        <span class="r">¥574</span>
+        <span class="r">¥<span id="bg-total-1">574</span></span>
       </div>
-      <div class="bg-bar"><div class="bg-fill bg-green" data-pct="100"></div></div>
-      <div class="bg-item"><span>🚄 成都东→黄龙九寨站</span><span class="v">¥145</span></div>
-      <div class="bg-item"><span>🚌 黄龙九寨站 → 黄龙景区</span><span class="v">¥28</span></div>
-      <div class="bg-item"><span>🚌 黄龙景区 → 九寨沟沟口</span><span class="v">¥68</span></div>
-      <div class="bg-item"><span>🚌 接驳九寨沟→松潘站</span><span class="v">¥70</span></div>
-      <div class="bg-item"><span>🚄 松潘站→成都东站</span><span class="v">¥135</span></div>
-      <div class="bg-item"><span>🚇 成都东站→红牌楼（桔子水晶）</span><span class="v">¥5</span></div>
-      <div class="bg-item"><span>🚖 红牌楼→三星堆（直达）</span><span class="v">¥24</span></div>
-      <div class="bg-item"><span>🚖 三星堆→武侯祠（直达）</span><span class="v">¥24</span></div>
-      <div class="bg-item"><span>🚇🚄 红牌楼→青城山（地铁+高铁）</span><span class="v">¥15</span></div>
-      <div class="bg-item"><span>🚄 青城山→都江堰</span><span class="v">¥10</span></div>
-      <div class="bg-item"><span>🚄🚇 都江堰→红牌楼（高铁+地铁）</span><span class="v">¥15</span></div>
-      <div class="bg-item"><span>🚖 红牌楼→杜甫草堂</span><span class="v">¥15</span></div>
-      <div class="bg-item"><span>🚖 博物院→红牌楼</span><span class="v">¥15</span></div>
-      <div class="bg-item"><span>🚇 红牌楼→成都东站</span><span class="v">¥5</span></div>
+      <div class="bg-item"><span>成都东→黄龙九寨站</span><span class="v"><span class="editable" contenteditable="true" data-key="bt1">145</span></span></div>
+      <div class="bg-item"><span>黄龙九寨站 → 黄龙景区</span><span class="v"><span class="editable" contenteditable="true" data-key="bt2">28</span></span></div>
+      <div class="bg-item"><span>黄龙景区 → 九寨沟沟口</span><span class="v"><span class="editable" contenteditable="true" data-key="bt3">68</span></span></div>
+      <div class="bg-item"><span>接驳九寨沟→松潘站</span><span class="v"><span class="editable" contenteditable="true" data-key="bt4">70</span></span></div>
+      <div class="bg-item"><span>松潘站→成都东站</span><span class="v"><span class="editable" contenteditable="true" data-key="bt5">135</span></span></div>
+      <div class="bg-item"><span>成都东站→红牌楼（桔子水晶）</span><span class="v"><span class="editable" contenteditable="true" data-key="bt6">5</span></span></div>
+      <div class="bg-item"><span>红牌楼→三星堆（直达）</span><span class="v"><span class="editable" contenteditable="true" data-key="bt7">24</span></span></div>
+      <div class="bg-item"><span>三星堆→武侯祠（直达）</span><span class="v"><span class="editable" contenteditable="true" data-key="bt8">24</span></span></div>
+      <div class="bg-item"><span>红牌楼→青城山（地铁+高铁）</span><span class="v"><span class="editable" contenteditable="true" data-key="bt9">15</span></span></div>
+      <div class="bg-item"><span>青城山→都江堰</span><span class="v"><span class="editable" contenteditable="true" data-key="bt10">10</span></span></div>
+      <div class="bg-item"><span>都江堰→红牌楼（高铁+地铁）</span><span class="v"><span class="editable" contenteditable="true" data-key="bt11">15</span></span></div>
+      <div class="bg-item"><span>红牌楼→杜甫草堂</span><span class="v"><span class="editable" contenteditable="true" data-key="bt12">15</span></span></div>
+      <div class="bg-item"><span>博物院→红牌楼</span><span class="v"><span class="editable" contenteditable="true" data-key="bt13">15</span></span></div>
+      <div class="bg-item"><span>红牌楼→成都西站</span><span class="v"><span class="editable" contenteditable="true" data-key="bt14">5</span></span></div>
     </div>
 
-    <!-- 门票 -->
     <div class="bg-card">
-      <div class="bg-header">
+      <div class="bg-header" id="bg-header-2">
         <span class="l">门票</span>
-        <span class="r">¥415</span>
+        <span class="r">¥<span id="bg-total-2">415</span></span>
       </div>
-      <div class="bg-bar"><div class="bg-fill bg-gold" data-pct="72"></div></div>
-      <div class="bg-item"><span>九寨沟</span><span class="v">¥185</span></div>
-      <div class="bg-item"><span>黄龙景区（学生票）</span><span class="v">¥85</span></div>
-      <div class="bg-item"><span>青城山前山（学生票）</span><span class="v">¥40</span></div>
-      <div class="bg-item"><span>都江堰</span><span class="v">¥40</span></div>
-      <div class="bg-item"><span>三星堆（含讲解）</span><span class="v">¥40</span></div>
-      <div class="bg-item"><span>杜甫草堂（学生票）</span><span class="v">¥25</span></div>
+      <div class="bg-item"><span>九寨沟</span><span class="v"><span class="editable" contenteditable="true" data-key="btk1">185</span></span></div>
+      <div class="bg-item"><span>黄龙景区（学生票）</span><span class="v"><span class="editable" contenteditable="true" data-key="btk2">85</span></span></div>
+      <div class="bg-item"><span>青城山前山（学生票）</span><span class="v"><span class="editable" contenteditable="true" data-key="btk3">40</span></span></div>
+      <div class="bg-item"><span>都江堰</span><span class="v"><span class="editable" contenteditable="true" data-key="btk4">40</span></span></div>
+      <div class="bg-item"><span>三星堆（含讲解）</span><span class="v"><span class="editable" contenteditable="true" data-key="btk5">40</span></span></div>
+      <div class="bg-item"><span>杜甫草堂（学生票）</span><span class="v"><span class="editable" contenteditable="true" data-key="btk6">25</span></span></div>
     </div>
 
-    <!-- 索道+氧气 -->
     <div class="bg-card">
-      <div class="bg-header">
+      <div class="bg-header" id="bg-header-3">
         <span class="l">索道 &amp; 氧气</span>
-        <span class="r">¥100</span>
+        <span class="r">¥<span id="bg-total-3">100</span></span>
       </div>
-      <div class="bg-bar"><div class="bg-fill bg-warm" data-pct="17"></div></div>
-      <div class="bg-item"><span>黄龙上行索道</span><span class="v">¥80</span></div>
-      <div class="bg-item"><span>氧气瓶</span><span class="v">¥20</span></div>
+      <div class="bg-item"><span>黄龙上行索道</span><span class="v"><span class="editable" contenteditable="true" data-key="bso1">80</span></span></div>
+      <div class="bg-item"><span>氧气瓶</span><span class="v"><span class="editable" contenteditable="true" data-key="bso2">20</span></span></div>
     </div>
 
-    <!-- 餐饮 -->
     <div class="bg-card">
-      <div class="bg-header">
+      <div class="bg-header" id="bg-header-4">
         <span class="l">餐饮</span>
-        <span class="r">¥400</span>
+        <span class="r">¥<span id="bg-total-4">400</span></span>
       </div>
-      <div class="bg-bar"><div class="bg-fill bg-sage" data-pct="76"></div></div>
-      <div class="bg-item"><span>5 天餐饮（均 ¥80/天）</span><span class="v">¥400</span></div>
+      <div class="bg-item"><span>5 天餐饮（均 ¥80/天）</span><span class="v"><span class="editable" contenteditable="true" data-key="bf1">400</span></span></div>
     </div>
-
   </div>
 
 </div>
@@ -2120,265 +1259,109 @@
   <div class="modal-counter" id="modalCounter"></div>
 </div>
 
+<script src="script.js"></script>
+
 <script>
-  let modalImages = [];
-  let modalIndex = 0;
-
-  function openModal(images, index) {
-    modalImages = images;
-    modalIndex = index;
-    updateModal();
-    document.getElementById('imageModal').classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeModal() {
-    document.getElementById('imageModal').classList.remove('active');
-    document.body.style.overflow = '';
-  }
-
-  // Click modal backdrop to close
-  document.addEventListener('click', function(e) {
-    const modal = document.getElementById('imageModal');
-    if (e.target === modal) closeModal();
-  });
-
-  function changeModal(dir) {
-    modalIndex = (modalIndex + dir + modalImages.length) % modalImages.length;
-    updateModal();
-  }
-
-  function updateModal() {
-    document.getElementById('modalImage').src = modalImages[modalIndex];
-    document.getElementById('modalCounter').textContent = (modalIndex + 1) + '/' + modalImages.length;
-  }
-
-  function animateBudgetBars() {
-    const fills = document.querySelectorAll('.bg-fill');
-    fills.forEach(f => { f.style.width = '0'; });
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        fills.forEach(f => {
-          f.style.width = (f.getAttribute('data-pct') || 0) + '%';
-        });
-      });
-    });
-  }
-  function showPage(name) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    const target = document.getElementById('page-' + name);
-    if (target) target.classList.add('active');
-    document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'));
-    const navLinks = document.querySelectorAll('.nav a');
-    const idx = ['home','day1','day2','day3','day4','day5','budget'].indexOf(name);
-    if (idx >= 0 && navLinks[idx]) navLinks[idx].classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    if (name === 'budget') animateBudgetBars();
-  }
-
-  // Image Slider
-  function initSliders() {
-    document.querySelectorAll('.image-slider').forEach(slider => {
-      if (slider.dataset.inited) return;
-      
-      const track = slider.querySelector('.slider-track');
-      const dots = slider.querySelectorAll('.dot');
-      const slides = track.querySelectorAll('.slider-slide');
-      const images = track.querySelectorAll('img');
-      const intervalTime = parseInt(slider.dataset.interval) || 4000;
-      
-      // Fade in images when loaded + mark slide for shimmer removal
-      images.forEach(img => {
-        if (img.complete) {
-          img.setAttribute('data-loaded', '');
-          img.closest('.slider-slide')?.setAttribute('data-loaded', '');
-        } else {
-          img.addEventListener('load', () => {
-            img.setAttribute('data-loaded', '');
-            img.closest('.slider-slide')?.setAttribute('data-loaded', '');
-          });
-        }
-      });
-      
-      let currentIndex = 0;
-      let autoPlayInterval;
-      let isTouching = false;
-      
-      function updateSlider(index) {
-        track.style.transform = `translateX(-${index * 100}%)`;
-        dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
-        currentIndex = index;
-      }
-      
-      function startAutoPlay() {
-        if (images.length <= 1) return;
-        autoPlayInterval = setInterval(() => {
-          if (!isTouching) {
-            let nextIndex = (currentIndex + 1) % images.length;
-            updateSlider(nextIndex);
-          }
-        }, intervalTime);
-      }
-      
-      function stopAutoPlay() {
-        clearInterval(autoPlayInterval);
-      }
-      
-      let touchStartX = 0, touchStartY = 0, touchEndX = 0, touchEndY = 0;
-      
-      slider.addEventListener('touchstart', e => {
-        touchStartX = e.changedTouches[0].screenX;
-        touchStartY = e.changedTouches[0].screenY;
-        isTouching = true;
-        stopAutoPlay();
-      }, { passive: true });
-      
-      slider.addEventListener('touchend', e => {
-        touchEndX = e.changedTouches[0].screenX;
-        touchEndY = e.changedTouches[0].screenY;
-        handleSwipe();
-        isTouching = false;
-        setTimeout(() => startAutoPlay(), 2000);
-      }, { passive: true });
-      
-      function handleSwipe() {
-        const diffX = touchStartX - touchEndX;
-        const diffY = Math.abs(touchStartY - touchEndY);
-        if (Math.abs(diffX) > 40 && diffY < Math.abs(diffX) * 0.8) {
-          if (diffX > 0 && currentIndex < images.length - 1) updateSlider(currentIndex + 1);
-          else if (diffX < 0 && currentIndex > 0) updateSlider(currentIndex - 1);
-        }
-      }
-      
-      dots.forEach((dot, index) => {
-        dot.addEventListener('click', e => {
-          e.stopPropagation();
-          updateSlider(index);
-          stopAutoPlay();
-          startAutoPlay();
-        });
-      });
-      
-      startAutoPlay();
-      slider.dataset.inited = '1';
-    });
-  }
-
-  // Wire slider image clicks → modal
-  function wireSliderClicks() {
-    document.querySelectorAll('.slider-track').forEach(track => {
-      const slides = track.querySelectorAll('.slider-slide');
-      const images = track.querySelectorAll('img');
-      slides.forEach((slide, idx) => {
-        slide.addEventListener('click', () => {
-          const srcs = Array.from(images).map(img => img.getAttribute('src'));
-          openModal(srcs, idx);
-        });
-      });
-    });
-  }
-
-  // IntersectionObserver scroll reveal
-  function initReveal() {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-  }
-
-  // ─── Generic Day Progress ──────────────────────────
-  function updateDayProgress(dayId) {
-    const cbs = document.querySelectorAll(`#page-${dayId} .tl-check[data-key]`);
-    let checked = 0;
-    cbs.forEach(cb => {
-      if (cb.checked) checked++;
-      localStorage.setItem(cb.getAttribute('data-key'), cb.checked ? '1' : '0');
-    });
-    const total = cbs.length;
-    const pct = total === 0 ? 0 : Math.round((checked / total) * 100);
-    const fill = document.getElementById(dayId + 'Progress');
-    const label = document.getElementById(dayId + 'ProgressLabel');
-    if (fill) fill.style.width = pct + '%';
-    if (label) label.textContent = pct + '% 完成';
-  }
-
-  // Legacy wrappers for Day 1
-  function updateDay1Progress() { updateDayProgress('day1'); }
-  function updateDay2Progress() { updateDayProgress('day2'); }
-  function updateDay3Progress() { updateDayProgress('day3'); }
-  function updateDay4Progress() { updateDayProgress('day4'); }
-  function updateDay5Progress() { updateDayProgress('day5'); }
-
-  // ─── Collapsible Cards ─────────────────────────────
-  function toggleCollapsible(el, event) {
-    if (event) {
-      const tag = event.target.tagName;
-      if (tag === 'A' || tag === 'INPUT') return;
-      if (event.target.closest('.slider-nav, .slider-dots, .slider-track')) return;
-    }
-    el.classList.toggle('collapsed');
-    const key = el.getAttribute('data-key');
-    if (key) localStorage.setItem(key, el.classList.contains('collapsed') ? '1' : '0');
-  }
-
-  // ─── Restore day state from localStorage ───────────
-  function restoreDayState(dayId) {
-    document.querySelectorAll(`#page-${dayId} .tl-check[data-key]`).forEach(cb => {
-      const val = localStorage.getItem(cb.getAttribute('data-key'));
-      if (val === '1') cb.checked = true;
-    });
-    document.querySelectorAll(`#page-${dayId} .day-card.collapsible`).forEach(card => {
-      const key = card.getAttribute('data-key');
-      if (key && localStorage.getItem(key) === '1') card.classList.add('collapsed');
-    });
-    updateDayProgress(dayId);
-  }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    initSliders();
-    wireSliderClicks();
-    initReveal();
-    restoreDayState('day1');
-    restoreDayState('day2');
-    restoreDayState('day3');
-    restoreDayState('day4');
-    restoreDayState('day5');
-
-    // Keyboard nav for modal
-    document.addEventListener('keydown', (e) => {
-      const modal = document.getElementById('imageModal');
-      if (!modal.classList.contains('active')) return;
-      if (e.key === 'Escape') closeModal();
-      if (e.key === 'ArrowLeft') changeModal(-1);
-      if (e.key === 'ArrowRight') changeModal(1);
-    });
-  });
-
-  // init sliders on page show
-  const origShowPage = showPage;
-  showPage = function(name) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    const target = document.getElementById('page-' + name);
-    if (target) target.classList.add('active');
-    document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'));
-    const navLinks = document.querySelectorAll('.nav a');
-    const idx = ['home','day1','day2','day3','day4','day5','budget'].indexOf(name);
-    if (idx >= 0 && navLinks[idx]) navLinks[idx].classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    
-    // init sliders in the new page
-    setTimeout(() => {
-      const page = document.getElementById('page-' + name);
-      if (page) initSliders();
-    }, 100);
+// Budget editable functionality
+(function() {
+  var BUDGET_DEFAULTS = {
+    bh1:160, bh2:405,
+    bt1:145, bt2:28, bt3:68, bt4:70, bt5:135, bt6:5, bt7:24, bt8:24, bt9:15, bt10:10, bt11:15, bt12:15, bt13:15, bt14:5,
+    btk1:185, btk2:85, btk3:40, btk4:40, btk5:40, btk6:25,
+    bso1:80, bso2:20,
+    bf1:400
   };
 
+  var CATEGORIES = [
+    { keys:['bh1','bh2'], totalId:'bg-total-0', headerId:'bg-header-0' },
+    { keys:['bt1','bt2','bt3','bt4','bt5','bt6','bt7','bt8','bt9','bt10','bt11','bt12','bt13','bt14'], totalId:'bg-total-1', headerId:'bg-header-1' },
+    { keys:['btk1','btk2','btk3','btk4','btk5','btk6'], totalId:'bg-total-2', headerId:'bg-header-2' },
+    { keys:['bso1','bso2'], totalId:'bg-total-3', headerId:'bg-header-3' },
+    { keys:['bf1'], totalId:'bg-total-4', headerId:'bg-header-4' }
+  ];
+
+  function loadBudget() {
+    try { return JSON.parse(localStorage.getItem('cd_budget') || '{}'); } catch(e) { return {}; }
+  }
+  function saveBudget(data) {
+    localStorage.setItem('cd_budget', JSON.stringify(data));
+  }
+
+  function recalc() {
+    var saved = loadBudget();
+    var cats = [];
+    var grandTotal = 0;
+
+    CATEGORIES.forEach(function(cat, idx) {
+      var sum = 0;
+      cat.keys.forEach(function(k) {
+        var el = document.querySelector('[data-key="'+k+'"]');
+        var val = parseInt(el ? el.textContent : '0') || 0;
+        sum += val;
+      });
+      cats.push(sum);
+      grandTotal += sum;
+      var totalEl = document.getElementById(cat.totalId);
+      if (totalEl) totalEl.textContent = sum;
+    });
+
+    // Update grand total
+    var grandEl = document.getElementById('budget-grand-total');
+    if (grandEl) grandEl.textContent = grandTotal.toLocaleString();
+
+    // Update percentages on each bg-header
+    CATEGORIES.forEach(function(cat, idx) {
+      var header = document.getElementById(cat.headerId);
+      if (header) {
+        var pct = grandTotal > 0 ? Math.round(cats[idx] / grandTotal * 100) : 0;
+        header.style.setProperty('--pct', pct);
+      }
+    });
+  }
+
+  function initEditable() {
+    var saved = loadBudget();
+    document.querySelectorAll('.editable[contenteditable]').forEach(function(el) {
+      var key = el.getAttribute('data-key');
+      if (saved[key] !== undefined) {
+        el.textContent = saved[key];
+      }
+      el.addEventListener('blur', function() {
+        this.textContent = this.textContent.replace(/[^\d]/g, '');
+        var val = parseInt(this.textContent) || 0;
+        var data = loadBudget();
+        data[this.getAttribute('data-key')] = val;
+        saveBudget(data);
+        recalc();
+      });
+      el.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') { e.preventDefault(); this.blur(); }
+      });
+    });
+    recalc();
+  }
+
+  window.budgetReset = function() {
+    localStorage.removeItem('cd_budget');
+    document.querySelectorAll('.editable[contenteditable]').forEach(function(el) {
+      var key = el.getAttribute('data-key');
+      if (BUDGET_DEFAULTS[key] !== undefined) {
+        el.textContent = BUDGET_DEFAULTS[key];
+      }
+    });
+    recalc();
+  };
+
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    initEditable();
+  } else {
+    document.addEventListener('DOMContentLoaded', initEditable);
+  }
+})();
 </script>
 
+<button class="back-top" id="backTop" aria-label="回到顶部">&#8593;</button>
+
 </body>
+
 </html>

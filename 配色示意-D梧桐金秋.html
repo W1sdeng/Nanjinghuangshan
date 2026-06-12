@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>配色D · 梧桐金秋</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #f8f3ec;
+    --card: #efe8dd;
+    --border: rgba(180,130,80,0.12);
+    --text: #2a221a;
+    --text-secondary: #8a7a6a;
+    --text-tertiary: #b8a898;
+    --accent: #d4a373;
+    --accent-dim: rgba(212,163,115,0.10);
+    --warm: #b85c4a;
+    --warm-dim: rgba(184,92,74,0.10);
+    --font-ui: system-ui, sans-serif;
+    --font-body: serif;
+  }
+  body { font-family: var(--font-body); background: var(--bg); color: var(--text); padding: 40px 20px; }
+  .wrap { max-width: 600px; margin: 0 auto; }
+  h1 { font-size: 28px; font-weight: 400; margin-bottom: 4px; letter-spacing: -0.3px; }
+  .sub { color: var(--text-secondary); font-size: 14px; margin-bottom: 24px; font-family: var(--font-ui); }
+  .swatch { display: flex; gap: 12px; margin-bottom: 28px; flex-wrap: wrap; }
+  .swatch > div { width: 48px; height: 48px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.06); }
+  .grid { display: flex; flex-direction: column; gap: 12px; }
+  .card { background: var(--card); padding: 20px; border-radius: 12px; border: 1px solid var(--border); }
+  .card h2 { font-size: 18px; font-weight: 600; margin-bottom: 8px; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--border); }
+  .card p { font-size: 14px; line-height: 1.7; color: var(--text-secondary); }
+  .card p .hl { color: var(--text); }
+  .card p .price { color: var(--warm); }
+  .tag { display: inline-block; font-family: var(--font-ui); font-size: 13px; font-weight: 500; color: var(--accent); margin-top: 8px; }
+  .badge { display: inline-block; font-size: 13px; color: var(--text-secondary); font-style: italic; margin-bottom: 4px; }
+  .btn { display: inline-block; font-family: var(--font-ui); font-size: 14px; color: var(--text-secondary); background: none; border: none; cursor: pointer; padding: 0; letter-spacing: 0.5px; margin-top: 12px; }
+  .btn::after { content: ''; display: block; width: 100%; height: 1px; background: var(--accent); transform: scaleX(0); transition: transform 0.2s; }
+  .btn:hover::after { transform: scaleX(1); }
+  .meta { font-family: var(--font-ui); font-size: 13px; color: var(--text-secondary); display: flex; gap: 16px; margin: 4px 0 8px; }
+  .line { height: 1px; background: var(--border); margin: 12px 0; }
+  .cost { display: flex; justify-content: space-between; font-family: var(--font-ui); font-size: 14px; color: var(--text-secondary); padding: 4px 0; }
+  .cost .v { color: var(--text); }
+  .cost-total { border-top: 1px solid var(--border); margin-top: 4px; padding-top: 6px; font-size: 15px; color: var(--text); }
+  .cost-total .v { color: var(--warm); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>D · 梧桐金秋</h1>
+  <div class="sub">暖金+陶红 · 深秋梧桐光影</div>
+
+  <div class="swatch">
+    <div style="background:#d4a373;" title="#d4a373 主色"></div>
+    <div style="background:#b85c4a;" title="#b85c4a 陶红"></div>
+    <div style="background:#f8f3ec;" title="#f8f3ec 底色"></div>
+    <div style="background:#efe8dd;" title="#efe8dd 卡片"></div>
+    <div style="background:#2a221a;" title="#2a221a 字体"></div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="badge">Day 3 · 梧桐光影</div>
+      <h2>明孝陵 → 中山陵 → 美龄宫 → 梧桐大道</h2>
+      <div class="meta"><span>8:00 出门</span><span>预估 ¥304</span></div>
+      <p><span class="hl">石象路清晨光影最美</span>，美龄宫俯瞰"梧桐项链"吊坠</p>
+      <p><span class="hl">颐和路梧桐大道</span> 下午 3-4 点光影最佳，骑行漫步皆宜</p>
+      <span class="tag">🌅 石象路 10-11 点侧光最美</span>
+    </div>
+
+    <div class="card">
+      <h2>鸡鸣寺 · 台城城墙</h2>
+      <p><span class="hl">药师佛塔</span>拍紫峰大厦同框，傍晚光线绝佳</p>
+      <p>出口直通<span class="hl">台城城墙</span>，俯瞰玄武湖全景</p>
+      <span class="tag">📸 紫峰+鸡鸣寺同款机位</span>
+    </div>
+
+    <div class="card">
+      <h2>🏨 住宿明细</h2>
+      <div class="cost"><span>6/26 汤口</span><span class="v">¥125</span></div>
+      <div class="cost"><span>6/27 你好·红山动物园站</span><span class="v">¥90</span></div>
+      <div class="cost"><span>6/28 第三晚</span><span class="v">¥130</span></div>
+      <div class="cost"><span>6/29–6/30 第四五晚</span><span class="v">¥390</span></div>
+      <div class="line"></div>
+      <div class="cost cost-total"><span>住宿合计</span><span class="v">¥735</span></div>
+      <button class="btn">开始行程 →</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>

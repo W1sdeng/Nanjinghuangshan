@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>配色B · 山色空蒙</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #f0f0ec;
+    --card: #e4e4dd;
+    --border: rgba(80,110,75,0.12);
+    --text: #1e2a20;
+    --text-secondary: #7a8a77;
+    --text-tertiary: #a8b5a0;
+    --accent: #7aa57a;
+    --accent-dim: rgba(122,165,122,0.10);
+    --warm: #c4956a;
+    --warm-dim: rgba(196,149,106,0.10);
+    --font-ui: system-ui, sans-serif;
+    --font-body: serif;
+  }
+  body { font-family: var(--font-body); background: var(--bg); color: var(--text); padding: 40px 20px; }
+  .wrap { max-width: 600px; margin: 0 auto; }
+  h1 { font-size: 28px; font-weight: 400; margin-bottom: 4px; letter-spacing: -0.3px; }
+  .sub { color: var(--text-secondary); font-size: 14px; margin-bottom: 24px; font-family: var(--font-ui); }
+  .swatch { display: flex; gap: 12px; margin-bottom: 28px; flex-wrap: wrap; }
+  .swatch > div { width: 48px; height: 48px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.06); }
+  .grid { display: flex; flex-direction: column; gap: 12px; }
+  .card { background: var(--card); padding: 20px; border-radius: 12px; border: 1px solid var(--border); }
+  .card h2 { font-size: 18px; font-weight: 600; margin-bottom: 8px; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--border); }
+  .card p { font-size: 14px; line-height: 1.7; color: var(--text-secondary); }
+  .card p .hl { color: var(--text); }
+  .card p .price { color: var(--warm); }
+  .tag { display: inline-block; font-family: var(--font-ui); font-size: 13px; font-weight: 500; color: var(--accent); margin-top: 8px; }
+  .badge { display: inline-block; font-size: 13px; color: var(--text-secondary); font-style: italic; margin-bottom: 4px; }
+  .btn { display: inline-block; font-family: var(--font-ui); font-size: 14px; color: var(--text-secondary); background: none; border: none; cursor: pointer; padding: 0; letter-spacing: 0.5px; margin-top: 12px; }
+  .btn::after { content: ''; display: block; width: 100%; height: 1px; background: var(--accent); transform: scaleX(0); transition: transform 0.2s; }
+  .btn:hover::after { transform: scaleX(1); }
+  .meta { font-family: var(--font-ui); font-size: 13px; color: var(--text-secondary); display: flex; gap: 16px; margin: 4px 0 8px; }
+  .line { height: 1px; background: var(--border); margin: 12px 0; }
+  .cost { display: flex; justify-content: space-between; font-family: var(--font-ui); font-size: 14px; color: var(--text-secondary); padding: 4px 0; }
+  .cost .v { color: var(--text); }
+  .cost-total { border-top: 1px solid var(--border); margin-top: 4px; padding-top: 6px; font-size: 15px; color: var(--text); }
+  .cost-total .v { color: var(--warm); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>B · 山色空蒙</h1>
+  <div class="sub">松绿+陶土 · 黄山松+徽派土墙</div>
+
+  <div class="swatch">
+    <div style="background:#7aa57a;" title="#7aa57a 主色"></div>
+    <div style="background:#c4956a;" title="#c4956a 陶土"></div>
+    <div style="background:#f0f0ec;" title="#f0f0ec 底色"></div>
+    <div style="background:#e4e4dd;" title="#e4e4dd 卡片"></div>
+    <div style="background:#1e2a20;" title="#1e2a20 字体"></div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="badge">Day 2 · 黄山</div>
+      <h2>云谷寺 → 白鹅岭 → 迎客松</h2>
+      <div class="meta"><span>7:00 起床</span><span>预估 ¥458</span></div>
+      <p>步行至换乘中心 → 景交车至<span class="hl">云谷寺</span>，徒步上山约 2h</p>
+      <p><span class="hl">始信峰</span> → 光明顶 → <span class="hl">迎客松</span><span class="price"> 学生¥95</span></p>
+      <span class="tag">🥾 全程徒步 · 酒店免费登山杖</span>
+    </div>
+
+    <div class="card">
+      <h2>红山森林动物园</h2>
+      <p><span class="hl">北门进</span>大熊猫上午最活跃，考拉馆→长颈鹿馆→猴山</p>
+      <span class="tag">🎫 学生¥20 · ⏱ 3-4h</span>
+    </div>
+
+    <div class="card">
+      <h2>🍜 每日餐标</h2>
+      <div class="cost"><span>Day 1–6 每日 ¥80</span><span class="v">¥480</span></div>
+      <div class="line"></div>
+      <div class="cost cost-total"><span>餐饮合计</span><span class="v">¥480</span></div>
+      <button class="btn">开始行程 →</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>

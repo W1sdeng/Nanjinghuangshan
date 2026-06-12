@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>配色C · 烟雨江南</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #f0f0f0;
+    --card: #e2e2e2;
+    --border: rgba(100,150,160,0.15);
+    --text: #1a2628;
+    --text-secondary: #789096;
+    --text-tertiary: #aabec4;
+    --accent: #8ab4b8;
+    --accent-dim: rgba(138,180,184,0.10);
+    --warm: #b8a08a;
+    --warm-dim: rgba(184,160,138,0.10);
+    --font-ui: system-ui, sans-serif;
+    --font-body: serif;
+  }
+  body { font-family: var(--font-body); background: var(--bg); color: var(--text); padding: 40px 20px; }
+  .wrap { max-width: 600px; margin: 0 auto; }
+  h1 { font-size: 28px; font-weight: 400; margin-bottom: 4px; letter-spacing: -0.3px; }
+  .sub { color: var(--text-secondary); font-size: 14px; margin-bottom: 24px; font-family: var(--font-ui); }
+  .swatch { display: flex; gap: 12px; margin-bottom: 28px; flex-wrap: wrap; }
+  .swatch > div { width: 48px; height: 48px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.06); }
+  .grid { display: flex; flex-direction: column; gap: 12px; }
+  .card { background: var(--card); padding: 20px; border-radius: 12px; border: 1px solid var(--border); }
+  .card h2 { font-size: 18px; font-weight: 600; margin-bottom: 8px; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--border); }
+  .card p { font-size: 14px; line-height: 1.7; color: var(--text-secondary); }
+  .card p .hl { color: var(--text); }
+  .card p .price { color: var(--warm); }
+  .tag { display: inline-block; font-family: var(--font-ui); font-size: 13px; font-weight: 500; color: var(--accent); margin-top: 8px; }
+  .badge { display: inline-block; font-size: 13px; color: var(--text-secondary); font-style: italic; margin-bottom: 4px; }
+  .btn { display: inline-block; font-family: var(--font-ui); font-size: 14px; color: var(--text-secondary); background: none; border: none; cursor: pointer; padding: 0; letter-spacing: 0.5px; margin-top: 12px; }
+  .btn::after { content: ''; display: block; width: 100%; height: 1px; background: var(--accent); transform: scaleX(0); transition: transform 0.2s; }
+  .btn:hover::after { transform: scaleX(1); }
+  .meta { font-family: var(--font-ui); font-size: 13px; color: var(--text-secondary); display: flex; gap: 16px; margin: 4px 0 8px; }
+  .line { height: 1px; background: var(--border); margin: 12px 0; }
+  .cost { display: flex; justify-content: space-between; font-family: var(--font-ui); font-size: 14px; color: var(--text-secondary); padding: 4px 0; }
+  .cost .v { color: var(--text); }
+  .cost-total { border-top: 1px solid var(--border); margin-top: 4px; padding-top: 6px; font-size: 15px; color: var(--text); }
+  .cost-total .v { color: var(--warm); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>C · 烟雨江南</h1>
+  <div class="sub">灰蓝+米黄 · 烟雨江南水墨调</div>
+
+  <div class="swatch">
+    <div style="background:#8ab4b8;" title="#8ab4b8 主色"></div>
+    <div style="background:#b8a08a;" title="#b8a08a 米黄"></div>
+    <div style="background:#f0f0f0;" title="#f0f0f0 底色"></div>
+    <div style="background:#e2e2e2;" title="#e2e2e2 卡片"></div>
+    <div style="background:#1a2628;" title="#1a2628 字体"></div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="badge">Day 5 · 博物之旅</div>
+      <h2>纪念馆 → 南博 → 总统府</h2>
+      <div class="meta"><span>9:00 出门</span><span>预估 ¥316</span></div>
+      <p><span class="hl">地铁 2 号线</span> 一线串三站：云锦路→明故宫→大行宫</p>
+      <p>纪念馆需预约 → 南博<span class="hl">民国馆穿越</span> → 总统府<span class="price">学生¥20</span></p>
+      <span class="tag">🚇 全程 Line 2 · 非常顺路</span>
+    </div>
+
+    <div class="card">
+      <h2>台城城墙 · 玄武湖</h2>
+      <p>解放门登<span class="hl">台城城墙</span><span class="price">学生¥15</span>，俯瞰玄武湖全景 + 鸡鸣寺 + 紫峰大厦</p>
+      <span class="tag">🏰 台城下去就是玄武湖</span>
+    </div>
+
+    <div class="card">
+      <h2>🎫 门票总览</h2>
+      <div class="cost"><span>宏村学生票</span><span class="v">¥52</span></div>
+      <div class="cost"><span>黄山学生票（徒步）</span><span class="v">¥95</span></div>
+      <div class="cost"><span>钟山三件套</span><span class="v">¥60</span></div>
+      <div class="cost"><span>红山+鸡鸣寺+城墙</span><span class="v">¥45</span></div>
+      <div class="cost"><span>总统府+甘熙宅第</span><span class="v">¥33</span></div>
+      <div class="line"></div>
+      <div class="cost cost-total"><span>门票合计</span><span class="v">¥285</span></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

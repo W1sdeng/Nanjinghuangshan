@@ -1,0 +1,1943 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>云南之旅｜云之南十日纪</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --main-blue: #4a7c8c; --main-green: #6b8f71; --accent-orange: #c48a5c; --accent-warm: #d4b76a; --accent-coral: #c49a8c;
+            --transport-orange: #d4a574; --tips-blue: #5d6d7e; --prepare-yellow: #d4b76a; --info-blue: #5d7a8c; --emergency-red: #b56b6b; --hotel-orange: #c4885a;
+            --bg-light: #f5f4f0; --card-bg: #fff;
+            --text-main: #3a3a3a; --text-sub: #6a6a6a; --text-light: #8a8280;
+            --shadow-light: 0 4px 16px rgba(0,0,0,0.06); --shadow-medium: 0 8px 28px rgba(0,0,0,0.1);
+            --radius-large: 20px; --radius-medium: 16px; --radius-small: 12px;
+            --transition-fast: 0.2s cubic-bezier(0.4,0,0.2,1); --transition-normal: 0.3s cubic-bezier(0.4,0,0.2,1); --transition-smooth: 0.5s cubic-bezier(0.4,0,0.2,1);
+        }
+        * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+        .skeleton { background: linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 8px; }
+        .skeleton-text { height: 16px; margin: 8px 0; }
+        .skeleton-title { height: 24px; width: 60%; margin-bottom: 12px; }
+        .skeleton-image { height: 200px; border-radius: 12px; margin-bottom: 12px; }
+        .ripple { position: relative; overflow: hidden; }
+        .ripple::after { content: ''; position: absolute; top: 50%; left: 50%; width: 0; height: 0; background: rgba(255,255,255,0.3); border-radius: 50%; transform: translate(-50%,-50%); transition: width 0.3s, height 0.3s; }
+        .ripple:active::after { width: 200px; height: 200px; }
+        .attraction-card, .public-card, .day-step-card, .transport-card { transition: transform 0.25s cubic-bezier(0.4,0,0.2,1), box-shadow 0.25s ease; }
+        .attraction-card:hover, .public-card:hover, .day-step-card:hover, .transport-card:hover { transform: translateY(-3px); }
+        .nav-btn, .tab-item, .toolbar-btn { transition: transform 0.2s cubic-bezier(0.4,0,0.2,1), box-shadow 0.2s ease; }
+        .nav-btn:hover, .tab-item:hover, .toolbar-btn:hover { transform: scale(1.05); }
+        .nav-btn:active, .tab-item:active, .toolbar-btn:active { transform: scale(0.95); }
+        .day-image { transform: translateZ(0); will-change: opacity, transform; }
+        .day-card, .attraction-card, .public-card { transform: translateZ(0); will-change: transform, box-shadow; }
+        .checkin-btn, .toolbar-btn, .nav-btn, .tab-item, .copy-btn, .map-btn { transform: translateZ(0); will-change: transform; }
+        .section.active, .day-step-card, .back-to-top, .search-result-item { transform: translateZ(0); will-change: opacity, transform; }
+
+        @media print {
+            .top-nav, .bottom-tab, .back-to-top, .enter-btn, .modal, .print-btn, .toolbar, .search-bar, .export-menu, .scroll-overlay { display: none !important; }
+            .section { display: block !important; page-break-inside: avoid; }
+            .day-card, .public-section { box-shadow: none; border: 1px solid #eee; }
+            .transport-card .transport-detail, .attraction-card .attraction-detail { display: block !important; max-height: none !important; }
+            .day-image { max-height: 200px; object-fit: cover; }
+            .info-label { font-weight: 600; }
+            .day-header { background: #f5f5f5 !important; -webkit-print-color-adjust: exact; }
+            @page { margin: 1cm; size: A4; }
+            body.printing-single .toolbar, body.printing-single .export-menu { display: none !important; }
+            body.printing-single .section { display: block !important; }
+            body.printing-single .day-card, body.printing-single .public-section { box-shadow: none; border: 1px solid #ddd; }
+        }
+
+        @media (max-width: 360px) {
+            .day-header { padding: 12px; font-size: 0.9em; }
+            .day-label { font-size: 0.85em; padding: 4px 8px; }
+            .attraction-title { font-size: 0.95em; padding: 10px 12px; }
+            .attraction-detail p { font-size: 0.85em; }
+            .tips-box, .old-tips, .prepare-box { padding: 12px; font-size: 0.85em; }
+            .step-card-inline { padding: 8px 10px; font-size: 0.8em; }
+            .weather-widget { font-size: 0.75em; padding: 1px 6px; }
+            .top-nav { padding: 4px; }
+            .top-nav .nav-btn { font-size: 0.7em; padding: 4px 6px; }
+            .toolbar { gap: 6px; }
+            .toolbar-btn { width: 32px; height: 32px; font-size: 0.8em; }
+        }
+        @media (min-width: 1200px) {
+            .content-container { max-width: 1000px; margin: 0 auto; }
+            .day-card, .public-section { padding: 32px; }
+            .attraction-title { font-size: 1.1em; }
+            .tips-box, .old-tips { padding: 24px; font-size: 1.05em; }
+        }
+        @media (orientation: landscape) and (max-height: 500px) {
+            #home { padding: 20px; }
+            #home h1 { font-size: 1.8em; }
+            .top-nav { flex-wrap: nowrap; overflow-x: auto; }
+        }
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) { .day-image { image-rendering: -webkit-optimize-contrast; } }
+        @media (hover: none) {
+            .attraction-card:active { transform: scale(0.98); }
+            .toolbar-btn:active, .nav-btn:active { transform: scale(0.95); }
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            line-height: 1.8; color: var(--text-main); background: var(--bg-light); padding-bottom: 80px; padding-top: 55px;
+            overflow-x: hidden; -webkit-overflow-scrolling: touch;
+        }
+        .container { padding: 0 8px; }
+        @media (min-width: 481px) { .container { padding: 0 16px; } }
+        @media (min-width: 769px) { .container { padding: 0 20px; } }
+        @supports (padding-bottom: env(safe-area-inset-bottom)) {
+            body { padding-bottom: calc(80px + env(safe-area-inset-bottom)); }
+            .bottom-tab { padding-bottom: calc(8px + env(safe-area-inset-bottom)); }
+        }
+
+        /* 顶部导航 */
+        .top-nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+            background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
+            padding: 12px 15px; display: flex; gap: 8px; overflow-x: auto;
+            box-shadow: var(--shadow-light); scrollbar-width: none; -webkit-overflow-scrolling: touch;
+        }
+        .top-nav::-webkit-scrollbar { display: none; }
+        .nav-btn {
+            flex-shrink: 0; padding: 8px 16px; border: none; border-radius: 22px;
+            background: linear-gradient(135deg, #f8f7f5 0%, #fff 100%); color: var(--text-sub);
+            font-size: 0.85em; cursor: pointer; transition: all 0.3s ease; white-space: nowrap;
+            box-shadow: 0 2px 8px rgba(74,124,140,0.08); border: 1px solid rgba(74,124,140,0.08);
+        }
+        .nav-btn:hover { background: linear-gradient(135deg, #eef5f5 0%, #f5f8fa 100%); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(74,124,140,0.15); }
+        .nav-btn.active { background: linear-gradient(135deg, var(--main-blue), #3a6a7c); color: white; box-shadow: 0 6px 16px rgba(74,124,140,0.3); border-color: transparent; }
+        .nav-btn.home-btn { background: linear-gradient(135deg, var(--main-green), #5a7a61); color: white; box-shadow: 0 4px 12px rgba(107,143,113,0.25); }
+        .nav-btn:active { transform: scale(0.96); }
+
+        /* 底部Tab */
+        .bottom-tab {
+            position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000;
+            background: rgba(255,255,255,0.97); backdrop-filter: blur(12px);
+            display: flex; justify-content: space-evenly; padding: 10px 5px;
+            box-shadow: 0 -4px 12px rgba(0,0,0,0.08); overflow-x: hidden; overflow-y: hidden;
+            scrollbar-width: none; -webkit-overflow-scrolling: touch; overscroll-behavior-x: none; touch-action: pan-y;
+        }
+        .bottom-tab::-webkit-scrollbar { display: none; }
+        .tab-item {
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+            border: none; background: none; color: var(--text-light); font-size: 0.7em;
+            cursor: pointer; transition: all 0.3s ease; padding: 8px 14px; flex: 1;
+            position: relative; border-radius: 12px; min-width: 60px;
+        }
+        .tab-item:hover { background: rgba(74,124,140,0.08); }
+        .tab-item.active { color: var(--main-blue); }
+        .tab-item.active::after { content: ''; position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%); width: 5px; height: 5px; background: var(--main-blue); border-radius: 50%; box-shadow: 0 0 6px rgba(74,124,140,0.4); }
+        .tab-icon { font-size: 1.4em; }
+        .tab-text { font-size: 0.8em; font-weight: 500; }
+        .tab-item:active { transform: scale(0.92); }
+        .tab-item:focus-visible, .nav-btn:focus-visible { outline: 2px solid var(--main-blue); outline-offset: 2px; }
+
+        /* 工具栏 */
+        .toolbar {
+            position: fixed; right: 15px; top: 50%; transform: translateY(-50%); z-index: 999;
+            display: flex; flex-direction: column; gap: 10px;
+        }
+        .toolbar-btn {
+            width: 44px; height: 44px; border-radius: 50%; border: none;
+            background: linear-gradient(135deg, var(--main-blue), #3a6a7c) !important; color: white !important;
+            font-size: 1.1em; cursor: pointer; box-shadow: 0 4px 15px rgba(74,124,140,0.3);
+            transition: all 0.3s ease; display: flex; align-items: center; justify-content: center;
+        }
+        .toolbar-btn:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 6px 20px rgba(74,124,140,0.4); }
+        .toolbar-btn:active { transform: scale(0.95); }
+
+        @media (max-width: 480px) {
+            .toolbar-btn { width: 36px; height: 36px; font-size: 0.9em; box-shadow: 0 3px 12px rgba(0,0,0,0.15); }
+            .toolbar-toggle-btn { display: flex; width: 36px; height: 36px; border-radius: 18px; background: linear-gradient(135deg, var(--main-blue), #3a6a7c); color: white; border: none; cursor: pointer; font-size: 1em; align-items: center; justify-content: center; box-shadow: 0 3px 10px rgba(74,124,140,0.4); position: fixed; bottom: 100px; right: 10px; z-index: 1001; transition: transform 0.2s ease; }
+            .toolbar-toggle-btn:active { transform: scale(0.9); }
+            .toolbar-content { display: flex; flex-direction: column; gap: 8px; transition: opacity 0.2s ease, transform 0.2s ease; }
+            .toolbar.collapsed .toolbar-content { display: none; }
+        }
+        @media (min-width: 769px) {
+            .toolbar-toggle-btn { display: none; }
+            .toolbar-content { display: flex !important; flex-direction: column; }
+        }
+
+        /* 导出菜单 */
+        .export-toggle-btn { padding: 8px 18px; background: linear-gradient(135deg, var(--main-blue), #3a6a7c); color: white; border: none; border-radius: 20px; font-size: 0.85em; cursor: pointer; box-shadow: 0 4px 15px rgba(74,124,140,0.3); transition: all 0.25s ease; }
+        .export-toggle-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(74,124,140,0.4); }
+        .export-options { display: none; flex-direction: column; gap: 6px; position: fixed; top: 60px; right: 15px; z-index: 1001; opacity: 0; transform: translateY(-10px); transition: all 0.25s ease; }
+        .export-options.active { display: flex; opacity: 1; transform: translateY(0); }
+        .export-option-btn { padding: 10px 16px; background: white; color: var(--text-main); border: 1px solid rgba(74,124,140,0.2); border-radius: 10px; font-size: 0.85em; cursor: pointer; box-shadow: 0 4px 15px rgba(74,124,140,0.15); transition: all 0.2s ease; text-align: center; }
+        .export-option-btn:hover { background: linear-gradient(135deg, #eef5f5 0%, #f5f8fa 100%); transform: translateY(-2px); }
+        .export-loading { position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); background: rgba(0,0,0,0.8); color: white; padding: 20px 40px; border-radius: 15px; z-index: 3000; display: none; }
+        .export-loading.active { display: block; }
+
+        /* 搜索栏 */
+        .search-bar { position: fixed; top: 55px; left: 15px; right: 15px; z-index: 998; background: white; border-radius: 12px; box-shadow: var(--shadow-medium); padding: 10px; display: none; }
+        .search-bar.active { display: block; animation: searchSlideIn 0.3s ease; }
+        @keyframes searchSlideIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        .search-input { width: 100%; padding: 10px 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 15px; outline: none; }
+        .search-input:focus { border-color: var(--main-blue); box-shadow: 0 0 0 2px rgba(74,124,140,0.15); }
+        .search-results { margin-top: 10px; max-height: 300px; overflow-y: auto; display: none; }
+        .search-results.active { display: block; }
+        .search-result-item { padding: 10px 14px; cursor: pointer; border-radius: 8px; display: flex; align-items: center; gap: 8px; transition: background 0.2s ease; animation: searchResultFadeIn 0.3s ease forwards; opacity: 0; }
+        .search-result-item:hover { background: rgba(74,124,140,0.08); }
+        @keyframes searchResultFadeIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
+        .search-result-item .search-type { font-size: 0.7em; color: var(--text-light); margin-left: auto; padding: 2px 6px; background: var(--bg-light); border-radius: 8px; }
+        .search-result-item .search-name { font-weight: 500; }
+        .search-nav-indicator { position: fixed; top: 60px; left: 50%; transform: translateX(-50%); background: rgba(74,124,140,0.95); color: white; padding: 10px 20px; border-radius: 20px; z-index: 2001; font-size: 0.9em; display: none; box-shadow: var(--shadow-medium); }
+        .search-nav-indicator.active { display: block; animation: searchJumpIn 0.3s ease; }
+        @keyframes searchJumpIn { 0% { opacity: 0; transform: translateX(-50%) translateY(-20px); } 60% { transform: translateX(-50%) translateY(5px); } 100% { opacity: 1; transform: translateX(-50%) translateY(0); } }
+
+        /* 内容容器 */
+        .content-container { max-width: 1100px; margin: 0 auto; padding: 0 15px; position: relative; overflow: visible; }
+        .scroll-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--card-bg); z-index: 1500; transform: translateY(100%); transition: transform 0.8s cubic-bezier(0.4,0,0.2,1); }
+        .scroll-overlay.active { transform: translateY(0); }
+        .scroll-overlay.rolling { transform: translateY(-100%); transition: transform 0.8s cubic-bezier(0.4,0,0.2,1); }
+        .section { display: none; width: 100%; }
+        .section.active { display: block; animation: slideInLeft 0.4s cubic-bezier(0.4,0,0.2,1); }
+        @keyframes slideInLeft { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes sectionFadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* 封面 */
+        #home {
+            text-align: center; padding: 80px 30px 60px;
+            background: linear-gradient(180deg, rgba(240,244,244,0.9) 0%, rgba(245,240,236,0.95) 100%);
+            border-radius: var(--radius-large); margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(74,124,140,0.12); position: relative; z-index: 1; overflow: hidden;
+        }
+        #home::after {
+            content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 200px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 200"><path d="M0 200 L0 150 Q100 120 200 140 Q300 160 400 130 Q500 100 600 120 Q700 140 800 110 Q900 80 1000 100 Q1100 120 1200 90 L1200 200 Z" fill="%234a7c8c" opacity="0.06"/><path d="M0 200 L0 170 Q150 150 300 160 Q450 170 600 150 Q750 130 900 140 Q1050 150 1200 130 L1200 200 Z" fill="%236b8f71" opacity="0.05"/></svg>') repeat-x bottom;
+            background-size: 100% 200px; pointer-events: none;
+        }
+        #home::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, var(--main-blue), var(--main-green), var(--accent-orange), var(--main-blue)); background-size: 300% 100%; animation: gradientFlow 8s ease infinite; }
+        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        #home h1 {
+            font-family: 'Ma Shan Zheng', 'ZCOOL XiaoWei', 'STKaiti', 'KaiTi', '楷体', serif;
+            font-size: 3.2em; font-weight: 400; color: var(--main-blue);
+            letter-spacing: 6px; margin-bottom: 20px; line-height: 1.4; position: relative; display: inline-block;
+        }
+        #home h1::after { content: ''; position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%); width: 60%; height: 2px; background: linear-gradient(90deg, transparent, var(--main-blue), transparent); }
+        #home h1 .stamp { display: inline-block; border: 2px solid var(--accent-orange); color: var(--accent-orange); padding: 6px 16px; font-size: 0.4em; letter-spacing: 3px; transform: rotate(-5deg); margin-left: 15px; position: relative; top: -12px; border-radius: 6px; font-family: 'Ma Shan Zheng', serif; }
+        #home .subtitle { font-size: 1.05em; color: var(--text-sub); line-height: 2; margin-top: 30px; letter-spacing: 1px; }
+        .enter-btn { margin-top: 50px; padding: 16px 50px; border: none; border-radius: 30px; background: linear-gradient(135deg, var(--accent-orange) 0%, #d4867a 100%); color: white; font-size: 1.1em; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 6px 20px rgba(196,138,92,0.35); font-weight: 500; letter-spacing: 2px; }
+        .enter-btn:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 15px 40px rgba(196,138,92,0.5); }
+        .enter-btn:active { transform: scale(0.96); }
+        .home-decor { font-size: 2em; color: var(--accent-warm); margin-bottom: 10px; opacity: 0.6; }
+        #home .tagline { font-family: 'ZCOOL XiaoWei', serif; font-size: 1.3em; color: var(--main-green); letter-spacing: 8px; margin-top: 5px; }
+
+        /* Day 卡片 */
+        .day-card {
+            background: linear-gradient(145deg, #ffffff 0%, #faf9f7 100%);
+            border-radius: var(--radius-large); padding: 30px; margin-bottom: 20px;
+            margin-left: auto; margin-right: auto; max-width: 720px;
+            box-shadow: 0 4px 20px rgba(74,124,140,0.08), 0 1px 3px rgba(0,0,0,0.04);
+            transition: var(--transition-normal); position: relative;
+            border: 1px solid rgba(74,124,140,0.06);
+        }
+        .day-card::before { content: ''; position: absolute; top: 0; left: 30px; right: 30px; height: 1px; background: linear-gradient(90deg, transparent, rgba(74,124,140,0.15), transparent); }
+        .day-card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(74,124,140,0.15), 0 4px 12px rgba(0,0,0,0.06); border-color: rgba(74,124,140,0.12); }
+        .public-section { background: linear-gradient(145deg, #ffffff 0%, #faf9f7 100%); border-radius: var(--radius-large); padding: 30px; margin-bottom: 20px; margin-left: auto; margin-right: auto; max-width: 720px; box-shadow: 0 4px 20px rgba(74,124,140,0.08), 0 1px 3px rgba(0,0,0,0.04); border: 1px solid rgba(74,124,140,0.06); }
+        .day-header { display: flex; align-items: center; margin-bottom: 20px; padding-bottom: 18px; border-bottom: 1px solid rgba(74,124,140,0.1); position: relative; }
+        .day-header::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 60px; height: 2px; background: linear-gradient(90deg, var(--main-blue), var(--main-green)); }
+        .day-label { background: linear-gradient(135deg, var(--main-blue), #3a6a7c); color: white; padding: 10px 22px; border-radius: 22px; font-size: 0.95em; font-weight: 500; margin-right: 15px; box-shadow: 0 3px 10px rgba(74,124,140,0.25); }
+        .day-date { color: var(--text-sub); font-size: 0.95em; letter-spacing: 0.5px; }
+        .weather-icon { margin-left: 10px; font-size: 1.2em; }
+        .day-tag { display: inline-block; background: linear-gradient(135deg, rgba(107,143,113,0.15), rgba(74,124,140,0.1)); color: var(--main-green); padding: 2px 10px; border-radius: 10px; font-size: 0.75em; margin-left: 8px; font-weight: 500; }
+
+        /* 天气挂件 */
+        .weather-widget { display: inline-flex; align-items: center; gap: 4px; font-size: 0.85em; padding: 2px 8px; background: linear-gradient(135deg, rgba(107,143,113,0.15), rgba(74,124,140,0.1)); border-radius: 12px; color: var(--main-green); font-weight: 500; cursor: pointer; transition: all 0.3s ease; }
+        .weather-widget:hover { background: linear-gradient(135deg, rgba(107,143,113,0.25), rgba(74,124,140,0.2)); transform: scale(1.05); }
+        .weather-widget.loading { opacity: 0.6; }
+        .weather-widget.error { color: var(--emergency-red); }
+
+        /* 诗句引用 */
+        .quote { font-size: 1.15em; color: var(--text-sub); font-style: italic; margin: 25px 0; padding: 18px 20px; border-left: 3px solid var(--main-blue); line-height: 1.7; background: linear-gradient(135deg, rgba(74,124,140,0.03) 0%, rgba(107,143,113,0.03) 100%); border-radius: 0 8px 8px 0; }
+        .quote-author { text-align: right; color: var(--text-light); font-size: 0.9em; margin-top: 8px; font-style: normal; }
+
+        /* 图片 */
+        .day-image {
+            width: 90%; margin: 15px auto; border-radius: 8px; height: auto; object-fit: contain; display: block; cursor: pointer;
+            opacity: 0; transform: scale(1.02); filter: blur(3px); transition: all 0.8s cubic-bezier(0.4,0,0.2,1);
+            background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite;
+        }
+        .day-image.loaded { opacity: 1; transform: scale(1); filter: blur(0); background: none; animation: none; }
+        .day-image.visible { opacity: 1; transform: scale(1); filter: blur(0); }
+        .day-image:hover { transform: scale(1.02); box-shadow: 0 12px 40px rgba(74,124,140,0.2); }
+        .day-image-placeholder { width: 90%; margin: 15px auto; border-radius: 8px; height: 280px; display: flex; align-items: center; justify-content: center; font-size: 1.3em; color: var(--text-light); background: linear-gradient(135deg, #e8edee 0%, #f0ebe7 100%); border: 2px dashed #ccc; cursor: pointer; transition: all 0.3s ease; }
+        .day-image-placeholder:hover { transform: scale(1.01); border-color: var(--main-blue); box-shadow: 0 8px 24px rgba(74,124,140,0.1); }
+        .image-caption { text-align: center; color: var(--text-light); font-size: 0.9em; padding: 12px; background: linear-gradient(180deg, transparent 0%, rgba(248,246,243,0.9) 100%); margin-bottom: 20px; max-width: 800px; margin-left: auto; margin-right: auto; }
+
+        /* 图片轮播 */
+        .image-slider { position: relative; width: 90%; margin: 18px auto; border-radius: 12px; overflow: hidden; box-shadow: 0 6px 20px rgba(74,124,140,0.15); }
+        .slider-track { display: flex; transition: transform 0.5s cubic-bezier(0.25,0.1,0.25,1); }
+        .slider-track .day-image { width: 100%; flex-shrink: 0; height: auto; object-fit: contain; }
+        .slider-dots { position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); display: flex; gap: 12px; }
+        .slider-dots .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.6); cursor: pointer; transition: all 0.3s ease; border: none; padding: 0; }
+        .slider-dots .dot.active { background: var(--main-blue); transform: scale(1.3); box-shadow: 0 0 8px rgba(74,124,140,0.5); }
+
+        @media (max-width: 768px) {
+            .day-images-grid { display: flex !important; flex-direction: column !important; width: 100% !important; }
+            .day-images-grid .day-image { width: 100% !important; }
+            .day-image { width: 100% !important; max-width: 100% !important; }
+            .image-slider { width: 100%; }
+            .day-image-placeholder { width: 100%; }
+        }
+        @media (min-width: 769px) {
+            .day-images-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+            .day-images-grid .day-image { height: 300px; margin: 0; }
+            .day-images-grid .day-image-placeholder { height: 300px; margin: 0; }
+            .day-images-grid .image-caption { grid-column: 1 / -1; margin-top: 5px; }
+        }
+
+        /* 步进卡片 */
+        .day-step-card {
+            background: linear-gradient(135deg, #faf9f7 0%, #ffffff 100%); border-radius: 16px; padding: 16px 18px;
+            margin: 14px 0; border: 1px solid rgba(74,124,140,0.12); display: flex; align-items: center;
+            gap: 14px; cursor: pointer; transition: all 0.35s cubic-bezier(0.4,0,0.2,1); position: relative; overflow: hidden;
+            box-shadow: 0 2px 12px rgba(74,124,140,0.08);
+        }
+        .day-step-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: linear-gradient(180deg, var(--main-blue), var(--main-green)); border-radius: 4px 0 0 4px; }
+        .day-step-card .step-number { background: linear-gradient(135deg, var(--main-blue), #5a8a9a); color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1em; font-weight: 700; flex-shrink: 0; box-shadow: 0 4px 12px rgba(74,124,140,0.3); }
+        .day-step-card .step-content { flex: 1; color: var(--text-main); font-size: 0.92em; line-height: 1.6; }
+        .day-step-card .step-title { font-weight: 600; color: var(--main-blue); margin-bottom: 4px; }
+        .day-step-card .step-time { font-size: 0.8em; color: var(--main-green); margin-bottom: 6px; display: none; background: linear-gradient(135deg, rgba(107,143,113,0.1), rgba(74,124,140,0.08)); padding: 3px 10px; border-radius: 12px; width: fit-content; }
+        .day-step-card .step-desc { color: var(--text-sub); font-size: 0.88em; line-height: 1.5; }
+        .day-step-card.expanded .step-time { display: inline-block; animation: fadeIn 0.3s ease; }
+        .day-step-card.expanded .step-desc { margin-top: 10px; padding-top: 10px; border-top: 1px dashed rgba(74,124,140,0.15); }
+        .day-step-card:not(.expanded) .step-desc { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .day-step-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(74,124,140,0.15); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* 景点卡片 */
+        .attraction-card { background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%); border-radius: 16px; padding: 20px; margin: 15px 0; border: 1px solid #eee; border-left: 4px solid var(--main-blue); cursor: pointer; transition: all 0.3s ease; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+        .attraction-card:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(74,124,140,0.18); }
+        .attraction-card.collapsed .attraction-detail { max-height: 0; opacity: 0; padding-top: 0; padding-bottom: 0; overflow: hidden; transition: all 0.4s cubic-bezier(0.4,0,0.2,1); }
+        .attraction-card:not(.collapsed) .attraction-detail { max-height: 800px; opacity: 1; animation: cardPopIn 0.4s cubic-bezier(0.4,0,0.2,1); }
+        @keyframes cardPopIn { 0% { opacity: 0; transform: scale(0.95) translateY(10px); } 60% { transform: scale(1.02) translateY(-2px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
+        .attraction-title { font-size: 1.15em; color: var(--text-main); font-weight: 500; display: flex; align-items: center; gap: 10px; }
+        .attraction-title span:first-child { background: linear-gradient(135deg, rgba(74,124,140,0.15), rgba(107,143,113,0.1)); padding: 5px 12px; border-radius: 12px; font-size: 1.1em; }
+        .attraction-title::after { content: "▼"; margin-left: auto; font-size: 0.65em; color: var(--main-blue); transition: transform 0.3s ease; }
+        .attraction-card.collapsed .attraction-title::after { transform: rotate(-90deg); }
+        .attraction-detail { margin-top: 15px; padding-top: 15px; border-top: 1px dashed #eee; color: var(--text-sub); line-height: 1.8; }
+        .info-label { display: inline-block; background: linear-gradient(135deg, rgba(74,124,140,0.1), rgba(107,143,113,0.1)); color: var(--main-blue); padding: 3px 12px; border-radius: 12px; font-size: 0.85em; margin-right: 8px; font-weight: 500; border: 1px solid rgba(74,124,140,0.15); }
+
+        /* 交通卡片 */
+        .transport-card { background: linear-gradient(135deg, #fff8f0 0%, #fff 100%); border-radius: 16px; padding: 18px; margin: 15px 0; border: 1px solid #ffe0b2; border-left: 4px solid var(--transport-orange); cursor: pointer; transition: all 0.3s ease; box-shadow: 0 2px 8px rgba(255,152,0,0.05); }
+        .transport-card:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(255,152,0,0.18); }
+        .transport-card .attraction-title span:first-child { transition: transform 0.3s ease; }
+        .transport-card:hover .attraction-title span:first-child { transform: translateX(4px); }
+        .transport-card .attraction-title::after { content: "▼"; margin-left: auto; font-size: 0.7em; color: var(--text-light); transition: transform 0.3s ease; }
+        .transport-card.collapsed .attraction-title::after { transform: rotate(-90deg); }
+        .transport-card.collapsed .transport-detail { max-height: 0; opacity: 0; padding-top: 0; padding-bottom: 0; overflow: hidden; transition: all 0.4s cubic-bezier(0.4,0,0.2,1); }
+        .transport-card:not(.collapsed) .transport-detail { max-height: 500px; opacity: 1; }
+        .transport-detail { margin-top: 12px; color: var(--text-sub); line-height: 1.8; }
+        .transport-summary { margin-top: 10px; padding-top: 10px; border-top: 1px dashed #ddd; font-weight: 500; color: var(--transport-orange); }
+        .warning-tag { display: inline-block; background: #fff3e0; color: #e65100; padding: 2px 8px; border-radius: 10px; font-size: 0.85em; font-weight: 500; margin-left: 5px; }
+
+        /* 老玩家Tips */
+        .old-tips { background: linear-gradient(135deg, #eef5f5 0%, #e8f5e9 100%); border-left: 4px solid var(--tips-blue); padding: 18px; margin: 15px 0; border-radius: 12px; }
+        .old-tips h4 { color: var(--tips-blue); margin-bottom: 10px; font-size: 1em; font-weight: 500; }
+        .old-tips ul { list-style: none; padding-left: 0; }
+        .old-tips li { padding: 8px 0 8px 28px; position: relative; font-size: 0.95em; color: var(--text-sub); line-height: 1.6; }
+        .old-tips li:before { content: "💡"; position: absolute; left: 0; font-size: 1em; }
+        .prepare-box { background: linear-gradient(135deg, #fff8e1 0%, #fffde7 100%); border-left: 4px solid var(--prepare-yellow); padding: 18px; margin: 15px 0; border-radius: 12px; }
+        .prepare-box h4 { color: #f57c00; margin-bottom: 8px; font-size: 1em; }
+        .prepare-box ul { list-style: none; padding-left: 0; }
+        .prepare-box li { padding: 6px 0 6px 24px; position: relative; font-size: 0.95em; }
+        .prepare-box li:before { content: "✓"; position: absolute; left: 0; color: var(--prepare-yellow); font-weight: bold; }
+
+        .checkin-btn { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; background: linear-gradient(135deg, #e8f5e9, #c8e6c9); border: 1px solid #a5d6a7; border-radius: 12px; font-size: 0.75em; color: #2e7d32; cursor: pointer; margin-left: 8px; transition: all 0.3s ease; }
+        .checkin-btn.checked { background: linear-gradient(135deg, #4caf50, #388e3c); color: white; }
+        .checkin-btn:hover { transform: translateY(-1px); }
+        @keyframes checkinBounce { 0% { transform: scale(1); } 30% { transform: scale(1.3); } 50% { transform: scale(0.9); } 70% { transform: scale(1.1); } 100% { transform: scale(1); } }
+        .checkin-btn.checking { animation: checkinBounce 0.6s ease; }
+        .copy-btn { transition: all 0.2s ease; cursor: pointer; }
+        .copy-btn:active { transform: scale(0.9); }
+        .copy-btn.copied { animation: copyFeedback 0.5s ease; }
+        @keyframes copyFeedback { 0% { transform: scale(1); } 50% { transform: scale(1.2); background: #4caf50; } 100% { transform: scale(1); } }
+        .map-btn { cursor: pointer; transition: all 0.2s ease; }
+        .map-btn:active { transform: scale(0.9); }
+        .weather-widget { display: inline-flex; align-items: center; gap: 4px; font-size: 0.85em; padding: 2px 8px; background: rgba(255,255,255,0.85); border-radius: 10px; color: var(--text-sub); box-shadow: 0 1px 6px rgba(0,0,0,0.06); }
+        .weather-widget.loading .weather-temp { opacity: 0.5; }
+        .weather-widget.error { opacity: 0.6; }
+
+        .tips-box { background: linear-gradient(135deg, #eef5f5 0%, #f5f0fa 100%); border-left: 4px solid var(--info-blue); padding: 20px 24px; margin: 20px 0; border-radius: 14px; box-shadow: 0 4px 16px rgba(93,122,140,0.1); position: relative; overflow: hidden; }
+        .tips-box::before { content: ''; position: absolute; top: 0; right: 0; width: 80px; height: 80px; background: radial-gradient(circle, rgba(93,122,140,0.06) 0%, transparent 70%); pointer-events: none; }
+        .tips-box h4 { color: #2d5a7b; margin-bottom: 12px; font-size: 1.05em; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+        .tips-box ul { list-style: none; padding-left: 0; }
+        .tips-box li { padding: 12px 0 12px 70px !important; position: relative; font-size: 0.95em; color: var(--text-sub); line-height: 1.7; border-bottom: 1px solid rgba(74,124,140,0.06); }
+        .tips-box li:last-child { border-bottom: none; }
+        .tips-box li:before { content: "💡" !important; position: absolute !important; left: 24px !important; font-size: 0.9em; top: 14px; }
+
+        /* 公共板块 */
+        .public-title { font-size: 1.9em; color: var(--main-green); font-weight: 500; margin-bottom: 25px; padding-left: 18px; border-left: 4px solid var(--main-green); letter-spacing: 1px; position: relative; display: inline-block; }
+        .public-title::after { content: ''; position: absolute; bottom: -6px; left: 18px; width: 40px; height: 2px; background: linear-gradient(90deg, var(--main-green), transparent); }
+        .public-card { background: linear-gradient(135deg, #fcfcfc 0%, #fff 100%); border-radius: 16px; padding: 20px; margin: 15px 0; transition: all 0.3s ease; border: 1px solid rgba(74,124,140,0.08); }
+        .public-card:hover { box-shadow: 0 8px 24px rgba(74,124,140,0.12); transform: translateY(-2px); }
+        .public-card h4 { color: var(--main-blue); margin-bottom: 14px; font-size: 1.1em; font-weight: 600; }
+        .public-card ul { list-style: none; padding-left: 0; }
+        .public-card li { padding: 6px 0; color: var(--text-sub); line-height: 1.8; }
+        .sub-label { font-size: 0.8em; color: var(--accent-warm); font-weight: 500; display: inline-block; margin-right: 8px; min-width: 60px; }
+
+        /* 行李清单 */
+        .category-btns { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .category-btn { padding: 10px 18px; border: 1px solid rgba(74,124,140,0.2); border-radius: 22px; background: white; color: var(--text-sub); cursor: pointer; font-size: 0.9em; transition: all 0.3s ease; box-shadow: 0 2px 8px rgba(74,124,140,0.08); }
+        .category-btn.active { background: var(--main-blue); color: white; border-color: var(--main-blue); box-shadow: 0 4px 12px rgba(74,124,140,0.3); }
+        .category-btn:active { transform: scale(0.96); }
+        .category-list { display: none; }
+        .category-list.active { display: block; }
+        .checklist { list-style: none; padding-left: 0; }
+        .checklist li { padding: 12px 8px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid rgba(74,124,140,0.08); transition: all 0.2s ease; border-radius: 8px; margin: 4px 0; }
+        .checklist li:hover { background: rgba(74,124,140,0.04); }
+        .checklist li:last-child { border-bottom: none; }
+        .checklist input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--main-blue); cursor: pointer; border-radius: 4px; border: 2px solid rgba(74,124,140,0.3); transition: all 0.2s ease; appearance: none; }
+        .checklist input[type="checkbox"]:checked { background: var(--main-blue); animation: checkboxBounce 0.3s ease; }
+        @keyframes checkboxBounce { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+        .booking-status { display: inline-block; padding: 2px 10px; border-radius: 10px; font-size: 0.85em; font-weight: 500; cursor: pointer; transition: var(--transition-fast); }
+        .booking-status.pending { background: #fff3e0; color: var(--hotel-orange); }
+        .booking-status.booked { background: #e8f5e9; color: #2e7d32; }
+
+        /* 应急 */
+        .emergency-card { background: #fdeaea; border-radius: var(--radius-medium); padding: 20px; margin: 15px 0; border-left: 3px solid var(--emergency-red); }
+        .emergency-card h4 { color: #b56b6b; margin-bottom: 10px; }
+        .emergency-card ul { list-style: none; padding-left: 0; }
+        .emergency-card li { padding: 4px 0; color: var(--text-sub); }
+
+        /* 预算 */
+        .budget-item-card { display: flex; align-items: center; gap: 12px; padding: 12px 16px; margin: 8px 0; background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%); border-radius: 12px; border: 1px solid rgba(74,124,140,0.08); justify-content: space-between; }
+        .budget-icon { font-size: 1.5em; }
+        .budget-label { font-size: 0.85em; color: var(--text-sub); min-width: 80px; }
+        .editable-amount { font-size: 1.1em; font-weight: 600; color: var(--main-blue); cursor: text; padding: 2px 8px; border-radius: 6px; border: 1px dashed transparent; min-width: 60px; text-align: right; }
+        .editable-amount:hover { background: rgba(74,124,140,0.06); border-color: rgba(74,124,140,0.2); }
+        .editable-amount:focus { outline: none; border-color: var(--main-blue); background: white; }
+        .budget-bar { height: 24px; border-radius: 12px; margin: 4px 0; transition: width 0.5s ease; }
+        .budget-summary-card { padding: 20px; background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%); border-radius: 16px; margin: 15px 0; }
+        .grand-total-card { text-align: center; padding: 20px; margin-top: 20px; background: linear-gradient(135deg, var(--main-blue), #3a6a7c); border-radius: 16px; color: white; }
+        .grand-total { font-size: 2.5em; font-weight: 700; }
+
+        /* 模态框 */
+        .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
+        .modal.active { display: flex; animation: modalBounceIn 0.4s cubic-bezier(0.34,1.56,0.64,1); }
+        @keyframes modalBounceIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+        .modal-img { max-width: 95%; max-height: 90vh; border-radius: var(--radius-medium); box-shadow: 0 0 0 4px rgba(255,255,255,0.2); }
+        .modal-close { position: absolute; top: 20px; right: 20px; color: white; font-size: 2.5em; cursor: pointer; border: none; background: rgba(255,255,255,0.2); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: var(--transition-fast); }
+        .modal-close:hover { background: rgba(255,255,255,0.4); }
+        .modal-arrow { position: absolute; top: 50%; transform: translateY(-50%); color: white; font-size: 2em; cursor: pointer; border: none; background: none; padding: 10px; }
+        .modal-arrow.left { left: 20px; }
+        .modal-arrow.right { right: 20px; }
+
+        /* 回到顶部 */
+        .back-to-top { position: fixed; bottom: 90px; right: 20px; width: 45px; height: 45px; border-radius: 50%; background: var(--main-blue); color: white; border: none; font-size: 1.1em; cursor: pointer; box-shadow: var(--shadow-medium); opacity: 0; transform: translateY(20px); transition: all 0.4s ease; z-index: 999; }
+        .back-to-top.visible { opacity: 1; transform: translateY(0); animation: backToTopSlide 0.4s ease; }
+        @keyframes backToTopSlide { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .back-to-top:hover { transform: scale(1.1); background: var(--accent-orange); }
+
+        /* 结语 */
+        .conclusion { text-align: center; padding: 60px 30px; background: var(--card-bg); border-radius: var(--radius-large); margin-top: 30px; box-shadow: var(--shadow-light); }
+        .conclusion h2 { font-size: 1.8em; color: var(--text-main); font-weight: 400; margin-bottom: 20px; }
+        .conclusion p { color: var(--text-sub); line-height: 2; max-width: 700px; margin: 0 auto; }
+        .footer { text-align: center; padding: 30px 15px; color: var(--text-light); font-size: 0.9em; }
+
+        /* 夜间模式 */
+        body.night-mode { --bg-light: #1e1e1e; --card-bg: #1a1a1a; --text-main: #e0e0e0; --text-sub: #a0a0a0; --text-light: #707070; background: #121212; transition: background-color 0.6s ease; }
+        body.night-mode .day-card, body.night-mode .public-section { background: linear-gradient(145deg, #1e1e1e 0%, #161616 100%); box-shadow: 0 4px 20px rgba(0,0,0,0.4); border-color: rgba(255,255,255,0.06); }
+        body.night-mode .attraction-card { background: linear-gradient(135deg, #1e1e1e 0%, #252525 100%); border-color: rgba(255,255,255,0.06); }
+        body.night-mode .day-step-card { background: linear-gradient(135deg, #1a1a1a 0%, #1e1e1e 100%); border-color: rgba(255,255,255,0.05); }
+        body.night-mode .nav-btn, body.night-mode .tab-item { background: #252525; color: #a0a0a0; }
+        body.night-mode .nav-btn.active { background: #4a5a6a; color: #c0c0d0; }
+        body.night-mode .search-bar { background: #1e1e1e; border-color: #333; }
+        body.night-mode .day-image-placeholder { background: linear-gradient(135deg, #2a2a3e 0%, #333350 100%); border-color: #555; color: #888; }
+        @media (prefers-color-scheme: dark) {
+            body:not(.night-mode) { --bg-light: #1e1e1e; --card-bg: #1a1a1a; --text-main: #e0e0e0; --text-sub: #a0a0a0; --text-light: #707070; background: #121212; }
+            body:not(.night-mode) .day-card, body:not(.night-mode) .public-section { background: linear-gradient(145deg, #1e1e1e 0%, #161616 100%); }
+            body:not(.night-mode) .attraction-card { background: linear-gradient(135deg, #1e1e1e 0%, #252525 100%); }
+            body:not(.night-mode) .day-step-card { background: linear-gradient(135deg, #1a1a1a 0%, #1e1e1e 100%); }
+            body:not(.night-mode) .day-image-placeholder { background: linear-gradient(135deg, #2a2a3e 0%, #333350 100%); border-color: #555; color: #888; }
+        }
+
+        @media (max-width: 480px) {
+            .day-card { padding: 14px 10px; border-radius: 14px; margin-bottom: 10px; }
+            .day-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+            .day-label { font-size: 0.85em; padding: 6px 14px; }
+            .attraction-card { padding: 14px; margin: 10px 0; border-radius: 12px; }
+            .attraction-title { font-size: 1em; flex-direction: column; align-items: flex-start; gap: 6px; }
+            .public-section { padding: 20px 16px; }
+            .public-card { padding: 16px; border-radius: 12px; }
+            .top-nav { padding: 10px 8px; gap: 6px; }
+            .top-nav .nav-btn { padding: 6px 12px; font-size: 0.8em; }
+            .bottom-tab { padding: 8px 10px; }
+            .tab-item { font-size: 0.8em; padding: 8px 4px; }
+            .back-to-top { bottom: 140px; right: 15px; width: 40px; height: 40px; }
+            #home { padding: 20px; }
+            #home h1 { font-size: 2em; }
+            .enter-btn { padding: 14px 40px; font-size: 1.1em; }
+            .quote { padding: 12px 14px; font-size: 0.95em; }
+            .day-image { max-width: 100%; width: 100%; }
+            .day-image-placeholder { height: 200px; font-size: 1em; }
+            .tips-box, .old-tips, .prepare-box { padding: 14px; }
+            .modal-arrow { font-size: 1.5em; }
+            .modal-arrow.left { left: 10px; }
+            .modal-arrow.right { right: 10px; }
+        }
+        @media (min-width: 481px) and (max-width: 768px) {
+            .day-card { padding: 20px; }
+            .public-section { padding: 25px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll-overlay"></div>
+
+    <div class="top-nav">
+        <button class="nav-btn home-btn active" onclick="showSection('home')">首页</button>
+        <button class="nav-btn" onclick="showSection('day1')">Day1🏙️</button>
+        <button class="nav-btn" onclick="showSection('day2')">Day2🌊</button>
+        <button class="nav-btn" onclick="showSection('day3')">Day3🚲</button>
+        <button class="nav-btn" onclick="showSection('day4')">Day4🏯</button>
+        <button class="nav-btn" onclick="showSection('day5')">Day5🏘️</button>
+        <button class="nav-btn" onclick="showSection('day6')">Day6🌅</button>
+        <button class="nav-btn" onclick="showSection('day7')">Day7🏔️</button>
+        <button class="nav-btn" onclick="showSection('day8')">Day8🌿</button>
+        <button class="nav-btn" onclick="showSection('day9')">Day9☕</button>
+        <button class="nav-btn" onclick="showSection('day10')">Day10🚄</button>
+    </div>
+
+    <div class="bottom-tab">
+        <button class="tab-item active" data-tab="itinerary" onclick="switchTab('itinerary')"><span class="tab-icon">📅</span><span class="tab-text">行程</span></button>
+        <button class="tab-item" data-tab="food" onclick="switchTab('food')"><span class="tab-icon">🍜</span><span class="tab-text">吃喝逛</span></button>
+        <button class="tab-item" data-tab="hotel" onclick="switchTab('hotel')"><span class="tab-icon">🏨</span><span class="tab-text">住宿</span></button>
+        <button class="tab-item" data-tab="luggage" onclick="switchTab('luggage')"><span class="tab-icon">🎒</span><span class="tab-text">清单</span></button>
+        <button class="tab-item" data-tab="budget" onclick="switchTab('budget')"><span class="tab-icon">💰</span><span class="tab-text">预算</span></button>
+        <button class="tab-item" data-tab="avoid" onclick="switchTab('avoid')"><span class="tab-icon">⚠️</span><span class="tab-text">须知</span></button>
+        <button class="tab-item" data-tab="booking" onclick="switchTab('booking')"><span class="tab-icon">📝</span><span class="tab-text">预约</span></button>
+        <button class="tab-item" data-tab="emergency" onclick="switchTab('emergency')"><span class="tab-icon">🆘</span><span class="tab-text">应急</span></button>
+    </div>
+
+    <!-- 搜索栏 -->
+    <div class="search-bar" id="searchBar">
+        <input class="search-input" type="text" placeholder="搜索景点、美食、攻略..." oninput="performSearch(this.value)" />
+        <div class="search-results" id="searchResults"></div>
+    </div>
+
+    <!-- 工具栏 -->
+    <div class="toolbar" id="toolbar">
+        <button class="toolbar-btn" onclick="toggleSearch()" title="搜索">🔍</button>
+        <button class="toolbar-btn" onclick="toggleNightMode()" title="夜间模式">🌙</button>
+        <button class="toolbar-btn" onclick="toggleExport()" title="导出">📤</button>
+        <div class="export-options" id="exportOptions">
+            <button class="export-option-btn" onclick="exportAsImage()">📷 导出为图片</button>
+            <button class="export-option-btn" onclick="printItinerary()">🖨️ 打印/PDF</button>
+        </div>
+    </div>
+    <div class="export-loading" id="exportLoading">⏳ 正在生成...</div>
+
+    <!-- 搜索导航指示器 -->
+    <div class="search-nav-indicator" id="searchIndicator"></div>
+
+    <div class="content-container">
+        <!-- 封面 -->
+        <section id="home" class="section active">
+            <h1>云南之旅<span class="stamp">云之南十日纪</span></h1>
+            <div class="tagline">考研后的晴空</div>
+            <div class="subtitle">
+                10天9晚 · 昆明 + 大理 + 丽江<br>
+                和伙伴们一起的慢时光
+            </div>
+            <button class="enter-btn" onclick="enterItinerary()">进入行程</button>
+        </section>
+
+        <!-- Day1 · 昆明 -->
+        <section id="day1" class="section">
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-label">Day1</div>
+                    <div class="day-date">春城初遇 · 昆明集合 <span class="weather-widget" data-city="Kunming"></span></div>
+                </div>
+                <div class="tips-box">
+                    <h4>⏰ 精确时间安排（抵达日）</h4>
+                    <ul>
+                        <li>各地出发 → 抵达昆明长水机场</li>
+                        <li>地铁/打车到市区，酒店入住、放行李</li>
+                        <li>翠湖公园散步（12月红嘴鸥）</li>
+                        <li>云南大学校园漫步（银杏道）</li>
+                        <li>晚上：昆明老街 / 南强街逛吃</li>
+                        <li>可选：斗南花市夜场（亚洲最大鲜花市场）</li>
+                    </ul>
+                </div>
+                <div class="quote">"天气常如二三月，花枝不断四时春。"<div class="quote-author">—— 杨慎《滇海曲》</div></div>
+
+                <!-- 步进卡片 -->
+                <div class="day-step-card expanded" onclick="toggleStepCard(this, event)">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <div class="step-title">抵达昆明</div>
+                        <div class="step-time">⏱️ 约2-3小时</div>
+                        <div class="step-desc">各地飞抵昆明长水机场 → 地铁6号线转3号线到市区（约50min），或打车到翠湖附近酒店入住</div>
+                    </div>
+                </div>
+                <div class="day-step-card" onclick="toggleStepCard(this, event)">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <div class="step-title">翠湖公园</div>
+                        <div class="step-time">⏱️ 约1.5小时</div>
+                        <div class="step-desc">翠湖公园散步，冬季有西伯利亚红嘴鸥，可喂海鸥（面包/鸥粮），绕湖一周约1km</div>
+                    </div>
+                </div>
+                <div class="day-step-card" onclick="toggleStepCard(this, event)">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <div class="step-title">云南大学</div>
+                        <div class="step-time">⏱️ 约1小时</div>
+                        <div class="step-desc">从翠湖步行5分钟到云南大学东门，逛会泽院、银杏道（11月金黄）、至公堂</div>
+                    </div>
+                </div>
+                <div class="day-step-card" onclick="toggleStepCard(this, event)">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <div class="step-title">昆明老街夜市</div>
+                        <div class="step-time">⏱️ 约2小时</div>
+                        <div class="step-desc">南强街巷、文明街、甬道街，吃小锅米线、烧饵块、烤乳扇，逛夜市地摊</div>
+                    </div>
+                </div>
+
+                <div class="day-image-placeholder">📸 翠湖公园 · 红嘴鸥飞舞</div>
+                <div class="attraction-card" onclick="toggleCard(this, event)">
+                    <div class="attraction-title"><span>🏙️</span> 翠湖公园 <span class="checkin-btn" onclick="toggleCheckin(this, 'day1', '翠湖公园')" data-key="checkin_day1_翠湖公园">打卡</span></div>
+                    <div class="attraction-detail">
+                        <p><span class="info-label">📍 地址：</span>昆明市五华区翠湖南路 <span class="copy-btn" onclick="copyText('昆明市五华区翠湖南路翠湖公园', event)">📋</span><span class="map-btn" onclick="openMap('昆明翠湖公园')">🗺️ 导航</span></p>
+                        <p><span class="info-label">⏰ 开放时间：</span>全天</p>
+                        <p><span class="info-label">🎫 门票：</span>免费</p>
+                        <p><span class="info-label">⏱️ 建议游玩：</span>1-1.5小时</p>
+                        <p><span class="info-label">🗺️ 推荐路线：</span>东门入→竹林岛→海心亭→观鱼楼→西南岛喂鸥</p>
+                        <p><span class="info-label">🍴 周边美食：</span>滇味轩（过桥米线）、端仕小锅米线</p>
+                    </div>
+                    <div class="old-tips">
+                        <h4>🔍 老玩家Tips</h4>
+                        <ul>
+                            <li>12月-2月红嘴鸥最多，带面包或买鸥粮（2元/包）喂鸥</li>
+                            <li>最佳拍照点：海心亭拍湖景倒影，西南岛拍鸥群起飞</li>
+                            <li>避坑：不要买路边鸥粮，公园内小卖部更便宜</li>
+                        </ul>
+                    </div>
+                    <div class="prepare-box">
+                        <h4>🎒 准备物品</h4>
+                        <ul><li>面包/鸥粮</li><li>相机</li><li>帽子（防晒）</li></ul>
+                    </div>
+                </div>
+                <div class="day-image-placeholder">📸 云南大学 · 会泽院银杏道</div>
+                <div class="attraction-card" onclick="toggleCard(this, event)">
+                    <div class="attraction-title"><span>🎓</span> 云南大学 <span class="checkin-btn" onclick="toggleCheckin(this, 'day1', '云南大学')" data-key="checkin_day1_云南大学">打卡</span></div>
+                    <div class="attraction-detail">
+                        <p><span class="info-label">📍 地址：</span>昆明市五华区翠湖北路2号 <span class="copy-btn" onclick="copyText('昆明市五华区翠湖北路2号云南大学', event)">📋</span><span class="map-btn" onclick="openMap('云南大学东陆校区')">🗺️ 导航</span></p>
+                        <p><span class="info-label">⏰ 开放时间：</span>全天（需登记身份证）</p>
+                        <p><span class="info-label">🎫 门票：</span>免费</p>
+                        <p><span class="info-label">⏱️ 建议游玩：</span>1小时</p>
+                        <p><span class="info-label">🗺️ 推荐路线：</span>东门→会泽院→至公堂→银杏道→钟楼</p>
+                    </div>
+                    <div class="old-tips">
+                        <h4>🔍 老玩家Tips</h4>
+                        <ul>
+                            <li>银杏道11月中-12月初金黄，出片圣地</li>
+                            <li>会泽院是百年建筑，红砖绿瓦很上镜</li>
+                            <li>避坑：进校可能需要身份证登记，记得带</li>
+                        </ul>
+                    </div>
+                    <div class="prepare-box">
+                        <h4>🎒 准备物品</h4>
+                        <ul><li>身份证</li><li>相机</li></ul>
+                    </div>
+                </div>
+                <div class="day-image-placeholder">📸 昆明老街 · 南强街夜市</div>
+                <div class="attraction-card" onclick="toggleCard(this, event)">
+                    <div class="attraction-title"><span>🏮</span> 昆明老街·南强街 <span class="checkin-btn" onclick="toggleCheckin(this, 'day1', '昆明老街')" data-key="checkin_day1_昆明老街">打卡</span></div>
+                    <div class="attraction-detail">
+                        <p><span class="info-label">📍 地址：</span>昆明市五华区南强街 <span class="copy-btn" onclick="copyText('昆明市五华区南强街', event)">📋</span><span class="map-btn" onclick="openMap('昆明南强街')">🗺️ 导航</span></p>
+                        <p><span class="info-label">⏰ 开放时间：</span>夜市17:00-23:00</p>
+                        <p><span class="info-label">🎫 门票：</span>免费</p>
+                        <p><span class="info-label">⏱️ 建议游玩：</span>1.5-2小时</p>
+                        <p><span class="info-label">🍴 必吃美食：</span>小锅米线、烧饵块、烤乳扇、炸洋芋、包浆豆腐</p>
+                    </div>
+                    <div class="old-tips">
+                        <h4>🔍 老玩家Tips</h4>
+                        <ul>
+                            <li>南强街比文明街热闹，小吃种类更多</li>
+                            <li>嘉华鲜花饼现烤最好吃（3.5元/个）</li>
+                            <li>避坑：路边水果切不新鲜，去水果店买</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="text-align:center;padding:20px;color:var(--text-light);font-size:0.9em;">✨ Day1 结束 · 明早高铁去大理</div>
+            </div>
+        </section>
+
+        <!-- Day2 · 大理 -->
+        <section id="day2" class="section">
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-label">Day2</div>
+                    <div class="day-date">风花雪月 · 大理初见 <span class="weather-widget" data-city="Dali"></span></div>
+                </div>
+                <div class="tips-box">
+                    <h4>⏰ 精确时间安排</h4>
+                    <ul>
+                        <li>上午：昆明→大理（高铁2h）</li>
+                        <li>中午：大理古城入住、午餐</li>
+                        <li>下午：古城漫步（人民路→复兴路→五华楼→洋人街）</li>
+                        <li>傍晚：洱海西生态廊道骑行（才村→龙龛码头）</li>
+                        <li>晚上：古城晚餐 + 人民路小酒馆听民谣</li>
+                    </ul>
+                </div>
+                <div class="quote">"下关风，上关花，苍山雪，洱海月。"<div class="quote-author">—— 大理民谚</div></div>
+
+                <div class="day-step-card expanded" onclick="toggleStepCard(this, event)">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <div class="step-title">昆明→大理</div>
+                        <div class="step-time">⏱️ 约2.5小时</div>
+                        <div class="step-desc">昆明站乘坐高铁至大理站（约2h），出站后打车或坐景区直通车到古城（约30min）</div>
+                    </div>
+                </div>
+                <div class="day-step-card" onclick="toggleStepCard(this, event)">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <div class="step-title">大理古城漫步</div>
+                        <div class="step-time">⏱️ 约2-3小时</div>
+                        <div class="step-desc">从南门进→复兴路（主街）→五华楼（登楼看全景）→洋人街→人民路（最文艺的街）</div>
+                    </div>
+                </div>
+                <div class="day-step-card" onclick="toggleStepCard(this, event)">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <div class="step-title">洱海生态廊道骑行</div>
+                        <div class="step-time">⏱️ 约2小时</div>
+                        <div class="step-desc">才村码头租自行车/电驴→沿生态廊道骑到龙龛码头（约5km），看洱海日落绝美</div>
+                    </div>
+                </div>
+                <div class="day-step-card" onclick="toggleStepCard(this, event)">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <div class="step-title">人民路夜生活</div>
+                        <div class="step-time">⏱️ 约2小时</div>
+                        <div class="step-desc">晚餐推荐大理酸辣鱼+烤乳扇，饭后人民路找一家民谣酒馆听歌</div>
+                    </div>
+                </div>
+
+                <div class="day-image-placeholder">📸 大理古城 · 五华楼全景</div>
+                <div class="attraction-card" onclick="toggleCard(this, event)">
+                    <div class="attraction-title"><span>🏯</span> 大理古城 <span class="checkin-btn" onclick="toggleCheckin(this, 'day2', '大理古城')" data-key="checkin_day2_大理古城">打卡</span></div>
+                    <div class="attraction-detail">
+                        <p><span class="info-label">📍 地址：</span>大理市大理古城 <span class="copy-btn" onclick="copyText('大理古城', event)">📋</span><span class="map-btn" onclick="openMap('大理古城')">🗺️ 导航</span></p>
+                        <p><span class="info-label">⏰ 开放时间：</span>全天</p>
+                        <p><span class="info-label">🎫 门票：</span>免费</p>
+                        <p><span class="info-label">⏱️ 建议游玩：</span>3-4小时</p>
+                        <p><span class="info-label">🗺️ 推荐路线：</span>南门→复兴路→总统兵马大元帅府→五华楼→红龙井→人民路→洋人街</p>
+                        <p><span class="info-label">🍴 必吃美食：</span>再回首凉鸡米线、杨记乳扇、大理酸辣鱼、烤饵块</p>
+                    </div>
+                    <div class="old-tips">
+                        <h4>🔍 老玩家Tips</h4>
+                        <ul>
+                            <li>五华楼免费登楼，日落时分拍古城全景最好看</li>
+                            <li>人民路越往西走越安静，适合拍照</li>
+                            <li>避坑：古城里拉客的"便宜一日游"别信</li>
+                        </ul>
+                    </div>
+                    <div class="prepare-box">
+                        <h4>🎒 准备物品</h4>
+                        <ul><li>舒适步行鞋</li><li>防晒霜</li><li>相机</li></ul>
+                    </div>
+                </div>
+                <div class="day-image-placeholder">📸 洱海生态廊道 · 龙龛码头日落</div>
+                <div class="attraction-card" onclick="toggleCard(this, event)">
+                    <div class="attraction-title"><span>🌊</span> 洱海生态廊道 <span class="checkin-btn" onclick="toggleCheckin(this, 'day2', '洱海生态廊道')" data-key="checkin_day2_洱海生态廊道">打卡</span></div>
+                    <div class="attraction-detail">
+                        <p><span class="info-label">📍 地址：</span>大理市才村码头→龙龛码头段 <span class="map-btn" onclick="openMap('大理才村码头')">🗺️ 导航</span></p>
+                        <p><span class="info-label">⏰ 开放时间：</span>全天</p>
+                        <p><span class="info-label">🎫 门票：</span>免费</p>
+                        <p><span class="info-label">⏱️ 建议游玩：</span>1.5-2小时</p>
+                        <p><span class="info-label">🚲 租车：</span>自行车约20-30元/辆，电驴约50-80元/辆</p>
+                    </div>
+                    <div class="old-tips">
+                        <h4>🔍 老玩家Tips</h4>
+                        <ul>
+                            <li>才村到龙龛码头是最美段，约5km，骑行30分钟</li>
+                            <li>日落前1小时出发，光线最柔和</li>
+                            <li>避坑：共享单车不能在廊道还车，找私人租车点</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="transport-card collapsed" onclick="toggleTransportCard(this)">
+                    <div class="attraction-title"><span>🚄</span> 交通：昆明→大理</div>
+                    <div class="transport-detail">
+                        <p><span class="info-label">🚄 高铁：</span>昆明站→大理站，约2h</p>
+                        <p><span class="info-label">🎫 票价：</span>约145元/人</p>
+                        <p><span class="info-label">🚌 接驳：</span>大理站→古城，景区直通车5元/人或打车约40元</p>
+                    </div>
+                </div>
+                <div style="text-align:center;padding:20px;color:var(--text-light);font-size:0.9em;">✨ Day2 结束 · 明天环洱海</div>
+            </div>
+        </section>
+
+        <!-- Day3 · 环洱海 -->
+        <section id="day3" class="section">
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-label">Day3</div>
+                    <div class="day-date">洱海环湖 · 白族风情 <span class="weather-widget" data-city="Dali"></span></div>
+                </div>
+                <div class="tips-box">
+                    <h4>⏰ 精确时间安排（环洱海日）</h4>
+                    <ul>
+                        <li>9:00 租车/包车出发</li>
+                        <li>9:30-11:00 喜洲古镇（白族建筑+喜洲粑粑）</li>
+                        <li>11:00-12:00 双廊古镇（观洱海最佳位置）</li>
+                        <li>12:00-13:30 双廊午餐</li>
+                        <li>13:30-15:00 挖色码头 + 小普陀（经典拍照点）</li>
+                        <li>15:00-16:30 理想邦（圣托里尼风）拍照</li>
+                        <li>晚上：古城自由活动</li>
+                    </ul>
+                </div>
+                <div class="quote">"苍山不墨千秋画，洱海无弦万古琴。"<div class="quote-author">—— 大理风物</div></div>
+
+                <div class="day-step-card expanded" onclick="toggleStepCard(this, event)">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <div class="step-title">喜洲古镇</div>
+                        <div class="step-time">⏱️ 约1.5小时</div>
+                        <div class="step-desc">看白族传统民居（严家民居、转角楼），吃现烤喜洲粑粑（推荐四方街酥香园），拍麦田</div>
+                    </div>
+                </div>
+                <div class="day-step-card" onclick="toggleStepCard(this, event)">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <div class="step-title">双廊古镇</div>
+                        <div class="step-time">⏱️ 约1.5小时</div>
+                        <div class="step-desc">海街咖啡馆看洱海，杨丽萍太阳宫（需预约），玉几岛观景台拍照</div>
+                    </div>
+                </div>
+                <div class="day-step-card" onclick="toggleStepCard(this, event)">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <div class="step-title">挖色码头+小普陀+理想邦</div>
+                        <div class="step-time">⏱️ 约2-3小时</div>
+                        <div class="step-desc">挖色码头拍海边礁石公路，小普陀远眺海中小岛，理想邦（圣托里尼风格）拍日落</div>
+                    </div>
+                </div>
+
+                <div class="day-image-placeholder">📸 喜洲古镇 · 转角楼</div>
+                <div class="attraction-card" onclick="toggleCard(this, event)">
+                    <div class="attraction-title"><span>🏘️</span> 喜洲古镇 <span class="checkin-btn" onclick="toggleCheckin(this, 'day3', '喜洲古镇')" data-key="checkin_day3_喜洲古镇">打卡</span></div>
+                    <div class="attraction-detail">
+                        <p><span class="info-label">📍 地址：</span>大理市喜洲镇 <span class="copy-btn" onclick="copyText('大理喜洲古镇', event)">📋</span><span class="map-btn" onclick="openMap('大理喜洲古镇')">🗺️ 导航</span></p>
+                        <p><span class="info-label">🎫 门票：</span>免费（严家民居30元）</p>
+                        <p><span class="info-label">⏱️ 建议游玩：</span>1.5-2小时</p>
+                        <p><span class="info-label">🗺️ 推荐路线：</span>正义门→四方街→转角楼→麦田→喜林苑</p>
+                        <p><span class="info-label">🍴 必吃：</span>酥香园喜洲粑粑（破酥/甜味）、清凉小屋冰棍</p>
+                    </div>
+                    <div class="old-tips">
+                        <h4>🔍 老玩家Tips</h4>
+                        <ul>
+                            <li>喜洲粑粑认准"酥香园"，现烤的破酥粑粑最好吃</li>
+                            <li>转角楼早上人少适合拍照，下午排队</li>
+                            <li>麦田秋冬收割了也能拍，黄褐色调别有味道</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="day-image-placeholder">📸 双廊 · 洱海观景台</div>
+                <div class="attraction-card" onclick="toggleCard(this, event)">
+                    <div class="attraction-title"><span>🌊</span> 双廊古镇 <span class="checkin-btn" onclick="toggleCheckin(this, 'day3', '双廊古镇')" data-key="checkin_day3_双廊古镇">打卡</span></div>
+                    <div class="attraction-detail">
+                        <p><span class="info-label">📍 地址：</span>大理市双廊镇 <span class="copy-btn" onclick="copyText('大理双廊古镇', event)">📋</span><span class="map-btn" onclick="openMap('大理双廊古镇')">🗺️ 导航</span></p>
+                        <p><span class="info-label">🎫 门票：</span>免费（太阳宫需消费/预约）</p>
+                        <p><span class="info-label">⏱️ 建议游玩：</span>1.5-2小时</p>
+                        <p><span class="info-label">📸 推荐：</span>海街咖啡厅、玉几岛观景台、杨丽萍太阳宫</p>
+                    </div>
+                    <div class="old-tips">
+                        <h4>🔍 老玩家Tips</h4>
+                        <ul>
+                            <li>双廊海街的咖啡馆都可以免费上去拍照</li>
+                            <li>太阳宫需要预约，没约到的话在门口拍也很好</li>
+                            <li>避坑：双廊停车贵，建议停镇外步行进入</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="day-image-placeholder">📸 理想邦 · 圣托里尼风</div>
+                <div class="attraction-card" onclick="toggleCard(this, event)">
+                    <div class="attraction-title"><span>🏛️</span> 理想邦（圣托里尼） <span class="checkin-btn" onclick="toggleCheckin(this, 'day3', '理想邦')" data-key="checkin_day3_理想邦">打卡</span></div>
+                    <div class="attraction-detail">
+                        <p><span class="info-label">📍 地址：</span>大理市环海东路 <span class="map-btn" onclick="openMap('大理理想邦')">🗺️ 导航</span></p>
+                        <p><span class="info-label">🎫 门票：</span>免费</p>
+                        <p><span class="info-label">⏱️ 建议游玩：</span>1-1.5小时</p>
+                        <p><span class="info-label">💡 特色：</span>蓝白色希腊风格建筑，拍照出片圣地，下午光线最佳</p>
+                    </div>
+                </div>
+                <div class="transport-card collapsed" onclick="toggleTransportCard(this)">
+                    <div class="attraction-title"><span>🚗</span> 交通：环洱海方式</div>
+                    <div class="transport-detail">
+                        <p><span class="info-label">🚲 租电驴：</span>约60-80元/天（环湖约120km，需换电）</p>
+                        <p><span class="info-label">🚗 包车：</span>约300-400元/天（多人推荐，省心）</p>
+                        <p><span class="info-label">🚌 环海巴士：</span>98元/人，随上随下</p>
+                        <p><span class="info-label">⚠️ 注意：</span>冬季风大，骑电驴注意防风保暖</p>
+                    </div>
+                </div>
+                <div style="text-align:center;padding:20px;color:var(--text-light);font-size:0.9em;">✨ Day3 结束 · 明天去苍山然后转场丽江</div>
+            </div>
+        </section>
+
+        <!-- Day4 · 大理→丽江 -->
+        <section id="day4" class="section">
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-label">Day4</div>
+                    <div class="day-date">苍山晨光 · 转场丽江 <span class="weather-widget" data-city="Dali"></span></div>
+                </div>
+                <div class="tips-box">
+                    <h4>⏰ 精确时间安排（转场日）</h4>
+                    <ul>
+                        <li>8:30-11:30 苍山感通索道（登高望洱海）</li>
+                        <li>12:00-13:00 大理古城午餐</li>
+                        <li>13:30-15:30 大理→丽江（高铁2h）</li>
+                        <li>16:00 丽江古城南门入住</li>
+                        <li>傍晚-晚上：丽江古城初探（大水车→四方街）</li>
+                    </ul>
+                </div>
+                <div class="quote">"苍山负雪，明烛天南。"<div class="quote-author">—— 姚鼐《登泰山记》</div></div>
+
+                <div class="day-step-card expanded" onclick="toggleStepCard(this, event)">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <div class="step-title">苍山感通索道</div>
+                        <div class="step-time">⏱️ 约2.5-3小时</div>
+                        <div class="step-desc">感通索道上山（约20min），到清碧溪、珍珑棋局，远眺洱海全景。冬季山顶可能有雪</div>
+                    </div>
+                </div>
+                <div class="day-step-card" onclick="toggleStepCard(this, event)">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <div class="step-title">大理→丽江高铁</div>
+                        <div class="step-time">⏱️ 约2小时</div>
+                        <div class="step-desc">大理站→丽江站，票价约80元/人。丽江站打车到古城南门约30元，或坐公交4路</div>
+                    </div>
+                </div>
+                <div class="day-step-card" onclick="toggleStepCard(this, event)">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <div class="step-title">丽江古城初探</div>
+                        <div class="step-time">⏱️ 约2小时</div>
+                        <div class="step-desc">从南门进→七一街→四方街→大水车，晚上灯笼亮起很美，找家腊排骨火锅吃晚餐</div>
+                    </div>
+                </div>
+
+                <div class="day-image-placeholder">📸 苍山 · 感通索道俯瞰洱海</div>
+                <div class="attraction-card" onclick="toggleCard(this, event)">
+                    <div class="attraction-title"><span>⛰️</span> 苍山（感通索道） <span class="checkin-btn" onclick="toggleCheckin(this, 'day4', '苍山')" data-key="checkin_day4_苍山">打卡</span></div>
+                    <div class="attraction-detail">
+                        <p><span class="info-label">📍 地址：</span>大理市苍山感通索道 <span class="copy-btn" onclick="copyText('大理苍山感通索道', event)">📋</span><span class="map-btn" onclick="openMap('大理苍山感通索道')">🗺️ 导航</span></p>
+                        <p><span class="info-label">⏰ 开放时间：</span>8:30-16:00（索道16:00停运）</p>
+                        <p><span class="info-label">🎫 门票：</span>苍山门票35元 + 感通索道往返110元 = 约145元/人</p>
+                        <p><span class="info-label">⏱️ 建议游玩：</span>2-3小时</p>
+                        <p><span class="info-label">🗺️ 推荐路线：</span>感通索道上山→清碧溪→珍珑棋局→苍山大峡谷→原路索道下山</p>
+                    </div>
+                    <div class="old-tips">
+                        <h4>🔍 老玩家Tips</h4>
+                        <ul>
+                            <li>冬天山顶冷，带件外套，索道上风大</li>
+                            <li>感通索道性价比最高，能看到洱海全景</li>
+                            <li>避坑：如果时间紧，推荐只坐感通索道，不用去洗马潭</li>
+                        </ul>
+                    </div>
+                    <div class="prepare-box">
+                        <h4>🎒 准备物品</h4>
+                        <ul><li>外套（山顶风大）</li><li>相机</li><li>墨镜</li></ul>
+                    </div>
+                </div>
+                <div class="day-image-placeholder">📸 丽江古城 · 夜晚大水车</div>
+                <div class="attraction-card" onclick="toggleCard(this, event)">
+                    <div class="attraction-title"><span>🏮</span> 丽江古城 <span class="checkin-btn" onclick="toggleCheckin(this, 'day4', '丽江古城')" data-key="checkin_day4_丽江古城">打卡</span></div>
+                    <div class="attraction-detail">
+                        <p><span class="info-label">📍 地址：</span>丽江市古城区 <span class="copy-btn" onclick="copyText('丽江古城', event)">📋</span><span class="map-btn" onclick="openMap('丽江古城')">🗺️ 导航</span></p>
+                        <p><span class="info-label">⏰ 开放时间：</span>全天</p>
+                        <p><span class="info-label">🎫 门票：</span>免费（需缴古城维护费50元，部分景点查验）</p>
+                        <p><span class="info-label">⏱️ 建议游玩：</span>2-3天</p>
+                    </div>
+                    <div class="old-tips">
+                        <h4>🔍 老玩家Tips</h4>
+                        <ul>
+                            <li>古城石板路拖行李箱很痛苦，建议住南门附近</li>
+                            <li>晚上四方街有纳西族打跳，可以一起参与</li>
+                            <li>避坑：酒吧街的酒水贵，想听民谣去五一街</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="transport-card collapsed" onclick="toggleTransportCard(this)">
+                    <div class="attraction-title"><span>🚄</span> 交通：大理→丽江</div>
+                    <div class="transport-detail">
+                        <p><span class="info-label">🚄 高铁：</span>大理站→丽江站，约2h，80元/人</p>
+                        <p><span class="info-label">🚌 接驳：</span>丽江站→古城南门，公交4路/18路约1元，打车约30元</p>
+                    </div>
+                </div>
+                <div style="text-align:center;padding:20px;color:var(--text-light);font-size:0.9em;">✨ Day4 结束 · 明天深度逛丽江古城</div>
+            </div>
+        </section>
+
+        <!-- Day5 · 丽江古城 -->
+        <section id="day5" class="section">
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-label">Day5</div>
+                    <div class="day-date">古城漫步 · 纳西韵味 <span class="weather-widget" data-city="Lijiang"></span></div>
+                </div>
+                <div class="tips-box">
+                    <h4>⏰ 精确时间安排（古城日）</h4>
+                    <ul>
+                        <li>9:00 自然醒</li>
+                        <li>10:30-12:00 忠义市场（本地菜市场逛吃）</li>
+                        <li>12:00-14:00 木府（丽江的紫禁城）</li>
+                        <li>14:00-15:30 狮子山万古楼（古城全景）</li>
+                        <li>15:30-17:30 现文巷油纸伞街→五一街→大水车</li>
+                        <li>晚上：古城民谣酒吧/私房菜</li>
+                    </ul>
+                </div>
+                <div class="quote">"高原姑苏，东方威尼斯。"<div class="quote-author">—— 丽江古城美誉</div></div>
+
+                <div class="day-step-card expanded" onclick="toggleStepCard(this, event)">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <div class="step-title">忠义市场</div>
+                        <div class="step-time">⏱️ 约1-1.5小时</div>
+                        <div class="step-desc">丽江最local的菜市场，吃本地早餐（鸡豆凉粉、米线），买便宜水果（草莓、沃柑）</div>
+                    </div>
+                </div>
+                <div class="day-step-card" onclick="toggleStepCard(this, event)">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <div class="step-title">木府</div>
+                        <div class="step-time">⏱️ 约1.5-2小时</div>
+                        <div class="step-desc">"北有故宫，南有木府"，纳西族土司府邸，登后山可看古城全景</div>
+                    </div>
+                </div>
+                <div class="day-step-card" onclick="toggleStepCard(this, event)">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <div class="step-title">狮子山+万古楼</div>
+                        <div class="step-time">⏱️ 约1.5小时</div>
+                        <div class="step-desc">登万古楼俯瞰丽江古城全景+玉龙雪山背景，最佳拍照机位</div>
+                    </div>
+                </div>
+                <div class="day-step-card" onclick="toggleStepCard(this, event)">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <div class="step-title">现文巷+五一街</div>
+                        <div class="step-time">⏱️ 约2小时</div>
+                        <div class="step-desc">现文巷油纸伞街拍照，五一街逛手作店，找一家私房菜吃晚餐</div>
+                    </div>
+                </div>
+
+                <div class="day-image-placeholder">📸 木府 · 丽江紫禁城</div>
+                <div class="attraction-card" onclick="toggleCard(this, event)">
+                    <div class="attraction-title"><span>🏛️</span> 木府 <span class="checkin-btn" onclick="toggleCheckin(this, 'day5', '木府')" data-key="checkin_day5_木府">打卡</span></div>
+                    <div class="attraction-detail">
+                        <p><span class="info-label">📍 地址：</span>丽江市古城区光义街官院巷 <span class="copy-btn" onclick="copyText('丽江木府', event)">📋</span><span class="map-btn" onclick="openMap('丽江木府')">🗺️ 导航</span></p>
+                        <p><span class="info-label">⏰ 开放时间：</span>8:30-17:30</p>
+                        <p><span class="info-label">🎫 门票：</span>40元/人（学生证半价）</p>
+                        <p><span class="info-label">⏱️ 建议游玩：</span>1.5-2小时</p>
+                        <p><span class="info-label">🗺️ 推荐路线：</span>议事厅→万卷楼→护法殿→光碧楼→玉花园→三清殿（登高看全景）</p>
+                    </div>
+                    <div class="old-tips">
+                        <h4>🔍 老玩家Tips</h4>
+                        <ul>
+                            <li>木府后山三清殿是拍古城全景+雪山的最佳位置</li>
+                            <li>免费讲解跟着听，了解纳西族历史很有意思</li>
+                            <li>避坑：门口拉客的"低价票"别信，直接去窗口买</li>
+                        </ul>
+                    </div>
+                    <div class="prepare-box">
+                        <h4>🎒 准备物品</h4>
+                        <ul><li>学生证（有的话）</li><li>相机</li><li>水瓶</li></ul>
+                    </div>
+                </div>
+                <div class="day-image-placeholder">📸 狮子山万古楼 · 古城全景</div>
+                <div class="attraction-card" onclick="toggleCard(this, event)">
+                    <div class="attraction-title"><span>🏯</span> 狮子山·万古楼 <span class="checkin-btn" onclick="toggleCheckin(this, 'day5', '狮子山')" data-key="checkin_day5_狮子山">打卡</span></div>
+                    <div class="attraction-detail">
+                        <p><span class="info-label">📍 地址：</span>丽江市古城区狮子山 <span class="map-btn" onclick="openMap('丽江狮子山万古楼')">🗺️ 导航</span></p>
+                        <p><span class="info-label">⏰ 开放时间：</span>8:00-19:00</p>
+                        <p><span class="info-label">🎫 门票：</span>万古楼35元/人</p>
+                        <p><span class="info-label">⏱️ 建议游玩：</span>1-1.5小时</p>
+                        <p><span class="info-label">💡 推荐：</span>日落前1小时上山，拍古城+玉龙雪山同框</p>
+                    </div>
+                </div>
+                <div class="day-image-placeholder">📸 现文巷 · 油纸伞街</div>
+                <div class="attraction-card" onclick="toggleCard(this, event)">
+                    <div class="attraction-title"><span>☂️</span> 现文巷油纸伞街 <span class="checkin-btn" onclick="toggleCheckin(this, 'day5', '油纸伞街')" data-key="checkin_day5_油纸伞街">打卡</span></div>
+                    <div class="attraction-detail">
+                        <p><span class="info-label">📍 地址：</span>丽江市古城区现文巷 <span class="map-btn" onclick="openMap('丽江现文巷')">🗺️ 导航</span></p>
+                        <p><span class="info-label">🎫 门票：</span>免费</p>
+                        <p><span class="info-label">📸 特色：</span>满巷油纸伞悬挂，拍照极为出片，建议清晨或傍晚人少时去</p>
+                    </div>
+                </div>
+                <div style="text-align:center;padding:20px;color:var(--text-light);font-size:0.9em;">✨ Day5 结束 · 明天奔赴泸沽湖</div>
+            </div>
+        </section>
+
+        <!-- Day6 · 泸沽湖 -->
+        <section id="day6" class="section">
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-label">Day6</div>
+                    <div class="day-date">奔赴泸沽 · 女儿国秘境 <span class="weather-widget" data-city="Ninglang"></span></div>
+                </div>
+                <div class="tips-box">
+                    <h4>⏰ 精确时间安排（泸沽湖日）</h4>
+                    <ul>
+                        <li>8:00-12:00 丽江→泸沽湖（4h山路，备晕车药）</li>
+                        <li>12:00-13:00 大落水村入住+午餐</li>
+                        <li>13:00-14:30 泸沽湖观景台→里格半岛</li>
+                        <li>14:30-16:00 走婚桥+草海</li>
+                        <li>16:00-17:30 猪槽船游湖（王妃岛/亲爱的客栈）</li>
+                        <li>晚上：摩梭篝火晚会（30元/人）</li>
+                    </ul>
+                </div>
+                <div class="quote">"泸沽湖的水，是摩梭人的眼泪。"<div class="quote-author">—— 摩梭传说</div></div>
+
+                <div class="day-step-card expanded" onclick="toggleStepCard(this, event)">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <div class="step-title">丽江→泸沽湖</div>
+                        <div class="step-time">⏱️ 约4小时</div>
+                        <div class="step-desc">丽江客运站大巴到泸沽湖大落水村（98元/人），山路十八弯，务必备晕车药</div>
+                    </div>
+                </div>
+                <div class="day-step-card" onclick="toggleStepCard(this, event)">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <div class="step-title">里格半岛+观景台</div>
+                        <div class="step-time">⏱️ 约1.5小时</div>
+                        <div class="step-desc">泸沽湖观景台拍全景（经典心形湖湾），下到里格半岛湖边漫步</div>
+                    </div>
+                </div>
+                <div class="day-step-card" onclick="toggleStepCard(this, event)">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <div class="step-title">走婚桥+草海</div>
+                        <div class="step-time">⏱️ 约1.5小时</div>
+                        <div class="step-desc">走婚桥（摩梭人约会地）漫步，冬季草海金黄一片很出片</div>
+                    </div>
+                </div>
+                <div class="day-step-card" onclick="toggleStepCard(this, event)">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <div class="step-title">猪槽船游湖+篝火晚会</div>
+                        <div class="step-time">⏱️ 约2-3小时</div>
+                        <div class="step-desc">猪槽船游湖看王妃岛/亲爱的客栈拍摄地（约50-100元/人），晚上参加摩梭篝火晚会</div>
+                    </div>
+                </div>
+
+                <div class="day-image-placeholder">📸 泸沽湖 · 里格半岛全景</div>
+                <div class="attraction-card" onclick="toggleCard(this, event)">
+                    <div class="attraction-title"><span>🌅</span> 泸沽湖 <span class="checkin-btn" onclick="toggleCheckin(this, 'day6', '泸沽湖')" data-key="checkin_day6_泸沽湖">打卡</span></div>
+                    <div class="attraction-detail">
+                        <p><span class="info-label">📍 地址：</span>云南省丽江市宁蒗县 <span class="copy-btn" onclick="copyText('泸沽湖景区', event)">📋</span><span class="map-btn" onclick="openMap('泸沽湖')">🗺️ 导航</span></p>
+                        <p><span class="info-label">⏰ 开放时间：</span>全天</p>
+                        <p><span class="info-label">🎫 门票：</span>70元/人</p>
+                        <p><span class="info-label">⏱️ 建议游玩：</span>2天</p>
+                        <p><span class="info-label">🗺️ 推荐环湖路线：</span>大落水→里格半岛→尼赛村→小落水→女神湾→走婚桥→草海→大落水</p>
+                    </div>
+                    <div class="old-tips">
+                        <h4>🔍 老玩家Tips</h4>
+                        <ul>
+                            <li>猪槽船推荐傍晚去，湖面静谧，光线柔和</li>
+                            <li>篝火晚会30元/人，可以跟摩梭人一起跳舞</li>
+                            <li>避坑：环湖包车约200-300元/车，别被高价宰</li>
+                        </ul>
+                    </div>
+                    <div class="prepare-box">
+                        <h4>🎒 准备物品</h4>
+                        <ul><li>晕车药（必备！）</li><li>厚外套（湖边风大）</li><li>相机</li><li>充电宝</li></ul>
+                    </div>
+                </div>
+                <div class="day-image-placeholder">📸 走婚桥 · 草海</div>
+                <div class="attraction-card" onclick="toggleCard(this, event)">
+                    <div class="attraction-title"><span>🌉</span> 走婚桥·草海 <span class="checkin-btn" onclick="toggleCheckin(this, 'day6', '走婚桥')" data-key="checkin_day6_走婚桥">打卡</span></div>
+                    <div class="attraction-detail">
+                        <p><span class="info-label">📍 地址：</span>泸沽湖草海 <span class="map-btn" onclick="openMap('泸沽湖走婚桥')">🗺️ 导航</span></p>
+                        <p><span class="info-label">🎫 门票：</span>免费（包含在泸沽湖门票内）</p>
+                        <p><span class="info-label">⏱️ 建议游玩：</span>40分钟-1小时</p>
+                        <p><span class="info-label">💡 特色：</span>摩梭人走婚风俗的象征，冬季金黄草海+蓝天很出片</p>
+                    </div>
+                </div>
+                <div class="transport-card collapsed" onclick="toggleTransportCard(this)">
+                    <div class="attraction-title"><span>🚗</span> 交通：丽江→泸沽湖</div>
+                    <div class="transport-detail">
+                        <p><span class="info-label">🚌 大巴：</span>丽江客运站→大落水村，约98元/人，4h</p>
+                        <p><span class="info-label">🚗 包车：</span>约500-600元/车（多人划算）</p>
+                        <p><span class="info-label">⚠️ 备晕车药：</span>山路十八弯，晕车药必备</p>
+                        <p><span class="info-label">🛵 环湖：</span>电驴约80元/天，包车约200-300元/车</p>
+                    </div>
+                </div>
+                <div style="text-align:center;padding:20px;color:var(--text-light);font-size:0.9em;">✨ Day6 结束 · 明早看泸沽湖日出</div>
+            </div>
+        </section>
+
+        <!-- Day7 · 泸沽湖→丽江 -->
+        <section id="day7" class="section">
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-label">Day7</div>
+                    <div class="day-date">泸沽晨曦 · 返回丽江 <span class="weather-widget" data-city="Lijiang"></span></div>
+                </div>
+                <div class="tips-box">
+                    <h4>⏰ 精确时间安排</h4>
+                    <ul>
+                        <li>6:30-8:00 泸沽湖看日出（里格观景台）</li>
+                        <li>8:00-9:00 早餐+退房</li>
+                        <li>9:00-13:00 泸沽湖→丽江（4h）</li>
+                        <li>13:00-14:00 入住束河古镇</li>
+                        <li>14:00-17:30 束河古镇漫游</li>
+                        <li>晚上：束河安静晚餐，早休息</li>
+                    </ul>
+                </div>
+                <div class="quote">"束河古镇，比大研多一份宁静，比白沙多一份烟火。"<div class="quote-author">—— 丽江旅人</div></div>
+
+                <div class="day-step-card expanded" onclick="toggleStepCard(this, event)">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <div class="step-title">泸沽湖日出</div>
+                        <div class="step-time">⏱️ 6:30-8:00</div>
+                        <div class="step-desc">里格观景台看日出最佳，晨雾中的湖面宛如仙境，拍完回客栈吃早餐退房</div>
+                    </div>
+                </div>
+                <div class="day-step-card" onclick="toggleStepCard(this, event)">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <div class="step-title">返回丽江</div>
+                        <div class="step-time">⏱️ 约4小时</div>
+                        <div class="step-desc">大落水村坐大巴回丽江（98元/人），同样山路记得备晕车药</div>
+                    </div>
+                </div>
+                <div class="day-step-card" onclick="toggleStepCard(this, event)">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <div class="step-title">束河古镇漫游</div>
+                        <div class="step-time">⏱️ 约3小时</div>
+                        <div class="step-desc">从南门进→青龙桥→四方街听音广场→九鼎龙潭→三眼井，找家咖啡馆发呆</div>
+                    </div>
+                </div>
+
+                <div class="day-image-placeholder">📸 泸沽湖日出 · 晨雾</div>
+                <div class="attraction-card" onclick="toggleCard(this, event)">
+                    <div class="attraction-title"><span>🌅</span> 泸沽湖日出 <span class="checkin-btn" onclick="toggleCheckin(this, 'day7', '泸沽湖日出')" data-key="checkin_day7_泸沽湖日出">打卡</span></div>
+                    <div class="attraction-detail">
+                        <p><span class="info-label">📍 最佳观景点：</span>里格观景台、大落水码头 <span class="map-btn" onclick="openMap('泸沽湖里格观景台')">🗺️ 导航</span></p>
+                        <p><span class="info-label">⏰ 日出时间：</span>冬季约7:30-8:00</p>
+                        <p><span class="info-label">💡 建议：</span>提前10分钟到，晨雾+日出+湖面倒影是绝景</p>
+                    </div>
+                    <div class="old-tips">
+                        <h4>🔍 老玩家Tips</h4>
+                        <ul>
+                            <li>看完日出可以在湖边喂海鸥（冬季有红嘴鸥）</li>
+                            <li>带好三脚架，日出湖面倒影很出片</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="day-image-placeholder">📸 束河古镇 · 青龙桥</div>
+                <div class="attraction-card" onclick="toggleCard(this, event)">
+                    <div class="attraction-title"><span>🏘️</span> 束河古镇 <span class="checkin-btn" onclick="toggleCheckin(this, 'day7', '束河古镇')" data-key="checkin_day7_束河古镇">打卡</span></div>
+                    <div class="attraction-detail">
+                        <p><span class="info-label">📍 地址：</span>丽江市束河古镇 <span class="copy-btn" onclick="copyText('丽江束河古镇', event)">📋</span><span class="map-btn" onclick="openMap('束河古镇')">🗺️ 导航</span></p>
+                        <p><span class="info-label">🎫 门票：</span>免费（偶尔查验古城维护费）</p>
+                        <p><span class="info-label">⏱️ 建议游玩：</span>2-3小时</p>
+                        <p><span class="info-label">🗺️ 推荐路线：</span>南门→青龙桥→四方街→九鼎龙潭→三眼井→飞花触水</p>
+                        <p><span class="info-label">🍴 推荐美食：</span>包浆豆腐、纳西烤鱼、玫瑰黑糖</p>
+                    </div>
+                    <div class="old-tips">
+                        <h4>🔍 老玩家Tips</h4>
+                        <ul>
+                            <li>束河比大研古城安静，青龙桥一带最适合放空</li>
+                            <li>九鼎龙潭的水清澈见底，可以看到鱼儿</li>
+                            <li>避坑：束河吃饭比大研便宜，推荐在束河解决晚餐</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="text-align:center;padding:20px;color:var(--text-light);font-size:0.9em;">✨ Day7 结束 · 明天挑战玉龙雪山</div>
+            </div>
+        </section>
+
+        <!-- Day8 · 玉龙雪山 -->
+        <section id="day8" class="section">
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-label">Day8</div>
+                    <div class="day-date">玉龙雪山 · 冰川挑战 <span class="weather-widget" data-city="Lijiang"></span></div>
+                </div>
+                <div class="tips-box">
+                    <h4>⏰ 精确时间安排（雪山日 ⚠️ 需抢票）</h4>
+                    <ul>
+                        <li>6:00 出发（打车到游客中心）</li>
+                        <li>7:30-10:30 冰川公园大索道（4506m→4680m登顶）</li>
+                        <li>10:30-12:00 下山+午餐</li>
+                        <li>12:00-14:30 蓝月谷（绝美蓝色湖面）</li>
+                        <li>14:30-16:00 云杉坪/甘海子</li>
+                        <li>晚上：丽江菌子火锅犒劳自己</li>
+                    </ul>
+                </div>
+                <div class="quote">"玉龙雪山，纳西族的神山。"<div class="quote-author">—— 纳西传说</div></div>
+
+                <div class="day-step-card expanded" onclick="toggleStepCard(this, event)">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <div class="step-title">出发+大索道上山</div>
+                        <div class="step-time">⏱️ 6:00-10:30</div>
+                        <div class="step-desc">打车到玉龙雪山游客中心（约40min），坐大索道到4506m，步行登4680m，全程约2.5h</div>
+                    </div>
+                </div>
+                <div class="day-step-card" onclick="toggleStepCard(this, event)">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <div class="step-title">蓝月谷</div>
+                        <div class="step-time">⏱️ 约2-2.5小时</div>
+                        <div class="step-desc">坐景区大巴到蓝月谷，看白水台、镜潭湖，玉龙雪山倒映在蓝色湖面上</div>
+                    </div>
+                </div>
+                <div class="day-step-card" onclick="toggleStepCard(this, event)">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <div class="step-title">云杉坪/甘海子+返程</div>
+                        <div class="step-time">⏱️ 约1.5小时</div>
+                        <div class="step-desc">云杉坪（小索道）或甘海子草甸拍照，下午坐景区大巴返回游客中心</div>
+                    </div>
+                </div>
+
+                <div class="day-image-placeholder">📸 玉龙雪山 · 4680m打卡</div>
+                <div class="attraction-card" onclick="toggleCard(this, event)">
+                    <div class="attraction-title"><span>🏔️</span> 玉龙雪山 <span class="warning-tag">需抢票</span> <span class="checkin-btn" onclick="toggleCheckin(this, 'day8', '玉龙雪山')" data-key="checkin_day8_玉龙雪山">打卡</span></div>
+                    <div class="attraction-detail">
+                        <p><span class="info-label">📍 地址：</span>丽江市玉龙县 <span class="copy-btn" onclick="copyText('玉龙雪山景区', event)">📋</span><span class="map-btn" onclick="openMap('玉龙雪山')">🗺️ 导航</span></p>
+                        <p><span class="info-label">⏰ 开放时间：</span>7:00-17:00（大索道按票面时间）</p>
+                        <p><span class="info-label">🎫 门票：</span>进山费100元 + 大索道140元 = 240元/人</p>
+                        <p><span class="info-label">⏱️ 建议游玩：</span>6-8小时</p>
+                        <p><span class="info-label">⚠️ 抢票：</span>提前3天晚8点在"丽江旅游集团"小程序抢大索道票</p>
+                        <p><span class="info-label">📦 景区内交通：</span>景区大巴20元/人（含在进山费内）</p>
+                    </div>
+                    <div class="old-tips">
+                        <h4>🔍 老玩家Tips</h4>
+                        <ul>
+                            <li>大索道票提前3天晚8点准时抢，周末更难抢</li>
+                            <li>氧气瓶山下买20元，山上60元，提前备好</li>
+                            <li>4680m可能有高反，走慢点别跑跳</li>
+                            <li>最佳拍照点：4506m平台拍冰川全景</li>
+                        </ul>
+                    </div>
+                    <div class="prepare-box">
+                        <h4>🎒 准备物品</h4>
+                        <ul><li>羽绒服/冲锋衣</li><li>氧气瓶（山下买20元）</li><li>巧克力/能量棒</li><li>墨镜（雪地反光）</li></ul>
+                    </div>
+                </div>
+                <div class="day-image-placeholder">📸 蓝月谷 · 玉龙倒影</div>
+                <div class="attraction-card" onclick="toggleCard(this, event)">
+                    <div class="attraction-title"><span>💎</span> 蓝月谷 <span class="checkin-btn" onclick="toggleCheckin(this, 'day8', '蓝月谷')" data-key="checkin_day8_蓝月谷">打卡</span></div>
+                    <div class="attraction-detail">
+                        <p><span class="info-label">📍 地址：</span>玉龙雪山景区内 <span class="map-btn" onclick="openMap('蓝月谷')">🗺️ 导航</span></p>
+                        <p><span class="info-label">🎫 门票：</span>免费（含在景区内）</p>
+                        <p><span class="info-label">⏱️ 建议游玩：</span>1.5-2小时</p>
+                        <p><span class="info-label">🗺️ 推荐路线：</span>大巴到蓝月谷站→白水台→镜潭湖→听涛湖</p>
+                        <p><span class="info-label">💡 特色：</span>蓝色湖面+玉龙雪山倒影，是丽江最出片的地方</p>
+                    </div>
+                    <div class="old-tips">
+                        <h4>🔍 老玩家Tips</h4>
+                        <ul>
+                            <li>中午到下午光线最好，湖面呈现蒂芙尼蓝</li>
+                            <li>白水台可以下水拍照，水很凉注意安全</li>
+                            <li>避坑：景区电瓶车50元没必要，步行即可</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="text-align:center;padding:20px;color:var(--text-light);font-size:0.9em;">✨ Day8 结束 · 明天白沙古镇休整</div>
+            </div>
+        </section>
+
+        <!-- Day9 · 白沙 -->
+        <section id="day9" class="section">
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-label">Day9</div>
+                    <div class="day-date">白沙古镇 · 慢时光 <span class="weather-widget" data-city="Lijiang"></span></div>
+                </div>
+                <div class="tips-box">
+                    <h4>⏰ 精确时间安排（休整日）</h4>
+                    <ul>
+                        <li>9:00 自然醒，束河/白沙附近慢悠悠</li>
+                        <li>11:00-15:00 白沙古镇（雪山背景+扎染体验）</li>
+                        <li>15:00-17:00 买伴手礼（鲜花饼、咖啡、扎染）</li>
+                        <li>晚上：团队聚餐（告别晚餐）</li>
+                    </ul>
+                </div>
+                <div class="quote">"白沙壁画，纳西文化的千年回响。"<div class="quote-author">—— 丽江文化</div></div>
+
+                <div class="day-step-card expanded" onclick="toggleStepCard(this, event)">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <div class="step-title">白沙古镇</div>
+                        <div class="step-time">⏱️ 约3-4小时</div>
+                        <div class="step-desc">白沙古镇是丽江最原始的古镇，抬头就能看到玉龙雪山。逛白沙壁画、体验扎染、喝咖啡</div>
+                    </div>
+                </div>
+                <div class="day-step-card" onclick="toggleStepCard(this, event)">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <div class="step-title">买伴手礼</div>
+                        <div class="step-time">⏱️ 约2小时</div>
+                        <div class="step-desc">鲜花饼（嘉华现烤）、云南小粒咖啡、扎染布艺、东巴纸制品</div>
+                    </div>
+                </div>
+                <div class="day-step-card" onclick="toggleStepCard(this, event)">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <div class="step-title">告别晚餐</div>
+                        <div class="step-time">⏱️ 晚上</div>
+                        <div class="step-desc">团队聚餐，推荐丽江腊排骨火锅或野生菌火锅，聊旅途中的趣事</div>
+                    </div>
+                </div>
+
+                <div class="day-image-placeholder">📸 白沙古镇 · 雪山背景</div>
+                <div class="attraction-card" onclick="toggleCard(this, event)">
+                    <div class="attraction-title"><span>🏘️</span> 白沙古镇 <span class="checkin-btn" onclick="toggleCheckin(this, 'day9', '白沙古镇')" data-key="checkin_day9_白沙古镇">打卡</span></div>
+                    <div class="attraction-detail">
+                        <p><span class="info-label">📍 地址：</span>丽江市玉龙县白沙镇 <span class="copy-btn" onclick="copyText('丽江白沙古镇', event)">📋</span><span class="map-btn" onclick="openMap('白沙古镇')">🗺️ 导航</span></p>
+                        <p><span class="info-label">🎫 门票：</span>免费（白沙壁画30元）</p>
+                        <p><span class="info-label">⏱️ 建议游玩：</span>2-3小时</p>
+                        <p><span class="info-label">💡 特色：</span>抬头见雪山，丽江最原始的古镇。推荐体验扎染（约50-80元）</p>
+                        <p><span class="info-label">🍴 必吃：</span>白沙酥油茶、纳西杂锅菜、玫瑰馒头</p>
+                    </div>
+                    <div class="old-tips">
+                        <h4>🔍 老玩家Tips</h4>
+                        <ul>
+                            <li>白沙抬头就能看到玉龙雪山，比大研古城视野更好</li>
+                            <li>扎染体验约50-80元/人，自己染一条围巾做纪念</li>
+                            <li>避坑：白沙的银饰也慎买，和古城一样乱</li>
+                        </ul>
+                    </div>
+                    <div class="prepare-box">
+                        <h4>🎒 准备物品</h4>
+                        <ul><li>钱包</li><li>行李箱空间（装伴手礼）</li></ul>
+                    </div>
+                </div>
+                <div class="day-image-placeholder">📸 伴手礼 · 鲜花饼/扎染</div>
+                <div style="text-align:center;padding:20px;color:var(--text-light);font-size:0.9em;">✨ Day9 结束 · 明天回家啦</div>
+            </div>
+        </section>
+
+        <!-- Day10 · 返程 -->
+        <section id="day10" class="section">
+            <div class="day-card">
+                <div class="day-header">
+                    <div class="day-label">Day10</div>
+                    <div class="day-date">告别云南 · 满载而归 <span class="weather-widget" data-city="Lijiang"></span></div>
+                </div>
+                <div class="tips-box">
+                    <h4>⏰ 精确时间安排（返程日）</h4>
+                    <ul>
+                        <li>8:00 起床、收拾行李</li>
+                        <li>9:00 早餐+最后逛古城/束河</li>
+                        <li>10:30 退房出发</li>
+                        <li>丽江三义机场/丽江站→各自返程</li>
+                    </ul>
+                </div>
+                <div class="quote">"云南不是一种风景，而是一种心情。"<div class="quote-author">—— 旅行的意义</div></div>
+
+                <div class="day-step-card expanded" onclick="toggleStepCard(this, event)">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <div class="step-title">退房、返程</div>
+                        <div class="step-time">⏱️ 10:00-12:00</div>
+                        <div class="step-desc">退房后根据各自航班/高铁时间前往丽江三义机场或丽江站。机场距古城约30km，打车约40min</div>
+                    </div>
+                </div>
+
+                <div class="day-image-placeholder">📸 云南·再见 · 10天9晚的晴空</div>
+                <div class="transport-card collapsed" onclick="toggleTransportCard(this)">
+                    <div class="attraction-title"><span>🚗</span> 返程交通</div>
+                    <div class="transport-detail">
+                        <p><span class="info-label">✈️ 丽江三义机场：</span>古城南门打车约40min，约80-100元</p>
+                        <p><span class="info-label">🚄 丽江站：</span>古城南门打车约20min，约30元</p>
+                        <p><span class="info-label">🚌 机场大巴：</span>古城口→机场，约20元/人</p>
+                    </div>
+                </div>
+                <div style="text-align:center;padding:20px;color:var(--text-light);font-size:0.9em;">✨ 云南之旅 · 10天9晚 · 完美收官</div>
+            </div>
+        </section>
+
+        <!-- 公共板块：吃喝逛 -->
+        <section id="food" class="section">
+            <div class="public-section">
+                <h2 class="public-title">🍜 吃喝逛 · 云南漫游指南</h2>
+                <div class="public-card">
+                    <h4>昆明必吃</h4>
+                    <ul>
+                        <li>🍜 小锅米线 / 过桥米线（端仕小锅）</li>
+                        <li>🍲 汽锅鸡（福照楼）</li>
+                        <li>🌮 烧饵块 / 饵丝（路边摊）</li>
+                        <li>🌸 鲜花饼（嘉华现烤3.5元/个）</li>
+                        <li>🥟 破酥包（老字号）</li>
+                        <li>🍺 云南啤酒（风花雪月、大理V8）</li>
+                    </ul>
+                </div>
+                <div class="public-card">
+                    <h4>大理必吃</h4>
+                    <ul>
+                        <li>🐟 酸辣鱼（洱海鱼，古城很多店）</li>
+                        <li>🥞 喜洲粑粑（酥香园，四方街）</li>
+                        <li>🧀 乳扇（烤/炸，杨记乳扇）</li>
+                        <li>🍲 大理生皮（勇敢者尝试）</li>
+                        <li>🍚 凉鸡米线（再回首）</li>
+                        <li>🍺 大理啤酒 + 梅子酒</li>
+                    </ul>
+                </div>
+                <div class="public-card">
+                    <h4>丽江必吃</h4>
+                    <ul>
+                        <li>🍖 腊排骨火锅（象山市场）</li>
+                        <li>🍄 野生菌火锅（雨季推荐）</li>
+                        <li>🐟 纳西烤鱼</li>
+                        <li>🧊 鸡豆凉粉（忠义市场）</li>
+                        <li>🥟 丽江粑粑（酥油茶搭配）</li>
+                        <li>☕ 云南小粒咖啡（束河咖啡馆）</li>
+                    </ul>
+                </div>
+                <div class="public-card">
+                    <h4>🎁 伴手礼推荐</h4>
+                    <ul>
+                        <li>🌸 鲜花饼（嘉华、潘祥记，现烤最好吃）</li>
+                        <li>☕ 云南小粒咖啡豆/挂耳</li>
+                        <li>🎨 扎染布艺（大理周城/喜洲）</li>
+                        <li>📜 东巴纸制品（丽江，很有特色）</li>
+                        <li>🍵 普洱茶饼</li>
+                        <li>🌶️ 云南辣椒酱/菌菇酱</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 公共板块：住宿 -->
+        <section id="hotel" class="section">
+            <div class="public-section">
+                <h2 class="public-title">🏨 住宿安排</h2>
+                <div class="public-card"><h4>昆明（Day1）</h4><p><span class="info-label">📍 推荐：</span>翠湖公园 / 昆明站附近</p><p><span class="info-label">🏨 状态：</span><span class="booking-status pending" onclick="toggleBookingStatus(this)">🔴 待预订</span></p></div>
+                <div class="public-card"><h4>大理（Day2-Day3）</h4><p><span class="info-label">📍 推荐：</span>大理古城南门 / 才村洱海边</p><p><span class="info-label">🏨 状态：</span><span class="booking-status pending" onclick="toggleBookingStatus(this)">🔴 待预订</span></p></div>
+                <div class="public-card"><h4>丽江（Day4-Day9）</h4><p><span class="info-label">📍 推荐：</span>丽江古城南门 / 束河古镇</p><p><span class="info-label">🏨 状态：</span><span class="booking-status pending" onclick="toggleBookingStatus(this)">🔴 待预订</span></p></div>
+                <div class="public-card"><h4>泸沽湖（Day6）</h4><p><span class="info-label">📍 推荐：</span>大落水村 / 里格半岛</p><p><span class="info-label">🏨 状态：</span><span class="booking-status pending" onclick="toggleBookingStatus(this)">🔴 待预订</span></p></div>
+            </div>
+        </section>
+
+        <!-- 公共板块：行李清单 -->
+        <section id="luggage" class="section">
+            <div class="public-section">
+                <h2 class="public-title">🎒 行李清单</h2>
+                <div class="category-btns">
+                    <button class="category-btn active" onclick="showCategory('all')">全部</button>
+                    <button class="category-btn" onclick="showCategory('doc')">📄 证件类</button>
+                    <button class="category-btn" onclick="showCategory('city')">🏙️ 城市出行</button>
+                    <button class="category-btn" onclick="showCategory('mountain')">⛰️ 雪山装备</button>
+                </div>
+                <div id="category-all" class="category-list active">
+                    <div class="public-card"><h4>📄 证件类</h4><ul class="checklist"><li><input type="checkbox"> 身份证</li><li><input type="checkbox"> 学生证（门票半价）</li><li><input type="checkbox"> 银行卡+少量现金</li></ul></div>
+                    <div class="public-card"><h4>👕 衣物类</h4><ul class="checklist"><li><input type="checkbox"> 舒适平底鞋（古城石板路必备）</li><li><input type="checkbox"> 薄外套/卫衣（早晚温差大）</li><li><input type="checkbox"> 羽绒服/冲锋衣（雪山用）</li><li><input type="checkbox"> 防晒衣/帽子+墨镜</li></ul></div>
+                    <div class="public-card"><h4>📱 电子设备</h4><ul class="checklist"><li><input type="checkbox"> 手机+充电宝+数据线</li><li><input type="checkbox"> 相机+备用电池</li><li><input type="checkbox"> 耳机/充电器</li></ul></div>
+                    <div class="public-card"><h4>💊 日用品/药品</h4><ul class="checklist"><li><input type="checkbox"> 防晒霜（高原紫外线强）</li><li><input type="checkbox"> 晕车药（泸沽湖山路必备）</li><li><input type="checkbox"> 氧气瓶（山下买20元）</li><li><input type="checkbox"> 保温杯（天冷喝热水）</li><li><input type="checkbox"> 暖宝宝（雪山用）</li></ul></div>
+                    <div class="public-card"><h4>💄 个人护理</h4><ul class="checklist"><li><input type="checkbox"> 润唇膏（高原干燥）</li><li><input type="checkbox"> 护手霜</li><li><input type="checkbox"> 面膜（补水必备）</li><li><input type="checkbox"> 湿纸巾</li></ul></div>
+                </div>
+                <div id="category-doc" class="category-list"><div class="public-card"><h4>证件</h4><ul class="checklist"><li><input type="checkbox"> 身份证</li><li><input type="checkbox"> 学生证</li><li><input type="checkbox"> 银行卡+现金</li></ul></div></div>
+                <div id="category-city" class="category-list"><div class="public-card"><h4>城市出行</h4><ul class="checklist"><li><input type="checkbox"> 舒适平底鞋</li><li><input type="checkbox"> 防晒霜+帽子+墨镜</li><li><input type="checkbox"> 薄外套</li><li><input type="checkbox"> 保温杯</li><li><input type="checkbox"> 润唇膏</li></ul></div></div>
+                <div id="category-mountain" class="category-list"><div class="public-card"><h4>雪山装备</h4><ul class="checklist"><li><input type="checkbox"> 羽绒服/冲锋衣</li><li><input type="checkbox"> 氧气瓶（山下买20元）</li><li><input type="checkbox"> 暖宝宝</li><li><input type="checkbox"> 巧克力/能量棒</li><li><input type="checkbox"> 墨镜（雪地反光）</li></ul></div></div>
+            </div>
+        </section>
+
+        <!-- 公共板块：预算 -->
+        <section id="budget" class="section">
+            <div class="public-section">
+                <h2 class="public-title">💰 预算总览（可编辑）</h2>
+                <div class="budget-summary-card">
+                    <h4>🚄 交通</h4>
+                    <div class="budget-item-card"><span class="budget-label">昆明→大理高铁</span><span class="editable-amount" contenteditable="true" data-key="budget_train_kmdl">145</span> 元</div>
+                    <div class="budget-item-card"><span class="budget-label">大理→丽江高铁</span><span class="editable-amount" contenteditable="true" data-key="budget_train_dllj">80</span> 元</div>
+                    <div class="budget-item-card"><span class="budget-label">丽江→泸沽湖大巴</span><span class="editable-amount" contenteditable="true" data-key="budget_bus_ljlg">98</span> 元</div>
+                    <div class="budget-item-card"><span class="budget-label">泸沽湖→丽江大巴</span><span class="editable-amount" contenteditable="true" data-key="budget_bus_lglj">98</span> 元</div>
+                    <div class="budget-item-card"><span class="budget-label">丽江→返程机票/高铁</span><span class="editable-amount" contenteditable="true" data-key="budget_return">500</span> 元</div>
+                    <div class="budget-item-card"><span class="budget-label">市内交通/打车</span><span class="editable-amount" contenteditable="true" data-key="budget_local">200</span> 元</div>
+                </div>
+                <div class="budget-summary-card">
+                    <h4>🏨 住宿（9晚）</h4>
+                    <div class="budget-item-card"><span class="budget-label">昆明1晚</span><span class="editable-amount" contenteditable="true" data-key="budget_hotel_km">150</span> 元</div>
+                    <div class="budget-item-card"><span class="budget-label">大理2晚</span><span class="editable-amount" contenteditable="true" data-key="budget_hotel_dl">300</span> 元</div>
+                    <div class="budget-item-card"><span class="budget-label">丽江5晚</span><span class="editable-amount" contenteditable="true" data-key="budget_hotel_lj">750</span> 元</div>
+                    <div class="budget-item-card"><span class="budget-label">泸沽湖1晚</span><span class="editable-amount" contenteditable="true" data-key="budget_hotel_lg">150</span> 元</div>
+                </div>
+                <div class="budget-summary-card">
+                    <h4>🍜 餐饮（10天）</h4>
+                    <div class="budget-item-card"><span class="budget-label">10天餐饮+小吃</span><span class="editable-amount" contenteditable="true" data-key="budget_food">1500</span> 元</div>
+                </div>
+                <div class="budget-summary-card">
+                    <h4>🎫 门票/活动</h4>
+                    <div class="budget-item-card"><span class="budget-label">苍山感通索道</span><span class="editable-amount" contenteditable="true" data-key="budget_ticket_cs">110</span> 元</div>
+                    <div class="budget-item-card"><span class="budget-label">木府</span><span class="editable-amount" contenteditable="true" data-key="budget_ticket_mf">40</span> 元</div>
+                    <div class="budget-item-card"><span class="budget-label">玉龙雪山（进山+大索道）</span><span class="editable-amount" contenteditable="true" data-key="budget_ticket_yl">240</span> 元</div>
+                    <div class="budget-item-card"><span class="budget-label">泸沽湖门票</span><span class="editable-amount" contenteditable="true" data-key="budget_ticket_lg">70</span> 元</div>
+                    <div class="budget-item-card"><span class="budget-label">猪槽船+篝火晚会</span><span class="editable-amount" contenteditable="true" data-key="budget_ticket_boat">120</span> 元</div>
+                    <div class="budget-item-card"><span class="budget-label">氧气瓶+雪山装备</span><span class="editable-amount" contenteditable="true" data-key="budget_oxygen">40</span> 元</div>
+                </div>
+                <div class="grand-total-card">
+                    <div style="font-size:0.7em;opacity:0.8;margin-bottom:5px;">预估总预算</div>
+                    <div class="grand-total" id="grandTotal">0</div>
+                    <div style="font-size:0.8em;opacity:0.7;margin-top:8px;">点击数字可编辑 · 实时汇总</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 公共板块：避坑须知 -->
+        <section id="avoid" class="section">
+            <div class="public-section">
+                <h2 class="public-title">⚠️ 避坑须知</h2>
+                <div class="public-card"><h4>昆明避坑</h4><ul><li>❌ 不要跟路边拉客的"一日游"</li><li>✅ 斗南花市晚上去更便宜</li><li>❌ 石林距离远，时间紧不推荐</li><li>✅ 昆明只是集散地，不用安排太多景点</li></ul></div>
+                <div class="public-card"><h4>大理避坑</h4><ul><li>❌ 古城银饰别乱买（真假难辨）</li><li>❌ 洱海骑行一定涂防晒，紫外线超强</li><li>✅ 喜洲粑粑要吃现烤的（酥香园）</li><li>❌ 别买古城路边切好的水果</li><li>✅ 崇圣寺三塔在外面拍就够了</li></ul></div>
+                <div class="public-card"><h4>丽江避坑</h4><ul><li>❌ 古城酒吧酒水贵得离谱</li><li>⚠️ 玉龙雪山索道票提前3天晚8点抢</li><li>✅ 去束河/白沙吃饭比古城便宜30%</li><li>❌ 古城拉客的"5元去拉市海"别信</li><li>✅ 买氧气瓶在古城药店买（15-20元）</li></ul></div>
+                <div class="public-card"><h4>泸沽湖避坑</h4><ul><li>⚠️ 山路十八弯，晕车药必带</li><li>❌ 环湖包车提前谈好价格（200-300元/车）</li><li>✅ 冬天走婚桥草海金黄一片，很出片</li><li>❌ 猪槽船别在中午坐，太晒</li></ul></div>
+                <div class="public-card"><h4>🌧️ 雨天备选</h4><ul><li>昆明：云南省博物馆（免费）、讲武堂</li><li>大理：床单厂艺术区、大理市博物馆</li><li>丽江：古城咖啡馆发呆、木府雨中赏景</li></ul></div>
+            </div>
+        </section>
+
+        <!-- 公共板块：预约清单 -->
+        <section id="booking" class="section">
+            <div class="public-section">
+                <h2 class="public-title">📝 预约清单</h2>
+                <div class="public-card">
+                    <h4>⚠️ 必须提前预约</h4>
+                    <ul>
+                        <li>🏔️ 玉龙雪山大索道：提前3天晚8点"丽江旅游集团"小程序抢票</li>
+                        <li>🏖️ 杨丽萍太阳宫（双廊）：提前1天预约，或现场消费进入</li>
+                    </ul>
+                </div>
+                <div class="public-card">
+                    <h4>✅ 可现场/在线购票</h4>
+                    <ul>
+                        <li>⛰️ 苍山索道：美团/现场均可</li>
+                        <li>🏛️ 木府：现场买票即可</li>
+                        <li>🚣 猪槽船：到泸沽湖现场找船家</li>
+                    </ul>
+                </div>
+                <div class="public-card">
+                    <h4>🏨 住宿建议提前订</h4>
+                    <ul>
+                        <li>昆明（Day1）：翠湖附近民宿</li>
+                        <li>大理（Day2-3）：古城南门附近</li>
+                        <li>丽江（Day4-9）：南门/束河古镇</li>
+                        <li>泸沽湖（Day6）：大落水村湖景房</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 公共板块：应急联系卡 -->
+        <section id="emergency" class="section">
+            <div class="public-section">
+                <h2 class="public-title">🆘 应急联系卡</h2>
+                <div class="emergency-card"><h4>紧急电话</h4><ul><li>📞 报警：<a href="tel:110" style="color:var(--emergency-red);text-decoration:none;font-weight:600;">110</a></li><li>📞 急救：<a href="tel:120" style="color:var(--emergency-red);text-decoration:none;font-weight:600;">120</a></li></ul></div>
+                <div class="emergency-card"><h4>景区咨询</h4><ul><li>玉龙雪山：0888-8889999</li><li>泸沽湖：0888-5886626</li></ul></div>
+            </div>
+        </section>
+
+        <!-- 结语 -->
+        <div class="conclusion">
+            <h2>祝旅途愉快</h2>
+            <p>愿你在苍山洱海的风花雪月里，在丽江古城的暖阳中，找到属于自己的旅行节奏。</p>
+        </div>
+        <div class="footer"><p>✨ 云南之旅 · 10天9晚 · 考研后的晴空</p></div>
+    </div>
+
+    <!-- 图片模态框 -->
+    <div class="modal" id="imageModal" onclick="closeModal(event)">
+        <button class="modal-close" onclick="closeModal(event)">×</button>
+        <button class="modal-arrow left" onclick="changeImage(-1, event)">‹</button>
+        <img class="modal-img" id="modalImage" src="" alt="放大图片">
+        <button class="modal-arrow right" onclick="changeImage(1, event)">›</button>
+    </div>
+
+    <button class="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+    <script>
+        /* ============ 图片数组 ============ */
+        const dayImages = {
+            'day1':['images/day1-kunming.png'],'day2':['images/day2-dali.png'],'day3':['images/day3-erhai.png'],
+            'day4':['images/day4-cangshan.png'],'day5':['images/day5-lijiang.png'],'day6':['images/day6-lugu.png'],
+            'day7':['images/day7-lugusunrise.png'],'day8':['images/day8-yulong.png'],'day9':['images/day9-baisha.png'],'day10':['images/day10-goodbye.png']
+        };
+        let currentDay='',currentImageIndex=0;
+
+        /* ============ 板块切换 ============ */
+        function showSection(sectionId,direction) {
+            if(!sectionId.startsWith('day')) window.scrollTo(0,0);
+            document.querySelectorAll('.section').forEach(s=>{s.classList.remove('active');s.style.width='100%';});
+            const t=document.getElementById(sectionId);
+            t.classList.remove('slide-out');t.classList.add('active');t.style.width='100%';
+            void t.offsetHeight;
+            document.querySelectorAll('.top-nav .nav-btn').forEach(b=>b.classList.remove('active'));
+            if(event&&event.target&&event.target.classList.contains('nav-btn')) event.target.classList.add('active');
+            else {const b=document.querySelector(`.top-nav .nav-btn[onclick*="${sectionId}"]`);if(b)b.classList.add('active');}
+            updateBottomTab(sectionId);
+            if(sectionId.startsWith('day')){const c=document.querySelector(`#${sectionId} .day-card`);if(c)c.scrollIntoView({behavior:'smooth',block:'start'});}
+            closeExportOptions();
+        }
+        function enterItinerary() {
+            const o=document.querySelector('.scroll-overlay'),h=document.getElementById('home');
+            h.style.transition='opacity 0.3s ease';h.style.opacity='0';
+            o.classList.add('active');
+            setTimeout(()=>{
+                o.classList.add('rolling');
+                setTimeout(()=>{
+                    showSection('day1');
+                    document.querySelector('.top-nav .nav-btn[onclick*="day1"]').classList.add('active');
+                    o.classList.remove('active','rolling');o.style.display='none';
+                    setTimeout(()=>{o.style.display='';h.style.opacity='1';},300);
+                },700);
+            },50);
+        }
+        function switchTab(tab) {
+            document.querySelectorAll('.bottom-tab .tab-item').forEach(t=>t.classList.remove('active'));
+            event.target.closest('.tab-item').classList.add('active');
+            const m={'itinerary':'day1','food':'food','hotel':'hotel','luggage':'luggage','budget':'budget','avoid':'avoid','booking':'booking','emergency':'emergency'};
+            showSection(m[tab]);
+        }
+        function updateBottomTab(id) {
+            document.querySelectorAll('.bottom-tab .tab-item').forEach(t=>t.classList.remove('active'));
+            const m={'day1':'itinerary','day2':'itinerary','day3':'itinerary','day4':'itinerary','day5':'itinerary','day6':'itinerary','day7':'itinerary','day8':'itinerary','day9':'itinerary','day10':'itinerary','food':'food','hotel':'hotel','luggage':'luggage','budget':'budget','avoid':'avoid','booking':'booking','emergency':'emergency'};
+            const t=document.querySelector(`.bottom-tab .tab-item[data-tab="${m[id]}"]`);if(t)t.classList.add('active');
+        }
+
+        /* ============ 卡片折叠 ============ */
+        function toggleCheckin(btn, day, name) {
+            btn.classList.toggle('checked');
+            if(btn.classList.contains('checked')) btn.textContent='✅ 已打卡';
+            else btn.textContent='打卡';
+            localStorage.setItem('checkin_'+day+'_'+name, btn.classList.contains('checked'));
+        }
+        document.querySelectorAll('.checkin-btn').forEach(btn => {
+            const key = btn.dataset.key;
+            if(key && localStorage.getItem(key) === 'true') { btn.classList.add('checked'); btn.textContent='✅ 已打卡'; }
+        });
+        function copyText(text, ev) {
+            if(ev) ev.stopPropagation();
+            if(navigator.clipboard) {
+                navigator.clipboard.writeText(text).then(() => {
+                    const btn = ev && ev.target.closest('.copy-btn');
+                    if(btn) { btn.classList.add('copied'); setTimeout(() => btn.classList.remove('copied'), 1000); }
+                }).catch(() => {});
+            }
+        }
+        function openMap(address) {
+            const url = 'https://uri.amap.com/search?keyword=' + encodeURIComponent(address);
+            window.open(url, '_blank');
+        }
+        function toggleCard(c){c.classList.toggle('collapsed');}
+        function toggleStepCard(c){c.classList.toggle('expanded');}
+        function toggleTransportCard(c){
+            c.classList.toggle('collapsed');
+            if(!c.classList.contains('collapsed')) document.querySelectorAll('.transport-card').forEach(card=>{if(card!==c&&!card.classList.contains('collapsed'))card.classList.add('collapsed');});
+        }
+
+        /* ============ 图片模态框 ============ */
+        function openModal(day,index){currentDay=day;currentImageIndex=index;document.getElementById('modalImage').src=dayImages[day][index];document.getElementById('imageModal').classList.add('active');}
+        function changeImage(d,ev){if(ev)ev.stopPropagation();const imgs=dayImages[currentDay];currentImageIndex=(currentImageIndex+d+imgs.length)%imgs.length;document.getElementById('modalImage').src=imgs[currentImageIndex];}
+        function closeModal(ev){if(ev.target===document.getElementById('imageModal')||ev.target.classList.contains('modal-close'))document.getElementById('imageModal').classList.remove('active');}
+        document.addEventListener('keydown',function(e){if(e.key==='Escape'){const m=document.getElementById('imageModal');if(m)m.classList.remove('active');}});
+
+        /* ============ 行李清单 ============ */
+        function showCategory(cat){
+            document.querySelectorAll('.category-btn').forEach(b=>b.classList.remove('active'));
+            event.target.classList.add('active');
+            document.querySelectorAll('.category-list').forEach(l=>l.classList.remove('active'));
+            document.getElementById('category-'+cat).classList.add('active');
+        }
+        function toggleBookingStatus(s){
+            if(s.classList.contains('pending')){s.classList.remove('pending');s.classList.add('booked');s.textContent='✅ 已预订';}
+            else{s.classList.remove('booked');s.classList.add('pending');s.textContent='🔴 待预订';}
+        }
+        document.querySelectorAll('.checklist input[type="checkbox"]').forEach(cb=>{
+            const k=cb.parentElement.textContent.trim();cb.checked=localStorage.getItem(k)==='true';
+            cb.addEventListener('change',function(){localStorage.setItem(k,this.checked);});
+        });
+
+        /* ============ 回到顶部 ============ */
+        window.addEventListener('scroll',function(){const b=document.querySelector('.back-to-top');if(window.scrollY>300)b.classList.add('visible');else b.classList.remove('visible');});
+
+        /* ============ 移动端滑动切换 ============ */
+        const daySections=['day1','day2','day3','day4','day5','day6','day7','day8','day9','day10'];
+        let tX=0,tY=0;
+        document.querySelector('.content-container').addEventListener('touchstart',e=>{tX=e.changedTouches[0].screenX;tY=e.changedTouches[0].screenY;});
+        document.querySelector('.content-container').addEventListener('touchend',e=>{
+            const dX=Math.abs(tX-e.changedTouches[0].screenX),dY=Math.abs(tY-e.changedTouches[0].screenY);
+            if(dX>dY*1.5&&dX>50){
+                const diff=tX-e.changedTouches[0].screenX,cur=document.querySelector('.section.active'),idx=daySections.indexOf(cur.id);
+                if(idx!==-1){
+                    if(diff>0&&idx<daySections.length-1)showSection(daySections[idx+1]);
+                    else if(diff<0&&idx>0)showSection(daySections[idx-1]);
+                    else if(navigator.vibrate)navigator.vibrate(50);
+                }
+            }
+        });
+
+        /* ============ 搜索 ============ */
+        function toggleSearch(){const s=document.getElementById('searchBar');s.classList.toggle('active');if(s.classList.contains('active'))s.querySelector('.search-input').focus();}
+        function closeSearch(){document.getElementById('searchBar').classList.remove('active');document.getElementById('searchResults').classList.remove('active');}
+        function performSearch(q){
+            const r=document.getElementById('searchResults');r.classList.add('active');r.innerHTML='';
+            if(!q){r.classList.remove('active');return;}
+            const attractions=[
+                {name:'翠湖公园',keyword:'翠湖公园',section:'day1',keywords:['翠湖','红嘴鸥','海鸥','翠湖南路']},
+                {name:'云南大学',keyword:'云南大学',section:'day1',keywords:['云大','会泽院','银杏道']},
+                {name:'昆明老街',keyword:'昆明老街',section:'day1',keywords:['南强街','文明街','昆明老街','夜市']},
+                {name:'大理古城',keyword:'大理古城',section:'day2',keywords:['大理','古城','人民路','五华楼','复兴路']},
+                {name:'洱海生态廊道',keyword:'洱海生态廊道',section:'day2',keywords:['洱海','廊道','才村','龙龛码头','骑行']},
+                {name:'喜洲古镇',keyword:'喜洲古镇',section:'day3',keywords:['喜洲','喜洲粑粑','转角楼','麦田']},
+                {name:'双廊古镇',keyword:'双廊古镇',section:'day3',keywords:['双廊','太阳宫','杨丽萍']},
+                {name:'理想邦',keyword:'理想邦',section:'day3',keywords:['圣托里尼','理想邦','拍照']},
+                {name:'苍山',keyword:'苍山',section:'day4',keywords:['苍山','感通索道','清碧溪']},
+                {name:'丽江古城',keyword:'丽江古城',section:'day5',keywords:['丽江','大研古城','四方街','木府','大水车']},
+                {name:'木府',keyword:'木府',section:'day5',keywords:['木府','土司','纳西']},
+                {name:'狮子山',keyword:'狮子山',section:'day5',keywords:['狮子山','万古楼','全景']},
+                {name:'油纸伞街',keyword:'油纸伞街',section:'day5',keywords:['现文巷','油纸伞','拍照']},
+                {name:'泸沽湖',keyword:'泸沽湖',section:'day6',keywords:['泸沽湖','里格','大落水','猪槽船','走婚桥']},
+                {name:'走婚桥',keyword:'走婚桥',section:'day6',keywords:['走婚桥','草海','摩梭']},
+                {name:'束河古镇',keyword:'束河古镇',section:'day7',keywords:['束河','龙泉路','青龙桥']},
+                {name:'玉龙雪山',keyword:'玉龙雪山',section:'day8',keywords:['玉龙','雪山','冰川公园','大索道','4680']},
+                {name:'蓝月谷',keyword:'蓝月谷',section:'day8',keywords:['蓝月谷','白水河','镜潭湖']},
+                {name:'白沙古镇',keyword:'白沙古镇',section:'day9',keywords:['白沙','壁画','扎染','雪山']},
+                {name:'过桥米线',keyword:'过桥米线',section:'food',keywords:['米线','过桥米线','小锅米线']},
+                {name:'鲜花饼',keyword:'鲜花饼',section:'food',keywords:['鲜花饼','嘉华','潘祥记']},
+                {name:'腊排骨',keyword:'腊排骨火锅',section:'food',keywords:['腊排骨','火锅']},
+                {name:'喜洲粑粑',keyword:'喜洲粑粑',section:'food',keywords:['喜洲粑粑','破酥','酥香园']},
+                {name:'菌子火锅',keyword:'菌子火锅',section:'food',keywords:['野生菌','菌子','火锅']}
+            ];
+            const scored=attractions.map(a=>{
+                let s=0;const lq=q.toLowerCase();
+                if(a.name.toLowerCase()===lq)s+=100;
+                else if(a.name.toLowerCase().startsWith(lq))s+=80;
+                else if(a.keywords.some(k=>k.toLowerCase()===lq))s+=60;
+                else if(a.keywords.some(k=>k.toLowerCase().startsWith(lq)))s+=40;
+                else if(a.keywords.some(k=>k.toLowerCase().includes(lq)))s+=20;
+                return{...a,score:s};
+            }).filter(a=>a.score>0).sort((a,b)=>b.score-a.score);
+            const labels={'day1':'🏛️','day2':'🏛️','day3':'🏛️','day4':'🏛️','day5':'🏛️','day6':'🌅','day7':'🏘️','day8':'🏔️','day9':'🌿','day10':'🚄','food':'🍜'};
+            if(scored.length===0)r.innerHTML='<div class="search-result-item">未找到相关内容</div>';
+            else scored.forEach((m,i)=>{
+                const d=document.createElement('div');d.className='search-result-item';d.style.animationDelay=i*0.05+'s';
+                d.innerHTML=`<span>${labels[m.section]||'📍'}</span> <span class="search-name">${m.name}</span><span class="search-type">${m.section.startsWith('day')?'景点':'美食'}</span>`;
+                d.onclick=()=>goToAndHighlight(m.section,m.keyword);r.appendChild(d);
+            });
+        }
+        function goToAndHighlight(sectionId,keyword){
+            clearHighlights();closeSearch();
+            const ind=document.getElementById('searchIndicator');
+            ind.innerHTML='🎯 正在定位: '+keyword+'...';ind.classList.add('active');
+            showSection(sectionId);
+            setTimeout(()=>{
+                let el=document.querySelector(`.section.active .attraction-title`)||document.querySelector(`.section.active h4`)||document.querySelector(`.section.active li`);
+                if(el){el.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>{el.style.boxShadow='0 0 20px rgba(74,124,140,0.6)';el.style.transition='all 0.3s ease';ind.innerHTML='✅ 已找到: '+keyword;setTimeout(()=>{el.style.boxShadow='';ind.classList.remove('active');},2000);},800);}
+                else{ind.innerHTML='⚠️ 未找到: '+keyword;setTimeout(()=>ind.classList.remove('active'),2000);}
+            },800);
+        }
+        function clearHighlights(){document.querySelectorAll('[style*="box-shadow"]').forEach(el=>el.style.boxShadow='');}
+
+        /* ============ 夜间模式 ============ */
+        function toggleNightMode(){document.body.classList.toggle('night-mode');const b=document.querySelector('.toolbar-btn[onclick*="toggleNightMode"]');b.textContent=document.body.classList.contains('night-mode')?'☀️':'🌙';}
+
+        /* ============ 导出 ============ */
+        function toggleExport(){document.getElementById('exportOptions').classList.toggle('active');}
+        function closeExportOptions(){document.getElementById('exportOptions').classList.remove('active');}
+        function printItinerary(){alert('建议用Chrome打印，勾选"背景图形"以保留卡片阴影');window.print();}
+        function exportAsImage(){
+            const l=document.getElementById('exportLoading');l.classList.add('active');
+            html2canvas(document.querySelector('.section.active'),{backgroundColor:'#f5f4f0',scale:2,useCORS:true}).then(canvas=>{
+                const link=document.createElement('a');link.download='云南之旅.png';link.href=canvas.toDataURL('image/png');link.click();
+                l.classList.remove('active');
+            }).catch(()=>{l.classList.remove('active');alert('导出失败，请重试');});
+        }
+
+        /* ============ 预算 ============ */
+        const defaultBudget={'budget_train_kmdl':145,'budget_train_dllj':80,'budget_bus_ljlg':98,'budget_bus_lglj':98,'budget_return':500,'budget_local':200,
+            'budget_hotel_km':150,'budget_hotel_dl':300,'budget_hotel_lj':750,'budget_hotel_lg':150,
+            'budget_food':1500,
+            'budget_ticket_cs':110,'budget_ticket_mf':40,'budget_ticket_yl':240,'budget_ticket_lg':70,'budget_ticket_boat':120,'budget_oxygen':40};
+        function loadBudget(){try{return JSON.parse(localStorage.getItem('ynBudgetData'))||{}}catch(e){return{}}}
+        function saveBudget(d){localStorage.setItem('ynBudgetData',JSON.stringify(d));}
+        function recalculateAll(){
+            const data=loadBudget();let total=0;
+            document.querySelectorAll('.editable-amount').forEach(el=>{
+                const k=el.dataset.key;const v=parseInt(el.textContent)||0;
+                if(data[k]===undefined){data[k]=v;}
+                total+=v;
+            });
+            document.getElementById('grandTotal').textContent=total;
+        }
+        document.querySelectorAll('.editable-amount').forEach(el=>{
+            const k=el.dataset.key;const saved=loadBudget();
+            if(saved[k]!==undefined)el.textContent=saved[k];
+            el.addEventListener('blur',function(){const v=parseInt(this.textContent)||0;const d=loadBudget();d[k]=v;saveBudget(d);recalculateAll();});
+            el.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();this.blur();}});
+        });
+        window.addEventListener('DOMContentLoaded',recalculateAll);
+        if(document.readyState==='complete'||document.readyState==='interactive')recalculateAll();
+
+        /* ============ 图片懒加载+IntersectionObserver ============ */
+        document.addEventListener('DOMContentLoaded',function(){
+            const io=new IntersectionObserver((entries)=>{
+                entries.forEach(entry=>{
+                    if(entry.isIntersecting){
+                        entry.target.classList.add('visible');
+                        const img=entry.target;
+                        if(img.complete)img.classList.add('loaded');
+                        else img.onload=()=>img.classList.add('loaded');
+                        io.unobserve(entry.target);
+                    }
+                });
+            },{threshold:0.1});
+            document.querySelectorAll('.day-image').forEach(img=>{img.classList.add('reveal');io.observe(img);});
+        });
+
+        /* ============ 图片轮播 ============ */
+        document.querySelectorAll('.image-slider').forEach(slider=>{
+            slider.addEventListener('touchstart',e=>e.stopPropagation(),{passive:true});
+            slider.addEventListener('touchmove',e=>e.stopPropagation(),{passive:true});
+            slider.addEventListener('touchend',e=>e.stopPropagation(),{passive:true});
+            const track=slider.querySelector('.slider-track'),dots=slider.querySelectorAll('.dot'),images=track.querySelectorAll('.day-image');
+            if(images.length<=1)return;
+            let ci=0,interval,isTouching=false;
+            function update(idx){track.style.transform='translateX(-'+idx*100+'%)';dots.forEach((d,i)=>d.classList.toggle('active',i===idx));ci=idx;}
+            function start(){interval=setInterval(()=>{if(!isTouching)update((ci+1)%images.length);},parseInt(slider.dataset.interval)||4000);}
+            function stop(){clearInterval(interval);}
+            let sx=0,sy=0;
+            slider.addEventListener('touchstart',e=>{sx=e.changedTouches[0].screenX;sy=e.changedTouches[0].screenY;isTouching=true;stop();},{passive:true});
+            slider.addEventListener('touchend',e=>{
+                const ex=e.changedTouches[0].screenX,dx=sx-ex,dy=Math.abs(sy-e.changedTouches[0].screenY);
+                if(Math.abs(dx)>50&&dy<Math.abs(dx)){if(dx>0&&ci<images.length-1)update(ci+1);else if(dx<0&&ci>0)update(ci-1);}
+                isTouching=false;setTimeout(()=>start(),2000);
+            },{passive:true});
+            dots.forEach((d,i)=>d.addEventListener('click',e=>{e.stopPropagation();update(i);stop();start();}));
+            start();
+        });
+
+        /* ============ 天气（wttr.in） ============ */
+        document.addEventListener('DOMContentLoaded',function(){
+            function fetchWeather(city,el){
+                el.classList.add('loading');el.innerHTML='<span class="weather-icon">⏳</span><span class="weather-temp">加载中...</span>';
+                fetch('https://wttr.in/'+city+'?format=j1').then(r=>r.json()).then(d=>{
+                    const c=d.current_condition[0],t=c.temp_C,wc=parseInt(c.weatherCode);
+                    const icons={113:'☀️',116:'⛅️',119:'☁️',122:'☁️'};const icon=icons[wc]||(wc>=200&&wc<300?'⛈️':(wc>=300&&wc<600?'🌧️':(wc>=600&&wc<700?'🌨️':'⛅️')));
+                    el.classList.remove('loading');el.innerHTML='<span class="weather-icon">'+icon+'</span><span class="weather-temp">'+t+'°C</span>';
+                    el.title=c.weatherDesc[0].value+' | 湿度'+c.humidity+'%';
+                }).catch(()=>{el.classList.remove('loading');el.classList.add('error');el.innerHTML='<span class="weather-icon">❓</span><span class="weather-temp">天气</span>';});
+            }
+            document.querySelectorAll('.weather-widget').forEach(el=>{const city=el.dataset.city||'Kunming';fetchWeather(city,el);});
+        });
+    </script>
+</body>
+</html>
